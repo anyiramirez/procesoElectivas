@@ -1,0 +1,20 @@
+export interface PreInscripcionPrueba {
+    Apellidos:string;
+    Codigo:string;
+    HoraSolicitud:string;
+    Nombres:string;
+    Programa:string;
+    Usuario:string;
+    cantidadSolicitada:string;
+    creditosPensum:string;
+    creditosAprobados:string;
+    promedio:string;
+    ElectivasAprobadas:string;
+    ElectivasCursadas:string;
+    electivasPrograma:string;
+    opcion1:string;
+    opcion2:string;
+    opcion3:string;
+    opcion4:string;
+    row:string;
+}

@@ -1,0 +1,71 @@
+<app-encabezado></app-encabezado>
+<div class="wrapper">
+  <app-opciones-admin></app-opciones-admin>
+  <div id="content"> 
+    <table class="table tableFixHead">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Código</th>
+          <th scope="col">Usuario</th>
+          <th scope="col">Nombres</th>
+          <th scope="col">Apellidos</th>
+          <th scope="col">Programa</th>
+          <th scope="col">Créditos aprobados</th>
+          <th scope="col">Créditos pensum</th>
+          <th scope="col">Porcentaje de avance</th>
+          <th scope="col">Promedio carrera</th>
+          <th scope="col">Electivas aprobadas</th>
+          <th scope="col">Electivas cursando</th>
+          <th scope="col">Debe ver</th>
+          <th scope="col">Cantidad solicitada</th>
+          <th scope="col">Opción 1</th>
+          <th scope="col">Opción 2</th>
+          <th scope="col">Opción 3</th>
+          <th scope="col">Opción 4</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of preinscriptos; let in=index" > 
+          <td>{{usuario.row}}</td>
+          <td>{{usuario.Codigo}}</td>
+          <td>{{usuario.Usuario}}</td>
+          <td>{{usuario.Nombres}}</td>
+          <td>{{usuario.Apellidos}}</td>
+          <td>{{usuario.Programa}}</td>
+          <td><input [(ngModel)]="datosGuardar[in].CreditosAprobados"  name="CreditosAprobados" type="number"  class="barraTexto" id="CreditosAprobados" 
+            placeholder="creditos"></td>
+          <td>{{usuario.creditosPensum}}</td>
+          <td> <input [(ngModel)]="datosGuardar[in].PorcentajeCarrera"  name="PorcentajeCarrera" type="number"  class="barraTexto" id="PorcentajeCarrera" 
+            placeholder="creditos" (click)="calcularPorcentaje()" disabled="true"></td>
+          <td><input [(ngModel)]="datosGuardar[in].PromedioCarrera"  name="Promedio" type="number"  class="barraTexto" id="Promedio" 
+            placeholder="Promedio" (click)="calcularPorcentaje()"> </td>
+          <td><input [(ngModel)]="datosGuardar[in].ElectivasAprobadas"   name="ElectivasAprobadas" type="number"  class="barraTexto" id="ElectivasAprobadas" 
+          placeholder="aprobadas">  </td>
+          <td><input [(ngModel)]="datosGuardar[in].ElectivasCursadas"  name="ElectivasCursadas" type="number" class="barraTexto" id="ElectivasCursadas" 
+            placeholder="cursadas"> </td>
+          <td>{{usuario.electivasPrograma}}</td>
+          <td>{{usuario.cantidadSolicitada}}</td>
+          <td>{{usuario.opcion1}}</td>
+          <td>{{usuario.opcion2}}</td>
+          <td>{{usuario.opcion3}}</td>
+          <td>{{usuario.opcion4}}</td>
+        </tr>
+      </tbody>    
+    </table>
+    <button type="button" class="btn btn-primary boton " data-toggle="button" aria-pressed="false" (click)="registrarBD()" autocomplete="off">
+        Registrar Información
+    </button>
+    <a routerLink="/ListasAsignadas" > <i class="fas fa-arrow-alt-circle-right fa-3x"></i></a>
+    <!-- <div class="d-flex justify-content-between p-2">
+        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+        </ngb-pagination>
+      
+        <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+          <option [ngValue]="2">2 items per page</option>
+          <option [ngValue]="4">4 items per page</option>
+          <option [ngValue]="6">6 items per page</option>
+        </select>
+      </div>-->
+  </div> 
+</div>

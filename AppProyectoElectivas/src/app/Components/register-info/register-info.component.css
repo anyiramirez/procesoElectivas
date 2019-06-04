@@ -1,0 +1,51 @@
+.boton{
+    margin-left: 80%;    
+    position: relative;
+    top: 15px;
+}
+#content{
+    width: 100%;
+    max-height: 450px;
+    position: relative;
+    transition: all 0.3s;
+    overflow-x:auto;
+    overflow-y: scroll;
+}
+#content.active[aria-expanded="true"] {
+    width: 100%;
+    max-height: 450px;
+    position: relative;
+    transition: all 0.3s;
+    overflow-x:auto;
+    overflow-y: scroll;
+}
+.tableFixHead{ 
+    overflow-y: auto; 
+    height: 100px; 
+}
+.tableFixHead th{ 
+    position: sticky; 
+    top: 0; 
+}
+th, td{ 
+    padding: 8px 16px; 
+}
+th{ 
+    background:#eee; 
+}
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    font-size: 14px;
+}
+.barraTexto{
+    width: 60px;
+    border-color: #09c5f04d;
+    border-radius: 8px;
+}
+.fa-arrow-alt-circle-right{
+    margin-left: 72px;
+    position: absolute;
+    margin-top: 11px;
+}

@@ -1,0 +1,25 @@
+<app-encabezado></app-encabezado>
+<div class="wrapper">
+  <app-opciones-admin></app-opciones-admin>
+  <table class="table table-borderless">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Nombre Electiva</th>
+        <th scope="col">Cupos Asignados</th>
+        <th scope="col">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ece of electivas; let in = index">
+        <th scope="row">{{in+1}}</th>
+        <td>{{ece.nombreElectiva}}</td>
+        <td>{{ece.cupos}}</td>
+        <td>
+          <a routerLink="/AsignacionElectiva/{{in}}"><i class="fas fa-search-plus"></i></a>
+          <i class="fas fa-arrow-down"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
