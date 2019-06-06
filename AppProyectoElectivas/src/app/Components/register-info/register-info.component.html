@@ -33,17 +33,14 @@
           <td>{{usuario.Nombres}}</td>
           <td>{{usuario.Apellidos}}</td>
           <td>{{usuario.Programa}}</td>
-          <td><input [(ngModel)]="datosGuardar[in].CreditosAprobados"  name="CreditosAprobados" type="number"  class="barraTexto" id="CreditosAprobados" 
-            placeholder="creditos"></td>
+          
+          <td><input [(ngModel)]="datosGuardar[in].CreditosAprobados" (ngModelChange)="validarCampos()" (ngModelChange)="calcularPorcentaje()" min="0" max="{{usuario.creditosPensum}}" name="CreditosAprobados" type="number" class="barraTexto" id="CreditosAprobados" placeholder="creditos"></td>
           <td>{{usuario.creditosPensum}}</td>
-          <td> <input [(ngModel)]="datosGuardar[in].PorcentajeCarrera"  name="PorcentajeCarrera" type="number"  class="barraTexto" id="PorcentajeCarrera" 
-            placeholder="creditos" (click)="calcularPorcentaje()" disabled="true"></td>
-          <td><input [(ngModel)]="datosGuardar[in].PromedioCarrera"  name="Promedio" type="number"  class="barraTexto" id="Promedio" 
-            placeholder="Promedio" (click)="calcularPorcentaje()"> </td>
-          <td><input [(ngModel)]="datosGuardar[in].ElectivasAprobadas"   name="ElectivasAprobadas" type="number"  class="barraTexto" id="ElectivasAprobadas" 
-          placeholder="aprobadas">  </td>
-          <td><input [(ngModel)]="datosGuardar[in].ElectivasCursadas"  name="ElectivasCursadas" type="number" class="barraTexto" id="ElectivasCursadas" 
-            placeholder="cursadas"> </td>
+          <td> <input [(ngModel)]="datosGuardar[in].PorcentajeCarrera" disabled="true" name="PorcentajeCarrera" type="number" class="barraTexto" id="PorcentajeCarrera" placeholder="creditos"></td>
+          <td><input [(ngModel)]="datosGuardar[in].PromedioCarrera" (ngModelChange)="validarCampos()" min="0" max="5" step="any" name="Promedio" type="number" class="barraTexto" id="Promedio" placeholder="Promedio"> </td>
+          <td><input [(ngModel)]="datosGuardar[in].ElectivasAprobadas" (ngModelChange)="validarCampos()" min="0" max="{{usuario.electivasPrograma}}" name="ElectivasAprobadas" type="number"  class="barraTexto" id="ElectivasAprobadas" placeholder="aprobadas">  </td>
+          <td><input [(ngModel)]="datosGuardar[in].ElectivasCursadas" (ngModelChange)="validarCampos()" min="0" max="{{usuario.electivasPrograma}}" name="ElectivasCursadas" type="number" class="barraTexto" id="ElectivasCursadas" placeholder="cursadas"> </td>
+          
           <td>{{usuario.electivasPrograma}}</td>
           <td>{{usuario.cantidadSolicitada}}</td>
           <td>{{usuario.opcion1}}</td>
@@ -54,18 +51,17 @@
       </tbody>    
     </table>
     <button type="button" class="btn btn-primary boton " data-toggle="button" aria-pressed="false" (click)="registrarBD()" autocomplete="off">
-        Registrar Información
+      Registrar Información
     </button>
-    <a routerLink="/ListasAsignadas" > <i class="fas fa-arrow-alt-circle-right fa-3x"></i></a>
     <!-- <div class="d-flex justify-content-between p-2">
-        <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
-        </ngb-pagination>
+      <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+      </ngb-pagination>
       
-        <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
-          <option [ngValue]="2">2 items per page</option>
-          <option [ngValue]="4">4 items per page</option>
-          <option [ngValue]="6">6 items per page</option>
-        </select>
-      </div>-->
+      <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+        <option [ngValue]="2">2 items per page</option>
+        <option [ngValue]="4">4 items per page</option>
+        <option [ngValue]="6">6 items per page</option>
+      </select>
+    </div>-->
   </div> 
 </div>

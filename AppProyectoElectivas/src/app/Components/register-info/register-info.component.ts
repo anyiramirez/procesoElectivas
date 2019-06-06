@@ -23,22 +23,23 @@ export class RegisterInfoComponent implements OnInit {
   usuarios = new Array();
   prueba: DatosSimca[];
   
-  UsuarioFormControl;
-  CreditosAprobadosFormControl ;
-  CreditosPensumFormControl;
+  CreditosAprobadosFormControl;
   PromedioFormControl;
   ElectivasAprobadasFormControl;
   ElectivasCursadasFormControl;
-  DebeVerFormControl;
-  
+
+  CredAp;
+  Promedio;
+  ElecAp;
+  ElecCur;
+  varNum : number =5;
+
   page = 1;
   pageSize = 4;
   collectionSize = this.preinscriptos.length;
   datos: any={};
   totalItems: number;
-  
-  
-  
+    
   constructor(private bd:EstInscripcionService, protected listar:ListaPreinscriptosService, private registrar:RegistroDatosService) { 
     
     //this.consultarUsuarios();
@@ -49,16 +50,46 @@ export class RegisterInfoComponent implements OnInit {
   
   ngOnInit() {
   }
+
+  validarCampos(){
+    for(let p in this.datosGuardar){
+      if(this.datosGuardar[p].CreditosAprobados<0){
+        this.datosGuardar[p].CreditosAprobados = (this.datosGuardar[p].CreditosAprobados*(-1));
+      }
+      if(this.datosGuardar[p].CreditosAprobados> this.datosGuardar[p].CreditosPensum){
+        this.datosGuardar[p].CreditosAprobados = this.datosGuardar[p].CreditosPensum;
+      }
+      if (this.datosGuardar[p].PromedioCarrera < 0){
+        this.datosGuardar[p].PromedioCarrera = (this.datosGuardar[p].PromedioCarrera*(-1)).toFixed(3);
+      }
+      if (this.datosGuardar[p].PromedioCarrera > 5){
+        this.datosGuardar[p].PromedioCarrera = this.varNum.toFixed(3);
+      }
+      for (let i in this.preinscriptos){
+        if(i == p){
+          if (this.datosGuardar[p].ElectivasAprobadas > this.preinscriptos[i].electivasPrograma){
+            this.datosGuardar[p].ElectivasAprobadas = this.preinscriptos[i].electivasPrograma;
+          }
+          if (this.datosGuardar[p].ElectivasCursadas > this.preinscriptos[i].electivasPrograma){
+            this.datosGuardar[p].ElectivasCursadas = this.preinscriptos[i].electivasPrograma;
+          }
+        }        
+      }
+      if(this.datosGuardar[p].ElectivasAprobadas < 0 ){
+        this.datosGuardar[p].ElectivasAprobadas = (this.datosGuardar[p].ElectivasAprobadas*(-1));
+      }
+      if(this.datosGuardar[p].ElectivasCursadas < 0 ){
+        this.datosGuardar[p].ElectivasCursadas = (this.datosGuardar[p].ElectivasCursadas*(-1));
+      }
+    }
+  }
   
   
   registrarBD()
   {
     for (let p in this.datosGuardar){
-      
-      
       this.datosGuardar[p].PorcentajeCarrera= ((this.datosGuardar[p].CreditosAprobados/this.datosGuardar[p].CreditosPensum)*100).toFixed(4);
       //this.datosGuardar[p].Porcentaje=this.porcentaje;
-      
     }
     
     this.registrar.saveUsuario(this.datosGuardar).
