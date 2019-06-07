@@ -11,6 +11,7 @@ import { RegistroDatosService} from '../../Services/registro-datos.service';
   styleUrls: ['./register-info.component.css']
 })
 export class RegisterInfoComponent implements OnInit {
+  pageActual: number = 1;
   preinscriptos = new Array();
   datosGuardar = new Array();
   inscriptos = this.conlistar;
@@ -44,49 +45,68 @@ export class RegisterInfoComponent implements OnInit {
   
   validarCampos(){
     for(let p in this.datosGuardar){
+      //Creditos Aprobados
       if(this.datosGuardar[p].CreditosAprobados<0){
         this.datosGuardar[p].CreditosAprobados = (this.datosGuardar[p].CreditosAprobados*(-1));
+      }
+      if(this.datosGuardar[p].CreditosAprobados == null){
+        this.datosGuardar[p].CreditosAprobados = 0;
       }
       if(this.datosGuardar[p].CreditosAprobados> this.datosGuardar[p].CreditosPensum){
         this.datosGuardar[p].CreditosAprobados = this.datosGuardar[p].CreditosPensum;
       }
+      //Promedio Carrera
       if (this.datosGuardar[p].PromedioCarrera < 0){
         this.datosGuardar[p].PromedioCarrera = (this.datosGuardar[p].PromedioCarrera*(-1)).toFixed(3);
+      }
+      if(this.datosGuardar[p].PromedioCarrera == null){
+        this.datosGuardar[p].PromedioCarrera = 0;
       }
       if (this.datosGuardar[p].PromedioCarrera > 5){
         this.datosGuardar[p].PromedioCarrera = this.varNum.toFixed(3);
       }
+      //Electivas Aprobadas y Cursadas
       for (let i in this.preinscriptos){
         if(i == p){
+          //Aprobadas
           if (this.datosGuardar[p].ElectivasAprobadas > this.preinscriptos[i].electivasPrograma){
             this.datosGuardar[p].ElectivasAprobadas = this.preinscriptos[i].electivasPrograma;
           }
+          //Cursadas
           if (this.datosGuardar[p].ElectivasCursadas > this.preinscriptos[i].electivasPrograma){
             this.datosGuardar[p].ElectivasCursadas = this.preinscriptos[i].electivasPrograma;
           }
         }        
       }
+      //Aprobadas
       if(this.datosGuardar[p].ElectivasAprobadas < 0 ){
         this.datosGuardar[p].ElectivasAprobadas = (this.datosGuardar[p].ElectivasAprobadas*(-1));
       }
+      //Cursadas
       if(this.datosGuardar[p].ElectivasCursadas < 0 ){
         this.datosGuardar[p].ElectivasCursadas = (this.datosGuardar[p].ElectivasCursadas*(-1));
       }
+      //Aprobadas
+      if(this.datosGuardar[p].ElectivasAprobadas == null){
+        this.datosGuardar[p].ElectivasAprobadas = 0;
+      }
+      //Cursadas
+      if(this.datosGuardar[p].ElectivasCursadas == null){
+        this.datosGuardar[p].ElectivasCursadas = 0;
+      }
     }
-    debugger;
-    this.showSaving();
   }
   
   showSaving(){
     this.varHide = !this.varHide;
     this.imagenGuardar(this.varHide);
   }
-
+  
   imagenGuardar(hide:boolean){
+    debugger;
     if(hide == true){
-      document.getElementById('save').style.display='none';
+      document.getElementById('save').style.display='none';      
     }else{
-      
       document.getElementById('save').style.display='block';
     }
     this.varHide = hide;
@@ -101,10 +121,12 @@ export class RegisterInfoComponent implements OnInit {
     (
       res => {
         console.log("respuesta del servidor: ",res);     
-        alert('Registro exitoso');
+        // alert('Registro exitoso');
+        this.showSaving();
+        // this.showSaving();
         this.registrar.generarListas().subscribe(res => {
           console.log("Estado de generar: ",res);     
-          alert('Generar lista exitoso');
+          // alert('Generar lista exitoso');
           //------------------
           this.registrar.obtenerElectivasCE().subscribe(res => {
             console.log("ObtenerElectivas: ",res);     
@@ -146,7 +168,7 @@ export class RegisterInfoComponent implements OnInit {
           for(let p in res)
           {
             
-            var objDS = new DatosSimca(res[p].Usuario,"0",res[p].creditosPensum,"0","0","0","0");
+            var objDS = new DatosSimca(res[p].Usuario,res[p].creditosAprobados,res[p].creditosPensum,res[p].porcentajeAvance,res[p].promedioCarrera,res[p].electivasAprobadas,res[p].electivasCursando);
             this.datosGuardar.push(objDS);
             this.preinscriptos.push(res[p]);
           }

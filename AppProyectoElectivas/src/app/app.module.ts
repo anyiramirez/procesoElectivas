@@ -4,6 +4,7 @@ import { RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxPaginationModule} from 'ngx-pagination';
 
 import { environment} from '../environments/environment';
 import { AgmCoreModule } from '@agm/core';
@@ -42,6 +43,7 @@ const Rutas: Routes = [
     HttpClientModule,
     RouterModule.forRoot(Rutas),
     ReactiveFormsModule,
+    NgxPaginationModule,
     NgbModule,
     FormsModule,
     ReactiveFormsModule,

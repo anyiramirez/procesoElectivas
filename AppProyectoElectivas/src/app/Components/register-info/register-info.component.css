@@ -11,6 +11,14 @@
     overflow-x:auto;
     overflow-y: scroll;
 }
+.pagination{
+    margin-left: 39%;
+}
+.select{
+    width: auto;
+    margin-left: 27%;
+    margin-top: -7%;
+}
 #content.active[aria-expanded="true"] {
     width: 100%;
     max-height: 450px;
