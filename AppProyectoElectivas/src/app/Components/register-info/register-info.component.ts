@@ -4,8 +4,6 @@ import { ListaPreinscriptosService}  from "../../Services/lista-preinscriptos.se
 import { PreInscripcionPrueba} from '../../Interfaces/pre-inscripcion-prueba';
 import { DatosSimca } from '../../Interfaces/datos-simca';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-register-info',
@@ -23,34 +21,27 @@ export class RegisterInfoComponent implements OnInit {
   usuarios = new Array();
   prueba: DatosSimca[];
   
-  CreditosAprobadosFormControl;
-  PromedioFormControl;
-  ElectivasAprobadasFormControl;
-  ElectivasCursadasFormControl;
-
   CredAp;
   Promedio;
   ElecAp;
   ElecCur;
   varNum : number =5;
-
+  varHide : boolean = true;
+  
   page = 1;
   pageSize = 4;
   collectionSize = this.preinscriptos.length;
   datos: any={};
   totalItems: number;
-    
+  
   constructor(private bd:EstInscripcionService, protected listar:ListaPreinscriptosService, private registrar:RegistroDatosService) { 
-    
     //this.consultarUsuarios();
     this.conlistar();
-    
-    
   }
   
   ngOnInit() {
   }
-
+  
   validarCampos(){
     for(let p in this.datosGuardar){
       if(this.datosGuardar[p].CreditosAprobados<0){
@@ -82,15 +73,28 @@ export class RegisterInfoComponent implements OnInit {
         this.datosGuardar[p].ElectivasCursadas = (this.datosGuardar[p].ElectivasCursadas*(-1));
       }
     }
+    debugger;
+    this.showSaving();
   }
   
+  showSaving(){
+    this.varHide = !this.varHide;
+    this.imagenGuardar(this.varHide);
+  }
+
+  imagenGuardar(hide:boolean){
+    if(hide == true){
+      document.getElementById('save').style.display='none';
+    }else{
+      
+      document.getElementById('save').style.display='block';
+    }
+    this.varHide = hide;
+  }
   
   registrarBD()
   {
-    for (let p in this.datosGuardar){
-      this.datosGuardar[p].PorcentajeCarrera= ((this.datosGuardar[p].CreditosAprobados/this.datosGuardar[p].CreditosPensum)*100).toFixed(4);
-      //this.datosGuardar[p].Porcentaje=this.porcentaje;
-    }
+    this.calcularPorcentaje();
     
     this.registrar.saveUsuario(this.datosGuardar).
     subscribe
@@ -155,11 +159,8 @@ export class RegisterInfoComponent implements OnInit {
       }
       calcularPorcentaje(){
         for (let p in this.datosGuardar){
-          this.datosGuardar[p].PorcentajeCarrera= ((this.datosGuardar[p].CreditosAprobados/this.datosGuardar[p].CreditosPensum)*100).toFixed(4);
-          //this.datosGuardar[p].Porcentaje=this.porcentaje;
-          
+          this.datosGuardar[p].PorcentajeCarrera= ((this.datosGuardar[p].CreditosAprobados/this.datosGuardar[p].CreditosPensum)*100).toFixed(4);          
         }
-        
       }
       
     }
