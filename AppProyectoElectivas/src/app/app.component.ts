@@ -8,4 +8,8 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'Electivas';
+
+  public constructor(public router: Router) {
+    this.router.navigateByUrl("Administrador");
+  }
 }
