@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
+import { ExcelService } from '../../Services/excel.service';
 import { ListaElectCE} from '../../Interfaces/lista-electce';
 
 @Component({
@@ -9,9 +10,9 @@ import { ListaElectCE} from '../../Interfaces/lista-electce';
 })
 export class ListasasignacionComponent implements OnInit {
   electivas = new Array();
+  lista;
 
-
-  constructor(private registrar:RegistroDatosService) { 
+  constructor(private registrar:RegistroDatosService,private excelService:ExcelService) { 
     this.listarE();
   }
 
@@ -28,6 +29,12 @@ export class ListasasignacionComponent implements OnInit {
 
    }); 
   }
+  DescargarE(id: number, name: string){
+    console.log(id);
+    console.log(name);
+    this.lista=this.registrar.solElectCE[id].estudiantes;
+    this.excelService.exportAsExcelFile(this.lista,"Electiva-"+name);
+   }
 
   
 
