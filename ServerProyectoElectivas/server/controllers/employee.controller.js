@@ -1,4 +1,5 @@
 var admin = require('firebase-admin');
+var moment = require('moment');
 
 const employeeCtrl = {}
 
@@ -22,35 +23,14 @@ employeeCtrl.ASIGELECT = (req,res) => {
         var listFiltrada = filtrarLista(list);
         ordenarListaPA(listFiltrada);
         var electConEst = asigCupos(listFiltrada);
-        
-        
-
-
 
         refP.once("value", function(snapshot) {
             var listaLlaves = snapshot.val();
             var arrayAllElec = [];
             var arrayAllEst = [];
             var arrayGEst = [];
-/*
-            for(var i = 0;i < listaLlaves['PIS'].length; i++){
-                arrayAllElec.push(listaLlaves['PIS'][i]);
-            }
-            for(var i = 0;i < listaLlaves['PIAI'].length; i++){
-                arrayAllElec.push(listaLlaves['PIAI'][i]);
-            }
-            for(var i = 0;i < listaLlaves['PIET'].length; i++){
-                arrayAllElec.push(listaLlaves['PIET'][i]);
-            }
-            for(var i = 0;i < arrayAllElec.length; i++){
-                arrayAllEst[arrayAllElec[i]]=[];
-                arrayAllEst[arrayAllElec[i]].push(electConEst[arrayAllElec[i]]);
-                
-            }
 
-            res.render('list',{title:'Lista de preinscripciones',soloEst:arrayAllEst,llaves:listaLlaves,soloEle:arrayAllElec});*/
             var contador = 0;
-            console.log(electConEst);
             for(var key in electConEst){
                 arrayGEst[contador] = [];
                 arrayGEst[contador].push({nombreElectiva: String(key), estudiantes: electConEst[key]});
@@ -61,7 +41,7 @@ employeeCtrl.ASIGELECT = (req,res) => {
                 GruposAsignados: arrayGEst
             });
 
-            res.json("OK");
+            res.json(arrayGEst);
         }, function (errorObject) {
             console.log("The read failed program: " + errorObject.code);
         });
@@ -189,27 +169,30 @@ module.exports = employeeCtrl;
 
 //Funciones
 
-function filtrarLista(lista){
+function filtrarLista(lista) {
     var listaFil = [];
-    for(var i = 0;i < lista.length; i++){
+    for(var i = 0; i < lista.length; i++) {
         var electA = lista[i].electivasAprobadas;
         var electC = lista[i].electivasCursando;
         var electP = lista[i].electivasPrograma;
 
-        var dif = (electA+electC)-electP;
-        if(dif>=0){
-            continue;
-        }else{
-            var cantPuedeVer = (-1)*dif;
-            lista[i]['CantElectPuedeVer'] = cantPuedeVer;
+        var dif = electP - (electA + electC);
+        if(dif > 0) {
+            lista[i]['CantElectPuedeVer'] = dif;
             listaFil.push(lista[i]);
         }
     }
     return listaFil;
 }
 
-function ordenarListaPA(listaFiltrada){
-    listaFiltrada.sort(function(a, b){
+/*
+    ordenarListaPA, ordena la lista por prioridaddes
+    1 - porcentaje de avance
+    2 - promedio
+    3 - hora de solicitud
+*/
+function ordenarListaPA(listaFiltrada) {
+    listaFiltrada.sort(function(a, b) {
         var bS = String(b.porcentajeAvance);
         
         var bArr = bS.split(",");
@@ -222,10 +205,33 @@ function ordenarListaPA(listaFiltrada){
         var aSS = aArr[0] + "." + aArr[1];
         var aF = parseFloat(aSS).toFixed(6);
 
-        return bF - aF;
+        if(bF == aF) {
+            bS = String(b.promedioCarrera)
+            bArr = bS.split(",");
+            bSS = bArr[0] + "." + bArr[1];
+            bF = parseFloat(bSS).toFixed(6);
+
+            aS = String(a.promedioCarrera)
+            aArr = aS.split(".");
+            aSS = aArr[0] + "." + aArr[1];
+            aF = parseFloat(aSS).toFixed(6);
+
+            if( bF == aF) {
+                var bDate = moment(b.HoraSolicitud, "YYYY/MM/DD HH:mm:ss Z").toDate();
+                var aDate = moment(a.HoraSolicitud, "YYYY/MM/DD HH:mm:ss Z").toDate();
+                if (aDate < bDate) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            } else {
+                return bF - aF;
+            }
+        } else {
+            return bF - aF;
+        }
         
     });
-    
 }
 
 function obtenerSigProg(programa){
@@ -294,6 +300,7 @@ function isEmpty(obj) {
 
 function asigCupos(listaOrdenadaPA){
     var ELECTIVAS = [];
+    ELECTIVAS = new Array();
     
     for(var i = 0;i < listaOrdenadaPA.length; i++){
         //Programa de estudiante en siglas
@@ -309,150 +316,29 @@ function asigCupos(listaOrdenadaPA){
         
         
         //Asignar por prioridad
-        var electPuedeAsig = 0;
-        electPuedeAsig = solEst.CantElectPuedeVer;
+        var electPuedeAsig = solEst.CantElectPuedeVer;
+
+        if (elecPuedeVer.length < solEst.CantElectPuedeVer) {
+            electPuedeAsig = elecPuedeVer.length;
+        }
 
         if(solEst.CantElectPuedeVer === 5){
             electPuedeAsig--;
         }
 
-        if(isEmpty(ELECTIVAS)){
-            ELECTIVAS = new Array();
-            for(var j = 0;j < electPuedeAsig; j++){
-                if(j > 0){
-                    if(!ELECTIVAS.hasOwnProperty(elecPuedeVer[j])){
-                        ELECTIVAS[elecPuedeVer[j]]=[];
-                        ELECTIVAS[elecPuedeVer[j]].push({
-                            NombreCompleto:solEst.Nombres+" "+solEst.Apellidos,
-                            Usuario:solEst.Usuario,
-                            PorcentajeAvance:solEst.porcentajeAvance,
-                            PromedioCarrera:solEst.promedioCarrera,
-                            HoraSolicitud:solEst.HoraSolicitud
-                        });
-                    }else{
-                        var electiva = ELECTIVAS[elecPuedeVer[j]]; 
-                        var estIngreUlt = electiva[electiva.length-1];
-                        if(estIngreUlt.Usuario != solEst.Usuario){
-                            ELECTIVAS[elecPuedeVer[j]].push({
-                                NombreCompleto:solEst.Nombres+" "+solEst.Apellidos,
-                                Usuario:solEst.Usuario,
-                                PorcentajeAvance:solEst.porcentajeAvance,
-                                PromedioCarrera:solEst.promedioCarrera,
-                                HoraSolicitud:solEst.HoraSolicitud
-                            });
-                        }
-                    }
-                }else{
-                    ELECTIVAS[elecPuedeVer[j]]=[];
-                    ELECTIVAS[elecPuedeVer[j]].push({
-                        NombreCompleto:solEst.Nombres+" "+solEst.Apellidos,
-                        Usuario:solEst.Usuario,
-                        PorcentajeAvance:solEst.porcentajeAvance,
-                        PromedioCarrera:solEst.promedioCarrera,
-                        HoraSolicitud:solEst.HoraSolicitud
-                    });
-                }
-                
+
+        
+        for (var j = 0; j < electPuedeAsig; j++) {
+            if(!ELECTIVAS.hasOwnProperty(elecPuedeVer[j])) {
+                ELECTIVAS[elecPuedeVer[j]]=[];
             }
-            
-        }else{
-            var cont = 0;
-            for(var j = 0;j < elecPuedeVer.length; j++){
-                if(cont != electPuedeAsig){
-                    if(!ELECTIVAS.hasOwnProperty(elecPuedeVer[j])){
-                        ELECTIVAS[elecPuedeVer[j]]=[];
-                        ELECTIVAS[elecPuedeVer[j]].push({
-                            NombreCompleto:solEst.Nombres+" "+solEst.Apellidos,
-                            Usuario:solEst.Usuario,
-                            PorcentajeAvance:solEst.porcentajeAvance,
-                            PromedioCarrera:solEst.promedioCarrera,
-                            HoraSolicitud:solEst.HoraSolicitud
-                        });
-                        cont++;
-                    }else{
-                        if(ELECTIVAS[elecPuedeVer[j]].length <= 18){
-                            var electiva = ELECTIVAS[elecPuedeVer[j]]; 
-                            var estIngreUlt = electiva[electiva.length-1];
-                            if(estIngreUlt.Usuario != solEst.Usuario){
-                                if(electiva.length === 18){//metodo set get cant cupos por electvia
-                                    var bS = String(estIngreUlt.PorcentajeAvance);
-        
-                                    var bArr = bS.split(",");
-                                    var bSS = bArr[0] + "." + bArr[1];
-                                    var bF = parseFloat(bSS).toFixed(6);
-
-                                    var aS = String(solEst.porcentajeAvance);
-        
-                                    var aArr = aS.split(",");
-                                    var aSS = aArr[0] + "." + aArr[1];
-                                    var aF = parseFloat(aSS).toFixed(6);
-
-                                    if(bF === aF){
-                                        var bP = String(estIngreUlt.PromedioCarrera);
-        
-                                        var bArrP = bP.split(",");
-                                        var bSSP = bArrP[0] + "." + bArrP[1];
-                                        var bFP = parseFloat(bSSP).toFixed(4);
-
-                                        var aP = String(solEst.promedioCarrera);
-            
-                                        var aArrP = aP.split(",");
-                                        var aSSP = aArrP[0] + "." + aArrP[1];
-                                        var aFP = parseFloat(aSSP).toFixed(6);
-
-                                        if(bFP === aFP){
-                                            var fechaEstU = new Date(estIngreUlt.HoraSolicitud);
-                                            var fechaEstS = new Date(solEst.HoraSolicitud);
-                                            
-                                            if(fechaEstS < fechaEstU) {
-                                                ELECTIVAS[elecPuedeVer[j]].splice((electiva.length-1),1);
-                                                ELECTIVAS[elecPuedeVer[j]].push({
-                                                    NombreCompleto:solEst.Nombres+" "+solEst.Apellidos,
-                                                    Usuario:solEst.Usuario,
-                                                    PorcentajeAvance:solEst.porcentajeAvance,
-                                                    PromedioCarrera:solEst.promedioCarrera,
-                                                    HoraSolicitud:solEst.HoraSolicitud
-                                                });
-
-                                                cont++;
-
-                                            }
-                                        }else{
-                                            if(estIngreUlt.PromedioCarrera < solEst.promedioCarrera){
-                                                ELECTIVAS[elecPuedeVer[j]].splice((electiva.length-1),1);
-                                                ELECTIVAS[elecPuedeVer[j]].push({
-                                                    NombreCompleto:solEst.Nombres+" "+solEst.Apellidos,
-                                                    Usuario:solEst.Usuario,
-                                                    PorcentajeAvance:solEst.porcentajeAvance,
-                                                    PromedioCarrera:solEst.promedioCarrera,
-                                                    HoraSolicitud:solEst.HoraSolicitud
-                                                });
-                                                cont++;
-                                            }
-                                        }
-                                    }
-                                }
-                                else{
-                                    ELECTIVAS[elecPuedeVer[j]].push({
-                                        NombreCompleto:solEst.Nombres+" "+solEst.Apellidos,
-                                        Usuario:solEst.Usuario,
-                                        PorcentajeAvance:solEst.porcentajeAvance,
-                                        PromedioCarrera:solEst.promedioCarrera,
-                                        HoraSolicitud:solEst.HoraSolicitud
-                                    });
-                                    cont++;
-                                }
-                            }           
-                        }                        
-                    }
-                }else{
-                    break;
-                }
-
+            if (ELECTIVAS[elecPuedeVer[j]].length < 18) {
+                ELECTIVAS[elecPuedeVer[j]].push({
+                    NombreCompleto:solEst.Nombres+" "+solEst.Apellidos,
+                    Usuario:solEst.Usuario,
+                });
             }
-            
         }
-
     }
 
 
