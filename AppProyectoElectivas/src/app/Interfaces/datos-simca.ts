@@ -6,8 +6,8 @@ export class DatosSimca {
         PorcentajeCarrera:any,
         PromedioCarrera:any,
         ElectivasAprobadas:String,
-        ElectivasCursadas: String,
-        PageActual:any
+        ElectivasCursadas: String
+    
         ){
         this.Usuario = Usuario;
         this.CreditosAprobados = CreditosAprobados ;
@@ -16,7 +16,6 @@ export class DatosSimca {
         this.PromedioCarrera = PromedioCarrera;
         this.ElectivasAprobadas = ElectivasAprobadas;
         this.ElectivasCursadas = ElectivasCursadas;
-        this.PageActual=PageActual
         
         
     }
@@ -29,7 +28,6 @@ export class DatosSimca {
     ElectivasAprobadas: String;
     ElectivasCursadas: String;
     DebeVer: String;
-    PageActual:any
     
      
 }

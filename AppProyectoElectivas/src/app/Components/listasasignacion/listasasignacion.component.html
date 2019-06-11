@@ -1,13 +1,20 @@
 <app-encabezado></app-encabezado>
 <div class="wrapper">
   <app-opciones-admin></app-opciones-admin>
-  <table class="table table-borderless">
+  <table class="table table-sm table-borderless">
     <thead>
       <tr>
         <th scope="col"></th>
         <th scope="col">Nombre Electiva</th>
         <th scope="col">Cupos Asignados</th>
-        <th scope="col">Opciones</th>
+        <th scope="col" class="text-center">Opciones</th>
+      </tr>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col">Ver más</th>
+        <th class="text-left">Descargar Excel</th>
       </tr>
     </thead>
     <tbody>
@@ -16,8 +23,12 @@
         <td>{{ece.nombreElectiva}}</td>
         <td>{{ece.cupos}}</td>
         <td>
+          <!-- <button type="button" class="btn btn-warning">Ver más</button> -->
           <a routerLink="/AsignacionElectiva/{{in}}"><i class="fas fa-search-plus"></i></a>
-          <i class="fas fa-arrow-down"></i>
+        </td>
+        <td>
+          <!-- <button type="button" class="btn btn-info">Descargar Excel</button> -->
+          <a (click)="DescargarE(in,ece.nombreElectiva)"><i class="fas fa-file-excel"></i></a>
         </td>
       </tr>
     </tbody>

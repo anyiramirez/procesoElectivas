@@ -4,7 +4,8 @@ import { RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule} from 'ngx-pagination';
+
 import { environment} from '../environments/environment';
 import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -18,7 +19,7 @@ import { PrincipaladmiComponent } from './Components/principaladmi/principaladmi
 import { ListasasignacionComponent } from './Components/listasasignacion/listasasignacion.component';
 import { AsignacionelectivaComponent } from './Components/asignacionelectiva/asignacionelectiva.component';
 
-const Rutas: Routes = [
+const Rutas: Routes = [  
   {path: 'Administrador', component: PrincipaladmiComponent},
   {path: 'InformacionEstudiantes', component: RegisterInfoComponent },
   {path: 'ListasAsignadas', component: ListasasignacionComponent},
@@ -42,6 +43,7 @@ const Rutas: Routes = [
     HttpClientModule,
     RouterModule.forRoot(Rutas),
     ReactiveFormsModule,
+    NgxPaginationModule,
     NgbModule,
     NgxPaginationModule,
     FormsModule,

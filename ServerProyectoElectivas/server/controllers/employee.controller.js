@@ -1,4 +1,5 @@
 var admin = require('firebase-admin');
+var moment = require('moment');
 
 const employeeCtrl = {}
 
@@ -10,61 +11,35 @@ employeeCtrl.getEmployees = (req,res) => {
 }
 
 employeeCtrl.ASIGELECT = (req,res) => {
+    
     var db = admin.database();
     var list;
     var ref = db.ref('PreinscripcionesPrueba');
-    var refP = db.ref('Programas');
     var refGA = db.ref();
-    // Attach an asynchronous callback to read the data at our posts reference
+    
     ref.once("value", function(snapshot) {
         list = snapshot.val();
         
         var listFiltrada = filtrarLista(list);
+        
         ordenarListaPA(listFiltrada);
+        
         var electConEst = asigCupos(listFiltrada);
-        
-        
 
+        var arrayGEst = [];
 
+        var contador = 0;
+        for(var key in electConEst){
+            arrayGEst[contador] = [];
+            arrayGEst[contador].push({nombreElectiva: String(key), estudiantes: electConEst[key]});
+            contador++;
+        }
 
-        refP.once("value", function(snapshot) {
-            var listaLlaves = snapshot.val();
-            var arrayAllElec = [];
-            var arrayAllEst = [];
-            var arrayGEst = [];
-/*
-            for(var i = 0;i < listaLlaves['PIS'].length; i++){
-                arrayAllElec.push(listaLlaves['PIS'][i]);
-            }
-            for(var i = 0;i < listaLlaves['PIAI'].length; i++){
-                arrayAllElec.push(listaLlaves['PIAI'][i]);
-            }
-            for(var i = 0;i < listaLlaves['PIET'].length; i++){
-                arrayAllElec.push(listaLlaves['PIET'][i]);
-            }
-            for(var i = 0;i < arrayAllElec.length; i++){
-                arrayAllEst[arrayAllElec[i]]=[];
-                arrayAllEst[arrayAllElec[i]].push(electConEst[arrayAllElec[i]]);
-                
-            }
-
-            res.render('list',{title:'Lista de preinscripciones',soloEst:arrayAllEst,llaves:listaLlaves,soloEle:arrayAllElec});*/
-            var contador = 0;
-            console.log(electConEst);
-            for(var key in electConEst){
-                arrayGEst[contador] = [];
-                arrayGEst[contador].push({nombreElectiva: String(key), estudiantes: electConEst[key]});
-                contador++;
-            }
-
-            refGA.update({
-                GruposAsignados: arrayGEst
-            });
-
-            res.json("OK");
-        }, function (errorObject) {
-            console.log("The read failed program: " + errorObject.code);
+        refGA.update({
+            GruposAsignados: arrayGEst
         });
+
+        res.json(arrayGEst);
         
     }, function (errorObject) {
         console.log("The read failed preinscription: " + errorObject.code);
@@ -94,16 +69,22 @@ employeeCtrl.guardarSolEst = (req,res) => {
     // Attach an asynchronous callback to read the data at our posts reference
     ref.once("value", function(snapshot) {
         list = snapshot.val();
-        console.log("Llaves");
+        
         for(var i = 0;i < vreq.length; i++){
             var keyUsu = obtenerLlaveSolEst(vreq[i].Usuario,list);
             var refUpdate = db.ref('PreinscripcionesPrueba/' + String(keyUsu));
-
+            
             var porA = vreq[i].PorcentajeCarrera;
-
+            
             var aArr = porA.split(".");
+            
             var aSS = aArr[0] + "," + aArr[1];
 
+            var proC = vreq[i].PromedioCarrera;
+            
+            var aProC = String(proC).split(".");
+            
+            var apc = aProC[0] + "," + aProC[1];
 
             refUpdate.update({
                 Usuario: vreq[i].Usuario,
@@ -112,8 +93,7 @@ employeeCtrl.guardarSolEst = (req,res) => {
                 porcentajeAvance: aSS,
                 electivasAprobadas:parseInt(vreq[i].ElectivasAprobadas),
                 electivasCursando:parseInt(vreq[i].ElectivasCursadas),
-                promedioCarrera:vreq[i].PromedioCarrera,
-                Codigo: parseInt(vreq[i].Codigo)
+                promedioCarrera:apc
             });
         }
 
@@ -190,24 +170,26 @@ module.exports = employeeCtrl;
 
 //Funciones
 
-function filtrarLista(lista){
+function filtrarLista(lista) {
     var listaFil = [];
-    for(var i = 0;i < lista.length; i++){
+    for(var i = 0; i < lista.length; i++) {
         var electA = lista[i].electivasAprobadas;
         var electC = lista[i].electivasCursando;
         var electP = lista[i].electivasPrograma;
 
-        var dif = (electA+electC)-electP;
-        if(dif>=0){
-            continue;
-        }else{
-            var cantPuedeVer = (-1)*dif;
-            lista[i]['CantElectPuedeVer'] = cantPuedeVer;
+        var dif = electP - (electA + electC);
+        if(dif > 0) {
+            lista[i]['CantElectPuedeVer'] = dif;
             listaFil.push(lista[i]);
         }
     }
     return listaFil;
 }
+
+/*
+    ordenarListaPA, ordena la lista por prioridaddes
+    1 - porcentaje de avance
+*/
 
 function ordenarListaPA(listaFiltrada){
     listaFiltrada.sort(function(a, b){
@@ -398,14 +380,18 @@ function asigCupos(listaOrdenadaPA){
         
                                         var bArrP = bP.split(",");
                                         var bSSP = bArrP[0] + "." + bArrP[1];
-                                        var bFP = parseFloat(bSSP).toFixed(4);
+                                        var bFP = parseFloat(bSSP).toFixed(6);
 
                                         var aP = String(solEst.promedioCarrera);
             
                                         var aArrP = aP.split(",");
                                         var aSSP = aArrP[0] + "." + aArrP[1];
                                         var aFP = parseFloat(aSSP).toFixed(6);
-
+                                       
+                                        if(solEst.row === 289){
+                                            console.log("pro2: ",aFP,"-",bFP);
+                                        }
+                                        
                                         if(bFP === aFP){
                                             var fechaEstU = new Date(estIngreUlt.HoraSolicitud);
                                             var fechaEstS = new Date(solEst.HoraSolicitud);
@@ -468,18 +454,3 @@ function asigCupos(listaOrdenadaPA){
     return ELECTIVAS;
 
 }
-
-
-
-/*function obtener_ElectPuedeVer(estudiante, electivas){
-
-    for(j=0;j<estudiante[1].length;j++){
-        for(i=0;i<electivas.length;i++){
-            if(electivas[i] === estudiante[1][j]){
-
-            }
-        }
-    }   
-    
-    return linea[1];
-}*/

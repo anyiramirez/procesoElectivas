@@ -22,4 +22,21 @@ a, a:hover, a:focus {
     align-items: stretch;
     perspective: 1500px;
 }
+<<<<<<< HEAD
 
+=======
+input[type=number]::-webkit-outer-spin-button,
+
+input[type=number]::-webkit-inner-spin-button {
+
+    -webkit-appearance: none;
+
+    margin: 0;
+
+}
+input[type=number] {
+
+    -moz-appearance:textfield;
+
+}
+>>>>>>> 72cc186118086e876f030614663abc90b6ccebbf
