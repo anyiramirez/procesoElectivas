@@ -359,7 +359,7 @@ function asigCupos(listaOrdenadaPA){
                             if(estIngreUlt.Usuario != solEst.Usuario){
                                 if(electiva.length === 18){//metodo set get cant cupos por electvia
                                     var bS = String(estIngreUlt.PorcentajeAvance);
-                                    
+        
                                     var bArr = bS.split(",");
                                     var bSS = bArr[0] + "." + bArr[1];
                                     var bF = parseFloat(bSS).toFixed(6);
@@ -375,14 +375,18 @@ function asigCupos(listaOrdenadaPA){
         
                                         var bArrP = bP.split(",");
                                         var bSSP = bArrP[0] + "." + bArrP[1];
-                                        var bFP = parseFloat(bSSP).toFixed(4);
+                                        var bFP = parseFloat(bSSP).toFixed(6);
 
                                         var aP = String(solEst.promedioCarrera);
             
                                         var aArrP = aP.split(",");
                                         var aSSP = aArrP[0] + "." + aArrP[1];
                                         var aFP = parseFloat(aSSP).toFixed(6);
-
+                                       
+                                        if(solEst.row === 289){
+                                            console.log("pro2: ",aFP,"-",bFP);
+                                        }
+                                        
                                         if(bFP === aFP){
                                             var fechaEstU = new Date(estIngreUlt.HoraSolicitud);
                                             var fechaEstS = new Date(solEst.HoraSolicitud);
@@ -438,20 +442,7 @@ function asigCupos(listaOrdenadaPA){
 
     }
 
+
     return ELECTIVAS;
 
 }
-
-
-/*function obtener_ElectPuedeVer(estudiante, electivas){
-
-    for(j=0;j<estudiante[1].length;j++){
-        for(i=0;i<electivas.length;i++){
-            if(electivas[i] === estudiante[1][j]){
-
-            }
-        }
-    }   
-    
-    return linea[1];
-}*/
