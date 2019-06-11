@@ -13,7 +13,7 @@ employeeCtrl.getEmployees = (req,res) => {
 employeeCtrl.ASIGELECT = (req,res) => {
     var db = admin.database();
     var list;
-    var ref = db.ref('Preinscripciones');
+    var ref = db.ref('PreinscripcionesPrueba');
     var refP = db.ref('Programas');
     var refGA = db.ref();
     // Attach an asynchronous callback to read the data at our posts reference
@@ -331,7 +331,6 @@ function asigCupos(listaOrdenadaPA){
     for(var i = 0;i < listaOrdenadaPA.length; i++){
         //Programa de estudiante en siglas
         
-        
         var programaEst = listaOrdenadaPA[i].Programa;
         var solEst = listaOrdenadaPA[i];
         var sigP = obtenerSigProg(programaEst);
@@ -351,15 +350,9 @@ function asigCupos(listaOrdenadaPA){
         var electPuedeAsig = solEst.CantElectPuedeVer;
         var aux = 0;
 
-        /*if (elecPuedeVer.length < solEst.CantElectPuedeVer) {
-            electPuedeAsig = elecPuedeVer.length;
-        }*/
-
         if(solEst.CantElectPuedeVer === 5){
             electPuedeAsig--;
         }
-
-
         
         for (var j = 0; j < elecPuedeVer.length && aux<electPuedeAsig; j++) {
             if(!ELECTIVAS.hasOwnProperty(elecPuedeVer[j])) {
@@ -367,6 +360,7 @@ function asigCupos(listaOrdenadaPA){
             }
             if (ELECTIVAS[elecPuedeVer[j]].length < 18) {
                 ELECTIVAS[elecPuedeVer[j]].push({
+                    Codigo:solEst.Codigo,
                     NombreCompleto:solEst.Nombres+" "+solEst.Apellidos,
                     Usuario:solEst.Usuario,
                 });
@@ -375,9 +369,7 @@ function asigCupos(listaOrdenadaPA){
         }
     }
 
-
     return ELECTIVAS;
-
 }
 
 
