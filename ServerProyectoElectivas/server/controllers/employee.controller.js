@@ -112,7 +112,8 @@ employeeCtrl.guardarSolEst = (req,res) => {
                 porcentajeAvance: aSS,
                 electivasAprobadas:parseInt(vreq[i].ElectivasAprobadas),
                 electivasCursando:parseInt(vreq[i].ElectivasCursadas),
-                promedioCarrera:vreq[i].PromedioCarrera
+                promedioCarrera:vreq[i].PromedioCarrera,
+                Codigo: parseInt(vreq[i].Codigo)
             });
         }
 
@@ -327,7 +328,9 @@ function asigCupos(listaOrdenadaPA){
                             Usuario:solEst.Usuario,
                             PorcentajeAvance:solEst.porcentajeAvance,
                             PromedioCarrera:solEst.promedioCarrera,
-                            HoraSolicitud:solEst.HoraSolicitud
+                            HoraSolicitud:solEst.HoraSolicitud,
+                            Codigo:solEst.Codigo
+
                         });
                     }else{
                         var electiva = ELECTIVAS[elecPuedeVer[j]]; 
@@ -338,7 +341,8 @@ function asigCupos(listaOrdenadaPA){
                                 Usuario:solEst.Usuario,
                                 PorcentajeAvance:solEst.porcentajeAvance,
                                 PromedioCarrera:solEst.promedioCarrera,
-                                HoraSolicitud:solEst.HoraSolicitud
+                                HoraSolicitud:solEst.HoraSolicitud,
+                                Codigo:solEst.Codigo
                             });
                         }
                     }
@@ -349,7 +353,8 @@ function asigCupos(listaOrdenadaPA){
                         Usuario:solEst.Usuario,
                         PorcentajeAvance:solEst.porcentajeAvance,
                         PromedioCarrera:solEst.promedioCarrera,
-                        HoraSolicitud:solEst.HoraSolicitud
+                        HoraSolicitud:solEst.HoraSolicitud,
+                        Codigo:solEst.Codigo
                     });
                 }
                 
@@ -366,7 +371,8 @@ function asigCupos(listaOrdenadaPA){
                             Usuario:solEst.Usuario,
                             PorcentajeAvance:solEst.porcentajeAvance,
                             PromedioCarrera:solEst.promedioCarrera,
-                            HoraSolicitud:solEst.HoraSolicitud
+                            HoraSolicitud:solEst.HoraSolicitud,
+                            Codigo:solEst.Codigo
                         });
                         cont++;
                     }else{
@@ -411,7 +417,8 @@ function asigCupos(listaOrdenadaPA){
                                                     Usuario:solEst.Usuario,
                                                     PorcentajeAvance:solEst.porcentajeAvance,
                                                     PromedioCarrera:solEst.promedioCarrera,
-                                                    HoraSolicitud:solEst.HoraSolicitud
+                                                    HoraSolicitud:solEst.HoraSolicitud,
+                                                    Codigo:solEst.Codigo
                                                 });
 
                                                 cont++;
@@ -425,7 +432,8 @@ function asigCupos(listaOrdenadaPA){
                                                     Usuario:solEst.Usuario,
                                                     PorcentajeAvance:solEst.porcentajeAvance,
                                                     PromedioCarrera:solEst.promedioCarrera,
-                                                    HoraSolicitud:solEst.HoraSolicitud
+                                                    HoraSolicitud:solEst.HoraSolicitud,
+                                                    Codigo:solEst.Codigo
                                                 });
                                                 cont++;
                                             }
@@ -438,7 +446,8 @@ function asigCupos(listaOrdenadaPA){
                                         Usuario:solEst.Usuario,
                                         PorcentajeAvance:solEst.porcentajeAvance,
                                         PromedioCarrera:solEst.promedioCarrera,
-                                        HoraSolicitud:solEst.HoraSolicitud
+                                        HoraSolicitud:solEst.HoraSolicitud,
+                                        Codigo:solEst.Codigo
                                     });
                                     cont++;
                                 }

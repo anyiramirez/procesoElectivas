@@ -4,8 +4,14 @@ import { ListaPreinscriptosService}  from "../../Services/lista-preinscriptos.se
 import { PreInscripcionPrueba} from '../../Interfaces/pre-inscripcion-prueba';
 import { DatosSimca } from '../../Interfaces/datos-simca';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import { from } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import {Pipe} from "@angular/core";
+
+
+
+//import {switchMap} from 'rxjs/add/operator';
+
+
 
 @Component({
   selector: 'app-register-info',
@@ -13,12 +19,14 @@ import { from } from 'rxjs';
   styleUrls: ['./register-info.component.css']
 })
 export class RegisterInfoComponent implements OnInit {
+ pageActual:number=1;
+ totalRec : number;
   preinscriptos = new Array();
   datosGuardar = new Array();
   inscriptos = this.conlistar;
   porcentaje:any;
   
-  PonenteActual : number=1;
+  PonenteActual : any;
   usuario;
   usuarios = new Array();
   prueba: DatosSimca[];
@@ -30,35 +38,32 @@ export class RegisterInfoComponent implements OnInit {
   ElectivasAprobadasFormControl;
   ElectivasCursadasFormControl;
   DebeVerFormControl;
+  config: any;
+  collection = [];
   
-  page = 1;
-  pageSize = 4;
-  collectionSize = this.preinscriptos.length;
-  datos: any={};
-  totalItems: number;
-  
-  
-  
-  constructor(private bd:EstInscripcionService, protected listar:ListaPreinscriptosService, private registrar:RegistroDatosService) { 
-    
-    //this.consultarUsuarios();
+  constructor(private bd:EstInscripcionService, protected listar:ListaPreinscriptosService, private registrar:RegistroDatosService,private route: ActivatedRoute, private router: Router) { 
+        //this.consultarUsuarios();
     this.conlistar();
-    
-    
-  }
+    this.config = {
+      currentPage: 1,
+      itemsPerPage: 2
+};
+
+
+}
   
   ngOnInit() {
+    
   }
-  
-  
+  pageChange(newPage: number) {
+		this.router.navigate([''], { queryParams: { page: newPage } });
+	}
   registrarBD()
   {
     for (let p in this.datosGuardar){
-      
-      
+        
       this.datosGuardar[p].PorcentajeCarrera= ((this.datosGuardar[p].CreditosAprobados/this.datosGuardar[p].CreditosPensum)*100).toFixed(4);
-      //this.datosGuardar[p].Porcentaje=this.porcentaje;
-      
+      //this.datosGuardar[p].Porcentaje=this.porcentaje;      
     }
     
     this.registrar.saveUsuario(this.datosGuardar).
@@ -111,7 +116,7 @@ export class RegisterInfoComponent implements OnInit {
           for(let p in res)
           {
             
-            var objDS = new DatosSimca(res[p].Usuario,"0",res[p].creditosPensum,"0","0","0","0");
+            var objDS = new DatosSimca(res[p].Usuario,res[p].creditosAprobados,res[p].creditosPensum,res[p].porcentajeAvance,res[p].promedioCarrera,res[p].electivasAprobadas,res[p].electivasCursando,"0");
             this.datosGuardar.push(objDS);
             this.preinscriptos.push(res[p]);
           }
@@ -130,6 +135,8 @@ export class RegisterInfoComponent implements OnInit {
         }
         
       }
+      
+    
       
     }
     

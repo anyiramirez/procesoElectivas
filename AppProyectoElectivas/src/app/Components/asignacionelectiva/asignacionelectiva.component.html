@@ -6,18 +6,21 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Nombre</th>
-        <th scope="col">Usuario</th>
+        <th scope="col">Codigo</th>
       </tr>
     </thead>
     <tbody>
       
 <tr *ngFor="let est of lista1; let in = index">
         <th scope="row">{{in+1}}</th>
+        
         <td>{{est.NombreCompleto}}</td>
-        <td>{{est.Usuario}}</td>
+        <td>{{est.Codigo}}</td>
 </tr>
       
       
     </tbody>
   </table>
+  
 </div>
+
