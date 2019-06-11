@@ -4,6 +4,8 @@ import { ListaPreinscriptosService}  from "../../Services/lista-preinscriptos.se
 import { PreInscripcionPrueba} from '../../Interfaces/pre-inscripcion-prueba';
 import { DatosSimca } from '../../Interfaces/datos-simca';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
+import { interval, timer, fromEvent } from 'rxjs';
+
 
 @Component({
   selector: 'app-register-info',
@@ -16,33 +18,33 @@ export class RegisterInfoComponent implements OnInit {
   datosGuardar = new Array();
   inscriptos = this.conlistar;
   porcentaje:any;
-  
+
   PonenteActual : number=1;
   usuario;
   usuarios = new Array();
   prueba: DatosSimca[];
-  
+
   CredAp;
   Promedio;
   ElecAp;
   ElecCur;
   varNum : number =5;
   varHide : boolean = true;
-  
+
   page = 1;
   pageSize = 4;
   collectionSize = this.preinscriptos.length;
   datos: any={};
   totalItems: number;
-  
-  constructor(private bd:EstInscripcionService, protected listar:ListaPreinscriptosService, private registrar:RegistroDatosService) { 
+
+  constructor(private bd:EstInscripcionService, protected listar:ListaPreinscriptosService, private registrar:RegistroDatosService) {
     //this.consultarUsuarios();
     this.conlistar();
   }
-  
+
   ngOnInit() {
   }
-  
+
   validarCampos(){
     for(let p in this.datosGuardar){
       //Creditos Aprobados
@@ -76,7 +78,7 @@ export class RegisterInfoComponent implements OnInit {
           if (this.datosGuardar[p].ElectivasCursadas > this.preinscriptos[i].electivasPrograma){
             this.datosGuardar[p].ElectivasCursadas = this.preinscriptos[i].electivasPrograma;
           }
-        }        
+        }
       }
       //Aprobadas
       if(this.datosGuardar[p].ElectivasAprobadas < 0 ){
@@ -96,58 +98,78 @@ export class RegisterInfoComponent implements OnInit {
       }
     }
   }
-  
+
   showSaving(){
     this.varHide = !this.varHide;
     this.imagenGuardar(this.varHide);
   }
-  
+
   imagenGuardar(hide:boolean){
     debugger;
     if(hide == true){
-      document.getElementById('save').style.display='none';      
+      document.getElementById('save').style.display='none';
     }else{
       document.getElementById('save').style.display='block';
     }
     this.varHide = hide;
   }
-  
+   reset;
+  b(event: any){
+    this.reset= timer(1000);
+
+    this.reset.subscribe((n) => {
+      if(n===3){
+        n=0;
+      }
+      console.log(n)
+    });
+  }
+
+  a(event: any){
+
+
+    const contador = interval(1000);
+
+    contador.subscribe((n) => {
+      console.log(n);
+    });
+
+  }
   registrarBD()
   {
     this.calcularPorcentaje();
-    
+
     this.registrar.saveUsuario(this.datosGuardar).
     subscribe
     (
       res => {
-        console.log("respuesta del servidor: ",res);     
-        // alert('Registro exitoso');
+        console.log("respuesta del servidor: ",res);
+
         this.showSaving();
-        // this.showSaving();
+
         this.registrar.generarListas().subscribe(res => {
-          console.log("Estado de generar: ",res);     
-          // alert('Generar lista exitoso');
-          //------------------
+          console.log("Estado de generar: ",res);
+
           this.registrar.obtenerElectivasCE().subscribe(res => {
-            console.log("ObtenerElectivas: ",res);     
+            console.log("ObtenerElectivas: ",res);
           });
-          //-------------------
+
         },
         err => {
           console.error(err);
-          alert("Error en generar listas ");  
-        });   
+          alert("Error en generar listas ");
+        });
         //  this.router.navigate(['perfil']);
       },
       err =>{
-        console.log(this.datosGuardar);  
+        console.log(this.datosGuardar);
         console.error(err);
         alert("Error en el registro ");
       }
       )
     }
     consultarUsuarios(){
-      
+
       this.listar.consultarLista().subscribe(
         lista => {
           this.preinscriptos = new Array();
@@ -156,9 +178,9 @@ export class RegisterInfoComponent implements OnInit {
           }
           console.log(lista);
           alert('No realizo la consulta de la base de datos');
-        } 
+        }
         );
-        
+
       }
       conlistar(){
         this.listar.consultarLista().subscribe(res => {
@@ -167,23 +189,22 @@ export class RegisterInfoComponent implements OnInit {
           this.listar.solicitudesEst= res as PreInscripcionPrueba[];
           for(let p in res)
           {
-            
+
             var objDS = new DatosSimca(res[p].Usuario,res[p].creditosAprobados,res[p].creditosPensum,res[p].porcentajeAvance,res[p].promedioCarrera,res[p].electivasAprobadas,res[p].electivasCursando);
             this.datosGuardar.push(objDS);
             this.preinscriptos.push(res[p]);
           }
-          
+
           console.log(res,"tamanio del array guardar: ",this.datosGuardar.length);
-          
+
         }
-        
+
         );
       }
       calcularPorcentaje(){
         for (let p in this.datosGuardar){
-          this.datosGuardar[p].PorcentajeCarrera= ((this.datosGuardar[p].CreditosAprobados/this.datosGuardar[p].CreditosPensum)*100).toFixed(4);          
+          this.datosGuardar[p].PorcentajeCarrera= ((this.datosGuardar[p].CreditosAprobados/this.datosGuardar[p].CreditosPensum)*100).toFixed(4);
         }
       }
-      
+
     }
-    
