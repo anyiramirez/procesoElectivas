@@ -13,7 +13,7 @@ employeeCtrl.getEmployees = (req,res) => {
 employeeCtrl.ASIGELECT = (req,res) => {
     var db = admin.database();
     var list;
-    var ref = db.ref('PreinscripcionesPrueba');
+    var ref = db.ref('Preinscripciones');
     var refP = db.ref('Programas');
     var refGA = db.ref();
     // Attach an asynchronous callback to read the data at our posts reference
@@ -21,8 +21,13 @@ employeeCtrl.ASIGELECT = (req,res) => {
         list = snapshot.val();
         
         var listFiltrada = filtrarLista(list);
-        ordenarListaPA(listFiltrada);
+
+        listaFiltrada = ordenarListaPA(listFiltrada);
         var electConEst = asigCupos(listFiltrada);
+
+        /*console.log("================= listaFiltrada ======================");
+        console.log(listaFiltrada);
+        console.log("====================================================");*/
 
         refP.once("value", function(snapshot) {
             var listaLlaves = snapshot.val();
@@ -177,6 +182,7 @@ function filtrarLista(lista) {
         var electP = lista[i].electivasPrograma;
 
         var dif = electP - (electA + electC);
+
         if(dif > 0) {
             lista[i]['CantElectPuedeVer'] = dif;
             listaFil.push(lista[i]);
@@ -193,28 +199,50 @@ function filtrarLista(lista) {
 */
 function ordenarListaPA(listaFiltrada) {
     listaFiltrada.sort(function(a, b) {
+        var aS = String(a.porcentajeAvance);
         var bS = String(b.porcentajeAvance);
+        var aSS
+        var bSS
+        var aF
+        var bF
         
         var bArr = bS.split(",");
-        var bSS = bArr[0] + "." + bArr[1];
-        var bF = parseFloat(bSS).toFixed(6);
-        
-        var aS = String(a.porcentajeAvance);
-        
         var aArr = aS.split(",");
-        var aSS = aArr[0] + "." + aArr[1];
-        var aF = parseFloat(aSS).toFixed(6);
 
-        if(bF == aF) {
-            bS = String(b.promedioCarrera)
-            bArr = bS.split(",");
-            bSS = bArr[0] + "." + bArr[1];
-            bF = parseFloat(bSS).toFixed(6);
-
-            aS = String(a.promedioCarrera)
-            aArr = aS.split(".");
+        if(aArr.length == 2) {
             aSS = aArr[0] + "." + aArr[1];
             aF = parseFloat(aSS).toFixed(6);
+        } else {
+            aF = parseFloat(aArr[0]);
+        }
+
+        if(bArr.length == 2) {
+            bSS = bArr[0] + "." + bArr[1];
+            bF = parseFloat(bSS).toFixed(6);
+        } else {
+            bF = parseFloat(bArr[0]);
+        }
+
+        if(bF == aF) {
+            aS = String(a.promedioCarrera)
+            bS = String(b.promedioCarrera)
+            aArr = aS.split(",");
+            bArr = bS.split(",");
+
+            if( aArr.length == 2) {
+                aSS = aArr[0] + "." + aArr[1];
+                aF = parseFloat(aSS).toFixed(6);
+            } else {
+                aF = parseFloat(aArr[0]);
+            }
+
+            if( bArr.length == 2) {
+                bSS = bArr[0] + "." + bArr[1];
+                bF = parseFloat(bSS).toFixed(6);
+            } else {
+                bF = parseFloat(bArr[0]);
+            }
+            
 
             if( bF == aF) {
                 var bDate = moment(b.HoraSolicitud, "YYYY/MM/DD HH:mm:ss Z").toDate();
@@ -232,6 +260,7 @@ function ordenarListaPA(listaFiltrada) {
         }
         
     });
+    return listaFiltrada;
 }
 
 function obtenerSigProg(programa){
@@ -275,8 +304,6 @@ function obtenerElectPuedeVer(solicitudPreinscripcion, sigP){
     
     var electPuedeVer = [];
 
-    
-
     for(var i = 0 ;i < opcElectEst.length; i++){
         
         if(opcElectEst[i].search(sigP) != -1){
@@ -285,8 +312,7 @@ function obtenerElectPuedeVer(solicitudPreinscripcion, sigP){
         }
     }
 
-    
-    return electPuedeVer;
+    return electPuedeVer.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
 
 }
 
@@ -313,14 +339,21 @@ function asigCupos(listaOrdenadaPA){
         //Electivas puede ver
         
         var elecPuedeVer = obtenerElectPuedeVer(solEst, sigP);
+
+        console.log("======================= solEst ============================");
+        console.log(solEst);
+        console.log("================== elecPuedeVer ===========================");
+        console.log(elecPuedeVer);
+        console.log("===========================================================");
         
         
         //Asignar por prioridad
         var electPuedeAsig = solEst.CantElectPuedeVer;
+        var aux = 0;
 
-        if (elecPuedeVer.length < solEst.CantElectPuedeVer) {
+        /*if (elecPuedeVer.length < solEst.CantElectPuedeVer) {
             electPuedeAsig = elecPuedeVer.length;
-        }
+        }*/
 
         if(solEst.CantElectPuedeVer === 5){
             electPuedeAsig--;
@@ -328,7 +361,7 @@ function asigCupos(listaOrdenadaPA){
 
 
         
-        for (var j = 0; j < electPuedeAsig; j++) {
+        for (var j = 0; j < elecPuedeVer.length && aux<electPuedeAsig; j++) {
             if(!ELECTIVAS.hasOwnProperty(elecPuedeVer[j])) {
                 ELECTIVAS[elecPuedeVer[j]]=[];
             }
@@ -337,6 +370,7 @@ function asigCupos(listaOrdenadaPA){
                     NombreCompleto:solEst.Nombres+" "+solEst.Apellidos,
                     Usuario:solEst.Usuario,
                 });
+                aux++;
             }
         }
     }
