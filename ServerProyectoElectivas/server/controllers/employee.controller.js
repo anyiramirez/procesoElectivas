@@ -14,9 +14,8 @@ employeeCtrl.ASIGELECT = (req,res) => {
     var db = admin.database();
     var list;
     var ref = db.ref('PreinscripcionesPrueba');
-    var refP = db.ref('Programas');
     var refGA = db.ref();
-    // Attach an asynchronous callback to read the data at our posts reference
+
     ref.once("value", function(snapshot) {
         list = snapshot.val();
         
@@ -25,31 +24,20 @@ employeeCtrl.ASIGELECT = (req,res) => {
         listaFiltrada = ordenarListaPA(listFiltrada);
         var electConEst = asigCupos(listFiltrada);
 
-        /*console.log("================= listaFiltrada ======================");
-        console.log(listaFiltrada);
-        console.log("====================================================");*/
+        var arrayGEst = [];
 
-        refP.once("value", function(snapshot) {
-            var listaLlaves = snapshot.val();
-            var arrayAllElec = [];
-            var arrayAllEst = [];
-            var arrayGEst = [];
+        var contador = 0;
+        for(var key in electConEst){
+            arrayGEst[contador] = [];
+            arrayGEst[contador].push({nombreElectiva: String(key), estudiantes: electConEst[key]});
+            contador++;
+        }
 
-            var contador = 0;
-            for(var key in electConEst){
-                arrayGEst[contador] = [];
-                arrayGEst[contador].push({nombreElectiva: String(key), estudiantes: electConEst[key]});
-                contador++;
-            }
-
-            refGA.update({
-                GruposAsignados: arrayGEst
-            });
-
-            res.json(arrayGEst);
-        }, function (errorObject) {
-            console.log("The read failed program: " + errorObject.code);
+        refGA.update({
+            GruposAsignados: arrayGEst
         });
+
+        res.json(arrayGEst);
         
     }, function (errorObject) {
         console.log("The read failed preinscription: " + errorObject.code);
