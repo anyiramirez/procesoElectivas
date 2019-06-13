@@ -18,12 +18,14 @@ import { EncabezadoComponent } from './Components/encabezado/encabezado.componen
 import { PrincipaladmiComponent } from './Components/principaladmi/principaladmi.component';
 import { ListasasignacionComponent } from './Components/listasasignacion/listasasignacion.component';
 import { AsignacionelectivaComponent } from './Components/asignacionelectiva/asignacionelectiva.component';
+import { ModuloelectivasComponent } from './Components/moduloelectivas/moduloelectivas.component';
 
 const Rutas: Routes = [  
   {path: 'Administrador', component: PrincipaladmiComponent},
   {path: 'InformacionEstudiantes', component: RegisterInfoComponent },
   {path: 'ListasAsignadas', component: ListasasignacionComponent},
-  {path: 'AsignacionElectiva/:id', component: AsignacionelectivaComponent}
+  {path: 'AsignacionElectiva/:id', component: AsignacionelectivaComponent},
+  {path: 'GestionElectivas', component: ModuloelectivasComponent }
 ];
 
 @NgModule({
@@ -35,7 +37,8 @@ const Rutas: Routes = [
     EncabezadoComponent,
     PrincipaladmiComponent,
     ListasasignacionComponent,
-    AsignacionelectivaComponent
+    AsignacionelectivaComponent,
+    ModuloelectivasComponent
   ],
   imports: [
     BrowserModule,

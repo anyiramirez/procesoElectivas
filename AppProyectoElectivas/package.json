@@ -28,6 +28,7 @@
     "file-saver": "^2.0.2",
     "firebase": "^6.1.0",
     "mdbootstrap": "^4.8.2",
+    "moment": "^2.24.0",
     "ng-uikit": "^0.1.6",
     "ngx-pagination": "^3.2.1",
     "rxjs": "~6.3.3",

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ModuleWithComponentFactories } from '@angular/core';
 import { EstInscripcionService } from "../../Services/est-inscripcion.service";
 import { ListaPreinscriptosService}  from "../../Services/lista-preinscriptos.service"
 import { PreInscripcionPrueba} from '../../Interfaces/pre-inscripcion-prueba';
 import { DatosSimca } from '../../Interfaces/datos-simca';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
+import * as moment from 'moment';
 import { interval, timer, fromEvent } from 'rxjs';
 
 
@@ -30,6 +31,8 @@ export class RegisterInfoComponent implements OnInit {
   ElecCur;
   varNum : number =5;
   varHide : boolean = true;
+
+  // moment = require('moment');
 
   page = 1;
   pageSize = 4;
@@ -114,27 +117,14 @@ export class RegisterInfoComponent implements OnInit {
     this.varHide = hide;
   }
    reset;
-  b(event: any){
+  autoSave(event: any){
     this.reset= timer(1000);
 
     this.reset.subscribe((n) => {
-      if(n===3){
-        n=0;
-      }
-      console.log(n)
+      this.registrarBD();
     });
   }
 
-  a(event: any){
-
-
-    const contador = interval(1000);
-
-    contador.subscribe((n) => {
-      console.log(n);
-    });
-
-  }
   registrarBD()
   {
     this.calcularPorcentaje();
@@ -145,6 +135,7 @@ export class RegisterInfoComponent implements OnInit {
       res => {
         console.log("respuesta del servidor: ",res);
 
+        // this.moment().format('llll');
         this.showSaving();
 
         this.registrar.generarListas().subscribe(res => {
