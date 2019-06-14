@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Electivas';
+  // title = 'Electivas';
 
-  public constructor(public router: Router) {
-    this.router.navigateByUrl("Administrador");
-  }
+  // public constructor(public router: Router) {
+  //   this.router.navigateByUrl("Administrador");
+  // }
 }
