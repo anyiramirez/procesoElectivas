@@ -1,13 +1,8 @@
 <app-encabezado></app-encabezado>
 <div class="wrapper">
   <app-opciones-admin></app-opciones-admin>
-<<<<<<< HEAD
-  <div id="content"> 
-  
-=======
   <div id="content">
     <img src="../../../assets/guardar.png" alt="saving" id="save" class="rounded float-right" style="display: none">
->>>>>>> 72cc186118086e876f030614663abc90b6ccebbf
     <table class="table tableFixHead">
       <thead>
         <tr>
@@ -32,30 +27,13 @@
         </tr>
       </thead>
       <tbody>
-<<<<<<< HEAD
-        <tr *ngFor="let usuario of preinscriptos| paginate: {  id: 'listing_pagination', itemsPerPage: pageSize , currentPage: pageActual,totalItems: totalRec} ; let in=index " > 
-=======
         <tr *ngFor="let usuario of preinscriptos| paginate:{itemsPerPage: pageSize,currentPage: pageActual} ; let in=index" >
->>>>>>> 72cc186118086e876f030614663abc90b6ccebbf
           <td>{{usuario.row}}</td>
           <td>{{usuario.Codigo}}</td>
           <td>{{usuario.Usuario}}</td>
           <td>{{usuario.Nombres}}</td>
           <td>{{usuario.Apellidos}}</td>
           <td>{{usuario.Programa}}</td>
-<<<<<<< HEAD
-          <td ><input [(ngModel)]="datosGuardar[in].CreditosAprobados"   name="CreditosAprobados" type="number"  class="barraTexto" id="CreditosAprobados" 
-            placeholder="creditos" min="0" max="{{usuario.creditosPensum}}" (click)="calcularPorcentaje()" maxlength="3" required> </td>
-          <td>{{usuario.creditosPensum}}</td>
-          <td> <input [(ngModel)]="datosGuardar[in].PorcentajeCarrera" name="PorcentajeCarrera" class="barraTexto" id="PorcentajeCarrera" 
-            placeholder="Porcentaje" disabled="true" value="{{usuario.porcentajeAvance}}"></td>
-          <td><input [(ngModel)]="datosGuardar[in].PromedioCarrera"  name="Promedio" type="number" step="any" class="barraTexto" id="Promedio" 
-            placeholder="Promedio" (click)="calcularPorcentaje()" min="0.0" max="5.0" maxlength="4"> </td>
-          <td><input [(ngModel)]="datosGuardar[in].ElectivasAprobadas"   name="ElectivasAprobadas" type="number"  class="barraTexto" id="ElectivasAprobadas" 
-          placeholder="aprobadas" min="0" max="{{usuario.creditosPensum}}">  </td>
-          <td><input [(ngModel)]="datosGuardar[in].ElectivasCursadas"  name="ElectivasCursadas" type="number" class="barraTexto" id="ElectivasCursadas" 
-            placeholder="cursadas" min="0" max="{{usuario.ElectivasCursando}}"> </td>
-=======
 
           <td><input [(ngModel)]="datosGuardar[in].CreditosAprobados" (keypress)="b($event)" (ngModelChange)="validarCampos()" (ngModelChange)="calcularPorcentaje()" min="0" max="{{usuario.creditosPensum}}" name="CreditosAprobados" type="number" class="barraTexto" id="CreditosAprobados" placeholder="creditos"></td>
           <td>{{usuario.creditosPensum}}</td>
@@ -64,7 +42,6 @@
           <td><input [(ngModel)]="datosGuardar[in].ElectivasAprobadas" (click)="registrarBD()" (ngModelChange)="validarCampos()" min="0" max="{{usuario.electivasPrograma}}" name="ElectivasAprobadas" type="number"  class="barraTexto" id="ElectivasAprobadas" placeholder="aprobadas">  </td>
           <td><input [(ngModel)]="datosGuardar[in].ElectivasCursadas" (click)="registrarBD()" (ngModelChange)="validarCampos()" min="0" max="{{usuario.electivasPrograma}}" name="ElectivasCursadas" type="number" class="barraTexto" id="ElectivasCursadas" placeholder="cursadas"> </td>
 
->>>>>>> 72cc186118086e876f030614663abc90b6ccebbf
           <td>{{usuario.electivasPrograma}}</td>
           <td>{{usuario.cantidadSolicitada}}</td>
           <td nowrap>{{usuario.opcion1}}</td>
@@ -74,23 +51,6 @@
         </tr>
       </tbody>
     </table>
-<<<<<<< HEAD
-
-          <button class="btn btn-primary boton" (click)="registrarBD()">Registrar</button>
-          <pagination-controls  id="listing_pagination" (pageChange)="pageActual = $event" class="pagination" directionLinks="true"></pagination-controls>
-          <select class="custom-select select" style="width: auto" [(ngModel)]="pageSize" >
-            <option [ngValue]="5">5 items por página</option>
-            <option [ngValue]="10">10 items por página</option>
-            <option [ngValue]="15">15 items por página</option>
-            <option [ngValue]="20">20 items por página</option>
-            <option [ngValue]="25">25 items por página</option>
-            <option [ngValue]="30">30 items por página</option>
-            <option [ngValue]="40">40 items por página</option>
-            <option [ngValue]="50">50 items por página</option>
-          </select>
-   
-  </div> 
-=======
     <button type="button" class="btn btn-primary boton " data-toggle="button" aria-pressed="false" (click)="registrarBD()" autocomplete="off">
       Registrar Información
     </button>
@@ -106,6 +66,5 @@
       <option [ngValue]="50">20 items por página</option>
     </select>
   </div>
->>>>>>> 72cc186118086e876f030614663abc90b6ccebbf
 </div>
 

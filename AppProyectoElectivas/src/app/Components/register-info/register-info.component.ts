@@ -4,17 +4,7 @@ import { ListaPreinscriptosService}  from "../../Services/lista-preinscriptos.se
 import { PreInscripcionPrueba} from '../../Interfaces/pre-inscripcion-prueba';
 import { DatosSimca } from '../../Interfaces/datos-simca';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
-<<<<<<< HEAD
-import { ActivatedRoute, Router } from '@angular/router';
-import {Pipe} from "@angular/core";
-
-
-
-//import {switchMap} from 'rxjs/add/operator';
-
-=======
 import { interval, timer, fromEvent } from 'rxjs';
->>>>>>> 72cc186118086e876f030614663abc90b6ccebbf
 
 
 @Component({
@@ -23,45 +13,11 @@ import { interval, timer, fromEvent } from 'rxjs';
   styleUrls: ['./register-info.component.css']
 })
 export class RegisterInfoComponent implements OnInit {
-<<<<<<< HEAD
- pageActual:number=1;
- totalRec : number;
-=======
   pageActual: number = 1;
->>>>>>> 72cc186118086e876f030614663abc90b6ccebbf
   preinscriptos = new Array();
   datosGuardar = new Array();
   inscriptos = this.conlistar;
   porcentaje:any;
-<<<<<<< HEAD
-  
-  PonenteActual : any;
-  usuario;
-  usuarios = new Array();
-  prueba: DatosSimca[];
-  
-  UsuarioFormControl;
-  CreditosAprobadosFormControl ;
-  CreditosPensumFormControl;
-  PromedioFormControl;
-  ElectivasAprobadasFormControl;
-  ElectivasCursadasFormControl;
-  DebeVerFormControl;
-  config: any;
-  collection = [];
-  
-  constructor(private bd:EstInscripcionService, protected listar:ListaPreinscriptosService, private registrar:RegistroDatosService,private route: ActivatedRoute, private router: Router) { 
-        //this.consultarUsuarios();
-    this.conlistar();
-    this.config = {
-      currentPage: 1,
-      itemsPerPage: 2
-};
-
-
-}
-  
-=======
 
   PonenteActual : number=1;
   usuario;
@@ -86,23 +42,9 @@ export class RegisterInfoComponent implements OnInit {
     this.conlistar();
   }
 
->>>>>>> 72cc186118086e876f030614663abc90b6ccebbf
   ngOnInit() {
     
   }
-<<<<<<< HEAD
-  pageChange(newPage: number) {
-		this.router.navigate([''], { queryParams: { page: newPage } });
-	}
-  registrarBD()
-  {
-    for (let p in this.datosGuardar){
-        
-      this.datosGuardar[p].PorcentajeCarrera= ((this.datosGuardar[p].CreditosAprobados/this.datosGuardar[p].CreditosPensum)*100).toFixed(4);
-      //this.datosGuardar[p].Porcentaje=this.porcentaje;      
-    }
-    
-=======
 
   validarCampos(){
     for(let p in this.datosGuardar){
@@ -198,7 +140,6 @@ export class RegisterInfoComponent implements OnInit {
   {
     this.calcularPorcentaje();
 
->>>>>>> 72cc186118086e876f030614663abc90b6ccebbf
     this.registrar.saveUsuario(this.datosGuardar).
     subscribe
     (
@@ -249,13 +190,8 @@ export class RegisterInfoComponent implements OnInit {
           this.listar.solicitudesEst= res as PreInscripcionPrueba[];
           for(let p in res)
           {
-<<<<<<< HEAD
-            
-            var objDS = new DatosSimca(res[p].Usuario,res[p].creditosAprobados,res[p].creditosPensum,res[p].porcentajeAvance,res[p].promedioCarrera,res[p].electivasAprobadas,res[p].electivasCursando,"0");
-=======
 
             var objDS = new DatosSimca(res[p].Usuario,res[p].creditosAprobados,res[p].creditosPensum,res[p].porcentajeAvance,res[p].promedioCarrera,res[p].electivasAprobadas,res[p].electivasCursando);
->>>>>>> 72cc186118086e876f030614663abc90b6ccebbf
             this.datosGuardar.push(objDS);
             this.preinscriptos.push(res[p]);
           }
@@ -271,11 +207,4 @@ export class RegisterInfoComponent implements OnInit {
           this.datosGuardar[p].PorcentajeCarrera= ((this.datosGuardar[p].CreditosAprobados/this.datosGuardar[p].CreditosPensum)*100).toFixed(4);
         }
       }
-<<<<<<< HEAD
-      
-    
-      
-=======
-
->>>>>>> 72cc186118086e876f030614663abc90b6ccebbf
     }
