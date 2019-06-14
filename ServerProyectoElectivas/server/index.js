@@ -10,7 +10,7 @@ var admin = require('firebase-admin');
 
 
 const app = express();
-
+app.use(cors());
 
 
 //app.use(express.static('public'));
@@ -25,9 +25,8 @@ app.set('view engine', 'handlebars');
 
 // Middlewares
 app.use(morgan('dev'));
-app.use(bodyparser.urlencoded({ extended: true }));
-
-app.use(cors({origin: 'http://localhost:4200/'}));
+app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.json());
 
 
 
