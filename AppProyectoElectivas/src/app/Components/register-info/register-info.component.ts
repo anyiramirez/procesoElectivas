@@ -32,7 +32,7 @@ export class RegisterInfoComponent implements OnInit {
   varHide : boolean = true;
 
   page = 1;
-  pageSize = 4;
+  pageSize = 5;
   collectionSize = this.preinscriptos.length;
   datos: any={};
   totalItems: number;
@@ -43,6 +43,7 @@ export class RegisterInfoComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   validarCampos(){
