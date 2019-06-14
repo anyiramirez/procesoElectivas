@@ -11,6 +11,8 @@ var admin = require('firebase-admin');
 
 const app = express();
 
+
+
 //app.use(express.static('public'));
 app.use(favicon(path.join('views','favicon.ico')));
 
@@ -24,7 +26,11 @@ app.set('view engine', 'handlebars');
 // Middlewares
 app.use(morgan('dev'));
 app.use(bodyparser.urlencoded({ extended: true }));
-app.use(cors({origin: 'http://localhost:4200'}));
+
+app.use(cors({origin: 'http://localhost:4200/'}));
+
+
+
 app.use(express.json());
 
 //----------------------------------
@@ -40,6 +46,7 @@ admin.initializeApp({
 var db = admin.database();
 //----------------------------------
 // Routes
+
 app.use('/api/asigcupos',require('./routes/asigcupos.routes'));
 
 

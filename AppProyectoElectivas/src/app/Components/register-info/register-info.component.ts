@@ -114,27 +114,10 @@ export class RegisterInfoComponent implements OnInit {
     this.varHide = hide;
   }
    reset;
-  b(event: any){
-    this.reset= timer(1000);
-
-    this.reset.subscribe((n) => {
-      if(n===3){
-        n=0;
-      }
-      console.log(n)
-    });
+  saveAutomatic(){
+    this.registrarBD();
   }
 
-  a(event: any){
-
-
-    const contador = interval(1000);
-
-    contador.subscribe((n) => {
-      console.log(n);
-    });
-
-  }
   registrarBD()
   {
     this.calcularPorcentaje();

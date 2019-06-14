@@ -67,17 +67,25 @@ employeeCtrl.guardarSolEst = (req,res) => {
     // Attach an asynchronous callback to read the data at our posts reference
     ref.once("value", function(snapshot) {
         list = snapshot.val();
-        console.log("Llaves");
+        
         for(var i = 0;i < vreq.length; i++){
             var keyUsu = obtenerLlaveSolEst(vreq[i].Usuario,list);
             var refUpdate = db.ref('PreinscripcionesPrueba/' + String(keyUsu));
-
             var porA = vreq[i].PorcentajeCarrera;
-
+            
             var aArr = porA.split(".");
+            
             var aSS = aArr[0] + "," + aArr[1];
 
-
+            var proC = vreq[i].PromedioCarrera;
+            
+            var aProC = String(proC).split(".");
+            
+            var apc = aProC[0] + "," + aProC[1];
+            if(i = 0){
+                console.log("creditos aprobados:",vreq[i].CreditosAprobados);
+            }
+            
             refUpdate.update({
                 Usuario: vreq[i].Usuario,
                 creditosAprobados: parseInt(vreq[i].CreditosAprobados),
@@ -85,7 +93,7 @@ employeeCtrl.guardarSolEst = (req,res) => {
                 porcentajeAvance: aSS,
                 electivasAprobadas:parseInt(vreq[i].ElectivasAprobadas),
                 electivasCursando:parseInt(vreq[i].ElectivasCursadas),
-                promedioCarrera:vreq[i].PromedioCarrera
+                promedioCarrera:apc
             });
         }
 
@@ -326,14 +334,6 @@ function asigCupos(listaOrdenadaPA){
         //Electivas puede ver
         
         var elecPuedeVer = obtenerElectPuedeVer(solEst, sigP);
-
-           /*
-        console.log("======================= solEst ============================");
-        console.log(solEst);
-        console.log("================== elecPuedeVer ===========================");
-        console.log(elecPuedeVer);
-        console.log("===========================================================");
-        */
         
         //Asignar por prioridad
         var electPuedeAsig = solEst.CantElectPuedeVer;

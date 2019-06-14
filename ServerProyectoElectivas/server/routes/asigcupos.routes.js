@@ -1,6 +1,9 @@
 const express = require('express'); 
 const router = express.Router();
 const employee = require('../controllers/employee.controller');
+const cors = require('cors');
+
+
 
 router.get('/', employee.ASIGELECT);
 router.post('/solEst', employee.guardarSolEst);
