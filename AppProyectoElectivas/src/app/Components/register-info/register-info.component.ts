@@ -35,7 +35,7 @@ export class RegisterInfoComponent implements OnInit {
   // moment = require('moment');
 
   page = 1;
-  pageSize = 4;
+  pageSize = 5;
   collectionSize = this.preinscriptos.length;
   datos: any={};
   totalItems: number;
@@ -46,6 +46,7 @@ export class RegisterInfoComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   validarCampos(){
@@ -117,12 +118,8 @@ export class RegisterInfoComponent implements OnInit {
     this.varHide = hide;
   }
    reset;
-  autoSave(event: any){
-    this.reset= timer(1000);
-
-    this.reset.subscribe((n) => {
-      this.registrarBD();
-    });
+  saveAutomatic(){
+    this.registrarBD();
   }
 
   registrarBD()

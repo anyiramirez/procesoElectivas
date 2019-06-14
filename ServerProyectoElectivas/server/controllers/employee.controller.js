@@ -64,20 +64,29 @@ employeeCtrl.guardarSolEst = (req,res) => {
     var ref = db.ref('PreinscripcionesPrueba');
     var vreq = req.body;
     var list;
+    console.log("holi");
     // Attach an asynchronous callback to read the data at our posts reference
     ref.once("value", function(snapshot) {
+        
         list = snapshot.val();
-        console.log("Llaves");
+        
         for(var i = 0;i < vreq.length; i++){
+            
             var keyUsu = obtenerLlaveSolEst(vreq[i].Usuario,list);
             var refUpdate = db.ref('PreinscripcionesPrueba/' + String(keyUsu));
-
             var porA = vreq[i].PorcentajeCarrera;
-
+            
             var aArr = porA.split(".");
+            
             var aSS = aArr[0] + "," + aArr[1];
 
-
+            /*var proC = vreq[i].PromedioCarrera;
+            
+            var aProC = String(proC).split(".");
+            console.log("hol2i",vreq.length,vreq[i]);
+            var apc = aProC[0] + "," + aProC[1];*/
+            
+            console.log("hol2i",vreq.length,vreq[i]);
             refUpdate.update({
                 Usuario: vreq[i].Usuario,
                 creditosAprobados: parseInt(vreq[i].CreditosAprobados),
@@ -326,14 +335,6 @@ function asigCupos(listaOrdenadaPA){
         //Electivas puede ver
         
         var elecPuedeVer = obtenerElectPuedeVer(solEst, sigP);
-
-           /*
-        console.log("======================= solEst ============================");
-        console.log(solEst);
-        console.log("================== elecPuedeVer ===========================");
-        console.log(elecPuedeVer);
-        console.log("===========================================================");
-        */
         
         //Asignar por prioridad
         var electPuedeAsig = solEst.CantElectPuedeVer;
