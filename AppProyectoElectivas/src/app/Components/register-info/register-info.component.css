@@ -45,10 +45,9 @@
   }
 
   input:invalid, textarea:invalid {
-     
-    border-color: red;
+    border-color:#dc3545;       
    }
-.tableFixHead{ 
+  .tableFixHead{ 
     overflow-y: auto; 
     height: 100px; 
 }
