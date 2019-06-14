@@ -35,12 +35,12 @@
           <td>{{usuario.Apellidos}}</td>
           <td>{{usuario.Programa}}</td>
 
-          <td><input [(ngModel)]="datosGuardar[in].CreditosAprobados" (keypress)="saveAutomatic()" (ngModelChange)="validarCampos()" (ngModelChange)="calcularPorcentaje()" min="0" max="{{usuario.creditosPensum}}" name="CreditosAprobados" type="number" class="barraTexto" id="CreditosAprobados" placeholder="creditos"></td>
+          <td><input [(ngModel)]="datosGuardar[in].CreditosAprobados" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" (ngModelChange)="calcularPorcentaje()" min="0" max="{{usuario.creditosPensum}}" name="CreditosAprobados" type="number" class="barraTexto" id="CreditosAprobados" placeholder="creditos"></td>
           <td>{{usuario.creditosPensum}}</td>
           <td> <input [(ngModel)]="datosGuardar[in].PorcentajeCarrera" disabled="true" name="PorcentajeCarrera" class="barraTexto" id="PorcentajeCarrera" placeholder="creditos"></td>
-          <td><input [(ngModel)]="datosGuardar[in].PromedioCarrera" (keypress)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="5" step="any" name="Promedio" type="number" class="barraTexto" id="Promedio" placeholder="Promedio"> </td>
-          <td><input [(ngModel)]="datosGuardar[in].ElectivasAprobadas" (keypress)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="{{usuario.electivasPrograma}}" name="ElectivasAprobadas" type="number"  class="barraTexto" id="ElectivasAprobadas" placeholder="aprobadas">  </td>
-          <td><input [(ngModel)]="datosGuardar[in].ElectivasCursadas" (keypress)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="{{usuario.electivasPrograma}}" name="ElectivasCursadas" type="number" class="barraTexto" id="ElectivasCursadas" placeholder="cursadas"> </td>
+          <td><input [(ngModel)]="datosGuardar[in].PromedioCarrera" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="5" step="any" name="Promedio" type="number" class="barraTexto" id="Promedio" placeholder="Promedio"> </td>
+          <td><input [(ngModel)]="datosGuardar[in].ElectivasAprobadas" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="{{usuario.electivasPrograma}}" name="ElectivasAprobadas" type="number"  class="barraTexto" id="ElectivasAprobadas" placeholder="aprobadas">  </td>
+          <td><input [(ngModel)]="datosGuardar[in].ElectivasCursadas" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="{{usuario.electivasPrograma}}" name="ElectivasCursadas" type="number" class="barraTexto" id="ElectivasCursadas" placeholder="cursadas"> </td>
 
           <td>{{usuario.electivasPrograma}}</td>
           <td>{{usuario.cantidadSolicitada}}</td>

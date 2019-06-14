@@ -19,9 +19,9 @@ export class RegistroDatosService {
 
   constructor(private http: HttpClient) { }
 
-   saveUsuario(datos: Array<DatosSimca>) {
-
-    return this.http.post(this.API_URI + '/solEst', datos,this.httpOptions);
+   saveUsuario(datosEApi: Array<DatosSimca>) {
+    console.log("datis a ebvuar:",datosEApi);
+    return this.http.post(this.API_URI + '/solEst', datosEApi,this.httpOptions);
 
    }
 
