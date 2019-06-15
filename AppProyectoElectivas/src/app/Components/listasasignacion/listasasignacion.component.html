@@ -28,7 +28,8 @@
         </td>
         <td>
           <!-- <button type="button" class="btn btn-info">Descargar Excel</button> -->
-          <a (click)="DescargarE(in,ece.nombreElectiva)"><i class="fas fa-file-excel"></i></a>
+          <a (click)="DescargarE(in,ece.nombreElectiva)" routerLink="/listasAsignadas" title="Descargar Excel"> <i class="fas fa-file-excel" ></i></a>
+             
         </td>
       </tr>
     </tbody>
