@@ -51,6 +51,7 @@ const Rutas: Routes = [
     ReactiveFormsModule,
     NgxPaginationModule,
     NgbModule,
+    NgxPaginationModule,
     FormsModule,
     MatInputModule,
     MatCheckboxModule,

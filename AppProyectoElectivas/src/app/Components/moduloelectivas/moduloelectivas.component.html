@@ -13,7 +13,7 @@
           <th scope="col">Nombre Electiva</th>
           <th scope="col">Tipo</th>
           <th scope="col">Programa</th>
-          <th scope="col">Opciones</th>
+          <th colspan="2" class="text-center">Opciones</th>
         </tr>
       </thead>
       <tbody>
@@ -22,19 +22,24 @@
           <td>Mark</td>
           <td>Otto</td>
           <td>Ingeniería de Sistemas</td>
-          <td>Editar  inhabilitar</td>
+          <td><button type="button" class="btn btn-outline-primary">Editar</button></td>
+          <td><button type="button" class="btn btn-outline-danger">Habilitar</button></td>
         </tr>
         <tr>
           <th scope="row">2</th>
           <td>Jacob</td>
           <td>Thornton</td>
           <td>Ingeniería de Sistemas</td>
+          <td><button type="button" class="btn btn-outline-primary">Editar</button></td>
+          <td><button type="button" class="btn btn-outline-success">Inhabiiliar</button></td>
         </tr>
         <tr>
           <th scope="row">3</th>
           <td>Larry</td>
           <td>the Bird</td>
           <td>Ingeniería de Sistemas</td>
+          <td><button type="button" class="btn btn-outline-primary">Editar</button></td>
+          <td><button type="button" class="btn btn-outline-success">Inhabiiliar</button></td>
         </tr>
       </tbody>
     </table>
@@ -58,7 +63,7 @@
           <div class="row">
             <div class="col-6">
               <mat-form-field class="example-full-width">
-                <input matInput placeholder="Nombre Electiva">
+                <input [(ngModel)]="NomElectiva" id="NomElectiva" matInput placeholder="Nombre Electiva">
               </mat-form-field>
             </div>
             <div class="col-6">

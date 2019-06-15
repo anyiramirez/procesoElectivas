@@ -46,7 +46,7 @@ export class RegisterInfoComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    
   }
 
   validarCampos(){
@@ -194,5 +194,4 @@ export class RegisterInfoComponent implements OnInit {
           this.datosGuardar[p].PorcentajeCarrera= ((this.datosGuardar[p].CreditosAprobados/this.datosGuardar[p].CreditosPensum)*100).toFixed(4);
         }
       }
-
     }

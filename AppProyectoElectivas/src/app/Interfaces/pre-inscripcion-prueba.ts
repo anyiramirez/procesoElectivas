@@ -9,6 +9,7 @@ export interface PreInscripcionPrueba {
     creditosPensum:string;
     creditosAprobados:string;
     promedio:string;
+    porcentajeAvance:string;
     ElectivasAprobadas:string;
     ElectivasCursadas:string;
     electivasPrograma:string;
