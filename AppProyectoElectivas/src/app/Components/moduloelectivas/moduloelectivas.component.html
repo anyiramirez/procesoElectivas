@@ -2,57 +2,90 @@
 <div class="wrapper">
   <app-opciones-admin></app-opciones-admin>
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-    Launch demo modal
-  </button>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col"></th>
-        <th scope="col">Nombre Electiva</th>
-        <th scope="col">Tipo</th>
-        <th scope="col">Programa</th>
-        <th scope="col">Opciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>Ingeniería de Sistemas</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>Ingeniería de Sistemas</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>Ingeniería de Sistemas</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="content">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+      Nueva Electiva
+    </button>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Nombre Electiva</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Programa</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>Ingeniería de Sistemas</td>
+          <td>Editar  inhabilitar</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>Ingeniería de Sistemas</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>Ingeniería de Sistemas</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-
 
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Nueva Electiva</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
+        
+        <form>
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Nombre Electiva">
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Contenido Prográmatico">
+              </mat-form-field>
+            </div>
+            <div class="col-4 contProgramas">
+              <p class="casilla text-center">Programas Asociados</p>
+              <mat-checkbox>Ingeniería Electrónica</mat-checkbox>
+              <mat-checkbox>Ingeniería de Sistemas</mat-checkbox>
+              <mat-checkbox>Ingeniería Automática</mat-checkbox>
+            </div>
+            <div class="col-6">
+              <mat-form-field>
+                <mat-label>Tipo de Electiva</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{food.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          
+        </form>        
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

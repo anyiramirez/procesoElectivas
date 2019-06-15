@@ -23,12 +23,11 @@
         <td>{{ece.nombreElectiva}}</td>
         <td>{{ece.cupos}}</td>
         <td>
-          <!-- <button type="button" class="btn btn-warning">Ver más</button> -->
-          <a routerLink="/AsignacionElectiva/{{in}}"><i class="fas fa-search-plus"></i></a>
+          <a routerLink="/AsignacionElectiva/{{in}}"><i class="fas fa-search-plus" style="color:#082a52"></i></a>
         </td>
         <td>
-          <!-- <button type="button" class="btn btn-info">Descargar Excel</button> -->
-          <a (click)="DescargarE(in,ece.nombreElectiva)"><i class="fas fa-file-excel"></i></a>
+          <a (click)="DescargarE(in,ece.nombreElectiva)"><i class="fas fa-file-excel" style="color:green"></i>
+          </a>
         </td>
       </tr>
     </tbody>

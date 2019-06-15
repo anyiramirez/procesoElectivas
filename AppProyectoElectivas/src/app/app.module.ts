@@ -5,6 +5,9 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule} from 'ngx-pagination';
+import { MatInputModule} from '@angular/material';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
 
 import { environment} from '../environments/environment';
 import { AgmCoreModule } from '@agm/core';
@@ -49,6 +52,9 @@ const Rutas: Routes = [
     NgxPaginationModule,
     NgbModule,
     FormsModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatSelectModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD_dcEHRh3Lwh4aSLqw-B581hRShWHdbWI'
