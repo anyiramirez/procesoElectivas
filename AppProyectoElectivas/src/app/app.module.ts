@@ -5,6 +5,9 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule} from 'ngx-pagination';
+import { MatInputModule} from '@angular/material';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
 
 import { environment} from '../environments/environment';
 import { AgmCoreModule } from '@agm/core';
@@ -18,12 +21,14 @@ import { EncabezadoComponent } from './Components/encabezado/encabezado.componen
 import { PrincipaladmiComponent } from './Components/principaladmi/principaladmi.component';
 import { ListasasignacionComponent } from './Components/listasasignacion/listasasignacion.component';
 import { AsignacionelectivaComponent } from './Components/asignacionelectiva/asignacionelectiva.component';
+import { ModuloelectivasComponent } from './Components/moduloelectivas/moduloelectivas.component';
 
 const Rutas: Routes = [  
   {path: 'Administrador', component: PrincipaladmiComponent},
   {path: 'InformacionEstudiantes', component: RegisterInfoComponent },
   {path: 'ListasAsignadas', component: ListasasignacionComponent},
-  {path: 'AsignacionElectiva/:id', component: AsignacionelectivaComponent}
+  {path: 'AsignacionElectiva/:id', component: AsignacionelectivaComponent},
+  {path: 'GestionElectivas', component: ModuloelectivasComponent }
 ];
 
 @NgModule({
@@ -35,7 +40,8 @@ const Rutas: Routes = [
     EncabezadoComponent,
     PrincipaladmiComponent,
     ListasasignacionComponent,
-    AsignacionelectivaComponent
+    AsignacionelectivaComponent,
+    ModuloelectivasComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +53,9 @@ const Rutas: Routes = [
     NgbModule,
     NgxPaginationModule,
     FormsModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatSelectModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD_dcEHRh3Lwh4aSLqw-B581hRShWHdbWI'
