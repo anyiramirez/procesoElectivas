@@ -24,7 +24,7 @@
           <td>{{electiva.contenido}}</td>
           <td>{{electiva.programa}}</td>
           <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEditarElectiva">Editar</button></td>
-          <td><button type="button" class="btn btn-outline-danger">Habilitar</button></td>
+          <td><button type="button" class="btn btn-outline-danger">Deshabilitar</button></td>
         </tr>
 
       </tbody>
@@ -57,7 +57,7 @@
             <div class="col-6">
               <mat-form-field class="example-full-width">
                 <mat-label for="contenido" *ngIf='contenidoCampo' class=" errorFormato ">Contenido Programatico</mat-label>
-                <mat-label for="contenido" *ngIf='!contenidoCampo' >Nombre Contenido Programatico</mat-label>
+                <mat-label for="contenido" *ngIf='!contenidoCampo' >Contenido Programatico</mat-label>
                 <input [(ngModel)]="electivas.contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput placeholder="Contenido Prográmatico">
               </mat-form-field>
             </div>
@@ -88,7 +88,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" (click)="registrarElectivas()">Guardar Electiva</button>
+        <button type="button" class="btn btn-primary" (click)="registrarElectivas()" data-dismiss="modal">Guardar Electiva</button>
       </div>
     </div>
   </div>
