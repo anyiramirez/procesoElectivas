@@ -3,9 +3,21 @@
   max-width: 500px;
   width: 100%;
 }
+.errorFormato{
+  color: red !important;
+}
 
 .example-full-width {
   width: 100%;
+}
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.example-radio-button {
+  margin: 5px;
 }
 .contProgramas{
   border: 1px solid hsla(16, 96%, 3%, 0.56);
