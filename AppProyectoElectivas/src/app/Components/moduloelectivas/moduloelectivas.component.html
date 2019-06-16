@@ -93,3 +93,11 @@
     </div>
   </div>
 </div>
+
+<script>
+  $('#exampleModalLong').on('show.bs.modal', function (event) {
+    $("#exampleModalLong input").val("");
+    $("#exampleModalLong select").val("");
+    $("#exampleModalLong input[type='checkbox']").prop('checked', false).change();
+  });
+</script>
