@@ -43,25 +43,26 @@ export class ModuloelectivasComponent implements OnInit {
   }
   
   getElectivas(){
+    debugger;
     this.electivas.programa = '';
     if (this.electivas.piet){
       this.electivas.programa = this.electivas.programa + 'PIET';
     }
-    if (this.electivas.piet || this.electivas.piai){
+    if (this.electivas.piet && this.electivas.piai){
+      this.electivas.programa = this.electivas.programa +'-';
+    }
+    if (this.electivas.piai){
+      this.electivas.programa = this.electivas.programa + 'PIAI'
+    }
+    if ((this.electivas.piai && this.electivas.pis) || (this.electivas.piet && this.electivas.pis)){
       this.electivas.programa = this.electivas.programa +'-';
     }
     if (this.electivas.pis){
       this.electivas.programa = this.electivas.programa + 'PIS'
     }
-    if (this.electivas.piet || this.electivas.pis){
-      this.electivas.programa = this.electivas.programa +'-';
-    }
-    if (this.electivas.pia){
-      this.electivas.programa = this.electivas.programa + 'PIAI'
-    }
     this.electivas.piet = null;
     this.electivas.pis = null;
-    this.electivas.pia = null;
+    this.electivas.piai = null;
   }
   
   registrarElectivas(){
