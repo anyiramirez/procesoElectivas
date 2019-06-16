@@ -3,6 +3,9 @@
   max-width: 500px;
   width: 100%;
 }
+.errorFormato{
+  color: red !important;
+}
 
 .example-full-width {
   width: 100%;

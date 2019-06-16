@@ -59,21 +59,30 @@
       </div>
       <div class="modal-body">
         
-        <form>
+        <form id="FormElectivas">
           <div class="row">
             <div class="col-6">
               <mat-form-field class="example-full-width">
-                <input [(ngModel)]="electivas.NomElectiva" id="NomElectiva" name="NomElectiva" matInput placeholder="Nombre Electiva">
+                 <mat-label for="nombre" *ngIf='nombreCampo' class=" errorFormato ">Nombre Electiva</mat-label>
+                 <mat-label for="nombre" *ngIf='!nombreCampo' >Nombre Electiva</mat-label>
+                <input [(ngModel)]="electivas.nombre" id="nombre" name="nombre" [formControl]="nombreFormControl"  matInput placeholder="Nombre Electiva" >
               </mat-form-field>
             </div>
             <div class="col-6">
               <mat-form-field class="example-full-width">
-                <input [(ngModel)]="electivas.Contenido" id= "Contenido" name = "Contenido" matInput placeholder="Contenido Prográmatico">
+                  <mat-label for="contenido" *ngIf='contenidoCampo' class=" errorFormato ">Contenido Programatico</mat-label>
+                  <mat-label for="contenido" *ngIf='!contenidoCampo' >Nombre Contenido Programatico</mat-label>
+                <input [(ngModel)]="electivas.contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput placeholder="Contenido Prográmatico">
               </mat-form-field>
             </div>
             <div class="col-4 contProgramas">
-              <p class="casilla text-center">Programas Asociados</p>
-              <mat-radio-group aria-label="Select an option" [(ngModel)]="electivas.Programa" id="Programa" name="Programa" >
+              <p class="casilla text-center">
+                  <mat-label for="programa" *ngIf='programaCampo' class=" errorFormato ">Programas Asociados</mat-label>
+                  <mat-label for="programa" *ngIf='!programaCampo' >Programas Asociados</mat-label>
+
+
+              </p>
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="electivas.programa" id="programa" name="programa"  >
                 <mat-radio-button value="PIS" >Ingenieria de Sistemas</mat-radio-button>
                 <mat-radio-button value="PIAI">Ingeniería Automatica</mat-radio-button>
                 <mat-radio-button value="PIET">Ingeniería Electronica</mat-radio-button>
@@ -84,9 +93,10 @@
             </div>
             <div class="col-6">
               <mat-form-field>
-                <mat-label>Tipo de Electiva</mat-label>
-                <select matNativeControl [(ngModel)]="electivas.Tipo" id="Tipo" name="Tipo">
-                 <option >Seleccione</option>
+                  <mat-label for="tipo" *ngIf='tipoCampo' class=" errorFormato">Tipo de electiva</mat-label>
+                  <mat-label for="tipo" *ngIf='!tipoCampo' >Tipo de electiva</mat-label>
+                <select matNativeControl [(ngModel)]="electivas.tipo" id="tipo" name="tipo" >
+                 <option selected>Seleccione</option>
                  <option value="Teorica">Teórica</option>
                  <option value="Practica">Práctica</option>
                  <option value="teoricoPractica">Teórica Práctica</option>
