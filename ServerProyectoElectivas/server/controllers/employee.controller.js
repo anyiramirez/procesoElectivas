@@ -122,7 +122,7 @@ employeeCtrl.PIET = (req,res) => {
 
 }
 
-
+/*
 employeeCtrl.listarElectivas = (req,res) => {
     var db = admin.database();
     var list;
@@ -132,7 +132,7 @@ employeeCtrl.listarElectivas = (req,res) => {
         console.log(list);
     });
 }
-
+*/
 //-------------------------------
 //    POST METHODS
 //-------------------------------

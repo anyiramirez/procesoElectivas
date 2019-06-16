@@ -76,7 +76,7 @@ export class ModuloelectivasComponent implements OnInit {
          this.router.navigate(['/GestionElectivas']);
          }
     
-      )
+      );
       
     }else{
       alert("Error en el registro");
