@@ -14,17 +14,31 @@ export class ModuloelectivasComponent implements OnInit {
   constructor(private registrar:RegistroDatosService) 
   {
   }
+
+  getElectivas(){
+    this.electivas.programa = "";
+    if (this.electivas.piet){
+      this.electivas.programa = this.electivas.programa + "PIET ";
+    }
+    if (this.electivas.pis){
+      this.electivas.programa = this.electivas.programa + "PIS "
+    }
+    if (this.electivas.pia){
+      this.electivas.programa = this.electivas.programa + "PIAI"
+    }
+    this.electivas.piet = null;
+    this.electivas.pis = null;
+    this.electivas.pia = null;
+  }
   
   registrarElectivas(){
-    
-    //this.electivas = new Electivas("","","","");
+
+    this.getElectivas();    
     this.registrar.saveElectivas(this.electivas).
     subscribe
     (
       res => {
         console.log("respuesta del servidor: ",res);
-        
-        //  this.router.navigate(['perfil']);
       },
       res =>{
         console.log(this.electivas);
