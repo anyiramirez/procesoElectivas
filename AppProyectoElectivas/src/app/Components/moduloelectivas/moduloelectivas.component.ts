@@ -44,7 +44,6 @@ export class ModuloelectivasComponent implements OnInit {
   }
   
   getElectivas(){
-    debugger;
     this.electivas.programa = '';
     if (this.varPrograma.piet){
       this.electivas.programa = this.electivas.programa + 'PIET';
@@ -82,7 +81,6 @@ export class ModuloelectivasComponent implements OnInit {
     if(this.electivas.tipo === 'Teorica' ||this.electivas.tipo === 'Practica'||this.electivas.tipo === 'teoricoPractica'){
       this.tipoCampo=false; 
     }else{ this.tipoCampo=true; }
-    debugger;
     if(!this.nombreCampo && !this.contenidoCampo && !this.programaCampo && !this.tipoCampo){  
       // alert("Electiva registrada");
       this.registrar.saveElectivas(this.electivas).subscribe(res => {
