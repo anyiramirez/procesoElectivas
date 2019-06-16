@@ -151,7 +151,7 @@ employeeCtrl.registrarElectivas = (req,res) => {
     var db = admin.database();
     
     db.ref("Electivas").push(nuevaElectiva);
-    
+    res.json("Guardado Exitoso");
 }
 
 employeeCtrl.editarElectiva = (req,res) => {

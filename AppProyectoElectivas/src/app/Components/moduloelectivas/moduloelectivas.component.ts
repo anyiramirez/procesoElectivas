@@ -83,8 +83,8 @@ export class ModuloelectivasComponent implements OnInit {
     }else{ this.tipoCampo=true; }
     if(!this.nombreCampo && !this.contenidoCampo && !this.programaCampo && !this.tipoCampo){
       // alert("Electiva registrada");
-     this.registrar.saveElectivas(this.electivas).subscribe(res => {
-        alert("Electiva registrada exitosamente");
+      this.registrar.saveElectivas(this.electivas).subscribe(res => {
+        alert(res);
         this.listarElectivas();
         this.router.navigate(['/GestionElectivas']);
       })
