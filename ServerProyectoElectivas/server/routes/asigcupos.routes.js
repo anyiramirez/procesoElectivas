@@ -13,7 +13,7 @@ router.get('/solEst', employee.PIAI);
 router.get('/piai', employee.PIAI);
 router.get('/piet', employee.PIET);
 router.get('/electivasCE', employee.obtenerElectivasCuposEst);
-//router.get('/listarElectivas', employee.listarElectivas);
+router.get('/listarElectivas', employee.listarElectivas);
 
 // post methods 
 

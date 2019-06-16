@@ -122,22 +122,23 @@ employeeCtrl.PIET = (req,res) => {
 
 }
 
-/*
+
 employeeCtrl.listarElectivas = (req,res) => {
     var db = admin.database();
     var list;
-    db.ref('Electivas').on('value', function(snapshot){
+    db.ref('Electivas').once('value', function(snapshot){
         list = snapshot.val();
         res.json(list);
         console.log(list);
     });
 }
-*/
+
 //-------------------------------
 //    POST METHODS
 //-------------------------------
 
 employeeCtrl.registrarElectivas = (req,res) => {
+    console.log("ELectiva a registrar: ", req.body);
 
     var nuevaElectiva = {
         nombre : req.body.nombre,
@@ -148,14 +149,9 @@ employeeCtrl.registrarElectivas = (req,res) => {
 
     
     var db = admin.database();
-
+    
     db.ref("Electivas").push(nuevaElectiva);
-
-    /*console.log("=======================================");
-    console.log(nuevaElectiva);
-    console.log("=======================================");*/
-
-    //res.json(nuevaElectiva);
+    
 }
 
 employeeCtrl.editarElectiva = (req,res) => {
@@ -183,11 +179,6 @@ employeeCtrl.editarElectiva = (req,res) => {
         console.log("The read failed: " + errorObject.code);
     });
 
-    /*console.log("=======================================");
-    console.log(nuevaElectiva);
-    console.log("=======================================");*/
-
-    //res.json(nuevaElectiva);
 }
 
 

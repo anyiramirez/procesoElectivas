@@ -22,27 +22,27 @@ export class ModuloelectivasComponent implements OnInit {
   contenidoFormControl;
   programaFormControl;
   tipoFormControl;
-  
-  
-  constructor(private registrar:RegistroDatosService,private router:Router) 
+
+
+  constructor(private registrar:RegistroDatosService,private router:Router)
   {
     this.listarElectivas();
   }
   ngOnInit() {
     this.nombreFormControl = new FormControl('', [
-      Validators.required,     
+      Validators.required,
     ]);
     this.contenidoFormControl = new FormControl('', [
-      Validators.required,     
+      Validators.required,
     ]);
     this.programaFormControl = new FormControl('', [
-      Validators.required,     
+      Validators.required,
     ]);
     this.tipoFormControl = new FormControl('', [
-      Validators.required,     
+      Validators.required,
     ]);
   }
-  
+
   getElectivas(){
     this.electivas.programa = '';
     if (this.varPrograma.piet){
@@ -64,11 +64,11 @@ export class ModuloelectivasComponent implements OnInit {
     this.varPrograma.pis = false;
     this.varPrograma.piai = false;
   }
-  
+
   registrarElectivas(){
-    
+
     this.getElectivas();
-    
+
     if(this.nombreFormControl.hasError('required')){
       this.nombreCampo=true;
     }else{ this.nombreCampo=false; }
@@ -76,20 +76,18 @@ export class ModuloelectivasComponent implements OnInit {
       this.contenidoCampo=true;
     }else{ this.contenidoCampo=false; }
     if(this.electivas.programa === ''){
-      this.programaCampo=true; 
+      this.programaCampo=true;
     }else{ this.programaCampo=false; }
     if(this.electivas.tipo === 'Teorica' ||this.electivas.tipo === 'Practica'||this.electivas.tipo === 'teoricoPractica'){
-      this.tipoCampo=false; 
+      this.tipoCampo=false;
     }else{ this.tipoCampo=true; }
-    if(!this.nombreCampo && !this.contenidoCampo && !this.programaCampo && !this.tipoCampo){  
+    if(!this.nombreCampo && !this.contenidoCampo && !this.programaCampo && !this.tipoCampo){
       // alert("Electiva registrada");
      this.registrar.saveElectivas(this.electivas).subscribe(res => {
         alert("Electiva registrada exitosamente");
+        this.listarElectivas();
         this.router.navigate(['/GestionElectivas']);
-       
-      }) 
-     
-      
+      })
     }else{
       alert("Error en el registro");
     }
@@ -98,18 +96,18 @@ export class ModuloelectivasComponent implements OnInit {
   limpiarModal(){
 
   }
-  
+
   listarElectivas(){
     this.registrar.obtenerInformacionElectivas().subscribe(res => {
       this.electivasRegistradas=new Array();
       //this.registrar.electivas= res as Electivas[];
-      for(let p in res){  
+      for(let p in res){
         this.electivasRegistradas.push(res[p]);
       }
-      
+
     }
     );
-    
+
   }
-  
+
 }
