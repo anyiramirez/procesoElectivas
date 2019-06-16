@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 
 export class ModuloelectivasComponent implements OnInit {
+  varPrograma:any={};
   electivas:any={};
   electivasRegistradas = new Array();
   nombreCampo;
@@ -43,25 +44,26 @@ export class ModuloelectivasComponent implements OnInit {
   }
   
   getElectivas(){
+    debugger;
     this.electivas.programa = '';
-    if (this.electivas.piet){
+    if (this.varPrograma.piet){
       this.electivas.programa = this.electivas.programa + 'PIET';
     }
-    if (this.electivas.piet && this.electivas.piai){
+    if (this.varPrograma.piet && this.varPrograma.piai){
       this.electivas.programa = this.electivas.programa +'-';
     }
-    if (this.electivas.piai){
+    if (this.varPrograma.piai){
       this.electivas.programa = this.electivas.programa + 'PIAI'
     }
-    if ((this.electivas.piai && this.electivas.pis) || (this.electivas.piet && this.electivas.pis)){
+    if ((this.varPrograma.piai && this.varPrograma.pis) || (this.electivas.piet && this.electivas.pis)){
       this.electivas.programa = this.electivas.programa +'-';
     }
-    if (this.electivas.pis){
+    if (this.varPrograma.pis){
       this.electivas.programa = this.electivas.programa + 'PIS'
     }
-    this.electivas.piet = null;
-    this.electivas.pis = null;
-    this.electivas.piai = null;
+    this.varPrograma.piet = false;
+    this.varPrograma.pis = false;
+    this.varPrograma.piai = false;
   }
   
   registrarElectivas(){
@@ -80,11 +82,11 @@ export class ModuloelectivasComponent implements OnInit {
     if(this.electivas.tipo === 'Teorica' ||this.electivas.tipo === 'Practica'||this.electivas.tipo === 'teoricoPractica'){
       this.tipoCampo=false; 
     }else{ this.tipoCampo=true; }
-    
+    debugger;
     if(!this.nombreCampo && !this.contenidoCampo && !this.programaCampo && !this.tipoCampo){  
-      alert("Electiva registrada");
+      // alert("Electiva registrada");
       this.registrar.saveElectivas(this.electivas).subscribe(res => {
-        alert("Electiva registrada ");
+        alert("Electiva registrada exitosamente");
         this.router.navigate(['/GestionElectivas']);
       })  
     }else{
