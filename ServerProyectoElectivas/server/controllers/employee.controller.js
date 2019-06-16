@@ -122,6 +122,22 @@ employeeCtrl.PIET = (req,res) => {
 
 }
 
+
+employeeCtrl.listarElectivas = (req,res) => {
+    var db = admin.database();
+    var list;
+    var ref = db.ref("Electivas");
+    // Attach an asynchronous callback to read the data at our posts reference
+    ref.once("value", function(snapshot) {
+        list = snapshot.val();
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+    console.log(list);
+    res.json(list);
+
+}
+
 //-------------------------------
 //    POST METHODS
 //-------------------------------
@@ -146,6 +162,39 @@ employeeCtrl.registrarElectivas = (req,res) => {
 
     //res.json(nuevaElectiva);
 }
+
+employeeCtrl.editarElectiva = (req,res) => {
+
+    var actualizarrElectiva = {
+        nombre : req.body.nombre,
+        programa: req.body.programa,
+        contenido: req.body.contenido,
+        tipo: req.body.tipo,
+    }
+
+    
+    var db = admin.database();
+    var list;
+
+    ref.once("value", function(snapshot) {        
+        list = snapshot.val();
+        for(var key in list) {
+            if(actualizarElectiva.nombre === list[key].nombre) {
+                var refUpdate = db.ref('Electivas/' + llave);
+                refUpdate.update(actualizarElectiva);
+            }
+        }
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+
+    /*console.log("=======================================");
+    console.log(nuevaElectiva);
+    console.log("=======================================");*/
+
+    //res.json(nuevaElectiva);
+}
+
 
 employeeCtrl.guardarSolEst = (req,res) => {
     var db = admin.database();
