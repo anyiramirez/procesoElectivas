@@ -8,7 +8,7 @@
     </button>
     <table class="table table-striped">
       <thead>
-        <tr>
+        <tr >
           <th scope="col"></th>
           <th scope="col">Nombre Electiva</th>
           <th scope="col">Tipo</th>
@@ -17,30 +17,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>Ingeniería de Sistemas</td>
+        <tr  *ngFor="let electiva of electivasRegistradas">
+          <th scope="row"></th>
+          <td>{{electiva.nombre}}</td>
+          <td>{{electiva.contenido}}</td>
+          <td>{{electiva.programa}}</td>
           <td><button type="button" class="btn btn-outline-primary">Editar</button></td>
           <td><button type="button" class="btn btn-outline-danger">Habilitar</button></td>
         </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>Ingeniería de Sistemas</td>
-          <td><button type="button" class="btn btn-outline-primary">Editar</button></td>
-          <td><button type="button" class="btn btn-outline-success">Inhabiiliar</button></td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>Ingeniería de Sistemas</td>
-          <td><button type="button" class="btn btn-outline-primary">Editar</button></td>
-          <td><button type="button" class="btn btn-outline-success">Inhabiiliar</button></td>
-        </tr>
+        
       </tbody>
     </table>
   </div>

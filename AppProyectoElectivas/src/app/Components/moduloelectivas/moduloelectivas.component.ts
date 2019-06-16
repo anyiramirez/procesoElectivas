@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 export interface Food {
   value: string;
   viewValue: string;
+
 }
 
 @Component({
@@ -15,6 +16,7 @@ export interface Food {
 })
 export class ModuloelectivasComponent implements OnInit {
   electivas:any={};
+  electivasRegistradas = new Array();
   nombreCampo;
   contenidoCampo;
   programaCampo;
@@ -27,7 +29,7 @@ export class ModuloelectivasComponent implements OnInit {
   
   constructor(private registrar:RegistroDatosService,private router:Router) 
   {
-    
+    this.listarElectivas();
    }
   ngOnInit() {
     this.nombreFormControl = new FormControl('', [
@@ -65,26 +67,35 @@ export class ModuloelectivasComponent implements OnInit {
               
       if(!this.nombreCampo &&!this.contenidoCampo && !this.programaCampo && !this.tipoCampo)
       {  
-         alert("Datos guardados");
+         alert("Electiva registrada");
          this.registrar.saveElectivas(this.electivas).
          subscribe
          (
          res => {
          alert("Electiva registrada ");
          this.router.navigate(['/GestionElectivas']);
-      },
-    
-      err =>{
-        console.log(this.electivas);
-        console.error(err);
-        alert("Error en el registro ");
-      }
+         }
     
       )
       
     }else{
       alert("Error en el registro");
     }
+  }
+    listarElectivas(){
+      this.registrar.obtenerListaElectivas().subscribe(res => {
+        this.electivasRegistradas=new Array();
+        this.registrar.electivas= res as Electivas[];
+        for(let p in res)
+        {
+
+         this.electivasRegistradas.push(res[p]);
+        }
+
+      }
+
+      );
+    
   }
   
 
