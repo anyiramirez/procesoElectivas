@@ -73,9 +73,14 @@
             </div>
             <div class="col-4 contProgramas">
               <p class="casilla text-center">Programas Asociados</p>
-              <mat-checkbox [(ngModel)]="electivas.programa" id="programa" name="programa">Ingeniería Electrónica</mat-checkbox>
-              <mat-checkbox  >Ingeniería de Sistemas</mat-checkbox>
-              <mat-checkbox >Ingeniería Automática</mat-checkbox>
+              <mat-radio-group aria-label="Select an option" [(ngModel)]="electivas.Programa" id="Programa" name="Programa" >
+                <mat-radio-button value="PIS" >Ingenieria de Sistemas</mat-radio-button>
+                <mat-radio-button value="PIAI">Ingeniería Automatica</mat-radio-button>
+                <mat-radio-button value="PIET">Ingeniería Electronica</mat-radio-button>
+                <mat-radio-button value="PIET-PIAI-PIS">Todos los Programas</mat-radio-button>
+              </mat-radio-group>
+
+              
             </div>
             <div class="col-6">
               <mat-form-field>

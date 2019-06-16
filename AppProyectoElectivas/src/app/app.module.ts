@@ -8,6 +8,7 @@ import { NgxPaginationModule} from 'ngx-pagination';
 import { MatInputModule} from '@angular/material';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule} from '@angular/material/radio';
 
 import { environment} from '../environments/environment';
 import { AgmCoreModule } from '@agm/core';
@@ -55,6 +56,7 @@ const Rutas: Routes = [
     FormsModule,
     MatInputModule,
     MatCheckboxModule,
+    MatRadioModule,
     MatSelectModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
