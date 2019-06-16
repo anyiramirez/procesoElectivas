@@ -11,9 +11,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import { MatRadioModule} from '@angular/material/radio';
 
 import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { environment} from '../environments/environment';
 
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterInfoComponent } from './Components/register-info/register-info.component';
@@ -57,6 +59,7 @@ const Rutas: Routes = [
     MatInputModule,
     MatCheckboxModule,
     NoopAnimationsModule,
+    MatRadioModule,
     MatSelectModule,
     MatButtonModule,
     BrowserAnimationsModule,
