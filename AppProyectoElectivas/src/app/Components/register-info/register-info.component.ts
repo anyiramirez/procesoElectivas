@@ -46,9 +46,25 @@ export class RegisterInfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
+  }
+  tamanioNumCA(event: any){
+
+  if(event.target.value.length > 2){
+      event.preventDefault();
+    }
   }
 
+  tamanioNumP(event: any){
+    if(event.target.value.length > 4){
+      event.preventDefault();
+    }
+  }
+  tamanioNumE(event: any){
+    if(event.target.value.length > 0){
+      event.preventDefault();
+    }
+  }
   validarCampos(){
     for(let p in this.datosGuardar){
       //Creditos Aprobados
@@ -58,8 +74,9 @@ export class RegisterInfoComponent implements OnInit {
       if(this.datosGuardar[p].CreditosAprobados == null){
         this.datosGuardar[p].CreditosAprobados = 0;
       }
-      if(this.datosGuardar[p].CreditosAprobados> this.datosGuardar[p].CreditosPensum){
-        this.datosGuardar[p].CreditosAprobados = this.datosGuardar[p].CreditosPensum;
+      var scA = Number(this.datosGuardar[p].CreditosAprobados).toString().length;
+      if(scA > 3){
+        this.datosGuardar[p].CreditosAprobados = 998;
       }
       //Promedio Carrera
       if (this.datosGuardar[p].PromedioCarrera < 0){
@@ -109,7 +126,7 @@ export class RegisterInfoComponent implements OnInit {
   }
 
   imagenGuardar(hide:boolean){
-    debugger;
+//    debugger;
     if(hide == true){
       document.getElementById('save').style.display='none';
     }else{

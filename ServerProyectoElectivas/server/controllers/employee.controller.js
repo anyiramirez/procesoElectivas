@@ -337,7 +337,7 @@ function obtenerSigProg(programa){
             sigP = 'PIAI';
             break;
         default:
-            console.log('Lo lamentamos, por el momento no funciono ' + expr + '.');
+            console.log('Lo lamentamos, por el momento no funciono.');
     }
     return sigP;
 }
@@ -425,18 +425,3 @@ function asigCupos(listaOrdenadaPA){
 
     return ELECTIVAS;
 }
-
-
-
-/*function obtener_ElectPuedeVer(estudiante, electivas){
-
-    for(j=0;j<estudiante[1].length;j++){
-        for(i=0;i<electivas.length;i++){
-            if(electivas[i] === estudiante[1][j]){
-
-            }
-        }
-    }   
-    
-    return linea[1];
-}*/
