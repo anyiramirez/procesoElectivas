@@ -43,7 +43,6 @@ export class ModuloelectivasComponent implements OnInit {
   }
   
   getElectivas(){
-    debugger;
     this.electivas.programa = '';
     if (this.electivas.piet){
       this.electivas.programa = this.electivas.programa + 'PIET';
