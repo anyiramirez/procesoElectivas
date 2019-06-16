@@ -48,23 +48,13 @@ export class RegisterInfoComponent implements OnInit {
   ngOnInit() {
 
   }
-  tamanioNumCA(event: any){
 
-  if(event.target.value.length > 2){
+  tamanioMaxDigit(event: any, max: number){
+    if(event.target.value.length > max){
       event.preventDefault();
     }
   }
 
-  tamanioNumP(event: any){
-    if(event.target.value.length > 4){
-      event.preventDefault();
-    }
-  }
-  tamanioNumE(event: any){
-    if(event.target.value.length > 0){
-      event.preventDefault();
-    }
-  }
   validarCampos(){
     for(let p in this.datosGuardar){
       //Creditos Aprobados
