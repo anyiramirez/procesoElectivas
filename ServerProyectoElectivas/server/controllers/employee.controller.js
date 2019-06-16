@@ -3,11 +3,14 @@ var moment = require('moment');
 
 const employeeCtrl = {}
 
+//------------------------------
+//    GET METHODS
+//------------------------------
+
 employeeCtrl.getEmployees = (req,res) => {
     res.json({
         status: 'Employees here'
     });
-
 }
 
 employeeCtrl.ASIGELECT = (req,res) => {
@@ -57,53 +60,6 @@ function obtenerLlaveSolEst(usuario, listaSolEst){
             return key;
         }
     }
-}
-
-employeeCtrl.guardarSolEst = (req,res) => {
-    var db = admin.database();
-    var ref = db.ref('PreinscripcionesPrueba');
-    var vreq = req.body;
-    var list;
-    console.log("holi");
-    // Attach an asynchronous callback to read the data at our posts reference
-    ref.once("value", function(snapshot) {
-        
-        list = snapshot.val();
-        
-        for(var i = 0;i < vreq.length; i++){
-            
-            var keyUsu = obtenerLlaveSolEst(vreq[i].Usuario,list);
-            var refUpdate = db.ref('PreinscripcionesPrueba/' + String(keyUsu));
-            var porA = vreq[i].PorcentajeCarrera;
-            
-            var aArr = porA.split(".");
-            
-            var aSS = aArr[0] + "," + aArr[1];
-
-            /*var proC = vreq[i].PromedioCarrera;
-            
-            var aProC = String(proC).split(".");
-            console.log("hol2i",vreq.length,vreq[i]);
-            var apc = aProC[0] + "," + aProC[1];*/
-            
-            console.log("hol2i",vreq.length,vreq[i]);
-            refUpdate.update({
-                Usuario: vreq[i].Usuario,
-                creditosAprobados: parseInt(vreq[i].CreditosAprobados),
-                creditosPensum:vreq[i].CreditosPensum,
-                porcentajeAvance: aSS,
-                electivasAprobadas:parseInt(vreq[i].ElectivasAprobadas),
-                electivasCursando:parseInt(vreq[i].ElectivasCursadas),
-                promedioCarrera:vreq[i].PromedioCarrera
-            });
-        }
-
-        res.json("funciono?");
-
-    }, function (errorObject) {
-        console.log("The read failed: " + errorObject.code);
-    });
-
 }
 
 function obtenerElectCuposEst(lista){
@@ -160,6 +116,70 @@ employeeCtrl.PIET = (req,res) => {
         list = snapshot.val();
 
         res.render('list',{title:'Lista de preinscripciones',list:list});
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+
+}
+
+//-------------------------------
+//    POST METHODS
+//-------------------------------
+
+employeeCtrl.registrarElectivas = (req,res) => {
+
+    var nuevaElectiva = {
+        nombre : req.body.nombre,
+        programa: req.body.programa,
+        contenido: req.body.contenido,
+        tipo: req.body.tipo,
+    }
+
+    
+    var db = admin.database();
+
+    db.ref("Electivas").push(nuevaElectiva);
+
+    /*console.log("=======================================");
+    console.log(nuevaElectiva);
+    console.log("=======================================");*/
+
+    //res.json(nuevaElectiva);
+}
+
+employeeCtrl.guardarSolEst = (req,res) => {
+    var db = admin.database();
+    var ref = db.ref('PreinscripcionesPrueba');
+    var vreq = req.body;
+    var list;
+    // Attach an asynchronous callback to read the data at our posts reference
+    ref.once("value", function(snapshot) {
+        
+        list = snapshot.val();
+        
+        for(var i = 0;i < vreq.length; i++){
+            
+            var keyUsu = obtenerLlaveSolEst(vreq[i].Usuario,list);
+            var refUpdate = db.ref('PreinscripcionesPrueba/' + String(keyUsu));
+            var porA = vreq[i].PorcentajeCarrera;
+            
+            var aArr = porA.split(".");
+            
+            var aSS = aArr[0] + "," + aArr[1];
+
+            refUpdate.update({
+                Usuario: vreq[i].Usuario,
+                creditosAprobados: parseInt(vreq[i].CreditosAprobados),
+                creditosPensum:vreq[i].CreditosPensum,
+                porcentajeAvance: aSS,
+                electivasAprobadas:parseInt(vreq[i].ElectivasAprobadas),
+                electivasCursando:parseInt(vreq[i].ElectivasCursadas),
+                promedioCarrera:vreq[i].PromedioCarrera
+            });
+        }
+
+        res.json("funciono?");
+
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
