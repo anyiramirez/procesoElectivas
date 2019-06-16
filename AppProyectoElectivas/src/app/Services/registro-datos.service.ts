@@ -11,6 +11,7 @@ import { ListaElectCE} from '../Interfaces/lista-electce'//servicio electivas
 export class RegistroDatosService {
   API_URI = 'http://localhost:3000/api/asigcupos';
   solicitudesEst: PreInscripcionPrueba[];
+  electivas:Electivas[];
   solElectCE:  ListaElectCE[];//servicio electivas
   httpOptions = {
     headers: new HttpHeaders({
@@ -31,7 +32,9 @@ export class RegistroDatosService {
 
    }
 
-
+  obtenerInformacionElectivas(){
+    return this.http.get(this.API_URI + '/listarElectivas');
+  }
   generarListas(){
     return this.http.get(this.API_URI);
   }

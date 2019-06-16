@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 
 export class ModuloelectivasComponent implements OnInit {
   electivas:any={};
+  electivasRegistradas = new Array();
   nombreCampo;
   contenidoCampo;
   programaCampo;
@@ -22,9 +23,10 @@ export class ModuloelectivasComponent implements OnInit {
   tipoFormControl;
   
   
-  constructor(private registrar:RegistroDatosService,private router:Router) {
-    
-  }
+  constructor(private registrar:RegistroDatosService,private router:Router) 
+  {
+    this.listarElectivas();
+   }
   ngOnInit() {
     this.nombreFormControl = new FormControl('', [
       Validators.required,     
@@ -77,20 +79,14 @@ export class ModuloelectivasComponent implements OnInit {
               
       if(!this.nombreCampo &&!this.contenidoCampo && !this.programaCampo && !this.tipoCampo)
       {  
-         alert("Datos guardados");
+         alert("Electiva registrada");
          this.registrar.saveElectivas(this.electivas).
          subscribe
          (
          res => {
          alert("Electiva registrada ");
          this.router.navigate(['/GestionElectivas']);
-      },
-    
-      err =>{
-        console.log(this.electivas);
-        console.error(err);
-        alert("Error en el registro ");
-      }
+         }
     
       )
       
@@ -98,4 +94,20 @@ export class ModuloelectivasComponent implements OnInit {
       alert("Error en el registro");
     }
   }
+    listarElectivas(){
+      this.registrar.obtenerInformacionElectivas().subscribe(res => {
+        this.electivasRegistradas=new Array();
+        //this.registrar.electivas= res as Electivas[];
+        for(let p in res)
+        {
+
+         this.electivasRegistradas.push(res[p]);
+        }
+
+      }
+
+      );
+    
+  }
+  
 }
