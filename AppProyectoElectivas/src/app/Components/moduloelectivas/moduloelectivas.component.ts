@@ -43,15 +43,15 @@ export class ModuloelectivasComponent implements OnInit {
   }
   
   getElectivas(){
-    this.electivas.programa = "";
+    this.electivas.programa = '';
     if (this.electivas.piet){
-      this.electivas.programa = this.electivas.programa + "PIET ";
+      this.electivas.programa = this.electivas.programa + 'PIET ';
     }
     if (this.electivas.pis){
-      this.electivas.programa = this.electivas.programa + "PIS "
+      this.electivas.programa = this.electivas.programa + 'PIS '
     }
     if (this.electivas.pia){
-      this.electivas.programa = this.electivas.programa + "PIAI"
+      this.electivas.programa = this.electivas.programa + 'PIAI'
     }
     this.electivas.piet = null;
     this.electivas.pis = null;
@@ -68,9 +68,9 @@ export class ModuloelectivasComponent implements OnInit {
     if(this.contenidoFormControl.hasError('required')){
       this.contenidoCampo=true;
     }else{ this.contenidoCampo=false; }
-    if(this.electivas.programa === 'PIET' ||this.electivas.programa === 'PIAI'||this.electivas.programa === 'PIS'||this.electivas.programa === 'PIET-PIAI-PIS' ){
-      this.programaCampo=false; 
-    }else{ this.programaCampo=true; }
+    if(this.electivas.programa === ''){
+      this.programaCampo=true; 
+    }else{ this.programaCampo=false; }
     if(this.electivas.tipo === 'Teorica' ||this.electivas.tipo === 'Practica'||this.electivas.tipo === 'teoricoPractica'){
       this.tipoCampo=false; 
     }else{ this.tipoCampo=true; }

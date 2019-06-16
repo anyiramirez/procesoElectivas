@@ -61,14 +61,14 @@
                 <input [(ngModel)]="electivas.contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput placeholder="Contenido Prográmatico">
               </mat-form-field>
             </div>
-            <div class="col-4 contProgramas">
+            <div class="col-5 contProgramas">
               <p class="casilla text-center">
                 <mat-label for="programa" *ngIf='programaCampo' class=" errorFormato ">Programas Asociados</mat-label>
                 <mat-label for="programa" *ngIf='!programaCampo' >Programas Asociados</mat-label>
               </p>
-              <mat-checkbox [(ngModel)]="electivas.piet" id="piet" name="piet">Ingenieria de Sistemas</mat-checkbox>
-              <mat-checkbox [(ngModel)]="electivas.pis" id="pis" name="pis">Ingeniería Automatica</mat-checkbox>
-              <mat-checkbox [(ngModel)]="electivas.piai" id="piai" name="piai">Ingeniería Electronica</mat-checkbox>
+              <mat-checkbox [(ngModel)]="electivas.piet" id="piet" name="piet">Ingenieria Electronica</mat-checkbox>
+              <mat-checkbox [(ngModel)]="electivas.pis" id="pis" name="pis">Ingeniería de Sistemas</mat-checkbox>
+              <mat-checkbox [(ngModel)]="electivas.piai" id="piai" name="piai">Ingeniería Automática Industrial</mat-checkbox>
             </div>
             <div class="col-6">
               <mat-form-field>
