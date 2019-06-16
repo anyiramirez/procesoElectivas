@@ -5,9 +5,9 @@ import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/form
 import { Router } from '@angular/router';
 
 @Component({
- selector: 'app-moduloelectivas',
- templateUrl: './moduloelectivas.component.html',
- styleUrls: ['./moduloelectivas.component.css']
+  selector: 'app-moduloelectivas',
+  templateUrl: './moduloelectivas.component.html',
+  styleUrls: ['./moduloelectivas.component.css']
 })
 
 export class ModuloelectivasComponent implements OnInit {
@@ -26,7 +26,7 @@ export class ModuloelectivasComponent implements OnInit {
   constructor(private registrar:RegistroDatosService,private router:Router) 
   {
     this.listarElectivas();
-   }
+  }
   ngOnInit() {
     this.nombreFormControl = new FormControl('', [
       Validators.required,     
@@ -41,7 +41,7 @@ export class ModuloelectivasComponent implements OnInit {
       Validators.required,     
     ]);
   }
-
+  
   getElectivas(){
     this.electivas.programa = "";
     if (this.electivas.piet){
@@ -60,54 +60,48 @@ export class ModuloelectivasComponent implements OnInit {
   
   registrarElectivas(){
     
-    if(this.nombreFormControl.hasError('required')){
-      this.nombreCampo=true;}
-      else{this.nombreCampo=false;
-    }
-    if(this.contenidoFormControl.hasError('required')){
-      this.contenidoCampo=true;}
-      else{this.contenidoCampo=false;
-    }
-    if(this.electivas.programa === 'PIET' ||this.electivas.programa === 'PIAI'||this.electivas.programa === 'PIS'||this.electivas.programa === 'PIET-PIAI-PIS' )
-    {this.programaCampo=false; }
-    else{ this.programaCampo=true; 
-    }
-    if(this.electivas.tipo === 'Teorica' ||this.electivas.tipo === 'Practica'||this.electivas.tipo === 'teoricoPractica')
-    {this.tipoCampo=false; }
-    else{ this.tipoCampo=true; 
-    }
-              
-      if(!this.nombreCampo &&!this.contenidoCampo && !this.programaCampo && !this.tipoCampo)
-      {  
-         alert("Electiva registrada");
-         this.registrar.saveElectivas(this.electivas).
-         subscribe
-         (
-         res => {
-         alert("Electiva registrada ");
-         this.router.navigate(['/GestionElectivas']);
-         }
+    this.getElectivas();
     
-      )
-      
+    if(this.nombreFormControl.hasError('required')){
+      this.nombreCampo=true;
+    }else{ this.nombreCampo=false; }
+    if(this.contenidoFormControl.hasError('required')){
+      this.contenidoCampo=true;
+    }else{ this.contenidoCampo=false; }
+    if(this.electivas.programa === 'PIET' ||this.electivas.programa === 'PIAI'||this.electivas.programa === 'PIS'||this.electivas.programa === 'PIET-PIAI-PIS' ){
+      this.programaCampo=false; 
+    }else{ this.programaCampo=true; }
+    if(this.electivas.tipo === 'Teorica' ||this.electivas.tipo === 'Practica'||this.electivas.tipo === 'teoricoPractica'){
+      this.tipoCampo=false; 
+    }else{ this.tipoCampo=true; }
+    
+    if(!this.nombreCampo && !this.contenidoCampo && !this.programaCampo && !this.tipoCampo){  
+      alert("Electiva registrada");
+      this.registrar.saveElectivas(this.electivas).
+      subscribe
+      (
+        res => {
+          alert("Electiva registrada ");
+          this.router.navigate(['/GestionElectivas']);
+        }
+        )
+        
     }else{
       alert("Error en el registro");
     }
   }
-    listarElectivas(){
-      this.registrar.obtenerInformacionElectivas().subscribe(res => {
-        this.electivasRegistradas=new Array();
-        //this.registrar.electivas= res as Electivas[];
-        for(let p in res)
-        {
-
-         this.electivasRegistradas.push(res[p]);
-        }
-
+  listarElectivas(){
+    this.registrar.obtenerInformacionElectivas().subscribe(res => {
+      this.electivasRegistradas=new Array();
+      //this.registrar.electivas= res as Electivas[];
+      for(let p in res){  
+        this.electivasRegistradas.push(res[p]);
       }
-
-      );
-    
+        
+      }
+    );
+      
   }
-  
+    
 }
+  
