@@ -9,7 +9,7 @@
     <table class="table table-striped">
       <thead>
         <tr >
-          <th scope="col"></th>
+          <th scope="col"> Row</th>
           <th scope="col">Nombre Electiva</th>
           <th scope="col">Tipo</th>
           <th scope="col">Programa</th>
@@ -17,8 +17,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr  *ngFor="let electiva of electivasRegistradas">
-          <th scope="row"></th>
+        <tr  *ngFor="let electiva of electivasRegistradas; let indice=index">
+          <td>{{indice+1}}</td>
           <td>{{electiva.nombre}}</td>
           <td>{{electiva.contenido}}</td>
           <td>{{electiva.programa}}</td>

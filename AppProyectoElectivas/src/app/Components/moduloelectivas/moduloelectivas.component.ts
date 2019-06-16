@@ -83,9 +83,9 @@ export class ModuloelectivasComponent implements OnInit {
     }
   }
     listarElectivas(){
-      this.registrar.obtenerListaElectivas().subscribe(res => {
+      this.registrar.obtenerInformacionElectivas().subscribe(res => {
         this.electivasRegistradas=new Array();
-        this.registrar.electivas= res as Electivas[];
+        //this.registrar.electivas= res as Electivas[];
         for(let p in res)
         {
 
