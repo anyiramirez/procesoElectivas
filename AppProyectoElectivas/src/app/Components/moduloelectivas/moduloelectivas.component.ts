@@ -85,15 +85,18 @@ export class ModuloelectivasComponent implements OnInit {
       // alert("Electiva registrada");
       this.registrar.saveElectivas(this.electivas).subscribe(res => {
         alert("Electiva registrada exitosamente");
-        this.router.navigate(['/GestionElectivas']);
+        // this.router.navigate(['/GestionElectivas']);
       })  
     }else{
       alert("Error en el registro");
     }
+    this.limpiarModal();
   }
-
+  
   limpiarModal(){
-
+    this.electivas.nombre= '';
+    this.electivas.contenido = '';
+    this.electivas.tipo = '';
   }
   
   listarElectivas(){
