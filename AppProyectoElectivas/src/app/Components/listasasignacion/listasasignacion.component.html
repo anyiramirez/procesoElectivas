@@ -26,8 +26,9 @@
           <a routerLink="/AsignacionElectiva/{{in}}"><i class="fas fa-search-plus" style="color:#082a52"></i></a>
         </td>
         <td>
-          <a (click)="DescargarE(in,ece.nombreElectiva)"><i class="fas fa-file-excel" style="color:green"></i>
-          </a>
+          <!-- <button type="button" class="btn btn-info">Descargar Excel</button> -->
+          <a (click)="DescargarE(in,ece.nombreElectiva)" routerLink="/listasAsignadas" title="Descargar Excel"> <i class="fas fa-file-excel" style="color:green" ></i></a>
+          
         </td>
       </tr>
     </tbody>

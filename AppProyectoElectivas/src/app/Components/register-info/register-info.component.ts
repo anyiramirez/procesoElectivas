@@ -1,4 +1,4 @@
-import { Component, OnInit, ModuleWithComponentFactories } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { EstInscripcionService } from "../../Services/est-inscripcion.service";
 import { ListaPreinscriptosService}  from "../../Services/lista-preinscriptos.service"
 import { PreInscripcionPrueba} from '../../Interfaces/pre-inscripcion-prueba';

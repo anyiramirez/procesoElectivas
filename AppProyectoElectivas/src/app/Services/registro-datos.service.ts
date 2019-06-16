@@ -1,7 +1,8 @@
 import { Injectable, SimpleChange } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DatosSimca } from '../Interfaces/datos-simca';
-import { PreInscripcionPrueba} from '../Interfaces/pre-inscripcion-prueba'
+import { PreInscripcionPrueba} from '../Interfaces/pre-inscripcion-prueba';
+import { Electivas} from '../Interfaces/electivas';
 import { ListaElectCE} from '../Interfaces/lista-electce'//servicio electivas
 
 @Injectable({
@@ -20,8 +21,13 @@ export class RegistroDatosService {
   constructor(private http: HttpClient) { }
 
    saveUsuario(datosEApi: Array<DatosSimca>) {
-    console.log("datis a ebvuar:",datosEApi);
+    console.log("datos a evaluar:",datosEApi);
     return this.http.post(this.API_URI + '/solEst', datosEApi,this.httpOptions);
+
+   }
+   saveElectivas(datosElectivas: Array<Electivas>) {
+    console.log("datos a guardar:",datosElectivas);
+    return this.http.post(this.API_URI + '/registrarElectivas', datosElectivas,this.httpOptions);
 
    }
 
@@ -39,6 +45,10 @@ export class RegistroDatosService {
   //Crear servicio de electivas
   obtenerElectivasCE(){
     return this.http.get(this.API_URI + '/electivasCE');
+  }
+  obtenerListaElectivas(){
+    return this.http.get(this.API_URI + '/electivas')
+
   }
 
 }
