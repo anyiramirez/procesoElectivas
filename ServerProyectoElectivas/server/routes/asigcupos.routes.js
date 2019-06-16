@@ -13,10 +13,12 @@ router.get('/solEst', employee.PIAI);
 router.get('/piai', employee.PIAI);
 router.get('/piet', employee.PIET);
 router.get('/electivasCE', employee.obtenerElectivasCuposEst);
+router.get('/listarElectivas', employee.listarElectivas);
 
 // post methods 
 
 router.post('/registrarElectivas', employee.registrarElectivas);
+router.post('/editarElectiva', employee.editarElectiva);
 router.post('/solEst', employee.guardarSolEst);
 
 

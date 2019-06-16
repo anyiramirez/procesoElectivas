@@ -5,4 +5,29 @@
     <p>Gracias por probrar.</p>
     <a href="http://localhost:3000/api/asigcupos" type="submit" class="btn btn-primary btn-lg"  role="button">Asignar electivas</a>
 </div>
-        
+
+
+<form action="/api/asigcupos/registrarElectivas" method="post">
+	Nombre:<br>
+	<input type="text" id="nombre" name="nombre" placeholder="Nombre" value=""><br>
+	Programa:<br>
+	<input type="text" id="programa" name="programa" placeholder="Programa" value=""><br>
+	Contenido:<br>
+	<input type="text" id="contenido" name="contenido" placeholder="Contenido" value=""><br>
+	tipo:<br>
+	<input type="text" id="tipo" name="tipo" placeholder="tipo" value=""><br>
+	<input type="submit" value="Submit">
+</form>
+
+
+<form action="/api/asigcupos/editarElectivas" method="post">
+	Nombre:<br>
+	<input type="text" id="nombre" name="nombre" placeholder="Nombre" value=""><br>
+	Programa:<br>
+	<input type="text" id="programa" name="programa" placeholder="Programa" value=""><br>
+	Contenido:<br>
+	<input type="text" id="contenido" name="contenido" placeholder="Contenido" value=""><br>
+	tipo:<br>
+	<input type="text" id="tipo" name="tipo" placeholder="tipo" value=""><br>
+	<input type="submit" value="Submit">
+</form>
