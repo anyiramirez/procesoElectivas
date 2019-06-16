@@ -126,16 +126,11 @@ employeeCtrl.PIET = (req,res) => {
 employeeCtrl.listarElectivas = (req,res) => {
     var db = admin.database();
     var list;
-    var ref = db.ref("Electivas");
-    // Attach an asynchronous callback to read the data at our posts reference
-    ref.once("value", function(snapshot) {
+    db.ref('Electivas').on('value', function(snapshot){
         list = snapshot.val();
-    }, function (errorObject) {
-        console.log("The read failed: " + errorObject.code);
+        res.json(list);
+        console.log(list);
     });
-    console.log(list);
-    res.json(list);
-
 }
 
 //-------------------------------
