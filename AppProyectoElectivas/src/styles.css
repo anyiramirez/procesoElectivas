@@ -5,6 +5,9 @@ body {
     font-family: 'Roboto', sans-serif;
     background: #fafafa;
 }
+
+.cdk-global-overlay-wrapper, .cdk-overlay-container { z-index: 9999!important; }
+
 p {
     font-family: 'Roboto', sans-serif;
     font-size: 1.1em;
@@ -26,14 +29,14 @@ a, a:hover, a:focus {
 input[type=number]::-webkit-outer-spin-button,
 
 input[type=number]::-webkit-inner-spin-button {
-
+    
     -webkit-appearance: none;
-
+    
     margin: 0;
-
+    
 }
 input[type=number] {
-
+    
     -moz-appearance:textfield;
-
+    
 }

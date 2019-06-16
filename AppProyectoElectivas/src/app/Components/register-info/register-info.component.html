@@ -36,12 +36,12 @@
           <td>{{usuario.Apellidos}}</td>
           <td>{{usuario.Programa}}</td>
 
-          <td><input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].CreditosAprobados" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" (ngModelChange)="calcularPorcentaje()" min="0" max="{{usuario.creditosPensum}}" name="CreditosAprobados" type="number" class="barraTexto"  id="CreditosAprobados-{{in}}-{{pageActual}}" placeholder="creditos" required></td>
+          <td><input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].CreditosAprobados" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" (ngModelChange)="calcularPorcentaje()" min="0" max="999" name="CreditosAprobados" type="number" class="barraTexto"  id="CreditosAprobados-{{in}}-{{pageActual}}" (keypress)="tamanioMaxDigit($event,2)" placeholder="creditos" required></td>
           <td>{{usuario.creditosPensum}}</td>
           <td> <input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].PorcentajeCarrera" disabled="true" name="PorcentajeCarrera" class="barraTexto" id="PorcentajeCarrera-{{in}}-{{pageActual}}" placeholder="creditos" ></td>
-          <td><input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].PromedioCarrera" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="5" step="any" name="Promedio" type="number" class="barraTexto" id="Promedio-{{in}}-{{pageActual}}" placeholder="Promedio" required> </td>
-          <td><input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].ElectivasAprobadas" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="{{usuario.electivasPrograma}}" name="ElectivasAprobadas" type="number"  class="barraTexto" id="ElectivasAprobadas-{{in}}-{{pageActual}}" placeholder="aprobadas" required>  </td>
-          <td><input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].ElectivasCursadas" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="{{usuario.electivasPrograma}}" name="ElectivasCursadas" type="number" class="barraTexto" id="ElectivasCursadas-{{in}}-{{pageActual}}" placeholder="cursadas" required > </td>
+          <td><input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].PromedioCarrera" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="5" step="any" name="Promedio" type="number" class="barraTexto" id="Promedio-{{in}}-{{pageActual}}"  placeholder="Promedio" (keypress)="tamanioMaxDigit($event,5)" required> </td>
+          <td><input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].ElectivasAprobadas" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="{{usuario.electivasPrograma}}" name="ElectivasAprobadas" type="number"  class="barraTexto" maxlength="1" id="ElectivasAprobadas-{{in}}-{{pageActual}}"  (keypress)="tamanioMaxDigit($event,0)" placeholder="aprobadas" required>  </td>
+          <td><input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].ElectivasCursadas" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="{{usuario.electivasPrograma}}" name="ElectivasCursadas" type="number" class="barraTexto" maxlength="1" id="ElectivasCursadas-{{in}}-{{pageActual}}" (keypress)="tamanioMaxDigit($event,0)" placeholder="cursadas" required > </td>
 
           <td>{{usuario.electivasPrograma}}</td>
           <td>{{usuario.cantidadSolicitada}}</td>

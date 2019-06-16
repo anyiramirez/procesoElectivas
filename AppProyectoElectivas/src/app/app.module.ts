@@ -5,15 +5,17 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule} from 'ngx-pagination';
+//Angular material
 import { MatInputModule} from '@angular/material';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import { MatRadioModule} from '@angular/material/radio';
-import { environment} from '../environments/environment';
+
 import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { from } from 'rxjs';
+import { environment} from '../environments/environment';
 
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterInfoComponent } from './Components/register-info/register-info.component';
@@ -56,8 +58,11 @@ const Rutas: Routes = [
     FormsModule,
     MatInputModule,
     MatCheckboxModule,
+    NoopAnimationsModule,
     MatRadioModule,
     MatSelectModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD_dcEHRh3Lwh4aSLqw-B581hRShWHdbWI'
