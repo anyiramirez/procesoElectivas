@@ -156,23 +156,24 @@ employeeCtrl.registrarElectivas = (req,res) => {
 
 employeeCtrl.editarElectiva = (req,res) => {
 
-    var actualizarrElectiva = {
+    var actualizarElectiva = {
         nombre : req.body.nombre,
         programa: req.body.programa,
         contenido: req.body.contenido,
         tipo: req.body.tipo,
     }
 
-    
     var db = admin.database();
     var list;
 
-    ref.once("value", function(snapshot) {        
+    db.once("value", function(snapshot) {        
         list = snapshot.val();
         for(var key in list) {
             if(actualizarElectiva.nombre === list[key].nombre) {
-                var refUpdate = db.ref('Electivas/' + llave);
+                var refUpdate = db.ref('Electivas/' + key);
                 refUpdate.update(actualizarElectiva);
+                res.json("Editado Exitoso");
+                break;
             }
         }
     }, function (errorObject) {
