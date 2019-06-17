@@ -35,11 +35,15 @@ export class RegistroDatosService {
   obtenerInformacionElectivas(){
     return this.http.get(this.API_URI + '/listarElectivas');
   }
-  obtenerDatosNombreElectiva(nombre: Electivas){
-    return this.http.get(this.API_URI+ '/electivaPorNombre/'+ nombre );
+  obtenerDatosNombreElectiva(id: Electivas){
+    return this.http.get(this.API_URI+ '/electivaPorNombre/'+ id );
   }
   generarListas(){
     return this.http.get(this.API_URI);
+  }
+  editarElectiva(datosEditarElectivas: Electivas, nombreAntiguo:Electivas){
+    console.log("datos a guardar:",datosEditarElectivas);
+    return this.http.post(this.API_URI + '/editarElectiva'+nombreAntiguo, datosEditarElectivas,this.httpOptions);
   }
 
   registroBd (datos:PreInscripcionPrueba){
