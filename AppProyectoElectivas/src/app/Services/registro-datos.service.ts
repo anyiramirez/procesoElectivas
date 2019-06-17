@@ -60,7 +60,6 @@ export class RegistroDatosService {
   }
 
   editarEstado(nombre){
-    
     return this.http.post(this.API_URI + '/habilitarElectiva/' + nombre ,this.httpOptions);
   }
 
