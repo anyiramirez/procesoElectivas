@@ -145,13 +145,42 @@ employeeCtrl.registrarElectivas = (req,res) => {
         programa: req.body.programa,
         contenido: req.body.contenido,
         tipo: req.body.tipo,
+        estado: req.body.estado,
     }
-
     
     var db = admin.database();
     
     db.ref("Electivas").push(nuevaElectiva);
     res.json("Guardado Exitoso");
+}
+employeeCtrl.obtenerElectivaPorNombre = (req, res) => {
+    
+    console.log("id llego: ",req.params.id);
+    var db = admin.database();
+    var nombre = String(req.params.id);
+    var list;
+    
+    db.ref('Electivas').once("value", function(snapshot) {        
+        list = snapshot.val();
+        var entro=false;
+        for(var key in list) {
+            console.log(req.params.id,list[key].nombre);
+            if(req.params.id === list[key].nombre) {
+                entro = true;
+                res.json(list[key]);
+                break;
+            }
+        }
+        if(!entro){
+            res.json("no");
+        }
+        
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+
+    
+
 }
 
 employeeCtrl.editarElectiva = (req,res) => {
@@ -417,3 +446,13 @@ function asigCupos(listaOrdenadaPA){
 
     return ELECTIVAS;
 }
+
+
+function validarString(cadena) {
+    var correcto = true;
+    if (!isNaN(cadena) || cadena === undefined  || cadena === null || cadena == '') {
+       correcto = false; 
+    }
+    return correcto;
+}
+
