@@ -59,4 +59,8 @@ export class RegistroDatosService {
 
   }
 
+  editarEstado(nombre, estado){
+    return this.http.post(this.API_URI + '/habilitarElectiva/' + nombre + estado,this.httpOptions);
+  }
+
 }
