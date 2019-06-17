@@ -232,7 +232,7 @@ employeeCtrl.habilitarElectiva = (req,res) => {
         list = snapshot.val();
         for(var key in list) {
             if(actualizarElectiva.nombre === list[key].nombre) {
-                if(list[key].estado === 'Deshabilitar') {
+                if(list[key].estado == 'Deshabilitar') {
                     actualizarElectiva = {
                         nombre : req.body.nombre,
                         programa: list[key].programa,
@@ -249,6 +249,7 @@ employeeCtrl.habilitarElectiva = (req,res) => {
                         estado : 'Deshabilitar',
                     }
                 }
+                console.log(actualizarElectiva);
                 var refUpdate = db.ref('Electivas/' + key);
                 refUpdate.update(actualizarElectiva);
                 res.json("Editado Exitoso");
