@@ -26,10 +26,10 @@
           <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEditarElectiva">Editar</button></td>
           <td>
             <div *ngIf = "electiva.estado == 'Habilitar'">
-              <button type="button" class="btn btn-outline-danger" (click)="ActualizarEstado(electiva.nombre, 'Deshabilitar')">Deshabilitar</button>
+              <button type="button" class="btn btn-outline-danger" (click)="ActualizarEstado(electiva.nombre)">Deshabilitar</button>
             </div>
             <div *ngIf = "electiva.estado == 'Deshabilitar'">
-              <button type="button" class="btn btn-outline-success" (click)="ActualizarEstado(electiva.nombre, 'Habilitar')">Habilitar</button>
+              <button type="button" class="btn btn-outline-success" (click)="ActualizarEstado(electiva.nombre)">Habilitar</button>
             </div>
           </td>
         </tr>

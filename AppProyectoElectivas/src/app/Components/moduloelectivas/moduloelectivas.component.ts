@@ -115,8 +115,8 @@ export class ModuloelectivasComponent implements OnInit {
     
   }
   
-  ActualizarEstado(nombre, estado){
-    this.registrar.editarEstado(nombre,estado);
+  ActualizarEstado(nombre){
+    this.registrar.editarEstado(nombre);
   }
   
 }
