@@ -112,5 +112,14 @@ export class ModuloelectivasComponent implements OnInit {
     );
 
   }
+  obtenerElectiva(nombre){
+  this.registrar.obtenerDatosNombreElectiva(nombre).subscribe(res=>
+    {
+
+    }
+
+  );
+
+  }
 
 }

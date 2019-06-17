@@ -23,7 +23,7 @@
           <td>{{electiva.nombre}}</td>
           <td>{{electiva.tipo}}</td>
           <td>{{electiva.programa}}</td>
-          <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEditarElectiva">Editar</button></td>
+          <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEditarElectiva" (click)= "obtenerElectiva(electiva.nombre)">Editar</button></td>
           <td><button type="button" class="btn btn-outline-danger">Deshabilitar</button></td>
         </tr>
 
@@ -149,7 +149,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" (click)="registrarElectivas()">Guardar Electiva</button>
+        <button type="button" class="btn btn-primary" >Guardar Electiva</button>
       </div>
     </div>
   </div>
