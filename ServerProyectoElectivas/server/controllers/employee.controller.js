@@ -195,17 +195,27 @@ employeeCtrl.editarElectiva = (req,res) => {
 
     var db = admin.database();
     var list;
-
-    db.once("value", function(snapshot) {        
+    
+    db.ref('Electivas').once("value", function(snapshot) {        
         list = snapshot.val();
+        var entro=false;
+        var keyE;
         for(var key in list) {
-            if(actualizarElectiva.nombre === list[key].nombre) {
-                var refUpdate = db.ref('Electivas/' + key);
-                refUpdate.update(actualizarElectiva);
-                res.json("Editado Exitoso");
+            console.log(req.params.id,list[key].nombre);
+            if(req.params.id === list[key].nombre) {
+                entro = true;
+                keyE = key;
                 break;
             }
         }
+        if(!entro){
+            res.json("no");    
+        }else{
+            var refUpdate = db.ref('Electivas/' + keyE);
+            refUpdate.update(actualizarElectiva);
+            res.json("Actualizacion exitoso");
+        }
+        
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
