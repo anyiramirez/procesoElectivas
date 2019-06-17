@@ -116,7 +116,13 @@ export class ModuloelectivasComponent implements OnInit {
   }
   
   ActualizarEstado(nombre){
-    this.registrar.editarEstado(nombre);
+    
+    this.registrar.editarEstado(nombre).subscribe(res => {
+      console.log("Servidor que pasa muchacho: ", res);
+      if(res === "funciono"){
+        this.listarElectivas();
+      }
+    });
   }
   
 }

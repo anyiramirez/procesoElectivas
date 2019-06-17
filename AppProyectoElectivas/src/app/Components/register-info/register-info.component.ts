@@ -121,7 +121,6 @@ export class RegisterInfoComponent implements OnInit {
   }
 
   imagenGuardar(hide:boolean){
-//    debugger;
     if(hide == true){
       document.getElementById('save').style.display='none';
     }else{
