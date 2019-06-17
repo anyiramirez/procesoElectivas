@@ -21,7 +21,7 @@
         <tr  *ngFor="let electiva of electivasRegistradas; let indice=index">
           <td>{{indice+1}}</td>
           <td>{{electiva.nombre}}</td>
-          <td>{{electiva.contenido}}</td>
+          <td>{{electiva.tipo}}</td>
           <td>{{electiva.programa}}</td>
           <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEditarElectiva">Editar</button></td>
           <td><button type="button" class="btn btn-outline-danger">Deshabilitar</button></td>
@@ -75,9 +75,9 @@
                 <mat-label for="tipo" *ngIf='tipoCampo' class=" errorFormato">Tipo de electiva</mat-label>
                 <mat-label for="tipo" *ngIf='!tipoCampo' >Tipo de electiva</mat-label>
                 <mat-select matNativeControl [(ngModel)]="electivas.tipo" id="tipo" name="tipo" >
-                  <mat-option value="Teorica">Teórica</mat-option>
-                  <mat-option value="Practica">Práctica</mat-option>
-                  <mat-option value="teoricoPractica">Teórica Práctica</mat-option>
+                  <mat-option value="Teórica">Teórica</mat-option>
+                  <mat-option value="Práctica">Práctica</mat-option>
+                  <mat-option value="Teórico Práctica">Teórico Práctica</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -136,9 +136,9 @@
                 <mat-label for="tipo" *ngIf='tipoCampo' class=" errorFormato">Tipo de electiva</mat-label>
                 <mat-label for="tipo" *ngIf='!tipoCampo' >Tipo de electiva</mat-label>
                 <mat-select matNativeControl [(ngModel)]="electivas.tipo" id="tipo" name="tipo" >
-                  <mat-option value="Teorica">Teórica</mat-option>
-                  <mat-option value="Practica">Práctica</mat-option>
-                  <mat-option value="teoricoPractica">Teórica Práctica</mat-option>
+                  <mat-option value="Teórica">Teórica</mat-option>
+                  <mat-option value="Práctica">Práctica</mat-option>
+                  <mat-option value="Teórico Práctica">Teórico Práctica</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
