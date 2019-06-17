@@ -139,19 +139,20 @@ employeeCtrl.listarElectivas = (req,res) => {
 
 employeeCtrl.registrarElectivas = (req,res) => {
     console.log("ELectiva a registrar: ", req.body);
-
-    var nuevaElectiva = {
-        nombre : req.body.nombre,
-        programa: req.body.programa,
-        contenido: req.body.contenido,
-        tipo: req.body.tipo,
-        estado: req.body.estado,
+    if(validarString(req.body.nombre) && validarString(req.body.programa) && validarString(req.body.contenido) && validarString(req.body.tipo) && validarString(req.body.estado)) {
+        var nuevaElectiva = {
+            nombre : req.body.nombre,
+            programa: req.body.programa,
+            contenido: req.body.contenido,
+            tipo: req.body.tipo,
+            estado: req.body.estado,
+        }
+        
+        var db = admin.database();
+        
+        db.ref("Electivas").push(nuevaElectiva);
+        res.json("Guardado Exitoso");
     }
-    
-    var db = admin.database();
-    
-    db.ref("Electivas").push(nuevaElectiva);
-    res.json("Guardado Exitoso");
 }
 employeeCtrl.obtenerElectivaPorNombre = (req, res) => {
     
@@ -216,17 +217,27 @@ employeeCtrl.habilitarElectiva = (req,res) => {
 
     var db = admin.database();
     var list;
-
+    var actualizarElectiva;
     db.once("value", function(snapshot) {        
         list = snapshot.val();
         for(var key in list) {
             if(actualizarElectiva.nombre === list[key].nombre) {
-                var actualizarElectiva = {
-                    nombre : req.body.nombre,
-                    programa: list[key].programa,
-                    contenido: list[key].contenido,
-                    tipo: list[key].tipo,
-                    estado : req.body.estado,
+                if(list[key].estado === 'Desabilitar') {
+                    actualizarElectiva = {
+                        nombre : req.body.nombre,
+                        programa: list[key].programa,
+                        contenido: list[key].contenido,
+                        tipo: list[key].tipo,
+                        estado : 'Habilitar',
+                    }
+                } else {
+                    actualizarElectiva = {
+                        nombre : req.body.nombre,
+                        programa: list[key].programa,
+                        contenido: list[key].contenido,
+                        tipo: list[key].tipo,
+                        estado : 'Deshabilitar',
+                    }
                 }
                 var refUpdate = db.ref('Electivas/' + key);
                 refUpdate.update(actualizarElectiva);
