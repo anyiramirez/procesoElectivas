@@ -227,7 +227,9 @@ employeeCtrl.habilitarElectiva = (req,res) => {
 
     var db = admin.database();
     var list;
-    var actualizarElectiva = {};
+    var actualizarElectiva = {
+        nombre : req.body.nombre,
+    };
     db.ref('Electivas').once("value", function(snapshot) {        
         list = snapshot.val();
         for(var key in list) {
