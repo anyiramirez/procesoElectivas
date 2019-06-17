@@ -139,19 +139,20 @@ employeeCtrl.listarElectivas = (req,res) => {
 
 employeeCtrl.registrarElectivas = (req,res) => {
     console.log("ELectiva a registrar: ", req.body);
-
-    var nuevaElectiva = {
-        nombre : req.body.nombre,
-        programa: req.body.programa,
-        contenido: req.body.contenido,
-        tipo: req.body.tipo,
+    if(validarString(req.body.nombre) && validarString(req.body.programa) && validarString(req.body.contenido) && validarString(req.body.tipo) && validarString(req.body.estado)) {
+        var nuevaElectiva = {
+            nombre : req.body.nombre,
+            programa: req.body.programa,
+            contenido: req.body.contenido,
+            tipo: req.body.tipo,
+            estado: req.body.estado,
+        }
+        
+        var db = admin.database();
+        
+        db.ref("Electivas").push(nuevaElectiva);
+        res.json("Guardado Exitoso");
     }
-
-    
-    var db = admin.database();
-    
-    db.ref("Electivas").push(nuevaElectiva);
-    res.json("Guardado Exitoso");
 }
 employeeCtrl.obtenerElectivaPorNombre = (req, res) => {
     
@@ -185,21 +186,70 @@ employeeCtrl.obtenerElectivaPorNombre = (req, res) => {
 }
 
 employeeCtrl.editarElectiva = (req,res) => {
-
+    console.log(req.body);
     var actualizarElectiva = {
-        nombre : req.body.nombre,
-        programa: req.body.programa,
-        contenido: req.body.contenido,
-        tipo: req.body.tipo,
+        nombre : req.body.NombreElectiva,
+        programa: req.body.Programa,
+        contenido: req.body.Contenido,
+        tipo: req.body.TipoElectiva,
     }
 
     var db = admin.database();
     var list;
+    
+    db.ref('Electivas').once("value", function(snapshot) {        
+        list = snapshot.val();
+        var entro=false;
+        var keyE;
+        for(var key in list) {
+            console.log(req.params.id,list[key].nombre);
+            if(req.params.id === list[key].nombre) {
+                entro = true;
+                keyE = key;
+                break;
+            }
+        }
+        if(!entro){
+            res.json("no");    
+        }else{
+            var refUpdate = db.ref('Electivas/' + keyE);
+            refUpdate.update(actualizarElectiva);
+            res.json("Actualizacion exitoso");
+        }
+        
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
 
+}
+
+
+employeeCtrl.habilitarElectiva = (req,res) => {
+
+    var db = admin.database();
+    var list;
+    var actualizarElectiva = {};
     db.once("value", function(snapshot) {        
         list = snapshot.val();
         for(var key in list) {
             if(actualizarElectiva.nombre === list[key].nombre) {
+                if(list[key].estado === 'Deshabilitar') {
+                    actualizarElectiva = {
+                        nombre : req.body.nombre,
+                        programa: list[key].programa,
+                        contenido: list[key].contenido,
+                        tipo: list[key].tipo,
+                        estado : 'Habilitar',
+                    }
+                } else {
+                    actualizarElectiva = {
+                        nombre : req.body.nombre,
+                        programa: list[key].programa,
+                        contenido: list[key].contenido,
+                        tipo: list[key].tipo,
+                        estado : 'Deshabilitar',
+                    }
+                }
                 var refUpdate = db.ref('Electivas/' + key);
                 refUpdate.update(actualizarElectiva);
                 res.json("Editado Exitoso");
@@ -211,6 +261,8 @@ employeeCtrl.editarElectiva = (req,res) => {
     });
 
 }
+
+
 
 
 employeeCtrl.guardarSolEst = (req,res) => {
@@ -447,3 +499,13 @@ function asigCupos(listaOrdenadaPA){
 
     return ELECTIVAS;
 }
+
+
+function validarString(cadena) {
+    var correcto = true;
+    if (!isNaN(cadena) || cadena === undefined  || cadena === null || cadena == '') {
+       correcto = false; 
+    }
+    return correcto;
+}
+

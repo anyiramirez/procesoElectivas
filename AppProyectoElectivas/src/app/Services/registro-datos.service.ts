@@ -41,9 +41,9 @@ export class RegistroDatosService {
   generarListas(){
     return this.http.get(this.API_URI);
   }
-  editarElectiva(datosEditarElectivas: Electivas, nombreAntiguo:Electivas){
+  editarElectiva(nombreAntiguo:Electivas, datosEditarElectivas: Electivas){
     console.log("datos a guardar:",datosEditarElectivas);
-    return this.http.post(this.API_URI + '/editarElectiva'+nombreAntiguo, datosEditarElectivas,this.httpOptions);
+    return this.http.post(this.API_URI + '/editarElectiva/'+ nombreAntiguo, datosEditarElectivas,this.httpOptions);
   }
 
   registroBd (datos:PreInscripcionPrueba){
