@@ -228,11 +228,11 @@ employeeCtrl.habilitarElectiva = (req,res) => {
     var db = admin.database();
     var list;
     var actualizarElectiva = {};
-    db.once("value", function(snapshot) {        
+    db.ref('Electivas').once("value", function(snapshot) {        
         list = snapshot.val();
         for(var key in list) {
             if(actualizarElectiva.nombre === list[key].nombre) {
-                if(list[key].estado == 'Deshabilitar') {
+                if(list[key].estado === 'Deshabilitar') {
                     actualizarElectiva = {
                         nombre : req.body.nombre,
                         programa: list[key].programa,
