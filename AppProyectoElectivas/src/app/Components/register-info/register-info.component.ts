@@ -41,12 +41,18 @@ export class RegisterInfoComponent implements OnInit {
   totalItems: number;
 
   constructor(private bd:EstInscripcionService, protected listar:ListaPreinscriptosService, private registrar:RegistroDatosService) {
-    //this.consultarUsuarios();
     this.conlistar();
   }
 
   ngOnInit() {
+    this.registrar.prueba("as").subscribe(res => {
+      console.log("respuesta del servidor-prueba: ",res);
+    },
+    err =>{
 
+      console.error(err);
+      alert("Error en el registro ");
+    });
   }
 
   tamanioMaxDigit(event: any, max: number){
