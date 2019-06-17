@@ -145,8 +145,8 @@ employeeCtrl.registrarElectivas = (req,res) => {
         programa: req.body.programa,
         contenido: req.body.contenido,
         tipo: req.body.tipo,
+        estado: req.body.estado,
     }
-
     
     var db = admin.database();
     
@@ -417,3 +417,13 @@ function asigCupos(listaOrdenadaPA){
 
     return ELECTIVAS;
 }
+
+
+function validarString(cadena) {
+    var correcto = true;
+    if (!isNaN(cadena) || cadena === undefined  || cadena === null || cadena == '') {
+       correcto = false; 
+    }
+    return correcto;
+}
+
