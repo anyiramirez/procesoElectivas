@@ -212,6 +212,37 @@ employeeCtrl.editarElectiva = (req,res) => {
 }
 
 
+employeeCtrl.habilitarElectiva = (req,res) => {
+
+    var db = admin.database();
+    var list;
+
+    db.once("value", function(snapshot) {        
+        list = snapshot.val();
+        for(var key in list) {
+            if(actualizarElectiva.nombre === list[key].nombre) {
+                var actualizarElectiva = {
+                    nombre : req.body.nombre,
+                    programa: list[key].programa,
+                    contenido: list[key].contenido,
+                    tipo: list[key].tipo,
+                    estado : req.body.estado,
+                }
+                var refUpdate = db.ref('Electivas/' + key);
+                refUpdate.update(actualizarElectiva);
+                res.json("Editado Exitoso");
+                break;
+            }
+        }
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+
+}
+
+
+
+
 employeeCtrl.guardarSolEst = (req,res) => {
     var db = admin.database();
     var ref = db.ref('PreinscripcionesPrueba');
