@@ -23,7 +23,7 @@
           <td>{{electiva.nombre}}</td>
           <td>{{electiva.tipo}}</td>
           <td>{{electiva.programa}}</td>
-          <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEditarElectiva">Editar</button></td>
+          <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEditarElectiva" (click)="obtenerElectiva(electiva.nombre)">Editar</button></td>
           <td>
             <div *ngIf = "electiva.estado == 'Habilitar'">
               <button type="button" class="btn btn-outline-success" (click)="ActualizarEstado(electiva.nombre)">Activa</button>
@@ -119,14 +119,14 @@
               <mat-form-field class="example-full-width">
                 <mat-label for="nombre" *ngIf='nombreCampo' class=" errorFormato ">Nombre Electiva</mat-label>
                 <mat-label for="nombre" *ngIf='!nombreCampo' >Nombre Electiva</mat-label>
-                <input [(ngModel)]="electivas.nombre" id="nombre" name="nombre" [formControl]="nombreFormControl"  matInput placeholder="Nombre Electiva" >
+                <input [(ngModel)]="objeto.NombreElectiva" id="nombre" name="nombre" [formControl]="nombreFormControl"  matInput >
               </mat-form-field>
             </div>
             <div class="col-6">
               <mat-form-field class="example-full-width">
                 <mat-label for="contenido" *ngIf='contenidoCampo' class=" errorFormato ">Contenido Programatico</mat-label>
                 <mat-label for="contenido" *ngIf='!contenidoCampo' >Nombre Contenido Programatico</mat-label>
-                <input [(ngModel)]="electivas.contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput placeholder="Contenido Prográmatico">
+                <input [(ngModel)]="objeto.Contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput placeholder="Contenido Prográmatico">
               </mat-form-field>
             </div>
             <div class="col-5 contProgramas">
@@ -142,7 +142,7 @@
               <mat-form-field>
                 <mat-label for="tipo" *ngIf='tipoCampo' class=" errorFormato">Tipo de electiva</mat-label>
                 <mat-label for="tipo" *ngIf='!tipoCampo' >Tipo de electiva</mat-label>
-                <mat-select matNativeControl [(ngModel)]="electivas.tipo" id="tipo" name="tipo" >
+                <mat-select matNativeControl [(ngModel)]="objeto.TipoElectiva" id="tipo" name="tipo" >
                   <mat-option value="Teórica">Teórica</mat-option>
                   <mat-option value="Práctica">Práctica</mat-option>
                   <mat-option value="Teórico Práctica">Teórico Práctica</mat-option>
@@ -156,7 +156,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" (click)="registrarElectivas()">Guardar Electiva</button>
+        <button type="button" class="btn btn-primary" (click)="editarElectivas()" data-dismiss="modal">Guardar Electiva</button>
       </div>
     </div>
   </div>

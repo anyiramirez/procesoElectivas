@@ -168,6 +168,7 @@ employeeCtrl.obtenerElectivaPorNombre = (req, res) => {
             console.log(req.params.id,list[key].nombre);
             if(req.params.id === list[key].nombre) {
                 entro = true;
+                console.log(list[key]);
                 res.json(list[key]);
                 break;
             }
@@ -185,12 +186,12 @@ employeeCtrl.obtenerElectivaPorNombre = (req, res) => {
 }
 
 employeeCtrl.editarElectiva = (req,res) => {
-
+    console.log(req.body);
     var actualizarElectiva = {
-        nombre : req.body.nombre,
-        programa: req.body.programa,
-        contenido: req.body.contenido,
-        tipo: req.body.tipo,
+        nombre : req.body.NombreElectiva,
+        programa: req.body.Programa,
+        contenido: req.body.Contenido,
+        tipo: req.body.TipoElectiva,
     }
 
     var db = admin.database();

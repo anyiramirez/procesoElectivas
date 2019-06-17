@@ -45,13 +45,7 @@ export class RegisterInfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.registrar.prueba("electiva").subscribe(res => {
-      console.log("respuesta del servidor-prueba: ",res);
-    },
-    err =>{
-      console.error(err);
-      alert("Error en el registro ");
-    });
+    
   }
 
   tamanioMaxDigit(event: any, max: number){

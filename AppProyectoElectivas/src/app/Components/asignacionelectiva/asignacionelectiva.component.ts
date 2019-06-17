@@ -13,12 +13,14 @@ export class AsignacionelectivaComponent implements OnInit {
   estudiantes = 0;
   lista1 = new Array();
   listaa;
+  nombreElect;
   
   constructor(private rutaActiva: ActivatedRoute, private registrar:RegistroDatosService) { }
 
   ngOnInit() {
     this.estudiantes = this.rutaActiva.snapshot.params.id;
     this.listaa = this.registrar.solElectCE[this.estudiantes].estudiantes;
+    this.nombreElect = this.registrar.solElectCE[this.estudiantes].nombreElectiva;
     
     for(var i = 0;i < this.listaa.length; i++){
       this.lista1.push(this.listaa[i]);

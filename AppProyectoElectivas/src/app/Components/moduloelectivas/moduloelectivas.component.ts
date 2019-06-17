@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 export class ModuloelectivasComponent implements OnInit {
   varPrograma:any={};
   electivas:any={};
+  objeto:any={};
+  nombreAntiguo:any;
   electivasRegistradas = new Array();
   nombreCampo;
   contenidoCampo;
@@ -22,6 +24,14 @@ export class ModuloelectivasComponent implements OnInit {
   contenidoFormControl;
   programaFormControl;
   tipoFormControl;
+  nombreEditarCampo;
+  contenidoEditarCampo;
+  programaEditarCampo;
+  tipoEditarCampo;
+  nombreEditarFormControl;
+  contenidoEditarFormControl;
+  programaEditarFormControl;
+  tipoEditarFormControl;
   
   
   constructor(private registrar:RegistroDatosService,private router:Router)
@@ -44,6 +54,7 @@ export class ModuloelectivasComponent implements OnInit {
   }
   
   getElectivas(){
+
     this.electivas.programa = '';
     if (this.varPrograma.piet){
       this.electivas.programa = this.electivas.programa + 'PIET';
@@ -60,10 +71,44 @@ export class ModuloelectivasComponent implements OnInit {
     if (this.varPrograma.pis){
       this.electivas.programa = this.electivas.programa + 'PIS'
     }
+
+    
     this.varPrograma.piet = false;
     this.varPrograma.pis = false;
     this.varPrograma.piai = false;
   }
+  getEditarElectivas(){
+    debugger;
+    this.objeto.Programa = '';
+    console.log("piet: ",this.varPrograma.piet);
+    if (this.varPrograma.piet){
+      
+      this.objeto.Programa = this.objeto.Programa + 'PIET';
+      console.log(this.objeto.Programa);
+    }
+    if (this.varPrograma.piet && this.varPrograma.piai){
+
+      this.objeto.Programa = this.objeto.Programa +'-';
+      console.log(this.objeto.Programa);
+    }
+    if (this.varPrograma.piai){
+      this.objeto.Programa = this.objeto.Programa + 'PIAI'
+      console.log(this.objeto.Programa);
+    }
+    if ((this.varPrograma.piai && this.varPrograma.pis) || (this.varPrograma.piet && this.varPrograma.pis)){
+      this.objeto.Programa = this.objeto.Programa +'-';
+      console.log(this.objeto.Programa);
+    }
+    if (this.varPrograma.pis){
+      this.objeto.Programa = this.objeto.Programa + 'PIS'
+      console.log(this.objeto.Programa);
+    }
+    console.log("programas:",this.objeto.Programa);
+    this.varPrograma.piet = false;
+    this.varPrograma.pis = false;
+    this.varPrograma.piai = false;
+  }
+ 
   
   registrarElectivas(){
     
@@ -94,6 +139,36 @@ export class ModuloelectivasComponent implements OnInit {
     }
     
   }
+  editarElectivas(){
+    
+    this.getEditarElectivas();
+    if(this.nombreFormControl.hasError('required')){
+      this.nombreCampo=true;
+    }else{ this.nombreCampo=false; }
+    if(this.contenidoFormControl.hasError('required')){
+      this.contenidoCampo=true;
+    }else{ this.contenidoCampo=false; }
+    if(this.objeto.Programa === ''){
+      this.programaCampo=true;
+    }else{ this.programaCampo=false; }
+    
+    if(this.objeto.TipoElectiva === 'Teórica' ||this.objeto.TipoElectiva === 'Práctica'||this.objeto.TipoElectiva === 'Teórico Práctica'){
+      this.tipoCampo=false;
+    }else{ this.tipoCampo=true; }
+    if(!this.nombreCampo && !this.contenidoCampo && !this.programaCampo && !this.tipoCampo){
+
+      this.registrar.editarElectiva(this.nombreAntiguo,this.objeto).subscribe(res => {
+
+        alert(res);
+        this.listarElectivas();
+        this.limpiarModal();
+        this.router.navigate(['/GestionElectivas']);
+      })
+    }else{
+      alert("Error en el registro");
+    }
+    
+  }
   
   
   limpiarModal(){
@@ -114,6 +189,42 @@ export class ModuloelectivasComponent implements OnInit {
     );
     
   }
+  obtenerElectiva(nombre){
+    
+  this.registrar.obtenerDatosNombreElectiva(nombre).subscribe(res=>
+    {
+      debugger;
+      //this.objeto = res;
+      this.varPrograma.piai = false;
+      this.varPrograma.pis = false;
+      this.varPrograma.piet = false;
+      for(let e in this.electivasRegistradas){
+      if(nombre==this.electivasRegistradas[e].nombre){
+      var objElectiva = new Electivas(this.electivasRegistradas[e].nombre,this.electivasRegistradas[e].contenido,this.electivasRegistradas[e].programa,this.electivasRegistradas[e].tipo);
+      this.nombreAntiguo= objElectiva.NombreElectiva;
+      this.objeto= objElectiva;
+      if(this.objeto.Programa.indexOf('PIS')>-1)
+      {
+        this.varPrograma.pis = true;
+      }
+      if(this.objeto.Programa.indexOf('PIAI')>-1)
+      {
+        this.varPrograma.piai = true;
+      }
+      if(this.objeto.Programa.indexOf('PIET')>-1)
+      {
+        this.varPrograma.piet = true;
+      }
+      break;
+      }
+      }
+
+    }
+
+  );
+
+  }
+
   
   ActualizarEstado(nombre){
     
