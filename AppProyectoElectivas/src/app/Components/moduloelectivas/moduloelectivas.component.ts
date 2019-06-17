@@ -54,6 +54,7 @@ export class ModuloelectivasComponent implements OnInit {
   }
   
   getElectivas(){
+
     this.electivas.programa = '';
     if (this.varPrograma.piet){
       this.electivas.programa = this.electivas.programa + 'PIET';
@@ -70,6 +71,8 @@ export class ModuloelectivasComponent implements OnInit {
     if (this.varPrograma.pis){
       this.electivas.programa = this.electivas.programa + 'PIS'
     }
+
+    
     this.varPrograma.piet = false;
     this.varPrograma.pis = false;
     this.varPrograma.piai = false;
@@ -77,21 +80,30 @@ export class ModuloelectivasComponent implements OnInit {
   getEditarElectivas(){
     debugger;
     this.objeto.Programa = '';
+    console.log("piet: ",this.varPrograma.piet);
     if (this.varPrograma.piet){
+      
       this.objeto.Programa = this.objeto.Programa + 'PIET';
+      console.log(this.objeto.Programa);
     }
     if (this.varPrograma.piet && this.varPrograma.piai){
+
       this.objeto.Programa = this.objeto.Programa +'-';
+      console.log(this.objeto.Programa);
     }
     if (this.varPrograma.piai){
-      this.objeto.Programa = this.objeto.programa + 'PIAI'
+      this.objeto.Programa = this.objeto.Programa + 'PIAI'
+      console.log(this.objeto.Programa);
     }
     if ((this.varPrograma.piai && this.varPrograma.pis) || (this.varPrograma.piet && this.varPrograma.pis)){
       this.objeto.Programa = this.objeto.Programa +'-';
+      console.log(this.objeto.Programa);
     }
     if (this.varPrograma.pis){
       this.objeto.Programa = this.objeto.Programa + 'PIS'
+      console.log(this.objeto.Programa);
     }
+    console.log("programas:",this.objeto.Programa);
     this.varPrograma.piet = false;
     this.varPrograma.pis = false;
     this.varPrograma.piai = false;
@@ -111,11 +123,11 @@ export class ModuloelectivasComponent implements OnInit {
     if(this.electivas.programa === ''){
       this.programaCampo=true;
     }else{ this.programaCampo=false; }
-    debugger;
     if(this.electivas.tipo === 'Teórica' ||this.electivas.tipo === 'Práctica'||this.electivas.tipo === 'Teórico Práctica'){
       this.tipoCampo=false;
     }else{ this.tipoCampo=true; }
     if(!this.nombreCampo && !this.contenidoCampo && !this.programaCampo && !this.tipoCampo){
+      this.electivas.estado = 'Habilitar';
       this.registrar.saveElectivas(this.electivas).subscribe(res => {
         alert(res);
         this.listarElectivas();
@@ -144,7 +156,9 @@ export class ModuloelectivasComponent implements OnInit {
       this.tipoCampo=false;
     }else{ this.tipoCampo=true; }
     if(!this.nombreCampo && !this.contenidoCampo && !this.programaCampo && !this.tipoCampo){
+
       this.registrar.editarElectiva(this.nombreAntiguo,this.objeto).subscribe(res => {
+
         alert(res);
         this.listarElectivas();
         this.limpiarModal();
@@ -155,6 +169,7 @@ export class ModuloelectivasComponent implements OnInit {
     }
     
   }
+  
   
   limpiarModal(){
     this.electivas.nombre= '';
@@ -210,4 +225,15 @@ export class ModuloelectivasComponent implements OnInit {
 
   }
 
+  
+  ActualizarEstado(nombre){
+    
+    this.registrar.editarEstado(nombre).subscribe(res => {
+      console.log("Servidor que pasa muchacho: ", res);
+      if(res === "funciono"){
+        this.listarElectivas();
+      }
+    });
+  }
+  
 }

@@ -225,34 +225,26 @@ employeeCtrl.editarElectiva = (req,res) => {
 
 
 employeeCtrl.habilitarElectiva = (req,res) => {
-
+    console.log("Llego: ",req.params.id);
     var db = admin.database();
     var list;
-    var actualizarElectiva = {};
-    db.once("value", function(snapshot) {        
+    
+    db.ref('Electivas').once("value", function(snapshot) {        
         list = snapshot.val();
+        var vest = "";
         for(var key in list) {
-            if(actualizarElectiva.nombre === list[key].nombre) {
+            if(req.params.id === list[key].nombre) {
                 if(list[key].estado === 'Deshabilitar') {
-                    actualizarElectiva = {
-                        nombre : req.body.nombre,
-                        programa: list[key].programa,
-                        contenido: list[key].contenido,
-                        tipo: list[key].tipo,
-                        estado : 'Habilitar',
-                    }
+                    vest = "Habilitar";
+                    
                 } else {
-                    actualizarElectiva = {
-                        nombre : req.body.nombre,
-                        programa: list[key].programa,
-                        contenido: list[key].contenido,
-                        tipo: list[key].tipo,
-                        estado : 'Deshabilitar',
-                    }
+                    vest = "Deshabilitar";
+                    
                 }
+    
                 var refUpdate = db.ref('Electivas/' + key);
-                refUpdate.update(actualizarElectiva);
-                res.json("Editado Exitoso");
+                refUpdate.update({estado: vest});
+                res.json("funciono");
                 break;
             }
         }

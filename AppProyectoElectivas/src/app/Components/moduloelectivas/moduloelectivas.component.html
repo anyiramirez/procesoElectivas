@@ -23,10 +23,17 @@
           <td>{{electiva.nombre}}</td>
           <td>{{electiva.tipo}}</td>
           <td>{{electiva.programa}}</td>
-          <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEditarElectiva" (click)= "obtenerElectiva(electiva.nombre)">Editar</button></td>
-          <td><button type="button" class="btn btn-outline-danger">Deshabilitar</button></td>
+          <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEditarElectiva" (click)="obtenerElectiva(electiva.nombre)">Editar</button></td>
+          <td>
+            <div *ngIf = "electiva.estado == 'Habilitar'">
+              <button type="button" class="btn btn-outline-danger" (click)="ActualizarEstado(electiva.nombre)">Deshabilitar</button>
+            </div>
+            <div *ngIf = "electiva.estado == 'Deshabilitar'">
+              <button type="button" class="btn btn-outline-success" (click)="ActualizarEstado(electiva.nombre)">Habilitar</button>
+            </div>
+          </td>
         </tr>
-
+        
       </tbody>
     </table>
   </div>
@@ -44,7 +51,7 @@
         </button>
       </div>
       <div class="modal-body">
-
+        
         <form id="FormElectivas">
           <div class="row">
             <div class="col-6">
@@ -82,9 +89,9 @@
               </mat-form-field>
             </div>
           </div>
-
+          
         </form>
-
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -154,3 +161,21 @@
     </div>
   </div>
 </div>
+
+<script>
+  
+  (function(){
+    
+    var template = null
+    
+    $('.modal').on('show.bs.modal', function (event) {
+      if (template == null) {
+        template = $(this).html()
+      } else {
+        $(this).html(template)
+      }
+      // other initialization here, if you want to
+    })
+    
+  })()
+</script>

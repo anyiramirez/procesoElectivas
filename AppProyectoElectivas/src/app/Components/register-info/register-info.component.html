@@ -52,9 +52,6 @@
         </tr>
       </tbody>
     </table>
-    <button type="button" class="btn btn-primary boton " data-toggle="button" aria-pressed="false" (click)="registrarBD()" autocomplete="off">
-      Registrar Información
-    </button>
     <pagination-controls (pageChange)="pageActual = $event" class="pagination"></pagination-controls>
     <select class="custom-select select" style="width: auto" [(ngModel)]="pageSize" >
       <option [ngValue]="5" selected>5 items por página</option>
