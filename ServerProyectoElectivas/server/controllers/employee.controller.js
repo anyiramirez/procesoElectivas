@@ -167,7 +167,7 @@ employeeCtrl.obtenerElectivaPorNombre = (req, res) => {
             console.log(req.params.id,list[key].nombre);
             if(req.params.id === list[key].nombre) {
                 entro = true;
-                res.json("si");
+                res.json(list[key]);
                 break;
             }
         }
