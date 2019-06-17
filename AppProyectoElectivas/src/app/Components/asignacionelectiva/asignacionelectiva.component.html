@@ -1,27 +1,28 @@
 <app-encabezado></app-encabezado>
 <div class="wrapper">
   <app-opciones-admin></app-opciones-admin>
-  <h5>{{nombreElect}}</h5>
-  <table class="table table-sm">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Codigo</th>
-      </tr>
-    </thead>
-    <tbody>
-      
-<tr *ngFor="let est of lista1; let in = index">
-        <th scope="row">{{in+1}}</th>
+  <div class="content">
+    <h5>{{nombreElect}}</h5>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Codigo</th>
+        </tr>
+      </thead>
+      <tbody>
         
-        <td>{{est.NombreCompleto}}</td>
-        <td>{{est.Codigo}}</td>
-</tr>
-      
-      
-    </tbody>
-  </table>
-  
+        <tr *ngFor="let est of lista1; let in = index">
+          <th scope="row">{{in+1}}</th>
+          
+          <td>{{est.NombreCompleto}}</td>
+          <td>{{est.Codigo}}</td>
+        </tr>
+        
+        
+      </tbody>
+    </table>
+  </div>
 </div>
 
