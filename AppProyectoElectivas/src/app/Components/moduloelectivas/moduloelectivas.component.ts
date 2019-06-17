@@ -78,11 +78,11 @@ export class ModuloelectivasComponent implements OnInit {
     if(this.electivas.programa === ''){
       this.programaCampo=true;
     }else{ this.programaCampo=false; }
-    debugger;
     if(this.electivas.tipo === 'Teórica' ||this.electivas.tipo === 'Práctica'||this.electivas.tipo === 'Teórico Práctica'){
       this.tipoCampo=false;
     }else{ this.tipoCampo=true; }
     if(!this.nombreCampo && !this.contenidoCampo && !this.programaCampo && !this.tipoCampo){
+      this.electivas.estado = 'Habilitar';
       this.registrar.saveElectivas(this.electivas).subscribe(res => {
         alert(res);
         this.listarElectivas();
@@ -94,6 +94,7 @@ export class ModuloelectivasComponent implements OnInit {
     }
     
   }
+  
   
   limpiarModal(){
     this.electivas.nombre= '';
@@ -113,5 +114,9 @@ export class ModuloelectivasComponent implements OnInit {
     );
     
   }
+  
+  // ActualizarEstado(nombre, estado){
+  //   this.registrar.editarEstado(nombre,estado);
+  // }
   
 }
