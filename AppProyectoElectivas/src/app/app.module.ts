@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,13 +25,15 @@ import { PrincipaladmiComponent } from './Components/principaladmi/principaladmi
 import { ListasasignacionComponent } from './Components/listasasignacion/listasasignacion.component';
 import { AsignacionelectivaComponent } from './Components/asignacionelectiva/asignacionelectiva.component';
 import { ModuloelectivasComponent } from './Components/moduloelectivas/moduloelectivas.component';
+import { ModuloofertaComponent } from './Components/modulooferta/modulooferta.component';
 
 const Rutas: Routes = [  
   {path: 'Administrador', component: PrincipaladmiComponent},
   {path: 'InformacionEstudiantes', component: RegisterInfoComponent },
   {path: 'ListasAsignadas', component: ListasasignacionComponent},
   {path: 'AsignacionElectiva/:id', component: AsignacionelectivaComponent},
-  {path: 'GestionElectivas', component: ModuloelectivasComponent }
+  {path: 'GestionElectivas', component: ModuloelectivasComponent },
+  {path: 'OfertaAcademica', component:ModuloofertaComponent }
 ];
 
 @NgModule({
@@ -44,7 +46,8 @@ const Rutas: Routes = [
     PrincipaladmiComponent,
     ListasasignacionComponent,
     AsignacionelectivaComponent,
-    ModuloelectivasComponent
+    ModuloelectivasComponent,
+    ModuloofertaComponent
   ],
   imports: [
     BrowserModule,
