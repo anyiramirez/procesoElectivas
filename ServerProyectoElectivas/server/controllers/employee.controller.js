@@ -254,6 +254,21 @@ employeeCtrl.habilitarElectiva = (req,res) => {
 
 }
 
+employeeCtrl.ofertarElectiva = (req,res) => {
+    var list;
+
+    var nuevaElectiva = {
+            nombre : req.params.nombre,
+            programa: req.params.programa,
+            contenido: req.params.contenido,
+            tipo: req.params.tipo,
+    }
+        
+    var db = admin.database();
+        
+    db.ref("OfertaElectivas").push(nuevaElectiva);
+}
+
 
 
 
