@@ -7,6 +7,7 @@ const employee = require('../controllers/employee.controller');
 // get methods 
 
 router.get('/', employee.ASIGELECT);
+router.post('/AsigCuposXLSX', employee.ASIGELECTP);
 
 
 router.get('/solEst', employee.PIAI);
