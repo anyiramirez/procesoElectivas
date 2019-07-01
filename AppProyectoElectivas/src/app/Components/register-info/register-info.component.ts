@@ -4,9 +4,7 @@ import { ListaPreinscriptosService}  from "../../Services/lista-preinscriptos.se
 import { PreInscripcionPrueba} from '../../Interfaces/pre-inscripcion-prueba';
 import { DatosSimca } from '../../Interfaces/datos-simca';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
-import * as moment from 'moment';
-import { interval, timer, fromEvent } from 'rxjs';
-
+import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 
 @Component({
   selector: 'app-register-info',
@@ -14,46 +12,49 @@ import { interval, timer, fromEvent } from 'rxjs';
   styleUrls: ['./register-info.component.css']
 })
 export class RegisterInfoComponent implements OnInit {
+  
   pageActual: number = 1;
   preinscriptos = new Array();
   datosGuardar = new Array();
   inscriptos = this.conlistar;
   porcentaje:any;
-
+  
   PonenteActual : number=1;
   usuario;
   usuarios = new Array();
   prueba: DatosSimca[];
-
+  
   CredAp;
   Promedio;
   ElecAp;
   ElecCur;
   varNum : number =5;
   varHide : boolean = true;
-
+  
   // moment = require('moment');
-
+  
   page = 1;
   pageSize = 5;
   collectionSize = this.preinscriptos.length;
   datos: any={};
   totalItems: number;
 
+  files: NgxFileDropEntry[] = [];
+  
   constructor(private bd:EstInscripcionService, protected listar:ListaPreinscriptosService, private registrar:RegistroDatosService) {
     this.conlistar();
   }
-
+  
   ngOnInit() {
     
   }
-
+  
   tamanioMaxDigit(event: any, max: number){
     if(event.target.value.length > max){
       event.preventDefault();
     }
   }
-
+  
   validarCampos(){
     for(let p in this.datosGuardar){
       //Creditos Aprobados
@@ -108,12 +109,12 @@ export class RegisterInfoComponent implements OnInit {
       }
     }
   }
-
+  
   showSaving(){
     this.varHide = !this.varHide;
     this.imagenGuardar(this.varHide);
   }
-
+  
   imagenGuardar(hide:boolean){
     if(hide == true){
       document.getElementById('save').style.display='none';
@@ -122,81 +123,101 @@ export class RegisterInfoComponent implements OnInit {
     }
     this.varHide = hide;
   }
-   reset;
+  reset;
   saveAutomatic(){
     this.registrarBD();
   }
-
-  registrarBD()
-  {
+  
+  registrarBD(){
     this.calcularPorcentaje();
-
-    this.registrar.saveUsuario(this.datosGuardar).
-    subscribe
-    (
-      res => {
-        console.log("respuesta del servidor: ",res);
-
-        // this.moment().format('llll');
-        this.showSaving();
-
-        this.registrar.generarListas().subscribe(res => {
-          console.log("Estado de generar: ",res);
-
-          this.registrar.obtenerElectivasCE().subscribe(res => {
-            console.log("ObtenerElectivas: ",res);
-          });
-
-        },
-        err => {
-          console.error(err);
-          alert("Error en generar listas ");
+    this.registrar.saveUsuario(this.datosGuardar).subscribe(res => {
+      console.log("respuesta del servidor: ",res);
+      // this.moment().format('llll');
+      this.showSaving();
+      this.registrar.generarListas().subscribe(res => {
+        console.log("Estado de generar: ",res);
+        this.registrar.obtenerElectivasCE().subscribe(res => {
+          console.log("ObtenerElectivas: ",res);
+        });
+      }, err => {
+        console.error(err);
+        alert("Error en generar listas ");
         });
         //  this.router.navigate(['perfil']);
-      },
-      err =>{
-        console.log(this.datosGuardar);
-        console.error(err);
-        alert("Error en el registro ");
+    },err =>{
+      console.log(this.datosGuardar);
+      console.error(err);
+      alert("Error en el registro ");
+      })
+  }
+  consultarUsuarios(){
+    this.listar.consultarLista().subscribe(lista => {
+      this.preinscriptos = new Array();
+      for(let p in lista){
+        this.preinscriptos.push(lista[p]);
       }
-      )
+      console.log(lista);
+      alert('No realizo la consulta de la base de datos');
+    });
+  }
+  conlistar(){
+    this.listar.consultarLista().subscribe(res => {
+      this.preinscriptos=new Array();
+      this.datosGuardar=new Array();
+      this.listar.solicitudesEst= res as PreInscripcionPrueba[];
+      for(let p in res){
+        var objDS = new DatosSimca(res[p].Usuario,res[p].creditosAprobados,res[p].creditosPensum,res[p].porcentajeAvance,res[p].promedioCarrera,res[p].electivasAprobadas,res[p].electivasCursando);
+        this.datosGuardar.push(objDS);
+        this.preinscriptos.push(res[p]);
+      }
+      console.log(res,"tamanio del array guardar: ",this.datosGuardar.length);    
+    });
+  }
+  calcularPorcentaje(){
+    for (let p in this.datosGuardar){
+      this.datosGuardar[p].PorcentajeCarrera= ((this.datosGuardar[p].CreditosAprobados/this.datosGuardar[p].CreditosPensum)*100).toFixed(4);
     }
-    consultarUsuarios(){
+  }
 
-      this.listar.consultarLista().subscribe(
-        lista => {
-          this.preinscriptos = new Array();
-          for(let p in lista){
-            this.preinscriptos.push(lista[p]);
-          }
-          console.log(lista);
-          alert('No realizo la consulta de la base de datos');
-        }
-        );
-
-      }
-      conlistar(){
-        this.listar.consultarLista().subscribe(res => {
-          this.preinscriptos=new Array();
-          this.datosGuardar=new Array();
-          this.listar.solicitudesEst= res as PreInscripcionPrueba[];
-          for(let p in res)
-          {
-
-            var objDS = new DatosSimca(res[p].Usuario,res[p].creditosAprobados,res[p].creditosPensum,res[p].porcentajeAvance,res[p].promedioCarrera,res[p].electivasAprobadas,res[p].electivasCursando);
-            this.datosGuardar.push(objDS);
-            this.preinscriptos.push(res[p]);
-          }
-
-          console.log(res,"tamanio del array guardar: ",this.datosGuardar.length);
-
-        }
-
-        );
-      }
-      calcularPorcentaje(){
-        for (let p in this.datosGuardar){
-          this.datosGuardar[p].PorcentajeCarrera= ((this.datosGuardar[p].CreditosAprobados/this.datosGuardar[p].CreditosPensum)*100).toFixed(4);
-        }
+  dropped(files: NgxFileDropEntry[]){
+    this.files = files;
+    for (const droppedFile of files) {
+      // Is it a file?
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file:File)=>{
+          // Here you can access the real file
+          console.log(droppedFile.relativePath, file);
+          /**
+          // You could upload it like this:
+          const formData = new FormData()
+          formData.append('logo', file, relativePath)
+ 
+          // Headers
+          const headers = new HttpHeaders({
+            'security-token': 'mytoken'
+          })
+ 
+          this.http.post('https://mybackend.com/api/upload/sanitize-and-save-logo', formData, { headers: headers, responseType: 'blob' })
+          .subscribe(data => {
+            // Sanitized logo returned from backend
+          })
+          **/
+        });
+      }else{
+        // It was a directory (empty directories are added, otherwise only files)
+        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
+        console.log(droppedFile.relativePath, fileEntry);
       }
     }
+  }
+
+  public fileOver(event){
+    console.log(event);
+  }
+ 
+  public fileLeave(event){
+    console.log(event);
+  }
+}
+    

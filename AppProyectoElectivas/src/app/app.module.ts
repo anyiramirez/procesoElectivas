@@ -10,12 +10,13 @@ import { MatInputModule} from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import { MatButtonModule, MatCheckboxModule} from '@angular/material';
 import { MatRadioModule} from '@angular/material/radio';
+import { MatTabsModule} from '@angular/material/tabs';
+import { NgxFileDropModule } from 'ngx-file-drop';
 
 import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { environment} from '../environments/environment';
 
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterInfoComponent } from './Components/register-info/register-info.component';
@@ -26,6 +27,7 @@ import { ListasasignacionComponent } from './Components/listasasignacion/listasa
 import { AsignacionelectivaComponent } from './Components/asignacionelectiva/asignacionelectiva.component';
 import { ModuloelectivasComponent } from './Components/moduloelectivas/moduloelectivas.component';
 import { ModuloofertaComponent } from './Components/modulooferta/modulooferta.component';
+
 
 const Rutas: Routes = [  
   {path: 'Administrador', component: PrincipaladmiComponent},
@@ -64,8 +66,11 @@ const Rutas: Routes = [
     NoopAnimationsModule,
     MatRadioModule,
     MatSelectModule,
+    NgxFileDropModule,
     MatButtonModule,
     BrowserAnimationsModule,
+    
+    MatTabsModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD_dcEHRh3Lwh4aSLqw-B581hRShWHdbWI'
