@@ -103,12 +103,12 @@ export class OfertaAcademicaComponent implements OnInit {
     for(let i in this.ofertaAcademica){
       if(this.ofertaAcademica[i].oferta==true){
          this.oferAcademica.push(this.ofertaAcademica[i]);
-      }
+         this.ofertaArray.push(this.ofertas.anio,this.ofertas.periodo,this.ofertas.dateFin,this.ofertas.dateInicio,this.ofertaAcademica[i].nombre,this.ofertaAcademica[i].oferta);
+         
+        }
 
     }
-   //
-    var objDatosOFerta = new DatosOferta(this.ofertas.fechaInicio, this.ofertas.fechaFin,this.ofertas.anio, this.ofertas.periodo);
-    this.ofertaArray.push(this.ofertas,this.oferAcademica);
+       
     this.registrar.saveOfertaAcademica(this.ofertaArray).subscribe(res => {
       
 
