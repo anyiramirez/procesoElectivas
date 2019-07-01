@@ -23,7 +23,7 @@ router.post('/registrarOfertas', employee.registrarOfertas);
 router.post('/editarElectiva/:id', employee.editarElectiva);
 router.post('/solEst', employee.guardarSolEst);
 router.post('/habilitarElectiva/:id', employee.habilitarElectiva);
-router.post('/ofertarElectiva/ :nombre/:anio/:periodo:/estado', employee.ofertarElectiva);
+//router.post('/ofertarElectiva/ :nombre/:anio/:periodo:/estado', employee.ofertarElectiva);
 
 
 
