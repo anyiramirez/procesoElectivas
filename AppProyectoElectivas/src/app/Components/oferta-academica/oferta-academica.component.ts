@@ -37,7 +37,7 @@ export class OfertaAcademicaComponent implements OnInit {
   constructor(private registrar:RegistroDatosService,private router:Router) { 
     this.listarElectivas();
   }
-
+  
   ngOnInit() {
     this.anioFormControl = new FormControl('', [
       Validators.required,
@@ -59,9 +59,9 @@ export class OfertaAcademicaComponent implements OnInit {
       for(let p in res){
         if(res[p].estado=="Deshabilitar")
         {
-        this.electivas.push(res[p]);
-        var objetoArray = new Oferta(res[p].nombre,"");
-        this.ofertaAcademica.push(objetoArray);
+          this.electivas.push(res[p]);
+          var objetoArray = new Oferta(res[p].nombre,"");
+          this.ofertaAcademica.push(objetoArray);
         }
       }
       console.log(res,"tamanio del array guardar: ",this.ofertaAcademica.length);
@@ -70,7 +70,7 @@ export class OfertaAcademicaComponent implements OnInit {
     );
     
   }
- 
+  
   
   
     limpiarModal(){
@@ -122,5 +122,6 @@ export class OfertaAcademicaComponent implements OnInit {
     alert("Error en el registro");
      }
     }
+    
+  }
   
-}
