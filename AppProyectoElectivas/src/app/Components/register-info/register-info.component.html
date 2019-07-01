@@ -4,8 +4,8 @@
   <div id="content">  
     <mat-tab-group>
       <mat-tab label="Cargar Archivo"> 
-        <input type="file" name="file" id="file" class="upload" (change)="onFileChange($event)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
-        <label for="file">Seleccione un archivo</label>
+        <input type="file" name="file" id="file" class="upload btn btn-outline-info" (change)="onFileChange($event)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+        <label for="file" class="btn btn-outline-info">Seleccione un archivo</label>
         
         <div class="center">
           <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)">
@@ -13,19 +13,23 @@
               puede arrastrar y soltar archivos aqui para añadirlos.
             </ng-template>
           </ngx-file-drop>
-          <div class="upload-table">
+          <div *ngIf = "file != null" >
             <table class="table">
               <thead>
                 <tr>
-                  <th>Nombre del archivo cargado</th>
+                  <th>Archivo cargado</th>
                 </tr>
               </thead>
               <tbody class="upload-name-style">
                 <tr *ngFor="let item of file; let i=index">
-                  <td><strong>{{ item.relativePath }}</strong></td>
+                  <td>
+                    <strong>{{ item.relativePath }}</strong>
+                    <strong>{{ item.name }}</strong>
+                  </td>
                 </tr>
               </tbody>
             </table>
+            <button type="button" class="btn btn-outline-success" (click)="sentFile()">Enviar Archivo</button>
           </div>
         </div>
       </mat-tab>
@@ -91,6 +95,7 @@
           <option [ngValue]="40">40 items por página</option>
           <option [ngValue]="50">50 items por página</option>
         </select>
+        
       </mat-tab>
     </mat-tab-group> 
   </div>

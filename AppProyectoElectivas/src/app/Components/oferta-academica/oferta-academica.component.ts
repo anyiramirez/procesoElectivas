@@ -18,13 +18,13 @@ export class OfertaAcademicaComponent implements OnInit {
   anioLectivo;
   periodoAcademicoCampo;
   ofertaCampo;
- 
- 
-
+  
+  
+  
   constructor(private registrar:RegistroDatosService,private router:Router) { 
     this.listarElectivas();
   }
-
+  
   ngOnInit() {
   }
   listarElectivas(){
@@ -34,9 +34,9 @@ export class OfertaAcademicaComponent implements OnInit {
       for(let p in res){
         if(res[p].estado=="Deshabilitar")
         {
-        this.electivas.push(res[p]);
-        var objetoArray = new Oferta(res[p].nombre,"");
-        this.ofertaAcademica.push(objetoArray);
+          this.electivas.push(res[p]);
+          var objetoArray = new Oferta(res[p].nombre,"");
+          this.ofertaAcademica.push(objetoArray);
         }
       }
       console.log(res,"tamanio del array guardar: ",this.ofertaAcademica.length);
@@ -45,34 +45,34 @@ export class OfertaAcademicaComponent implements OnInit {
     );
     
   }
- 
+  
   
   obtenerElectiva(nombre){
-      this.registrar.obtenerDatosNombreElectiva(nombre).subscribe(res=>
+    this.registrar.obtenerDatosNombreElectiva(nombre).subscribe(res=>
       {
-        debugger;
+        
         //this.objeto = res;
-      
+        
         for(let e in this.electivas){
-        if(nombre==this.electivas[e].nombre){
-        var objElectiva = new Electivas(this.electivas[e].nombre,this.electivas[e].contenido,this.electivas[e].programa,this.electivas[e].tipo);
-        
-        debugger;
-        var objOfertaReg= new Oferta(this.electivas[e].nombre,this.ofertaAcademica[e].oferta);
-        debugger;
-        this.ofertaAcademica.push(objOfertaReg);
-        
-        break;
+          if(nombre==this.electivas[e].nombre){
+            var objElectiva = new Electivas(this.electivas[e].nombre,this.electivas[e].contenido,this.electivas[e].programa,this.electivas[e].tipo);
+            
+            
+            var objOfertaReg= new Oferta(this.electivas[e].nombre,this.ofertaAcademica[e].oferta);
+            
+            this.ofertaAcademica.push(objOfertaReg);
+            
+            break;
+          }
         }
-        }
-
-  
-     }
-  
-    );
-    debugger;
- 
-  
+        
+        
+      }
+      
+      );
+      
+      
+      
     }
     limpiarModal(){
       this.ofertas.anio= '';
@@ -82,17 +82,18 @@ export class OfertaAcademicaComponent implements OnInit {
       
     }
     
-  registrarOferta(){
-    debugger;
-    this.registrar.saveOfertaAcademica(this.ofertas,this.ofertaAcademica).subscribe(res => {
-
-      alert(res);
-      //this.listarElectivas();
-      this.limpiarModal();
-      //this.router.navigate(['/GestionElectivas']);
-   
-    });
-  
+    registrarOferta(){
+      
+      this.registrar.saveOfertaAcademica(this.ofertas,this.ofertaAcademica).subscribe(res => {
+        
+        alert(res);
+        //this.listarElectivas();
+        this.limpiarModal();
+        //this.router.navigate(['/GestionElectivas']);
+        
+      });
+      
     }
+    
+  }
   
-}

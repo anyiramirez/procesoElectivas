@@ -5,9 +5,9 @@
 }
 #content{
   width: 100%;
-  max-height: 450px;
   position: relative;
   transition: all 0.3s;
+  max-height: 450px;
   overflow-x:auto;
   overflow-y: scroll;
 }
@@ -25,13 +25,10 @@
 }
 
 .upload + label {
-  width: 200px;
-  height: 30px;
   font-size: 15px;
   font-weight: 400;
   margin-top: 10px;
   text-align: center;
-  background-color: #138496d9;
   display: inline-block;
   border-radius: 7px;
   transition: 150ms;
@@ -39,7 +36,6 @@
 
 .upload:focus + label,
 .upload + label:hover {
-  background-color: #64aebb;
   cursor: pointer;
 }
 
