@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
 import { Electivas} from '../../Interfaces/electivas';
 import { Oferta} from '../../Interfaces/oferta'
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import { DatosOferta } from '../../Interfaces/datos-oferta';
 
 @Component({
   selector: 'app-oferta-academica',
@@ -11,13 +13,23 @@ import { Oferta} from '../../Interfaces/oferta'
 })
 export class OfertaAcademicaComponent implements OnInit {
   ofertaAcademica=new Array();
+  oferAcademica=new Array();
   electivas:any={};
   ofertas:any={};
   objOferta= new Array();
   nombreElectivaCampo;
-  anioLectivo;
+  anioCampo;
   periodoAcademicoCampo;
   ofertaCampo;
+  inicioCampo;
+  finCampo;
+  anioFormControl;
+  periodoFormControl;
+  ofertaFormControl;
+  inicioFormControl;
+  finFormControl;
+  
+  
  
  
 
@@ -26,6 +38,18 @@ export class OfertaAcademicaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.anioFormControl = new FormControl('', [
+      Validators.required,
+    ]);
+    this.periodoFormControl = new FormControl('', [
+      Validators.required,
+    ]);
+    this.inicioFormControl = new FormControl('', [
+      Validators.required,
+    ]);
+    this.finFormControl = new FormControl('', [
+      Validators.required,
+    ]);
   }
   listarElectivas(){
     this.registrar.obtenerInformacionElectivas().subscribe(res => {
@@ -47,33 +71,7 @@ export class OfertaAcademicaComponent implements OnInit {
   }
  
   
-  obtenerElectiva(nombre){
-      this.registrar.obtenerDatosNombreElectiva(nombre).subscribe(res=>
-      {
-        debugger;
-        //this.objeto = res;
-      
-        for(let e in this.electivas){
-        if(nombre==this.electivas[e].nombre){
-        var objElectiva = new Electivas(this.electivas[e].nombre,this.electivas[e].contenido,this.electivas[e].programa,this.electivas[e].tipo);
-        
-        debugger;
-        var objOfertaReg= new Oferta(this.electivas[e].nombre,this.ofertaAcademica[e].oferta);
-        debugger;
-        this.ofertaAcademica.push(objOfertaReg);
-        
-        break;
-        }
-        }
-
   
-     }
-  
-    );
-    debugger;
- 
-  
-    }
     limpiarModal(){
       this.ofertas.anio= '';
       this.ofertas.periodo = '';
@@ -81,10 +79,36 @@ export class OfertaAcademicaComponent implements OnInit {
       this.ofertas.dateFin = '';
       
     }
+  validarFechas(){
+    this.ofertas.dateFin;
+    this.ofertas.dateInicio;
     
+  }  
   registrarOferta(){
     debugger;
-    this.registrar.saveOfertaAcademica(this.ofertas,this.ofertaAcademica).subscribe(res => {
+    if(this.anioFormControl.hasError('required')){
+      this.anioCampo=true;
+    }else{ this.anioCampo=false; }
+    if(this.periodoFormControl.hasError('required')){
+      this.periodoAcademicoCampo=true;
+    }else{ this.periodoAcademicoCampo=false; }
+    if(this.inicioFormControl.hasError('required')){
+      this.inicioCampo=true;
+    }else{ this.inicioCampo=false; }
+    if(this.finFormControl.hasError('required')){
+      this.finCampo=true;
+    }else{ this.finCampo=false; }
+    if(!this.anioCampo && !this.periodoAcademicoCampo && !this.inicioCampo && !this.finCampo){
+    for(let i in this.ofertaAcademica){
+      if(this.ofertaAcademica[i].oferta==true){
+         this.oferAcademica.push(this.ofertaAcademica[i]);
+      }
+
+    }
+    var objDatosOFerta = new DatosOferta(this.ofertas.fechaInicio, this.ofertas.fechaFin,this.ofertas.anio, this.ofertas.periodo);
+    this.ofertas.push(objDatosOFerta);
+    this.registrar.saveOfertaAcademica(this.ofertas,this.oferAcademica).subscribe(res => {
+      
 
       alert(res);
       //this.listarElectivas();
@@ -92,7 +116,9 @@ export class OfertaAcademicaComponent implements OnInit {
       //this.router.navigate(['/GestionElectivas']);
    
     });
-  
+  }else{
+    alert("Error en el registro");
+     }
     }
   
 }

@@ -13,6 +13,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule,MatNativeDateModule} from '@angular/material';
 import { MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatTableModule} from '@angular/material/table';
 
 import { MatTabsModule} from '@angular/material/tabs';
 import { NgxFileDropModule } from 'ngx-file-drop';
@@ -70,6 +71,7 @@ const Rutas: Routes = [
     MatSelectModule,
     NgxFileDropModule,
     MatButtonModule,
+    MatTableModule,
     MatDatepickerModule,
     BrowserAnimationsModule,
     MatTabsModule,
