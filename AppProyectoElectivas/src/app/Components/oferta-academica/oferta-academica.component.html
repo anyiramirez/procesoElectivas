@@ -93,31 +93,33 @@
 
             </div>
 
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Nombre Electiva</th>
-                  <th scope="col">Programa</th>
-                  <th scope="col">Tipo</th>
-                  <th scope="col">Ofertar</th>
-
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let electiva of electivas; let indice=index">
-                  <td>{{indice+1}}</td>
-                  <td>{{electiva.nombre}}</td>
-                  <td>{{electiva.programa}}</td>
-                  <td>{{electiva.tipo}}</td>
-                  <td>
-                    <input type="checkbox" [(ngModel)]="ofertaAcademica[indice].oferta" id="oferta" name="oferta">
-                  
-                  </td>
-                </tr>
-                
-              </tbody>
-            </table>
+            
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre Electiva</th>
+                        <th scope="col">Programa</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Ofertar</th>
+      
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let electiva of electivas; let indice=index">
+                        <td>{{indice+1}}</td>
+                        <td>{{electiva.nombre}}</td>
+                        <td>{{electiva.programa}}</td>
+                        <td>{{electiva.tipo}}</td>
+                        <td>
+                          <input type="checkbox" [(ngModel)]="ofertaAcademica[indice].oferta" id="oferta" name="oferta">
+                        
+                        </td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+              
           </div>
          
         </form>

@@ -6,6 +6,7 @@ import { solE_XLSX } from '../Interfaces/solEXLSX';
 import { Electivas} from '../Interfaces/electivas';
 import { Oferta} from '../Interfaces/oferta'
 import { ListaElectCE} from '../Interfaces/lista-electce'//servicio electivas
+import { DatosOferta } from '../Interfaces/datos-oferta';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class RegistroDatosService {
     return this.http.post(this.API_URI + '/registrarElectivas', datosElectivas,this.httpOptions);
 
    }
-   saveOfertaAcademica(datos:any,datosOferta: Array<Oferta>){
+   saveOfertaAcademica(datos:DatosOferta,datosOferta: Array<Oferta>){
     console.log("datos a guardar:",datos,datosOferta);
     return this.http.post(this.API_URI + '/registrarOfertas/'+datos,datosOferta, this.httpOptions);
    }

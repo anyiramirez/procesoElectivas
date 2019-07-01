@@ -4,6 +4,7 @@ import { RegistroDatosService} from '../../Services/registro-datos.service';
 import { Electivas} from '../../Interfaces/electivas';
 import { Oferta} from '../../Interfaces/oferta'
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import { DatosOferta } from '../../Interfaces/datos-oferta';
 
 @Component({
   selector: 'app-oferta-academica',
@@ -12,6 +13,7 @@ import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/form
 })
 export class OfertaAcademicaComponent implements OnInit {
   ofertaAcademica=new Array();
+  oferAcademica=new Array();
   electivas:any={};
   ofertas:any={};
   objOferta= new Array();
@@ -26,6 +28,7 @@ export class OfertaAcademicaComponent implements OnInit {
   ofertaFormControl;
   inicioFormControl;
   finFormControl;
+  
   
  
  
@@ -76,7 +79,11 @@ export class OfertaAcademicaComponent implements OnInit {
       this.ofertas.dateFin = '';
       
     }
+  validarFechas(){
+    this.ofertas.dateFin;
+    this.ofertas.dateInicio;
     
+  }  
   registrarOferta(){
     debugger;
     if(this.anioFormControl.hasError('required')){
@@ -92,7 +99,16 @@ export class OfertaAcademicaComponent implements OnInit {
       this.finCampo=true;
     }else{ this.finCampo=false; }
     if(!this.anioCampo && !this.periodoAcademicoCampo && !this.inicioCampo && !this.finCampo){
-    this.registrar.saveOfertaAcademica(this.ofertas,this.ofertaAcademica).subscribe(res => {
+    for(let i in this.ofertaAcademica){
+      if(this.ofertaAcademica[i].oferta==true){
+         this.oferAcademica.push(this.ofertaAcademica[i]);
+      }
+
+    }
+    var objDatosOFerta = new DatosOferta(this.ofertas.fechaInicio, this.ofertas.fechaFin,this.ofertas.anio, this.ofertas.periodo);
+    this.ofertas.push(objDatosOFerta);
+    this.registrar.saveOfertaAcademica(this.ofertas,this.oferAcademica).subscribe(res => {
+      
 
       alert(res);
       //this.listarElectivas();
