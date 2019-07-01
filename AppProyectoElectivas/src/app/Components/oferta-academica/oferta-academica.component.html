@@ -53,6 +53,22 @@
         
         <form id="FormElectivas">
           <div class="row">
+              <div class="col-6">
+                  <mat-form-field>
+                      <input matInput [(ngModel)]="ofertas.dateInicio" [matDatepicker]="fechaInicio" name="dateInicio"  placeholder="Fecha Inicio">
+                      <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
+                      <mat-datepicker #fechaInicio></mat-datepicker>
+                    </mat-form-field>
+              </div>
+              <div class="col-6">
+                  <mat-form-field>
+                      <input matInput [(ngModel)]="ofertas.dateFin" [matDatepicker]="fechaFin" name="dateFin" placeholder="Fecha fin">
+                      <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
+                      <mat-datepicker #fechaFin></mat-datepicker>
+                    </mat-form-field>
+              </div>
+             
+              
             <div class="col-6">
               <mat-form-field class="example-full-width">
                <!-- <mat-label for="anio" class=" errorFormato ">Año</mat-label>-->
@@ -72,6 +88,7 @@
               </mat-form-field>
 
             </div>
+
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -98,7 +115,7 @@
               </tbody>
             </table>
           </div>
-          
+         
         </form>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

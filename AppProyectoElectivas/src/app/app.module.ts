@@ -10,8 +10,9 @@ import { MatInputModule} from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule,MatNativeDateModule} from '@angular/material';
 import { MatRadioModule} from '@angular/material/radio';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -63,8 +64,10 @@ const Rutas: Routes = [
     MatCheckboxModule,
     NoopAnimationsModule,
     MatRadioModule,
+    MatNativeDateModule,
     MatSelectModule,
     MatButtonModule,
+    MatDatepickerModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
