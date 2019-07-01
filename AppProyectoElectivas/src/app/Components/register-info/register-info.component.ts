@@ -7,7 +7,7 @@ import { RegistroDatosService} from '../../Services/registro-datos.service';
 import { ExcelService } from '../../Services/excel.service';
 import * as moment from 'moment';
 import { interval, timer, fromEvent } from 'rxjs';
-import * as $ from 'jquery';
+
 
 
 @Component({

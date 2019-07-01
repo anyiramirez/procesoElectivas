@@ -4,6 +4,7 @@ import { DatosSimca } from '../Interfaces/datos-simca';
 import { PreInscripcionPrueba} from '../Interfaces/pre-inscripcion-prueba';
 import { solE_XLSX } from '../Interfaces/solEXLSX';
 import { Electivas} from '../Interfaces/electivas';
+import { Oferta} from '../Interfaces/oferta'
 import { ListaElectCE} from '../Interfaces/lista-electce'//servicio electivas
 
 @Injectable({
@@ -32,6 +33,10 @@ export class RegistroDatosService {
     console.log("datos a guardar:",datosElectivas);
     return this.http.post(this.API_URI + '/registrarElectivas', datosElectivas,this.httpOptions);
 
+   }
+   saveOfertaAcademica(anio:string,periodo:string,datosOferta: Array<Oferta>){
+    console.log("datos a guardar:",anio,periodo,datosOferta);
+    return this.http.post(this.API_URI + '/registrarOfertas'+anio+periodo,datosOferta, this.httpOptions);
    }
 
   obtenerInformacionElectivas(){

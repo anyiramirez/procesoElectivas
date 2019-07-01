@@ -1,0 +1,131 @@
+<app-encabezado></app-encabezado>
+<div class="wrapper">
+  <app-opciones-admin></app-opciones-admin>
+  <!-- Button trigger modal -->
+  <div class="content">
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalLong">
+      Agregar nueva oferta
+    </button>
+    <!-- Table -->
+    
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr >
+          <th scope="col"> #</th>
+          <th scope="col">Período Académico</th>
+          <th scope="col">Año</th>
+          <th scope="col">Total Electivas</th>
+          <th scope="col">Estado</th>
+          <th colspan="2" class="text-center">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr >
+          <td>1</td>
+          <td>2</td>
+          <td>2018</td>
+          <td>21</td>
+          <td>Finalizado</td>
+          <td>
+            <div >
+              <button type="button" class="btn btn-outline-success">Ver</button>
+            </div>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- Modal Nueva Oferta Académica-->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Nueva Oferta</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <form id="FormElectivas">
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field class="example-full-width">
+               <!-- <mat-label for="anio" class=" errorFormato ">Año</mat-label>-->
+                <mat-label for="anio" >Año</mat-label>
+                <input [(ngModel)]="ofertas.anio" id="anio" name="anio"   matInput placeholder="Año Lectivo" >
+              </mat-form-field>
+            </div>
+            
+             <div class="col-6">
+              <mat-form-field>
+                <mat-label for="periodo" *ngIf='periodoCampo' class=" errorFormato">Período Académico</mat-label>
+                <mat-label for="periodo" *ngIf='!periodoCampo' >Período Académico</mat-label>
+                <mat-select matNativeControl [(ngModel)]="ofertas.periodo"  id="periodo" name="periodo" >
+                  <mat-option value="1">1</mat-option>
+                  <mat-option value="2">2</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre Electiva</th>
+                  <th scope="col">Programa</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Ofertar</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let electiva of electivas; let indice=index">
+                  <td>{{indice+1}}</td>
+                  <td>{{electiva.nombre}}</td>
+                  <td>{{electiva.programa}}</td>
+                  <td>{{electiva.tipo}}</td>
+                  <td>
+                    <input type="checkbox" [(ngModel)]="ofertaAcademica[indice].oferta" id="oferta" name="oferta">
+                  
+                  </td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+          
+        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="registrarOferta()" data-dismiss="modal">Ofertar Electivas</button>
+  
+        </div>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+
+<script>
+  
+  (function(){
+    
+    var template = null
+    
+    $('.modal').on('show.bs.modal', function (event) {
+      if (template == null) {
+        template = $(this).html()
+      } else {
+        $(this).html(template)
+      }
+      // other initialization here, if you want to
+    })
+    
+  })()
+</script>

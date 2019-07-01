@@ -154,6 +154,21 @@ employeeCtrl.registrarElectivas = (req,res) => {
         res.json("Guardado Exitoso");
     }
 }
+employeeCtrl.registrarOfertas = (req,res) => {
+    console.log("ELectiva a registrar: ", req.body);
+        var nuevaOferta = {
+            NombreElectiva : req.body.NombreElectiva,
+            anio: req.body.anio,
+            periodo: req.body.periodo,
+            estado: req.body.estado,
+        }
+        
+        var db = admin.database();
+        
+        db.ref("Ofertas").push(nuevaOferta);
+        res.json("Guardado Exitoso");
+    
+}
 employeeCtrl.obtenerElectivaPorNombre = (req, res) => {
     
     console.log("id llego: ",req.params.id);
@@ -254,18 +269,7 @@ employeeCtrl.habilitarElectiva = (req,res) => {
 
 }
 
-employeeCtrl.ofertarElectiva = (req,res) => {
-    var list;
 
-    var nuevaElectiva = {
-            nombre : req.params.nombre,
-            estado: req.params.estado,
-    }
-        
-    var db = admin.database();
-        
-    db.ref("OfertaElectivas/"+req.params.periodo + "_" +req.paras.periodo).push(nuevaElectiva);
-}
 
 
 
