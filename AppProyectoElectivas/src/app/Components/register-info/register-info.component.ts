@@ -8,7 +8,7 @@ import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 
 import { ExcelService } from '../../Services/excel.service';
 import * as moment from 'moment';
 import { interval, timer, fromEvent } from 'rxjs';
-import * as $ from 'jquery';
+
 
 
 @Component({

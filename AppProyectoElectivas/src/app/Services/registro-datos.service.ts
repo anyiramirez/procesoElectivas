@@ -2,7 +2,9 @@ import { Injectable, SimpleChange } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DatosSimca } from '../Interfaces/datos-simca';
 import { PreInscripcionPrueba} from '../Interfaces/pre-inscripcion-prueba';
+import { solE_XLSX } from '../Interfaces/solEXLSX';
 import { Electivas} from '../Interfaces/electivas';
+import { Oferta} from '../Interfaces/oferta'
 import { ListaElectCE} from '../Interfaces/lista-electce'//servicio electivas
 
 @Injectable({
@@ -12,6 +14,7 @@ export class RegistroDatosService {
   API_URI = 'http://localhost:3000/api/asigcupos';
   solicitudesEst: PreInscripcionPrueba[];
   electivas:Electivas[];
+  solEx: solE_XLSX[];
   solElectCE:  ListaElectCE[];//servicio electivas
   httpOptions = {
     headers: new HttpHeaders({
@@ -30,6 +33,10 @@ export class RegistroDatosService {
     console.log("datos a guardar:",datosElectivas);
     return this.http.post(this.API_URI + '/registrarElectivas', datosElectivas,this.httpOptions);
 
+   }
+   saveOfertaAcademica(anio:string,periodo:string,datosOferta: Array<Oferta>){
+    console.log("datos a guardar:",anio,periodo,datosOferta);
+    return this.http.post(this.API_URI + '/registrarOfertas'+anio+periodo,datosOferta, this.httpOptions);
    }
 
   obtenerInformacionElectivas(){
@@ -65,28 +72,43 @@ export class RegistroDatosService {
     return this.http.post(this.API_URI + '/habilitarElectiva/' + nombre ,this.httpOptions);
   }
 
-  subirJSON(nombre){
-    console.log(nombre);
-    /*var json_send = {
-      "Apellidos":
-      "Codigo":
-      "HoraSolicitud":
-      "Nombres":
-      "Programa":
-      "Usuario":
-      "cantidadSolicitada":
-      "creditosAprobados":
-      "creditosPensum":
-      "electivasAprobadas":
-      "electivasCursando":
-      "electivasPrograma":
-      "opcion1":
-      "opcion2":
-      "opcion3":
-      "opcion4":
-      "porcentajeAvance":
-      "promedioCarrera":
-    }*/
+  subirJSON(JSONofXLSX){
+    var cont = 0;
+    this.solEx = [];
+    for(let solicitudE of JSONofXLSX){
+      if(cont === 0){
+        cont++;
+        continue;
+      }
+      if(solicitudE[0] === "" || solicitudE[0] === undefined){
+        break;
+      }
+      var op1="",op2="",op3="",op4="";
+      if(solicitudE[17] != undefined){
+        op1 = solicitudE[17];
+      }
+      if(solicitudE[18] != undefined){
+        op2 = solicitudE[18];
+      }
+      if(solicitudE[19] != undefined){
+        op3 = solicitudE[19];
+      }
+      if(solicitudE[20] != undefined){
+        op4 = solicitudE[20];
+      }
+
+      var objSX = new solE_XLSX(solicitudE[3],solicitudE[2],solicitudE[0],solicitudE[4],solicitudE[5],solicitudE[1],solicitudE[13],solicitudE[6],solicitudE[7],solicitudE[11],solicitudE[12],solicitudE[10],op1,op2,op3,op4,solicitudE[8],solicitudE[9]);
+
+      this.solEx.push(objSX);
+
+
+    }
+    this.generarListasJSONXLSX(this.solEx);
+
+  }
+
+  generarListasJSONXLSX(jsonSolE: solE_XLSX[]){
+    return this.http.post(this.API_URI, jsonSolE);
   }
 
 }
