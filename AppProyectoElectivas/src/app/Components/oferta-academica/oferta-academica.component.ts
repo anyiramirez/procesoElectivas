@@ -17,6 +17,7 @@ export class OfertaAcademicaComponent implements OnInit {
   electivas:any={};
   ofertas:any={};
   objOferta= new Array();
+  ofertaArray= new Array();
   nombreElectivaCampo;
   anioCampo;
   periodoAcademicoCampo;
@@ -105,9 +106,10 @@ export class OfertaAcademicaComponent implements OnInit {
       }
 
     }
+   //
     var objDatosOFerta = new DatosOferta(this.ofertas.fechaInicio, this.ofertas.fechaFin,this.ofertas.anio, this.ofertas.periodo);
-    this.ofertas.push(objDatosOFerta);
-    this.registrar.saveOfertaAcademica(this.ofertas,this.oferAcademica).subscribe(res => {
+    this.ofertaArray.push(this.ofertas,this.oferAcademica);
+    this.registrar.saveOfertaAcademica(this.ofertaArray).subscribe(res => {
       
 
       alert(res);
