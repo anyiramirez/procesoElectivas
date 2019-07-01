@@ -55,14 +55,18 @@
           <div class="row">
               <div class="col-6">
                   <mat-form-field>
-                      <input matInput [(ngModel)]="ofertas.dateInicio" [matDatepicker]="fechaInicio" name="dateInicio"  placeholder="Fecha Inicio">
+                      <mat-label for="dateInicio" *ngIf='inicioCampo' class=" errorFormato ">Fecha Inicio</mat-label>
+                      <mat-label for="dateInicio" *ngIf='!inicioCampo' >Fecha Inicio</mat-label>
+                      <input matInput [(ngModel)]="ofertas.dateInicio" [formControl]="inicioFormControl" [matDatepicker]="fechaInicio" name="dateInicio"  placeholder="Fecha Inicio">
                       <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
                       <mat-datepicker #fechaInicio></mat-datepicker>
                     </mat-form-field>
               </div>
               <div class="col-6">
                   <mat-form-field>
-                      <input matInput [(ngModel)]="ofertas.dateFin" [matDatepicker]="fechaFin" name="dateFin" placeholder="Fecha fin">
+                      <mat-label for="dateFin" *ngIf='finCampo' class=" errorFormato ">Fecha fin</mat-label>
+                      <mat-label for="dateFin" *ngIf='!finCampo' >Fecha fin</mat-label>
+                      <input matInput [(ngModel)]="ofertas.dateFin" [formControl]="finFormControl" [matDatepicker]="fechaFin" name="dateFin" placeholder="Fecha fin">
                       <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
                       <mat-datepicker #fechaFin></mat-datepicker>
                     </mat-form-field>
@@ -71,17 +75,17 @@
               
             <div class="col-6">
               <mat-form-field class="example-full-width">
-               <!-- <mat-label for="anio" class=" errorFormato ">Año</mat-label>-->
-                <mat-label for="anio" >Año</mat-label>
-                <input [(ngModel)]="ofertas.anio" id="anio" name="anio"   matInput placeholder="Año Lectivo" >
+                <mat-label for="anio" *ngIf='anioCampo' class=" errorFormato ">Año</mat-label>
+                <mat-label for="anio" *ngIf='!anioCampo' >Año</mat-label>
+                <input [(ngModel)]="ofertas.anio" [formControl]="anioFormControl" id="anio" name="anio"   matInput placeholder="Año Lectivo" >
               </mat-form-field>
             </div>
             
              <div class="col-6">
               <mat-form-field>
-                <mat-label for="periodo" *ngIf='periodoCampo' class=" errorFormato">Período Académico</mat-label>
-                <mat-label for="periodo" *ngIf='!periodoCampo' >Período Académico</mat-label>
-                <mat-select matNativeControl [(ngModel)]="ofertas.periodo"  id="periodo" name="periodo" >
+                <mat-label for="periodoAcademicoCampo" *ngIf='periodoAcademicoCampo' class=" errorFormato">Período Académico</mat-label>
+                <mat-label for="periodoAcademicoCampo" *ngIf='!periodoAcademicoCampo' >Período Académico</mat-label>
+                <mat-select matNativeControl [(ngModel)]="ofertas.periodo" [formControl]="periodoFormControl"  id="periodo" name="periodo" >
                   <mat-option value="1">1</mat-option>
                   <mat-option value="2">2</mat-option>
                 </mat-select>
