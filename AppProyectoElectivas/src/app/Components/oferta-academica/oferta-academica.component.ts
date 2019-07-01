@@ -18,6 +18,8 @@ export class OfertaAcademicaComponent implements OnInit {
   anioLectivo;
   periodoAcademicoCampo;
   ofertaCampo;
+ 
+ 
 
   constructor(private registrar:RegistroDatosService,private router:Router) { 
     this.listarElectivas();
@@ -72,13 +74,21 @@ export class OfertaAcademicaComponent implements OnInit {
  
   
     }
+    limpiarModal(){
+      this.ofertas.anio= '';
+      this.ofertas.periodo = '';
+      this.ofertas.dateInicio = '';
+      this.ofertas.dateFin = '';
+      
+    }
+    
   registrarOferta(){
     debugger;
-    this.registrar.saveOfertaAcademica(this.ofertas.anio,this.ofertas.periodo,this.ofertaAcademica).subscribe(res => {
+    this.registrar.saveOfertaAcademica(this.ofertas,this.ofertaAcademica).subscribe(res => {
 
       alert(res);
       //this.listarElectivas();
-      //this.limpiarModal();
+      this.limpiarModal();
       //this.router.navigate(['/GestionElectivas']);
    
     });
