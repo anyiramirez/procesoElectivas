@@ -1,69 +1,97 @@
 <app-encabezado></app-encabezado>
 <div class="wrapper">
   <app-opciones-admin></app-opciones-admin>
-  <div id="content">
-    <img src="../../../assets/guardar.png" alt="saving" id="save" class="rounded float-right" style="display: none">
-    <input type="file" (change)="onFileChange($event)" multiple="false" />
-    <div id='my_file_output'></div>
-    <table class="table tableFixHead">
-      <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col">Código</th>
-          <th scope="col">Usuario</th>
-          <th scope="col">Nombres</th>
-          <th scope="col">Apellidos</th>
-          <th scope="col">Programa</th>
-          <th scope="col">Créditos aprobados</th>
-          <th scope="col">Créditos pensum</th>
-          <th scope="col">Porcentaje de avance</th>
-          <th scope="col">Promedio carrera</th>
-          <th scope="col">Electivas aprobadas</th>
-          <th scope="col">Electivas cursando</th>
-          <th scope="col">Debe ver</th>
-          <th scope="col">Cantidad solicitada</th>
-          <th >Opción 1</th>
-          <th>Opción 2</th>
-          <th >Opción 3</th>
-          <th >Opción 4</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let usuario of preinscriptos| paginate:{itemsPerPage: pageSize,currentPage: pageActual} ; let in=index; " >
-          <td>{{usuario.row}}</td>
-          <td>{{usuario.Codigo}}</td>
-          <td>{{usuario.Usuario}}</td>
-          <td>{{usuario.Nombres}}</td>
-          <td>{{usuario.Apellidos}}</td>
-          <td>{{usuario.Programa}}</td>
-
-          <td><input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].CreditosAprobados" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" (ngModelChange)="calcularPorcentaje()" min="0" max="999" name="CreditosAprobados" type="number" class="barraTexto"  id="CreditosAprobados-{{in}}-{{pageActual}}" (keypress)="tamanioMaxDigit($event,2)" placeholder="creditos" required></td>
-          <td>{{usuario.creditosPensum}}</td>
-          <td> <input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].PorcentajeCarrera" disabled="true" name="PorcentajeCarrera" class="barraTexto" id="PorcentajeCarrera-{{in}}-{{pageActual}}" placeholder="creditos" ></td>
-          <td><input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].PromedioCarrera" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="5" step="any" name="Promedio" type="number" class="barraTexto" id="Promedio-{{in}}-{{pageActual}}"  placeholder="Promedio" (keypress)="tamanioMaxDigit($event,5)" required> </td>
-          <td><input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].ElectivasAprobadas" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="{{usuario.electivasPrograma}}" name="ElectivasAprobadas" type="number"  class="barraTexto" maxlength="1" id="ElectivasAprobadas-{{in}}-{{pageActual}}"  (keypress)="tamanioMaxDigit($event,0)" placeholder="aprobadas" required>  </td>
-          <td><input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].ElectivasCursadas" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="{{usuario.electivasPrograma}}" name="ElectivasCursadas" type="number" class="barraTexto" maxlength="1" id="ElectivasCursadas-{{in}}-{{pageActual}}" (keypress)="tamanioMaxDigit($event,0)" placeholder="cursadas" required > </td>
-
-          <td>{{usuario.electivasPrograma}}</td>
-          <td>{{usuario.cantidadSolicitada}}</td>
-          <td nowrap>{{usuario.opcion1}}</td>
-          <td nowrap>{{usuario.opcion2}}</td>
-          <td nowrap>{{usuario.opcion3}}</td>
-          <td nowrap>{{usuario.opcion4}}</td>
-        </tr>
-      </tbody>
-    </table>
-    <pagination-controls (pageChange)="pageActual = $event" class="pagination"></pagination-controls>
-    <select class="custom-select select" style="width: auto" [(ngModel)]="pageSize" >
-      <option [ngValue]="5" selected>5 items por página</option>
-      <option [ngValue]="10">10 items por página</option>
-      <option [ngValue]="15">15 items por página</option>
-      <option [ngValue]="20">20 items por página</option>
-      <option [ngValue]="25">25 items por página</option>
-      <option [ngValue]="30">30 items por página</option>
-      <option [ngValue]="40">40 items por página</option>
-      <option [ngValue]="50">50 items por página</option>
-    </select>
-  </div>
+  <div id="content">  
+    <mat-tab-group>
+      <mat-tab label="Cargar"> 
+        <input type="file" (change)="onFileChange($event)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+        <div id='my_file_output'></div>
+        <div class="center">
+          <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)">
+          <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+            puede arrastrar y soltar archivos aqui para añadirlos.
+          </ng-template>
+        </ngx-file-drop>
+        <div class="upload-table">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nombre del archivo cargado</th>
+              </tr>
+            </thead>
+            <tbody class="upload-name-style">
+              <tr *ngFor="let item of file; let i=index">
+                <td><strong>{{ item.relativePath }}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Información manual"> 
+      <img src="../../../assets/guardar.png" alt="saving" id="save" class="rounded float-right" style="display: none">
+      
+      <table class="table tableFixHead">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Código</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Programa</th>
+            <th scope="col">Créditos aprobados</th>
+            <th scope="col">Créditos pensum</th>
+            <th scope="col">Porcentaje de avance</th>
+            <th scope="col">Promedio carrera</th>
+            <th scope="col">Electivas aprobadas</th>
+            <th scope="col">Electivas cursando</th>
+            <th scope="col">Debe ver</th>
+            <th scope="col">Cantidad solicitada</th>
+            <th >Opción 1</th>
+            <th>Opción 2</th>
+            <th >Opción 3</th>
+            <th >Opción 4</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of preinscriptos| paginate:{itemsPerPage: pageSize,currentPage: pageActual} ; let in=index; " >
+            <td>{{usuario.row}}</td>
+            <td>{{usuario.Codigo}}</td>
+            <td>{{usuario.Usuario}}</td>
+            <td>{{usuario.Nombres}}</td>
+            <td>{{usuario.Apellidos}}</td>
+            <td>{{usuario.Programa}}</td>
+            
+            <td><input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].CreditosAprobados" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" (ngModelChange)="calcularPorcentaje()" min="0" max="999" name="CreditosAprobados" type="number" class="barraTexto"  id="CreditosAprobados-{{in}}-{{pageActual}}" (keypress)="tamanioMaxDigit($event,2)" placeholder="creditos" required></td>
+            <td>{{usuario.creditosPensum}}</td>
+            <td> <input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].PorcentajeCarrera" disabled="true" name="PorcentajeCarrera" class="barraTexto" id="PorcentajeCarrera-{{in}}-{{pageActual}}" placeholder="creditos" ></td>
+            <td><input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].PromedioCarrera" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="5" step="any" name="Promedio" type="number" class="barraTexto" id="Promedio-{{in}}-{{pageActual}}"  placeholder="Promedio" (keypress)="tamanioMaxDigit($event,5)" required> </td>
+            <td><input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].ElectivasAprobadas" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="{{usuario.electivasPrograma}}" name="ElectivasAprobadas" type="number"  class="barraTexto" maxlength="1" id="ElectivasAprobadas-{{in}}-{{pageActual}}"  (keypress)="tamanioMaxDigit($event,0)" placeholder="aprobadas" required>  </td>
+            <td><input [(ngModel)]="datosGuardar[in+(pageActual-1)*pageSize].ElectivasCursadas" (keyup)="saveAutomatic()" (ngModelChange)="validarCampos()" min="0" max="{{usuario.electivasPrograma}}" name="ElectivasCursadas" type="number" class="barraTexto" maxlength="1" id="ElectivasCursadas-{{in}}-{{pageActual}}" (keypress)="tamanioMaxDigit($event,0)" placeholder="cursadas" required > </td>
+            
+            <td>{{usuario.electivasPrograma}}</td>
+            <td>{{usuario.cantidadSolicitada}}</td>
+            <td nowrap>{{usuario.opcion1}}</td>
+            <td nowrap>{{usuario.opcion2}}</td>
+            <td nowrap>{{usuario.opcion3}}</td>
+            <td nowrap>{{usuario.opcion4}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls (pageChange)="pageActual = $event" class="pagination"></pagination-controls>
+      <select class="custom-select select" style="width: auto" [(ngModel)]="pageSize" >
+        <option [ngValue]="5" selected>5 items por página</option>
+        <option [ngValue]="10">10 items por página</option>
+        <option [ngValue]="15">15 items por página</option>
+        <option [ngValue]="20">20 items por página</option>
+        <option [ngValue]="25">25 items por página</option>
+        <option [ngValue]="30">30 items por página</option>
+        <option [ngValue]="40">40 items por página</option>
+        <option [ngValue]="50">50 items por página</option>
+      </select>
+    </mat-tab>
+  </mat-tab-group> 
+</div>
 </div>
 

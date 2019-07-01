@@ -78,7 +78,6 @@ export class ModuloelectivasComponent implements OnInit {
     this.varPrograma.piai = false;
   }
   getEditarElectivas(){
-    debugger;
     this.objeto.Programa = '';
     console.log("piet: ",this.varPrograma.piet);
     if (this.varPrograma.piet){
@@ -193,7 +192,6 @@ export class ModuloelectivasComponent implements OnInit {
     
   this.registrar.obtenerDatosNombreElectiva(nombre).subscribe(res=>
     {
-      debugger;
       //this.objeto = res;
       this.varPrograma.piai = false;
       this.varPrograma.pis = false;
