@@ -48,6 +48,34 @@ employeeCtrl.ASIGELECT = (req,res) => {
 
 }
 
+employeeCtrl.ASIGELECTP = (req,res) => {
+    var db = admin.database();
+    var refGA = db.ref();
+    var list = req.body;
+    
+    
+    var listFiltrada = filtrarLista(list);
+    listaFiltrada = ordenarListaPA(listFiltrada);
+    var electConEst = asigCupos(listFiltrada);
+
+    var arrayGEst = [];
+
+    var contador = 0;
+    for(var key in electConEst){
+        arrayGEst[contador] = [];
+        arrayGEst[contador].push({nombreElectiva: String(key), estudiantes: electConEst[key]});
+        contador++;
+    }
+
+    refGA.update({
+        GruposAsignados: arrayGEst
+    });
+
+    res.json(arrayGEst);
+
+}
+
+
 employeeCtrl.PIS = (req,res) => {
     
     res.json(req.body);
@@ -368,8 +396,8 @@ function ordenarListaPA(listaFiltrada) {
         }
 
         if(bF == aF) {
-            aS = String(a.promedioCarrera)
-            bS = String(b.promedioCarrera)
+            aS = String(a.promedioCarrera);
+            bS = String(b.promedioCarrera);
             aArr = aS.split(",");
             bArr = bS.split(",");
 

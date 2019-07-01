@@ -10,8 +10,10 @@ import { MatInputModule} from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule,MatNativeDateModule} from '@angular/material';
 import { MatRadioModule} from '@angular/material/radio';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
 import { MatTabsModule} from '@angular/material/tabs';
 import { NgxFileDropModule } from 'ngx-file-drop';
 
@@ -64,11 +66,12 @@ const Rutas: Routes = [
     MatCheckboxModule,
     NoopAnimationsModule,
     MatRadioModule,
+    MatNativeDateModule,
     MatSelectModule,
     NgxFileDropModule,
     MatButtonModule,
+    MatDatepickerModule,
     BrowserAnimationsModule,
-    
     MatTabsModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({

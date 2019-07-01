@@ -34,9 +34,9 @@ export class RegistroDatosService {
     return this.http.post(this.API_URI + '/registrarElectivas', datosElectivas,this.httpOptions);
 
    }
-   saveOfertaAcademica(anio:string,periodo:string,datosOferta: Array<Oferta>){
-    console.log("datos a guardar:",anio,periodo,datosOferta);
-    return this.http.post(this.API_URI + '/registrarOfertas'+anio+periodo,datosOferta, this.httpOptions);
+   saveOfertaAcademica(datos:any,datosOferta: Array<Oferta>){
+    console.log("datos a guardar:",datos,datosOferta);
+    return this.http.post(this.API_URI + '/registrarOfertas/'+datos,datosOferta, this.httpOptions);
    }
 
   obtenerInformacionElectivas(){
@@ -96,19 +96,37 @@ export class RegistroDatosService {
       if(solicitudE[20] != undefined){
         op4 = solicitudE[20];
       }
+      var pA=solicitudE[8]+"",pC=solicitudE[9]+"";
+      var spA = pA.split(".");
+      var sspA = spA[0] + "," + spA[1];
 
-      var objSX = new solE_XLSX(solicitudE[3],solicitudE[2],solicitudE[0],solicitudE[4],solicitudE[5],solicitudE[1],solicitudE[13],solicitudE[6],solicitudE[7],solicitudE[11],solicitudE[12],solicitudE[10],op1,op2,op3,op4,solicitudE[8],solicitudE[9]);
+      var sPC = pC.split(".");
+      var ssPC ="";
+      
+      if(sPC.length === 2){
+        ssPC = sPC[0] + "," + sPC[1];
+      }else{
+        ssPC = sPC[0];
+      }
+
+      var objSX = new solE_XLSX(solicitudE[3],solicitudE[2],solicitudE[0],solicitudE[4],solicitudE[5],solicitudE[1],solicitudE[13],solicitudE[6],solicitudE[7],solicitudE[11],solicitudE[12],solicitudE[10],op1,op2,op3,op4,sspA,ssPC);
 
       this.solEx.push(objSX);
 
 
     }
-    this.generarListasJSONXLSX(this.solEx);
+    console.log("paso1");
+    this.http.post(this.API_URI+"/AsigCuposXLSX", this.solEx, this.httpOptions).subscribe(
+      res => {
+        console.log("servidor: ",res);
+      }, err =>{
+        console.error(err);
+        alert("Error en el registro ");
+      }
+    );
+    console.log("paso2");
 
   }
 
-  generarListasJSONXLSX(jsonSolE: solE_XLSX[]){
-    return this.http.post(this.API_URI, jsonSolE);
-  }
 
 }

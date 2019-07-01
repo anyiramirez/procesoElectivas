@@ -25,10 +25,10 @@ app.set('view engine', 'handlebars');
 
 // Middlewares
 app.use(morgan('dev'));
-app.use(bodyparser.urlencoded({ extended: false }));
-app.use(bodyparser.json());
+//app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.json({limit: '50mb'}));
 
-
+app.use(bodyparser.urlencoded({limit: '50mb', extended: true}));
 
 app.use(express.json());
 
