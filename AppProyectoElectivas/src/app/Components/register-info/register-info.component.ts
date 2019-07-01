@@ -5,6 +5,11 @@ import { PreInscripcionPrueba} from '../../Interfaces/pre-inscripcion-prueba';
 import { DatosSimca } from '../../Interfaces/datos-simca';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+import { ExcelService } from '../../Services/excel.service';
+import * as moment from 'moment';
+import { interval, timer, fromEvent } from 'rxjs';
+import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-register-info',
@@ -41,14 +46,18 @@ export class RegisterInfoComponent implements OnInit {
 
   files: NgxFileDropEntry[] = [];
   
-  constructor(private bd:EstInscripcionService, protected listar:ListaPreinscriptosService, private registrar:RegistroDatosService) {
+  constructor(private bd:EstInscripcionService, protected listar:ListaPreinscriptosService, private registrar:RegistroDatosService,private excelService:ExcelService) {
     this.conlistar();
   }
   
   ngOnInit() {
-    
   }
-  
+
+  onFileChange(evt: any) {
+    this.excelService.importSheet(evt);
+
+	}
+
   tamanioMaxDigit(event: any, max: number){
     if(event.target.value.length > max){
       event.preventDefault();

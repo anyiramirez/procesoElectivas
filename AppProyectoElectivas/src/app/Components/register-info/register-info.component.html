@@ -3,9 +3,11 @@
   <app-opciones-admin></app-opciones-admin>
   <div id="content">  
     <mat-tab-group>
-    <mat-tab label="Cargar"> 
-      <div class="center">
-        <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" 
+      <mat-tab label="Cargar"> 
+        <input type="file" (change)="onFileChange($event)" multiple="false" />
+        <div id='my_file_output'></div>
+        <div class="center">
+          <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" 
           (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
           <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
             puede arrastrar y soltar archivos aqui para añadirlos.

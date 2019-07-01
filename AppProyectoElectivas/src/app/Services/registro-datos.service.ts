@@ -65,4 +65,28 @@ export class RegistroDatosService {
     return this.http.post(this.API_URI + '/habilitarElectiva/' + nombre ,this.httpOptions);
   }
 
+  subirJSON(nombre){
+    console.log(nombre);
+    /*var json_send = {
+      "Apellidos":
+      "Codigo":
+      "HoraSolicitud":
+      "Nombres":
+      "Programa":
+      "Usuario":
+      "cantidadSolicitada":
+      "creditosAprobados":
+      "creditosPensum":
+      "electivasAprobadas":
+      "electivasCursando":
+      "electivasPrograma":
+      "opcion1":
+      "opcion2":
+      "opcion3":
+      "opcion4":
+      "porcentajeAvance":
+      "promedioCarrera":
+    }*/
+  }
+
 }
