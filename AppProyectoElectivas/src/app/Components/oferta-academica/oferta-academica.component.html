@@ -20,18 +20,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr  *ngFor="let electiva of electivasRegistradas; let indice=index">
-          <td>{{indice+1}}</td>
-          <td>{{electiva.nombre}}</td>
-          <td>{{electiva.tipo}}</td>
-          <td>{{electiva.programa}}</td>
-          <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEditarElectiva" (click)="obtenerElectiva(electiva.nombre)">Editar</button></td>
+        <tr >
+          <td>1</td>
+          <td>2</td>
+          <td>2018</td>
+          <td>21</td>
+          <td>Finalizado</td>
           <td>
-            <div *ngIf = "electiva.estado == 'Habilitar'">
-              <button type="button" class="btn btn-outline-danger" (click)="ActualizarEstado(electiva.nombre)">Ver</button>
-            </div>
-            <div *ngIf = "electiva.estado == 'Deshabilitar'">
-              <button type="button" class="btn btn-outline-success" (click)="ActualizarEstado(electiva.nombre)">Editar</button>
+            <div >
+              <button type="button" class="btn btn-outline-success">Ver</button>
             </div>
           </td>
         </tr>
@@ -58,9 +55,9 @@
           <div class="row">
             <div class="col-6">
               <mat-form-field class="example-full-width">
-                <mat-label for="anio" *ngIf='nombreCampo' class=" errorFormato ">Año</mat-label>
-                <mat-label for="anio" *ngIf='!nombreCampo' >Año</mat-label>
-                <input [(ngModel)]="anio" id="anio" name="anio" [formControl]="nombreFormControl"  matInput placeholder="Año Lectivo" >
+               <!-- <mat-label for="anio" class=" errorFormato ">Año</mat-label>-->
+                <mat-label for="anio" >Año</mat-label>
+                <input [(ngModel)]="ofertas.anio" id="anio" name="anio"   matInput placeholder="Año Lectivo" >
               </mat-form-field>
             </div>
             
@@ -68,9 +65,9 @@
               <mat-form-field>
                 <mat-label for="periodo" *ngIf='periodoCampo' class=" errorFormato">Período Académico</mat-label>
                 <mat-label for="periodo" *ngIf='!periodoCampo' >Período Académico</mat-label>
-                <mat-select matNativeControl  id="periodo" name="periodo" >
-                  <mat-option value="Teórica">1</mat-option>
-                  <mat-option value="Práctica">2</mat-option>
+                <mat-select matNativeControl [(ngModel)]="ofertas.periodo"  id="periodo" name="periodo" >
+                  <mat-option value="1">1</mat-option>
+                  <mat-option value="2">2</mat-option>
                 </mat-select>
               </mat-form-field>
 
@@ -82,24 +79,19 @@
                   <th scope="col">Nombre Electiva</th>
                   <th scope="col">Programa</th>
                   <th scope="col">Tipo</th>
-                  <th scope="col">Opciones</th>
+                  <th scope="col">Ofertar</th>
 
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Ingeniería de Requisitos</td>
-                  <td>PIS, PIET,PIAI</td>
-                  <td>Teórica</td>
+                <tr *ngFor="let electiva of electivas; let indice=index">
+                  <td>{{indice+1}}</td>
+                  <td>{{electiva.nombre}}</td>
+                  <td>{{electiva.programa}}</td>
+                  <td>{{electiva.tipo}}</td>
                   <td>
-                  <button type="button" class="btn btn-outline-success" (click)="ActualizarOferta(electiva.nombre)">Ofertar</button>
-                   <!-- <div *ngIf = "electiva.oferta == 'ofertar'">
-                      <button type="button" class="btn btn-outline-danger" (click)="ActualizarOferta(electiva.nombre)">No ofertar</button>
-                    </div>
-                    <div *ngIf = "electiva.oferta == 'No Ofertar'">
-                     <button type="button" class="btn btn-outline-success" (click)="ActualizarOferta(electiva.nombre)">Ofertar</button>
-                    </div>-->
+                    <input type="checkbox" [(ngModel)]="ofertaAcademica[indice].oferta" id="oferta" name="oferta">
+                  
                   </td>
                 </tr>
                 
@@ -108,12 +100,13 @@
           </div>
           
         </form>
-        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="registrarOferta()" data-dismiss="modal">Ofertar Electivas</button>
+  
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" (click)="registrarElectivas()" data-dismiss="modal">Guardar Oferta</button>
-      </div>
+     
     </div>
   </div>
 </div>
