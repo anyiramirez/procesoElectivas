@@ -231,8 +231,12 @@ export class RegisterInfoComponent implements OnInit {
       this.excelService.importSheet(this.file[0]);
     }
     if(this.fileDrop){
-      this.excelService.importSheet(this.file);
+      for (const droppedFile of this.file) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        fileEntry.file((file: File) => {
+          this.excelService.importSheet(file);
+        });
+      }
     }
   }
-  
 }
