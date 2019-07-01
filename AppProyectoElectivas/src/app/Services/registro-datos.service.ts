@@ -35,9 +35,9 @@ export class RegistroDatosService {
     return this.http.post(this.API_URI + '/registrarElectivas', datosElectivas,this.httpOptions);
 
    }
-   saveOfertaAcademica(datos:Array<DatosOferta>,datosOferta: Array<Oferta>){
-    console.log("datos a guardar:",datos,datosOferta);
-    return this.http.post(this.API_URI + '/registrarOfertas/'+datos,datosOferta, this.httpOptions);
+   saveOfertaAcademica(datos:Array<DatosOferta>){
+    console.log("datos a guardar:",datos);
+    return this.http.post(this.API_URI + '/registrarOfertas/',datos, this.httpOptions);
    }
 
   obtenerInformacionElectivas(){

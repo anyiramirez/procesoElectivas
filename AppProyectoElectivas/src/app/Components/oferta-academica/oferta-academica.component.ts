@@ -108,8 +108,8 @@ export class OfertaAcademicaComponent implements OnInit {
     }
    //
     var objDatosOFerta = new DatosOferta(this.ofertas.fechaInicio, this.ofertas.fechaFin,this.ofertas.anio, this.ofertas.periodo);
-    this.ofertaArray.push(this.ofertas);
-    this.registrar.saveOfertaAcademica(this.ofertaArray,this.oferAcademica).subscribe(res => {
+    this.ofertaArray.push(this.ofertas,this.oferAcademica);
+    this.registrar.saveOfertaAcademica(this.ofertaArray).subscribe(res => {
       
 
       alert(res);
