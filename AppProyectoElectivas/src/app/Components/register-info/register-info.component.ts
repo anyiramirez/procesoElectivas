@@ -4,8 +4,10 @@ import { ListaPreinscriptosService}  from "../../Services/lista-preinscriptos.se
 import { PreInscripcionPrueba} from '../../Interfaces/pre-inscripcion-prueba';
 import { DatosSimca } from '../../Interfaces/datos-simca';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
+import { ExcelService } from '../../Services/excel.service';
 import * as moment from 'moment';
 import { interval, timer, fromEvent } from 'rxjs';
+import * as $ from 'jquery';
 
 
 @Component({
@@ -40,13 +42,17 @@ export class RegisterInfoComponent implements OnInit {
   datos: any={};
   totalItems: number;
 
-  constructor(private bd:EstInscripcionService, protected listar:ListaPreinscriptosService, private registrar:RegistroDatosService) {
+  constructor(private bd:EstInscripcionService, protected listar:ListaPreinscriptosService, private registrar:RegistroDatosService,private excelService:ExcelService) {
     this.conlistar();
   }
 
   ngOnInit() {
-    
   }
+
+  onFileChange(evt: any) {
+    this.excelService.importSheet(evt);
+
+	}
 
   tamanioMaxDigit(event: any, max: number){
     if(event.target.value.length > max){

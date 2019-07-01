@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { RegistroDatosService} from './registro-datos.service';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 
@@ -9,11 +10,11 @@ const EXCEL_EXTENSION = '.xlsx';
   providedIn: 'root'
 })
 export class ExcelService {
-
-  constructor() { }
+  op: any;
+  constructor(private registrar:RegistroDatosService) { }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    
+
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     console.log('worksheet',worksheet);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
@@ -27,6 +28,30 @@ export class ExcelService {
       type: EXCEL_TYPE
     });
     FileSaver.saveAs(data, fileName + EXCEL_EXTENSION);
+  }
+
+  importSheet(evt: any){
+    /* wire up file reader */
+		const target: DataTransfer = <DataTransfer>(evt.target);
+		if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+		const reader: FileReader = new FileReader();
+		reader.onload = (e: any) => {
+			/* read workbook */
+			const bstr: string = e.target.result;
+			const wb: XLSX.WorkBook = XLSX.read(bstr, {type: 'binary'});
+
+			/* grab first sheet */
+			const wsname: string = wb.SheetNames[0];
+			const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+
+			/* save data */
+      this.op = (XLSX.utils.sheet_to_json(ws, {header: 1}));
+      this.registrar.subirJSON(this.op);
+
+		};
+    reader.readAsBinaryString(target.files[0]);
+
+
   }
 
 }

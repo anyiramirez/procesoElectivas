@@ -274,14 +274,17 @@ employeeCtrl.ofertarElectiva = (req,res) => {
 
     var nuevaElectiva = {
             nombre : req.params.nombre,
+<<<<<<< HEAD
             anio: req.params.anio,
             periodo: req.params.periodo,
+=======
+>>>>>>> 32f115c2e459c005923ecc0c4657e92bf1f1bd5e
             estado: req.params.estado,
     }
         
     var db = admin.database();
         
-    db.ref("OfertaElectivas").push(nuevaElectiva);
+    db.ref("OfertaElectivas/"+req.params.periodo + "_" +req.paras.periodo).push(nuevaElectiva);
 }
 
 

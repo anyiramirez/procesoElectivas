@@ -3,7 +3,8 @@
   <app-opciones-admin></app-opciones-admin>
   <div id="content">
     <img src="../../../assets/guardar.png" alt="saving" id="save" class="rounded float-right" style="display: none">
-
+    <input type="file" (change)="onFileChange($event)" multiple="false" />
+    <div id='my_file_output'></div>
     <table class="table tableFixHead">
       <thead>
         <tr>
