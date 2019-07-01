@@ -4,7 +4,7 @@ import { ListaPreinscriptosService}  from "../../Services/lista-preinscriptos.se
 import { PreInscripcionPrueba} from '../../Interfaces/pre-inscripcion-prueba';
 import { DatosSimca } from '../../Interfaces/datos-simca';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
-import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+import {  NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { ExcelService } from '../../Services/excel.service';
 import * as moment from 'moment';
 import { interval, timer, fromEvent } from 'rxjs';
@@ -17,51 +17,54 @@ import { interval, timer, fromEvent } from 'rxjs';
   styleUrls: ['./register-info.component.css']
 })
 export class RegisterInfoComponent implements OnInit {
-  
+
   pageActual: number = 1;
   preinscriptos = new Array();
   datosGuardar = new Array();
   inscriptos = this.conlistar;
   porcentaje:any;
-  
+
   PonenteActual : number=1;
   usuario;
   usuarios = new Array();
   prueba: DatosSimca[];
-  
+
   CredAp;
   Promedio;
   ElecAp;
   ElecCur;
   varNum : number =5;
   varHide : boolean = true;
-  
+
   page = 1;
   pageSize = 5;
   collectionSize = this.preinscriptos.length;
   datos: any={};
   totalItems: number;
-  
+
   file: NgxFileDropEntry[]=[];
-  
+
   constructor(private bd:EstInscripcionService, protected listar:ListaPreinscriptosService, private registrar:RegistroDatosService,private excelService:ExcelService) {
     this.conlistar();
   }
-  
+
   ngOnInit() {
   }
-  
+
   onFileChange(evt: any) {
-    this.excelService.importSheet(evt);
-    
+    const target: DataTransfer = <DataTransfer>(evt.target);
+    if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+
+    this.excelService.importSheet(target.files[0]);
+
   }
-  
+
   tamanioMaxDigit(event: any, max: number){
     if(event.target.value.length > max){
       event.preventDefault();
     }
   }
-  
+
   validarCampos(){
     for(let p in this.datosGuardar){
       //Creditos Aprobados
@@ -116,12 +119,12 @@ export class RegisterInfoComponent implements OnInit {
       }
     }
   }
-  
+
   showSaving(){
     this.varHide = !this.varHide;
     this.imagenGuardar(this.varHide);
   }
-  
+
   imagenGuardar(hide:boolean){
     if(hide == true){
       document.getElementById('save').style.display='none';
@@ -134,7 +137,7 @@ export class RegisterInfoComponent implements OnInit {
   saveAutomatic(){
     this.registrarBD();
   }
-  
+
   registrarBD(){
     this.calcularPorcentaje();
     this.registrar.saveUsuario(this.datosGuardar).subscribe(res => {
@@ -177,7 +180,7 @@ export class RegisterInfoComponent implements OnInit {
         this.datosGuardar.push(objDS);
         this.preinscriptos.push(res[p]);
       }
-      console.log(res,"tamanio del array guardar: ",this.datosGuardar.length);    
+      console.log(res,"tamanio del array guardar: ",this.datosGuardar.length);
     });
   }
   calcularPorcentaje(){
@@ -197,9 +200,10 @@ export class RegisterInfoComponent implements OnInit {
       if (droppedFile.fileEntry.isFile && this.isFileAllowed(droppedFile.fileEntry.name)) {
         this.file = files;
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+
         fileEntry.file((file: File) => {
-          console.log('isFile :', file.name);
-          console.log(droppedFile.relativePath, file);
+          console.log('isFile :', file);
+
           this.excelService.importSheet(file);
         });
       } else {
@@ -224,5 +228,5 @@ export class RegisterInfoComponent implements OnInit {
     }
     return isFileAllowed;
   }
-  
+
 }
