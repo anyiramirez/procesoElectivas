@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, isDevMode} from '@angular/core';
 import { EstInscripcionService } from "../../Services/est-inscripcion.service";
 import { ListaPreinscriptosService}  from "../../Services/lista-preinscriptos.service"
 import { PreInscripcionPrueba} from '../../Interfaces/pre-inscripcion-prueba';
@@ -36,15 +36,13 @@ export class RegisterInfoComponent implements OnInit {
   varNum : number =5;
   varHide : boolean = true;
   
-  // moment = require('moment');
-  
   page = 1;
   pageSize = 5;
   collectionSize = this.preinscriptos.length;
   datos: any={};
   totalItems: number;
-
-  files: NgxFileDropEntry[] = [];
+  
+  file: NgxFileDropEntry[]=[];
   
   constructor(private bd:EstInscripcionService, protected listar:ListaPreinscriptosService, private registrar:RegistroDatosService,private excelService:ExcelService) {
     this.conlistar();
@@ -52,12 +50,12 @@ export class RegisterInfoComponent implements OnInit {
   
   ngOnInit() {
   }
-
+  
   onFileChange(evt: any) {
     this.excelService.importSheet(evt);
-
-	}
-
+    
+  }
+  
   tamanioMaxDigit(event: any, max: number){
     if(event.target.value.length > max){
       event.preventDefault();
@@ -151,13 +149,13 @@ export class RegisterInfoComponent implements OnInit {
       }, err => {
         console.error(err);
         alert("Error en generar listas ");
-        });
-        //  this.router.navigate(['perfil']);
+      });
+      //  this.router.navigate(['perfil']);
     },err =>{
       console.log(this.datosGuardar);
       console.error(err);
       alert("Error en el registro ");
-      })
+    })
   }
   consultarUsuarios(){
     this.listar.consultarLista().subscribe(lista => {
@@ -187,46 +185,44 @@ export class RegisterInfoComponent implements OnInit {
       this.datosGuardar[p].PorcentajeCarrera= ((this.datosGuardar[p].CreditosAprobados/this.datosGuardar[p].CreditosPensum)*100).toFixed(4);
     }
   }
-
   dropped(files: NgxFileDropEntry[]){
-    this.files = files;
+    if (files.length>1){
+      alert("Cargue únicamente un documento");
+    }else{
+      this.verify(files);
+    }
+  }
+  verify(files: NgxFileDropEntry[]) {
     for (const droppedFile of files) {
-      // Is it a file?
-      if (droppedFile.fileEntry.isFile) {
+      if (droppedFile.fileEntry.isFile && this.isFileAllowed(droppedFile.fileEntry.name)) {
+        this.file = files;
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file:File)=>{
-          // Here you can access the real file
+        fileEntry.file((file: File) => {
+          console.log('isFile :', file.name);
           console.log(droppedFile.relativePath, file);
-          /**
-          // You could upload it like this:
-          const formData = new FormData()
-          formData.append('logo', file, relativePath)
- 
-          // Headers
-          const headers = new HttpHeaders({
-            'security-token': 'mytoken'
-          })
- 
-          this.http.post('https://mybackend.com/api/upload/sanitize-and-save-logo', formData, { headers: headers, responseType: 'blob' })
-          .subscribe(data => {
-            // Sanitized logo returned from backend
-          })
-          **/
+          this.excelService.importSheet(file);
         });
-      }else{
-        // It was a directory (empty directories are added, otherwise only files)
-        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
+      } else {
+        alert("únicamente se aceptan archivos excel.");
       }
     }
   }
-
-  public fileOver(event){
-    console.log(event);
+  isFileAllowed(fileName: string) {
+    let isFileAllowed = false;
+    const allowedFiles = ['.xlsx', '.xls'];
+    const regex = /(?:\.([^.]+))?$/;
+    const extension = regex.exec(fileName);
+    if (isDevMode()) {
+      console.log('extención del archivo : ', extension);
+    }
+    if (undefined !== extension && null !== extension) {
+      for (const ext of allowedFiles) {
+        if (ext === extension[0]) {
+          isFileAllowed = true;
+        }
+      }
+    }
+    return isFileAllowed;
   }
- 
-  public fileLeave(event){
-    console.log(event);
-  }
+  
 }
-    
