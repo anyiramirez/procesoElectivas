@@ -238,5 +238,8 @@ export class RegisterInfoComponent implements OnInit {
         });
       }
     }
+    this.fileInput = false;
+    this.fileDrop = false;
+    this.file = null;
   }
 }

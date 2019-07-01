@@ -31,7 +31,6 @@ export class ExcelService {
   }
   
   importSheet(evt: any){
-    alert("llega al servicio");
     /* wire up file reader */
     
     const reader: FileReader = new FileReader();
@@ -51,6 +50,7 @@ export class ExcelService {
       this.op = (XLSX.utils.sheet_to_json(ws, {header: 1}));
       this.registrar.subirJSON(this.op);
       
+      alert("Información enviada correctamente");
     };
     
     reader.readAsBinaryString(evt);
