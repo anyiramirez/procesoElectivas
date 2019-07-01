@@ -3,7 +3,7 @@
   <app-opciones-admin></app-opciones-admin>
   <div id="content">
     <img src="../../../assets/guardar.png" alt="saving" id="save" class="rounded float-right" style="display: none">
-    <input type="file" (change)="onFileChange($event)" multiple="false" />
+    <input type="file" (change)="onFileChange($event)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
     <div id='my_file_output'></div>
     <table class="table tableFixHead">
       <thead>
