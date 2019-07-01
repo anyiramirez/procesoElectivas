@@ -179,23 +179,40 @@ employeeCtrl.registrarElectivas = (req,res) => {
         var db = admin.database();
         
         db.ref("Electivas").push(nuevaElectiva);
-        res.json("Guardado Exitoso");
+        
     }
 }
 employeeCtrl.registrarOfertas = (req,res) => {
-    console.log("ELectiva a registrar: ", req.body);
+    console.log("ELectiva a registrar: ", req.body[0].anio);
+    var trueE = [];
+    for(var i = 0;i < req.body[1].length; i++){
+        if(req.body[1][i].oferta === true){
+            trueE.push(req.body[1][i]);
+        }
+    }
         var nuevaOferta = {
-            NombreElectiva : req.body.NombreElectiva,
-            anio: req.body.anio,
-            periodo: req.body.periodo,
-            estado: req.body.estado,
+            anio : req.body[0].anio,
+            periodo: req.body[0].periodo,
+            fechaFin: req.body[0].dateFin,
+            fechaInicio: req.body[0].dateInicio,
+            electivasOfertadas: trueE
         }
         
         var db = admin.database();
         
         db.ref("Ofertas").push(nuevaOferta);
+    
         res.json("Guardado Exitoso");
     
+}
+employeeCtrl.getOfertas = (req, res) => {
+    var db = admin.database();
+    var list;
+    db.ref('Ofertas').once('value', function(snapshot){
+        list = snapshot.val();
+        res.json(list);
+        
+    });
 }
 employeeCtrl.obtenerElectivaPorNombre = (req, res) => {
     
