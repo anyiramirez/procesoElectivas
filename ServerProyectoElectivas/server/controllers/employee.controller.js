@@ -161,6 +161,7 @@ employeeCtrl.listarElectivas = (req,res) => {
     });
 }
 
+
 //-------------------------------
 //    POST METHODS
 //-------------------------------

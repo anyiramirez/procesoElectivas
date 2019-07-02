@@ -15,7 +15,9 @@ export class OfertaAcademicaComponent implements OnInit {
   ofertaAcademica=new Array();
   oferAcademica=new Array();
   electivas:any={};
+  contador:number;
   ofertas:any={};
+  obtenerOfertas = new Array();
   objOferta= new Array();
   ofertaArray= new Array();
   nombreElectivaCampo;
@@ -36,6 +38,8 @@ export class OfertaAcademicaComponent implements OnInit {
 
   constructor(private registrar:RegistroDatosService,private router:Router) {
     this.listarElectivas();
+    debugger;
+    this.listarOfertas();
   }
 
   ngOnInit() {
@@ -70,7 +74,23 @@ export class OfertaAcademicaComponent implements OnInit {
     );
 
   }
+  listarOfertas(){
+    this.registrar.obtenerOfertas().subscribe(res => {
+      this.obtenerOfertas= new Array();
+      //this.registrar.electivas= res as Electivas[];
+      for(let p in res){
+                       
+             this.contador= res[p].electivasOfertadas.length;
+             
+             this.obtenerOfertas.push(res[p]);
+                   
+        
+      }
+      console.log(res,"tamanio del array guardar: ",this.ofertaAcademica.length);
 
+    }
+    );
+  }
 
 
     limpiarModal(){
@@ -103,7 +123,9 @@ export class OfertaAcademicaComponent implements OnInit {
     for(let i in this.ofertaAcademica){
       if(this.ofertaAcademica[i].oferta === true){
          this.oferAcademica.push(this.ofertaAcademica[i]);
-      }
+         this.ofertaArray.push(this.ofertas.anio,this.ofertas.periodo,this.ofertas.dateFin,this.ofertas.dateInicio,this.ofertaAcademica[i].nombre,this.ofertaAcademica[i].oferta);
+         
+        }
 
     }
    //

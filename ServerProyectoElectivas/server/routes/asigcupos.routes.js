@@ -16,7 +16,7 @@ router.get('/piet', employee.PIET);
 router.get('/electivasCE', employee.obtenerElectivasCuposEst);
 router.get('/listarElectivas', employee.listarElectivas);
 router.get('/electivaPorNombre/:id', employee.obtenerElectivaPorNombre);
-router.post('/obtenerOfertas', employee.getOfertas);
+router.get('/obtenerOfertas', employee.getOfertas);
 
 // post methods 
 
