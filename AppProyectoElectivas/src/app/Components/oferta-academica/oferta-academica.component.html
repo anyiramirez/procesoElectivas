@@ -11,7 +11,7 @@
     <table class="table table-striped table-sm">
       <thead>
         <tr >
-          <th scope="col"> #</th>
+          
           <th scope="col">Período Académico</th>
           <th scope="col">Año</th>
           <th scope="col">Total Electivas</th>
@@ -20,11 +20,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr >
-          <td>1</td>
-          <td>2</td>
-          <td>2018</td>
-          <td>21</td>
+        <tr *ngFor="let ofertaA of obtenerOfertas; let indice=index">
+          
+          <td>{{ofertaA.periodo}}</td>
+          <td>{{ofertaA.anio}}</td>
+          <td>{{ofertaA.electivasOfertadas.NombreElectiva}}</td>
           <td>Finalizado</td>
           <td>
             <div >

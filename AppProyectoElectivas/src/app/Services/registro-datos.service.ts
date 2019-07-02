@@ -39,7 +39,9 @@ export class RegistroDatosService {
     console.log("datos a guardar:",datos);
     return this.http.post(this.API_URI + '/registrarOfertas/',datos, this.httpOptions);
    }
-
+  obtenerOfertas(){
+    return this.http.get(this.API_URI + '/obtenerOfertas');
+  }
   obtenerInformacionElectivas(){
     return this.http.get(this.API_URI + '/listarElectivas');
   }
