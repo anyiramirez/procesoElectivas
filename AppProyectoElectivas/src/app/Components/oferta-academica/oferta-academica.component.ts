@@ -15,8 +15,10 @@ export class OfertaAcademicaComponent implements OnInit {
   ofertaAcademica=new Array();
   oferAcademica=new Array();
   electivas:any={};
-  contador:number;
+  cantidad=new Array();
   ofertas:any={};
+  ElectivasOfertaActual= new Array();
+  nombreOfertaACtual;
   obtenerOfertas = new Array();
   objOferta= new Array();
   ofertaArray= new Array();
@@ -38,7 +40,6 @@ export class OfertaAcademicaComponent implements OnInit {
 
   constructor(private registrar:RegistroDatosService,private router:Router) {
     this.listarElectivas();
-    debugger;
     this.listarOfertas();
   }
 
@@ -78,20 +79,21 @@ export class OfertaAcademicaComponent implements OnInit {
     this.registrar.obtenerOfertas().subscribe(res => {
       this.obtenerOfertas= new Array();
       //this.registrar.electivas= res as Electivas[];
-      for(let p in res){
-                       
-             this.contador= res[p].electivasOfertadas.length;
-             
-             this.obtenerOfertas.push(res[p]);
-                   
-        
+      var band=0;
+      for(let p in res){                    
+             var contador= res[p].electivasOfertadas.length;
+             this.cantidad[band]=contador;
+             this.obtenerOfertas.push(res[p]); 
+             band++; 
       }
-      console.log(res,"tamanio del array guardar: ",this.ofertaAcademica.length);
 
-    }
-    );
+    });
   }
-
+  
+  detalleOferta(id: number){
+    this.ElectivasOfertaActual=this.obtenerOfertas[id].electivasOfertadas;
+    this.nombreOfertaACtual=this.obtenerOfertas[id].anio+"/"+this.obtenerOfertas[id].periodo; 
+  }
 
     limpiarModal(){
       this.ofertas.anio= '';
@@ -138,6 +140,7 @@ export class OfertaAcademicaComponent implements OnInit {
       alert(res);
       //this.listarElectivas();
       this.limpiarModal();
+      this.listarOfertas();
       //this.router.navigate(['/GestionElectivas']);
 
     });
