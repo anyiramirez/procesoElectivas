@@ -21,7 +21,6 @@ export class ModuloelectivasComponent implements OnInit {
   programaCampo;
   tipoCampo;
   nombreFormControl;
-  contenidoFormControl;
   programaFormControl;
   tipoFormControl;
   nombreEditarCampo;
@@ -40,9 +39,6 @@ export class ModuloelectivasComponent implements OnInit {
   }
   ngOnInit() {
     this.nombreFormControl = new FormControl('', [
-      Validators.required,
-    ]);
-    this.contenidoFormControl = new FormControl('', [
       Validators.required,
     ]);
     this.programaFormControl = new FormControl('', [
@@ -116,9 +112,6 @@ export class ModuloelectivasComponent implements OnInit {
     if(this.nombreFormControl.hasError('required')){
       this.nombreCampo=true;
     }else{ this.nombreCampo=false; }
-    if(this.contenidoFormControl.hasError('required')){
-      this.contenidoCampo=true;
-    }else{ this.contenidoCampo=false; }
     if(this.electivas.programa === ''){
       this.programaCampo=true;
     }else{ this.programaCampo=false; }
@@ -144,9 +137,6 @@ export class ModuloelectivasComponent implements OnInit {
     if(this.nombreFormControl.hasError('required')){
       this.nombreCampo=true;
     }else{ this.nombreCampo=false; }
-    if(this.contenidoFormControl.hasError('required')){
-      this.contenidoCampo=true;
-    }else{ this.contenidoCampo=false; }
     if(this.objeto.Programa === ''){
       this.programaCampo=true;
     }else{ this.programaCampo=false; }
