@@ -1,12 +1,11 @@
 .example-container {
     display: flex;
     flex-direction: column;
+    width: 40%;
+    position: absolute;
+    left: 30%;
+    top: 24%;
 }
-
-.example-container > * {
-    width: 100%;
-}
-
 .example-right-align {
     text-align: right;
 }

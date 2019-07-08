@@ -1,13 +1,17 @@
 <div class="example-container">
   <mat-form-field>
-    <input matInput placeholder="Enter your email" [formControl]="email" required>
-    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    <mat-label>Ingrese su email</mat-label>
+    <input [(ngModel)]="usuario.correo" name="correo" matInput placeholder="Ingrese su email" [formControl]="email" required>
+    <mat-error *ngIf="email.invalid">{{  getErrorEmail() }}</mat-error>
   </mat-form-field>
   
   <mat-form-field>
-    <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+    <input [(ngModel)]="usuario.contrasena" name="contrasena" matInput placeholder="Ingrese su contraseña" [type]="hide ? 'password' : 'text'" [formControl]="psswd" required>
+    <mat-error *ngIf="psswd.invalid">{{ getErrorPsswd() }}</mat-error> 
+    <!-- visibility button -->
     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
   </mat-form-field>
+  <button type="button" class="btn btn-primary" (click)="IniciarSesion()">Iniciar sesión</button>
 </div>
