@@ -10,10 +10,12 @@ import { MatInputModule} from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule,MatNativeDateModule} from '@angular/material';
-import { MatRadioModule} from '@angular/material/radio';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatTableModule} from '@angular/material/table';
+import { MatButtonModule, MatCheckboxModule,MatNativeDateModule} from '@angular/material';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from "@angular/material/icon";
 
 import { MatTabsModule} from '@angular/material/tabs';
 import { NgxFileDropModule } from 'ngx-file-drop';
@@ -37,7 +39,8 @@ const Rutas: Routes = [
   {path: 'ListasAsignadas', component: ListasasignacionComponent},
   {path: 'AsignacionElectiva/:id', component: AsignacionelectivaComponent},
   {path: 'GestionElectivas', component: ModuloelectivasComponent },
-  {path: 'OfertaAcademica', component: OfertaAcademicaComponent}
+  {path: 'OfertaAcademica', component: OfertaAcademicaComponent},
+  {path: 'login', component: LoginComponent}
 ];
 
 @NgModule({
@@ -72,6 +75,8 @@ const Rutas: Routes = [
     NgxFileDropModule,
     MatButtonModule,
     MatTableModule,
+    MatFormFieldModule,
+    MatIconModule,
     MatDatepickerModule,
     BrowserAnimationsModule,
     MatTabsModule,
