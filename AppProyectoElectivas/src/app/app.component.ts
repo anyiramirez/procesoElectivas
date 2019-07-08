@@ -10,7 +10,7 @@ import { PrincipaladmiComponent } from './Components/principaladmi/principaladmi
 export class AppComponent {
   title = 'Electivas';
 
-  // public constructor(public router: Router) {
-  //   this.router.navigateByUrl("Administrador");
-  // }
+  public constructor(public router: Router) {
+    this.router.navigateByUrl("Administrador");
+  }
 }
