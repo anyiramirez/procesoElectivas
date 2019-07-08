@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
-
+import { LoginService} from '../../Services/login.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,12 +10,21 @@ import {FormControl, Validators} from '@angular/forms';
 export class LoginComponent implements OnInit {
   hide = true;
   usuario: any ={};
+  urlGoogle: any;
+  public href: string = "";
+
   email = new FormControl('', [Validators.required, Validators.email]);
   psswd = new FormControl('', [Validators.required, Validators.minLength(7)]);
-  
-  constructor() { }
-  
+
+  constructor(private servicioLogin: LoginService, private router: Router) { }
+
   ngOnInit() {
+    this.servicioLogin.obtenerURLGoogle().subscribe(res => {
+      this.urlGoogle = res;
+    });
+    this.href = this.router.url;
+    console.log(this.router.url);
+
   }
   getErrorPsswd(){
     return this.psswd.hasError('required')? 'Debe ingresar una contraseña':
@@ -28,9 +38,12 @@ export class LoginComponent implements OnInit {
   }
   IniciarSesion(){
     if(this.email.status == "VALID" && this.psswd.status == "VALID"){
-      console.log(this.usuario);
+        window.open(this.urlGoogle);
     }
+    window.open(this.urlGoogle);
+    this.href = this.router.url;
+    console.log(this.router.url);
   }
-  
-  
+
+
 }
