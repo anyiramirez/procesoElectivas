@@ -8,16 +8,29 @@ import {FormControl, Validators} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   hide = true;
+  usuario: any ={};
   email = new FormControl('', [Validators.required, Validators.email]);
-
+  psswd = new FormControl('', [Validators.required, Validators.minLength(7)]);
+  
   constructor() { }
-
+  
   ngOnInit() {
   }
-
-  getErrorMessage() {
-    return this.email.hasError('required') ? 'You must enter a value' :
-        this.email.hasError('email') ? 'Not a valid email' :
-            '';
+  getErrorPsswd(){
+    return this.psswd.hasError('required')? 'Debe ingresar una contraseña':
+    this.psswd.getError ? 'La contraseña debe tener mínimo 7 dígitos':
+    '';
   }
+  getErrorEmail() {
+    return this.email.hasError('required') ? 'Debe ingresar un email' :
+    this.email.hasError('email') ? 'Email no valido' :
+    '';
+  }
+  IniciarSesion(){
+    if(this.email.status == "VALID" && this.psswd.status == "VALID"){
+      console.log(this.usuario);
+    }
+  }
+  
+  
 }

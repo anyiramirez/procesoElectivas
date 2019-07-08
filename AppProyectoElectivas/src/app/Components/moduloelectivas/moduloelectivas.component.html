@@ -62,11 +62,7 @@
               </mat-form-field>
             </div>
             <div class="col-6">
-              <mat-form-field class="example-full-width">
-                <mat-label for="contenido" *ngIf='contenidoCampo' class=" errorFormato ">Contenido Programatico</mat-label>
-                <mat-label for="contenido" *ngIf='!contenidoCampo' >Contenido Programatico</mat-label>
-                <input [(ngModel)]="electivas.contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput placeholder="Contenido Prográmatico">
-              </mat-form-field>
+              <input type="file" name="file" id="file" accept="application/pdf"> 
             </div>
             <div class="col-5 contProgramas">
               <p class="casilla text-center">
@@ -123,11 +119,7 @@
               </mat-form-field>
             </div>
             <div class="col-6">
-              <mat-form-field class="example-full-width">
-                <mat-label for="contenido" *ngIf='contenidoCampo' class=" errorFormato ">Contenido Programatico</mat-label>
-                <mat-label for="contenido" *ngIf='!contenidoCampo' >Nombre Contenido Programatico</mat-label>
-                <input [(ngModel)]="objeto.Contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput placeholder="Contenido Prográmatico">
-              </mat-form-field>
+              <input type="file" name="file" id="file" accept="application/pdf"> 
             </div>
             <div class="col-5 contProgramas">
               <p class="casilla text-center">
