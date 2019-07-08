@@ -37,8 +37,8 @@ div.cabecera #descripcion {
     z-index: 1;
 }
 #descripcion {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 20px;
+    font-weight: 300;
     line-height: 17px;
     color: #FFFFFF;
     margin-top: 27px;

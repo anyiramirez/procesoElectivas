@@ -10,7 +10,7 @@
         <div class="center">
           <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)">
             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-              puede arrastrar y soltar archivos aqui para añadirlos.
+              puede arrastrar y soltar el archivo aqui, para añadirlo.
             </ng-template>
           </ngx-file-drop>
           <div *ngIf = "file != null" >
@@ -29,7 +29,7 @@
                 </tr>
               </tbody>
             </table>
-            <button type="button" class="btn btn-outline-success" (click)="sentFile()">Enviar Archivo</button>
+            <button type="button" class="btn btn-outline-success" (click)="sentFile()">Enviar archivo</button>
           </div>
         </div>
       </mat-tab>
@@ -54,7 +54,7 @@
               <th scope="col">Debe ver</th>
               <th scope="col">Cantidad solicitada</th>
               <th >Opción 1</th>
-              <th>Opción 2</th>
+              <th >Opción 2</th>
               <th >Opción 3</th>
               <th >Opción 4</th>
             </tr>

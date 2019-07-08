@@ -38,7 +38,7 @@ export class OfertaAcademicaComponent implements OnInit {
 
   constructor(private registrar:RegistroDatosService,private router:Router) {
     this.listarElectivas();
-    debugger;
+     
     this.listarOfertas();
   }
 
@@ -106,7 +106,7 @@ export class OfertaAcademicaComponent implements OnInit {
 
   }
   registrarOferta(){
-    debugger;
+     
     if(this.anioFormControl.hasError('required')){
       this.anioCampo=true;
     }else{ this.anioCampo=false; }

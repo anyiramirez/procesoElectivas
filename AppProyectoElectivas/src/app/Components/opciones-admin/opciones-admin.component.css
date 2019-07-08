@@ -3,6 +3,11 @@
   outline: none !important;
   border: none;
 }
+.opcionesAdmin{
+  font-size: 19px;
+  font-weight: 300;
+  color: #FFFFFF;
+}
 /* ---------------------------------------------------
 SIDEBAR STYLE
 ----------------------------------------------------- */

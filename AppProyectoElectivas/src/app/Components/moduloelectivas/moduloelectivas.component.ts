@@ -122,7 +122,7 @@ export class ModuloelectivasComponent implements OnInit {
     if(this.electivas.programa === ''){
       this.programaCampo=true;
     }else{ this.programaCampo=false; }
-    if(this.electivas.tipo === 'Teórica' ||this.electivas.tipo === 'Práctica'||this.electivas.tipo === 'Teórico Práctica'){
+    if(this.electivas.tipo === 'Teórica' ||this.electivas.tipo === 'Práctica'||this.electivas.tipo === 'Teórico práctica'){
       this.tipoCampo=false;
     }else{ this.tipoCampo=true; }
     if(!this.nombreCampo && !this.contenidoCampo && !this.programaCampo && !this.tipoCampo){
@@ -151,7 +151,7 @@ export class ModuloelectivasComponent implements OnInit {
       this.programaCampo=true;
     }else{ this.programaCampo=false; }
     
-    if(this.objeto.TipoElectiva === 'Teórica' ||this.objeto.TipoElectiva === 'Práctica'||this.objeto.TipoElectiva === 'Teórico Práctica'){
+    if(this.objeto.TipoElectiva === 'Teórica' ||this.objeto.TipoElectiva === 'Práctica'||this.objeto.TipoElectiva === 'Teórico práctica'){
       this.tipoCampo=false;
     }else{ this.tipoCampo=true; }
     if(!this.nombreCampo && !this.contenidoCampo && !this.programaCampo && !this.tipoCampo){
