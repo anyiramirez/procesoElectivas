@@ -21,6 +21,7 @@ export class ModuloelectivasComponent implements OnInit {
   programaCampo;
   tipoCampo;
   nombreFormControl;
+  contenidoFormControl;
   programaFormControl;
   tipoFormControl;
   nombreEditarCampo;
@@ -39,6 +40,9 @@ export class ModuloelectivasComponent implements OnInit {
   }
   ngOnInit() {
     this.nombreFormControl = new FormControl('', [
+      Validators.required,
+    ]);
+    this.contenidoFormControl = new FormControl('', [
       Validators.required,
     ]);
     this.programaFormControl = new FormControl('', [
@@ -112,10 +116,13 @@ export class ModuloelectivasComponent implements OnInit {
     if(this.nombreFormControl.hasError('required')){
       this.nombreCampo=true;
     }else{ this.nombreCampo=false; }
+    if(this.contenidoFormControl.hasError('required')){
+      this.contenidoCampo=true;
+    }else{ this.contenidoCampo=false; }
     if(this.electivas.programa === ''){
       this.programaCampo=true;
     }else{ this.programaCampo=false; }
-    if(this.electivas.tipo === 'Teórica' ||this.electivas.tipo === 'Práctica'||this.electivas.tipo === 'Teórico práctica'){
+    if(this.electivas.tipo === 'Teórica' ||this.electivas.tipo === 'Práctica'||this.electivas.tipo === 'Teórico Práctica'){
       this.tipoCampo=false;
     }else{ this.tipoCampo=true; }
     if(!this.nombreCampo && !this.contenidoCampo && !this.programaCampo && !this.tipoCampo){
@@ -137,11 +144,14 @@ export class ModuloelectivasComponent implements OnInit {
     if(this.nombreFormControl.hasError('required')){
       this.nombreCampo=true;
     }else{ this.nombreCampo=false; }
+    if(this.contenidoFormControl.hasError('required')){
+      this.contenidoCampo=true;
+    }else{ this.contenidoCampo=false; }
     if(this.objeto.Programa === ''){
       this.programaCampo=true;
     }else{ this.programaCampo=false; }
     
-    if(this.objeto.TipoElectiva === 'Teórica' ||this.objeto.TipoElectiva === 'Práctica'||this.objeto.TipoElectiva === 'Teórico práctica'){
+    if(this.objeto.TipoElectiva === 'Teórica' ||this.objeto.TipoElectiva === 'Práctica'||this.objeto.TipoElectiva === 'Teórico Práctica'){
       this.tipoCampo=false;
     }else{ this.tipoCampo=true; }
     if(!this.nombreCampo && !this.contenidoCampo && !this.programaCampo && !this.tipoCampo){
