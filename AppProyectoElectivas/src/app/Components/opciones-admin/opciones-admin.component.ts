@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./opciones-admin.component.css']
 })
 export class OpcionesAdminComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {
