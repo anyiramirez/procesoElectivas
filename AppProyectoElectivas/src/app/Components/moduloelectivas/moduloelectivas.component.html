@@ -13,7 +13,7 @@
           <th scope="col"> #</th>
           <th scope="col">Nombre Electiva</th>
           <th scope="col">Tipo</th>
-          <th scope="col">Programa</th>
+          <th scope="col">Departamento</th>
           <th colspan="2" class="text-center">Opciones</th>
         </tr>
       </thead>
@@ -22,7 +22,7 @@
           <td>{{indice+1}}</td>
           <td>{{electiva.nombre}}</td>
           <td>{{electiva.tipo}}</td>
-          <td>{{electiva.programa}}</td>
+          <td>{{electiva.departamento}}</td>
           <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEditarElectiva" (click)="obtenerElectiva(electiva.nombre)">Editar</button></td>
           <td>
             <div *ngIf = "electiva.estado == 'Habilitar'">
@@ -68,19 +68,22 @@
                 <input [(ngModel)]="electivas.contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput placeholder="Contenido Prográmatico">
               </mat-form-field>
             </div>
-            <div class="col-5 contProgramas">
-              <p class="casilla text-center">
-                <mat-label for="programa" *ngIf='programaCampo' class=" errorFormato ">Programas Asociados</mat-label>
-                <mat-label for="programa" *ngIf='!programaCampo' >Programas Asociados</mat-label>
-              </p>
-              <mat-checkbox [(ngModel)]="varPrograma.piet" id="piet" name="piet">Ingenieria Electronica</mat-checkbox>
-              <mat-checkbox [(ngModel)]="varPrograma.pis" id="pis" name="pis">Ingeniería de Sistemas</mat-checkbox>
-              <mat-checkbox [(ngModel)]="varPrograma.piai" id="piai" name="piai">Ingeniería Automática Industrial</mat-checkbox>
+            <div class="col-6">
+              <mat-form-field>
+                <mat-label for="departamento" *ngIf='departamentoCampo' class=" errorFormato">Departamento</mat-label>
+                <mat-label for="departamento" *ngIf='!departamentoCampo' >Departamento</mat-label>
+                <mat-select matNativeControl [(ngModel)]="electivas.departamento" id="departamento" name="departamento" >
+                  <mat-option value="Electrónica instrumentación y control">Electrónica instrumentación y control</mat-option>
+                  <mat-option value="Sistemas">Sistemas</mat-option>
+                  <mat-option value="Telecomunicaciones">Telecomunicaciones</mat-option>
+                  <mat-option value="Telemática">Telemática</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
             <div class="col-6">
               <mat-form-field>
                 <mat-label for="tipo" *ngIf='tipoCampo' class=" errorFormato">Tipo de electiva</mat-label>
-                <mat-label for="tipo" *ngIf='!tipoCampo' >Tipo de electivmatNativeControl [(ngModel)]="electivas.tipo"a</mat-label>
+                <mat-label for="tipo" *ngIf='!tipoCampo' >Tipo de electiva</mat-label>
                 <mat-select matNativeControl [(ngModel)]="electivas.tipo" id="tipo" name="tipo" >
                   <mat-option value="Teórica">Teórica</mat-option>
                   <mat-option value="Práctica">Práctica</mat-option>
@@ -129,14 +132,17 @@
                 <input [(ngModel)]="objeto.Contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput placeholder="Contenido Prográmatico">
               </mat-form-field>
             </div>
-            <div class="col-5 contProgramas">
-              <p class="casilla text-center">
-                <mat-label for="programa" *ngIf='programaCampo' class=" errorFormato ">Programas Asociados</mat-label>
-                <mat-label for="programa" *ngIf='!programaCampo' >Programas Asociados</mat-label>
-              </p>
-              <mat-checkbox [(ngModel)]="varPrograma.piet" id="piet" name="piet">Ingenieria Electronica</mat-checkbox>
-              <mat-checkbox [(ngModel)]="varPrograma.pis" id="pis" name="pis">Ingeniería de Sistemas</mat-checkbox>
-              <mat-checkbox [(ngModel)]="varPrograma.piai" id="piai" name="piai">Ingeniería Automática Industrial</mat-checkbox>
+            <div class="col-6">
+              <mat-form-field>
+                <mat-label for="departamento" *ngIf='departamentoCampo' class=" errorFormato">Departamento</mat-label>
+                <mat-label for="departamento" *ngIf='!departamentoCampo' >Departamento</mat-label>
+                <mat-select matNativeControl [(ngModel)]="objeto.Departamento" id="departamento" name="departamento" >
+                  <mat-option value="Electrónica instrumentación y control">Electrónica instrumentación y control</mat-option>
+                  <mat-option value="Sistemas">Sistemas</mat-option>
+                  <mat-option value="Telecomunicaciones">Telecomunicaciones</mat-option>
+                  <mat-option value="Telemática">Telemática</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
             <div class="col-6">
               <mat-form-field>

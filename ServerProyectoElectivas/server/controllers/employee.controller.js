@@ -213,10 +213,10 @@ employeeCtrl.electivasPrograma = (req, res) => {
 
 employeeCtrl.registrarElectivas = (req,res) => {
     console.log("ELectiva a registrar: ", req.body);
-    if(validarString(req.body.nombre) && validarString(req.body.programa) && validarString(req.body.contenido) && validarString(req.body.tipo) && validarString(req.body.estado)) {
+    if(validarString(req.body.nombre) && validarString(req.body.departamento) && validarString(req.body.contenido) && validarString(req.body.tipo) && validarString(req.body.estado)) {
         var nuevaElectiva = {
             nombre : req.body.nombre,
-            programa: req.body.programa,
+            departamento: req.body.departamento,
             contenido: req.body.contenido,
             tipo: req.body.tipo,
             estado: req.body.estado,
@@ -320,7 +320,7 @@ employeeCtrl.editarElectiva = (req,res) => {
     console.log(req.body);
     var actualizarElectiva = {
         nombre : req.body.NombreElectiva,
-        programa: req.body.Programa,
+        departamento: req.body.Departamento,
         contenido: req.body.Contenido,
         tipo: req.body.TipoElectiva,
     }
