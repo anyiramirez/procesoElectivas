@@ -3,6 +3,8 @@ const favicon = require('serve-favicon');
 const morgan = require('morgan');
 const cors = require('cors');
 
+
+
 var path = require('path');
 var exphbs = require('express-handlebars');
 var bodyparser = require('body-parser');
@@ -11,6 +13,9 @@ var admin = require('firebase-admin');
 
 const app = express();
 app.use(cors());
+
+
+
 
 
 //app.use(express.static('public'));
@@ -47,28 +52,11 @@ var db = admin.database();
 // Routes
 
 app.use('/api/asigcupos',require('./routes/asigcupos.routes'));
+app.use('/login',require('./routes/login.routes'));
 
 
-app.get('/', function(req, res){
+//--------------------------------------------------------
 
-    res.render('home',{title:'Listas dexx preinscripción'});
-});
-
-
-app.get('/asigElect', function(req, res){
-    
-    var list;
-    var ref = db.ref();
-    // Attach an asynchronous callback to read the data at our posts reference
-    ref.once("value", function(snapshot) {
-        list = snapshot.val();
-
-        res.render('list',{title:'Lista de preinscripciones',list:list});
-    }, function (errorObject) {
-        console.log("The read failed: " + errorObject.code);
-    });
-    
-});
 
 // Starting server
 app.listen(app.get('port'), () => {

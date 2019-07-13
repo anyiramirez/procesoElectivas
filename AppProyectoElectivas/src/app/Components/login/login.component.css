@@ -1,0 +1,20 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    position: absolute;
+    left: 30%;
+    top: 24%;
+}
+.example-right-align {
+    text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+}
+
+input.example-right-align {
+    -moz-appearance: textfield;
+}

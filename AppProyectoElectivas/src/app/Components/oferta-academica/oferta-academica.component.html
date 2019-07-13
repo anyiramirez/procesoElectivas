@@ -24,12 +24,12 @@
           
           <td>{{ofertaA.periodo}}</td>
           <td>{{ofertaA.anio}}</td>
-          <td>{{contador}}</td>
+          <td>{{cantidad[indice]}}</td>
           <td>Finalizado</td>
           <td>
-            <div >
-              <button type="button" class="btn btn-outline-success">Ver</button>
-            </div>
+              <button type="button" (click)="detalleOferta(indice)" class="btn btn-info" data-toggle="modal" data-target="#ModalDetailOferta" >
+                  Ver
+              </button>
           </td>
         </tr>
         
@@ -37,7 +37,44 @@
     </table>
   </div>
 </div>
-
+<!-- Modal Detalle Oferta Académica-->
+<div class="modal fade" id="ModalDetailOferta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Oferta {{nombreOfertaACtual}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+          <form id="DetalleOferta">
+            <div class="row">
+                  <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Nombre Electiva</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let ElecOferAct of ElectivasOfertaActual; let indice=index">
+                          <td>{{indice+1}}</td>
+                          <td>{{ElecOferAct.NombreElectiva}}</td>
+                        </tr>       
+                      </tbody>
+                    </table>     
+            </div> 
+          </form>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>
 
 <!-- Modal Nueva Oferta Académica-->
 <div class="modal fade " id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">

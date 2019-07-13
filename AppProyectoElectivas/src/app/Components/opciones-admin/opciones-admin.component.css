@@ -3,12 +3,17 @@
   outline: none !important;
   border: none;
 }
+.opcionesAdmin{
+  font-size: 19px;
+  font-weight: 300;
+  color: #FFFFFF;
+}
 /* ---------------------------------------------------
 SIDEBAR STYLE
 ----------------------------------------------------- */
 #sidebar {
-  min-width: 220px;
-  max-width: 250px;
+  min-width: 250px !important;
+  max-width: 250px !important;
   background: #09679f;
   color: #fff;
   transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);

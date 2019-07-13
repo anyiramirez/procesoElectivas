@@ -7,10 +7,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./principaladmi.component.css']
 })
 export class PrincipaladmiComponent implements OnInit {
-
-  constructor(private router:Router) { }
+  public href: string = "";
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    console.log("Holi");
+    this.href = this.router.url;
+    console.log(this.router.url);
   }
 
 }
