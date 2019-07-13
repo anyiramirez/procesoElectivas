@@ -1,20 +1,139 @@
-.example-container {
-    display: flex;
-    flex-direction: column;
-    width: 40%;
+.fondo{
+    background-image: url(../../../assets/background.png) !important;
+    width: 100%;
+    height: 100%;
+    background-position: center center;	  
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    text-align: center !important;
     position: absolute;
-    left: 30%;
-    top: 24%;
 }
-.example-right-align {
-    text-align: right;
+.back-login{
+    background: url(../../../assets/back-login.png) no-repeat;
+    padding: 35px 20px 0;
+    width: 370px;
+    display: inline-block;
+    height: 344px;
+    margin-top: 4%;
 }
-
-input.example-right-align::-webkit-outer-spin-button,
-input.example-right-align::-webkit-inner-spin-button {
-    display: none;
+#inicio{
+    color: #000;
+    margin-bottom: 15%;
+    margin-top: 10%;
 }
-
-input.example-right-align {
-    -moz-appearance: textfield;
+#descripcion{
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 17px;
+    color: #FFFFFF;
+    margin-top: 27px;
+    width: 235px;
+    float: left;
+}
+.abcRioButtonBlue {
+    background-color: #4285f4;
+    border: none;
+    color: #fff;
+    height:50px;
+    width:240px;
+    border-radius: 1px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);
+    box-sizing: border-box;
+    transition: background-color .218s,border-color .218s,box-shadow .218s;
+    -webkit-appearance: none;
+    background-image: none;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    left: 15%;
+}
+.abcRioButtonBlue .abcRioButtonContentWrapper {
+    border: 1px solid transparent;
+}
+.abcRioButtonContentWrapper {
+    height: 100%;
+    width: 100%;
+}
+.abcRioButtonBlue .abcRioButtonIcon {
+    background-color: #fff;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+    padding-right: 38px;
+    padding-left: 38px;
+    height: 48px;
+}
+.abcRioButtonIcon {
+    float: left;
+}
+.abcRioButtonSvg {
+    display: block;
+    position: relative;
+    top: 6px;
+    left: -26px;
+    height: 30px;
+    width: 30px;
+}
+.abcRioButtonContents {
+    font-family: Roboto,arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .21px;
+    margin-left: 6px;
+    margin-right: 6px;
+    vertical-align: top;
+    line-height: 48px;
+}
+.logoU {
+    background: url(../../../assets/loginU.png) no-repeat;
+    width: 81px;
+    height: 90px;
+    float: left;
+    zoom: 45%;
+    position: relative;
+    top: -62px;
+    left: 58px;
+}
+.separador {
+    background: url(../../../assets/barraLogin.jpg) no-repeat;
+    width: 1px;
+    height: 33px;
+    right: -13px;
+    top: -24px;
+    position: relative;
+}
+.cabecera{
+    display: table !important;
+    margin: 30px auto 5px !important;
+}
+#logoUnicauca{
+    background: url(../../../assets/logo.png) no-repeat;
+    width: 188px;
+    height: 92px;
+    float: left;
+    margin-right: 10px;
+}
+.barra{
+    background: url(../../../assets/barra.png) no-repeat;
+    width: 2px;
+    height: 40px;
+    float: left;
+    margin: 25px 10px 0 0;
+}
+.antorcha{
+    background: url(../../../assets/antorcha.png) no-repeat;
+    width: 20%;
+    height: 100%;
+    position: fixed;
+    right: 14%;
+}
+.banderaU{
+    background: url(../../../assets/bandera.png) no-repeat;
+    width: 30%;
+    height: 21%;
+    position: fixed;
 }
