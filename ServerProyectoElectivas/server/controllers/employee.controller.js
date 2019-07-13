@@ -162,6 +162,37 @@ employeeCtrl.listarElectivas = (req,res) => {
 }
 
 
+employeeCtrl.electivasPrograma = (req, res) => {
+    
+    console.log("programa llego: ",req.params.programa);
+    var db = admin.database();
+    var nombre = String(req.params.programa);
+    var list;
+    var listaPrograma = [];
+    
+    db.ref('Ofertas').once("value", function(snapshot) {        
+        list = snapshot.val();
+        electivasOferta = list[0].electivasOfertadas;
+        var entro = false;
+        for(var key in electivasOferta) {
+            if(key.programa.search(req.params.programa) != -1) {
+                entro = true;
+                listaPrograma.add(key.NombreElectiva);
+                console.log(listaPrograma);
+                res.json(listaPrograma);
+                break;
+            }
+        }
+        if(!entro){
+            res.json("no");
+        }
+        
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+}
+
+
 //-------------------------------
 //    POST METHODS
 //-------------------------------

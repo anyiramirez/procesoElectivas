@@ -17,6 +17,7 @@ router.get('/electivasCE', employee.obtenerElectivasCuposEst);
 router.get('/listarElectivas', employee.listarElectivas);
 router.get('/electivaPorNombre/:id', employee.obtenerElectivaPorNombre);
 router.get('/obtenerOfertas', employee.getOfertas);
+router.get('/electivasPrograma/:programa', employee.electivasPrograma);
 
 // post methods 
 
