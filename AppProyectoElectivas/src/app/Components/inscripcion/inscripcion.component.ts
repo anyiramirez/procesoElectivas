@@ -34,10 +34,9 @@ export class InscripcionComponent implements OnInit {
     );
 
   }
-  debugger;
+
   listarElectivas(){
-   
-    this.registrar.obtenerOfertas().subscribe(res => {
+    this.registrar.obtenerElectivasOfertadas("PIS").subscribe(res => {
       this.electivasRegistradas=new Array();
       //this.registrar.electivas= res as Electivas[];
       for(let p in res){
