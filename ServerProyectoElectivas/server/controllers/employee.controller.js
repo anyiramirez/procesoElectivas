@@ -172,8 +172,22 @@ employeeCtrl.electivasPrograma = (req, res) => {
     
     db.ref('Ofertas').once("value", function(snapshot) {        
         list = snapshot.val();
-        electivasOferta = list[0].electivasOfertadas;
-        var entro = false;
+        res.json(list);
+        var key1;
+        for (key1 in list) {
+            console.log("clave: " + key1);
+            for (key2 in list[key1].electivasOfertadas) {
+                if(list[key1].electivasOfertadas[key2].programa.search(req.params.programa)) {
+                    listaPrograma.push(list[key1].electivasOfertadas[key2].NombreElectiva);
+                }
+            }
+        }
+        console.log(listaPrograma);
+        res.json(listaPrograma);
+        
+        //electivasOferta = list.key1.electivasOfertadas;
+        //res.json(electivasOferta);
+        /*var entro = false;
         for(var key in electivasOferta) {
             if(key.programa.search(req.params.programa) != -1) {
                 entro = true;
@@ -185,7 +199,7 @@ employeeCtrl.electivasPrograma = (req, res) => {
         }
         if(!entro){
             res.json("no");
-        }
+        }*/
         
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
