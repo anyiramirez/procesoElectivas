@@ -22,45 +22,46 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>Opción Uno</mat-label>
-            <mat-select matNativeControl [(ngModel)]="inscripcion.opcion1" placeholder="Select">
-                <mat-option *ngFor="let e of electivasRegistradas" [value]="e.opcion1">
-                  {{e.NombreElectiva}}
+            <mat-select matNativeControl [(ngModel)]="inscripcion.opcion1" id="opcion1" name="opcion1" >
+                <mat-option *ngFor="let e of electivasRegistradas" [value]="e">
+                  {{e}}
                   </mat-option>
                 
               </mat-select>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Opción Dos</mat-label>
-                <mat-select  [(ngModel)]="inscripcion.opcion2" placeholder="Select">
-                    <mat-option value="option">Ingeniería de Sistemas</mat-option>
-                    <mat-option value="option">Ingeniería Automática Industrial</mat-option>
-                    <mat-option value="option">Ingeniería Electrónica y Telecomunicaciones</mat-option>
+                <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion2"id="opcion2" name="opcion2" (click)="registrarInscripcion()" >
+                    <mat-option *ngFor="let e of electivasDos" [value]="e">
+                        {{e}}
+                    </mat-option>
+                   
                   </mat-select>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Opción tres</mat-label>
-                    <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion3" placeholder="Select">
-                        <mat-option value="option">Ingeniería de Sistemas</mat-option>
-                        <mat-option value="option">Ingeniería Automática Industrial</mat-option>
-                        <mat-option value="option">Ingeniería Electrónica y Telecomunicaciones</mat-option>
+                    <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion3" id="opcion3" name="opcion3"  (click)="registrarInscripcion()">
+                        <mat-option *ngFor="let e of electivasTres" [value]="e">
+                            {{e}}
+                            </mat-option>
                       </mat-select>
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Opción Cuatro</mat-label>
-                        <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion4" placeholder="Select">
-                            <mat-option value="option">Ingeniería de Sistemas</mat-option>
-                            <mat-option value="option">Ingeniería Automática Industrial</mat-option>
-                            <mat-option value="option">Ingeniería Electrónica y Telecomunicaciones</mat-option>
+                        <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion4" id="opcion4" name="opcion4">
+                            <mat-option *ngFor="let e of electivasRegistradas" [value]="e">
+                                {{e}}
+                                </mat-option>
                           </mat-select>
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Opción Cinco</mat-label>
-                            <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion5" placeholder="Select">
-                                <mat-option value="option">Ingeniería de Sistemas</mat-option>
-                                <mat-option value="option">Ingeniería Automática Industrial</mat-option>
-                                <mat-option value="option">Ingeniería Electrónica y Telecomunicaciones</mat-option>
+                            <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion5" id="opcion5" name="opcion5">
+                                <mat-option *ngFor="let e of electivasRegistradas" [value]="e">
+                                    {{e}}
+                                    </mat-option>
                               </mat-select>
                             </mat-form-field>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Inscribirse</button>
+                            <button type="button" class="btn btn-primary" (click)="registrarInscripcion()" data-dismiss="modal">Inscribirse</button>
  
 </div>
