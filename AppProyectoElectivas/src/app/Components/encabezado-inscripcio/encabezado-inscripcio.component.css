@@ -1,0 +1,127 @@
+div.cabecera {
+    display: block;
+    background: url(../../../assets/back.png) no-repeat center;
+    background-size: 100%;
+    background-color: #0C3664;
+    margin: 0;
+    position: relative;
+    height: 100px;
+    max-height: 100px
+}
+div.cabecera #logoU {
+    margin: 5px 10px 5px 50px;
+    position: relative;
+    z-index: 1;
+}
+#logoU {
+    background: url(../../../assets/logo.png) no-repeat;
+    width: 188px;
+    height: 92px;
+    float: left;
+    margin-right: 10px;
+}
+div.cabecera .separador {
+    margin-top: 30px;
+    margin-bottom: 32px;
+}
+div .separador {
+    background: url(../../../assets/barra.png) no-repeat;
+    width: 2px;
+    height: 40px;
+    float: left;
+    margin: 25px 10px 27px 0;
+}
+div.cabecera #descripcion {
+    margin-top: 32px;
+    position: relative;
+    z-index: 1;
+}
+#descripcion {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 17px;
+    color: #FFFFFF;
+    margin-top: 27px;
+    width: 235px;
+    float: left;
+}
+#banderadiv {
+    background: url(../../../assets/bandera-head-int.png) no-repeat;
+    width: 195px;
+    height: 102px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+}
+
+#infoGeneral {
+    border: 5px solid #E4E4E4;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background: #F0F0F0;
+    float: left;
+    margin-right: 20px;
+    width: 97%;
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+.imagenUsuario {
+    background-color: rgba(22, 119, 160, 0.14);
+    width: 7.2em;
+    float: left;
+    padding: 10px 14px 10px;
+    margin-top: 10px;
+}
+ul.listaInfoUsuario {
+    float: left;
+    margin-top: 10px;
+}
+ul.listaInfoUsuario li {
+    line-height: 25px;
+    background-color: rgba(22, 119, 160, 0.14);
+    color: #666666;
+    display: block;
+    padding: 0 90px 0 10px;
+    margin-bottom: 1px;
+    border-bottom: 1px solid #CECECE;
+    font-size: 14px;
+}
+ul.listaInfoUsuario li.firstItem {
+    border-radius: 0 5px 0 0;
+}
+ul.listaInfoUsuario li.lastItem {
+    border-radius: 0 0 5px 0;
+}
+.positionbtn{
+    position: absolute;
+    left: 86%;
+}
+/* ---------------------------------------------------
+MEDIAQUERIES
+----------------------------------------------------- */
+@media screen and (max-width: 1060px){
+    .positionbtn{
+        left: 80%;
+    }
+}
+@media screen and (max-width: 710px){
+    .positionbtn{
+        position: relative;
+        left: 76%;
+    }
+}
+@media screen and (max-width: 582px){
+    .positionbtn{
+        left: 46%;
+    }
+}
+@media screen and (max-width: 512px){
+    .positionbtn{
+        left: 46%;
+    }
+    #descripcion{
+        display: none;
+    }
+}

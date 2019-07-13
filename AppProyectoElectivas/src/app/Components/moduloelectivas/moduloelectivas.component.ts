@@ -136,6 +136,7 @@ export class ModuloelectivasComponent implements OnInit {
     }else{
       alert("Error en el registro");
     }
+    this.listarElectivas();
     
   }
   editarElectivas(){
