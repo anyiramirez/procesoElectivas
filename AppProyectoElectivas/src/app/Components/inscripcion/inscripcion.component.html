@@ -22,7 +22,7 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>Opción Uno</mat-label>
-            <mat-select matNativeControl [(ngModel)]="inscripcion.opcion1" id="opcion1" name="opcion1" >
+            <mat-select matNativeControl [(ngModel)]="inscripcion.opcion1" id="opcion1" name="opcion1"  >
                 <mat-option *ngFor="let e of electivasRegistradas" [value]="e">
                   {{e}}
                   </mat-option>
@@ -31,7 +31,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Opción Dos</mat-label>
-                <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion2"id="opcion2" name="opcion2" (click)="registrarInscripcion()" >
+                <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion2"id="opcion2" name="opcion2" (click)="listarSegundaOpcion()" >
                     <mat-option *ngFor="let e of electivasDos" [value]="e">
                         {{e}}
                     </mat-option>
@@ -40,7 +40,7 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Opción tres</mat-label>
-                    <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion3" id="opcion3" name="opcion3"  (click)="registrarInscripcion()">
+                    <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion3" id="opcion3" name="opcion3"  (click)="listarTerceraOpcion()">
                         <mat-option *ngFor="let e of electivasTres" [value]="e">
                             {{e}}
                             </mat-option>
