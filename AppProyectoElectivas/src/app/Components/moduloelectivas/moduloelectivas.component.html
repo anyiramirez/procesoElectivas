@@ -80,7 +80,7 @@
             <div class="col-6">
               <mat-form-field>
                 <mat-label for="tipo" *ngIf='tipoCampo' class=" errorFormato">Tipo de electiva</mat-label>
-                <mat-label for="tipo" *ngIf='!tipoCampo' >Tipo de electiva</mat-label>
+                <mat-label for="tipo" *ngIf='!tipoCampo' >Tipo de electivmatNativeControl [(ngModel)]="electivas.tipo"a</mat-label>
                 <mat-select matNativeControl [(ngModel)]="electivas.tipo" id="tipo" name="tipo" >
                   <mat-option value="Teórica">Teórica</mat-option>
                   <mat-option value="Práctica">Práctica</mat-option>

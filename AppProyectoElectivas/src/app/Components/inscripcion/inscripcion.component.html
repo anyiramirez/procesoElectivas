@@ -4,33 +4,34 @@
         <h5>Formulario de Inscripción:</h5>
        
         <mat-form-field>
-          <input matInput placeholder="Nombres">
+          <input  [(ngModel)]="inscripcion.nombres" id="nombres" name="nombres" matInput placeholder="Nombres">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Apellidos">
+          <input [(ngModel)]="inscripcion.apellidos" id="apellidos" name="apellidos" matInput placeholder="Apellidos">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Código">
+          <input [(ngModel)]="inscripcion.codigo" id="codigo" name="codigo" matInput placeholder="Código">
         </mat-form-field>
         <mat-form-field>
         <mat-label>Programa</mat-label>
-        <mat-select placeholder="Select">
-            <mat-option value="option">Ingeniería de Sistemas</mat-option>
-            <mat-option value="option">Ingeniería Automática Industrial</mat-option>
-            <mat-option value="option">Ingeniería Electrónica y Telecomunicaciones</mat-option>
+        <mat-select matNativeControl [(ngModel)]="inscripcion.programa" id ="programa" name="programa">
+            <mat-option value="PIS">Ingeniería de Sistemas</mat-option>
+            <mat-option value="PIAI">Ingeniería Automática Industrial</mat-option>
+            <mat-option value="PIET">Ingeniería Electrónica y Telecomunicaciones</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Opción Uno</mat-label>
-            <mat-select placeholder="Select">
-                <mat-option value="option">Ingeniería de Sistemas</mat-option>
-                <mat-option value="option">Ingeniería Automática Industrial</mat-option>
-                <mat-option value="option">Ingeniería Electrónica y Telecomunicaciones</mat-option>
+            <mat-select matNativeControl [(ngModel)]="inscripcion.opcion1" placeholder="Select">
+                <mat-option *ngFor="let e of electivasRegistradas" [value]="e.opcion1" value="option">
+                {{e.nombre}}
+                  </mat-option>
+                
               </mat-select>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Opción Dos</mat-label>
-                <mat-select placeholder="Select">
+                <mat-select  [(ngModel)]="inscripcion.opcion2" placeholder="Select">
                     <mat-option value="option">Ingeniería de Sistemas</mat-option>
                     <mat-option value="option">Ingeniería Automática Industrial</mat-option>
                     <mat-option value="option">Ingeniería Electrónica y Telecomunicaciones</mat-option>
@@ -38,7 +39,7 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Opción tres</mat-label>
-                    <mat-select placeholder="Select">
+                    <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion3" placeholder="Select">
                         <mat-option value="option">Ingeniería de Sistemas</mat-option>
                         <mat-option value="option">Ingeniería Automática Industrial</mat-option>
                         <mat-option value="option">Ingeniería Electrónica y Telecomunicaciones</mat-option>
@@ -46,7 +47,7 @@
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Opción Cuatro</mat-label>
-                        <mat-select placeholder="Select">
+                        <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion4" placeholder="Select">
                             <mat-option value="option">Ingeniería de Sistemas</mat-option>
                             <mat-option value="option">Ingeniería Automática Industrial</mat-option>
                             <mat-option value="option">Ingeniería Electrónica y Telecomunicaciones</mat-option>
@@ -54,7 +55,7 @@
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Opción Cinco</mat-label>
-                            <mat-select placeholder="Select">
+                            <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion5" placeholder="Select">
                                 <mat-option value="option">Ingeniería de Sistemas</mat-option>
                                 <mat-option value="option">Ingeniería Automática Industrial</mat-option>
                                 <mat-option value="option">Ingeniería Electrónica y Telecomunicaciones</mat-option>
