@@ -45,6 +45,10 @@ export class RegistroDatosService {
   obtenerInformacionElectivas(){
     return this.http.get(this.API_URI + '/listarElectivas');
   }
+  obtenerElectivasOfertadas(programa: string){
+    return this.http.get(this.API_URI+'/electivasPrograma/'+ programa);
+
+  }
   obtenerDatosNombreElectiva(id: Electivas){
     return this.http.get(this.API_URI+ '/electivaPorNombre/'+ id );
   }

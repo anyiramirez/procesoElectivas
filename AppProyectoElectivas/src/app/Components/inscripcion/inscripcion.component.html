@@ -23,7 +23,7 @@
         <mat-form-field>
             <mat-label>Opción Uno</mat-label>
             <mat-select matNativeControl [(ngModel)]="inscripcion.opcion1" placeholder="Select">
-                <mat-option *ngFor="let e of electivasRegistradas" [value]="e.opcion1" value="option">
+                <mat-option *ngFor="let e of electivas" [value]="e.opcion1" value="option">
                 {{e.nombre}}
                   </mat-option>
                 

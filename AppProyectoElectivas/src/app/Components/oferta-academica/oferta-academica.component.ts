@@ -97,7 +97,7 @@ export class OfertaAcademicaComponent implements OnInit {
   detalleOferta(id: number){
     this.ElectivasOfertaActual=this.obtenerOfertas[id].electivasOfertadas;
     this.nombreOfertaACtual=this.obtenerOfertas[id].anio+"/"+this.obtenerOfertas[id].periodo; 
-       }
+    }
 
     limpiarModal(){
       this.ofertas.anio= '';
@@ -156,7 +156,7 @@ export class OfertaAcademicaComponent implements OnInit {
     this.ofertaArray= new Array();
     this.ofertaArray.push(this.ofertas,this.oferAcademica);
     this.registrar.saveOfertaAcademica(this.ofertaArray).subscribe(res => {
-      this.ofertaArray= new Array();
+    this.ofertaArray= new Array();
 
       alert(res);
       //this.listarElectivas();

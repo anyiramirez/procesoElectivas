@@ -9,9 +9,12 @@ import { Router } from '@angular/router';
   templateUrl: './inscripcion.component.html',
   styleUrls: ['./inscripcion.component.css']
 })
+
 export class InscripcionComponent implements OnInit {
+  
   inscripcion:any={};
   electivasRegistradas = new Array();
+ 
   constructor(private registrar:RegistroDatosService,private router:Router) {
     this.listarElectivas();
    }
@@ -20,9 +23,21 @@ export class InscripcionComponent implements OnInit {
   }
   registrarInscripcion(){
 
+    this.registrar.obtenerElectivasOfertadas("PIS").subscribe(res => {
+      this.electivasRegistradas=new Array();
+      //this.registrar.electivas= res as Electivas[];
+      for(let p in res){
+        this.electivasRegistradas.push(res[p]);
+      }
+      
+    }
+    );
+
   }
+  debugger;
   listarElectivas(){
-    this.registrar.obtenerInformacionElectivas().subscribe(res => {
+   
+    this.registrar.obtenerOfertas().subscribe(res => {
       this.electivasRegistradas=new Array();
       //this.registrar.electivas= res as Electivas[];
       for(let p in res){
