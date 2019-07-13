@@ -228,6 +228,31 @@ employeeCtrl.registrarElectivas = (req,res) => {
         
     }
 }
+
+employeeCtrl.registrarInscripcion = (req,res) => {
+    console.log("ELectiva a registrar: ", req.body);
+    usuario, codigo, apellidos, nombres, opcion1, opcion2, opcion3, opcion4, opcion5
+    if(validarString(req.body.nombre) && validarString(req.body.programa) && validarString(req.body.contenido) && validarString(req.body.tipo) && validarString(req.body.estado)) {
+        var nuevaInscripcion = {
+            usuario : req.body.usuario,
+            codigo: req.body.codigo,
+            apellidos: req.body.apellidos,
+            nombres: req.body.nombres,
+            opcion1: req.body.opcion1,
+            opcion2: req.body.opcion2,
+            opcion3: req.body.opcion3,
+            opcion4: req.body.opcion4,
+            opcion5: req.body.opcion5,
+            fechaRegistro: moment().format('YYYY/MM/DD HH:mm:ss Z')
+        }
+        
+        var db = admin.database();
+        
+        db.ref("Inscripcion").push(nuevaElectiva);
+        
+    }
+}
+
 employeeCtrl.registrarOfertas = (req,res) => {
     console.log("ELectiva a registrar: ", req.body[0].anio);
     var trueE = [];
