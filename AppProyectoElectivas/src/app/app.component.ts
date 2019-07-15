@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { PrincipaladmiComponent } from './Components/principaladmi/principaladmi.component';
+import {LoginComponent } from './Components/login/login.component';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +9,8 @@ import { PrincipaladmiComponent } from './Components/principaladmi/principaladmi
 })
 export class AppComponent {
   title = 'Electivas';
-
-  // public constructor(public router: Router) {
-  //   this.router.navigateByUrl("Administrador");
-  // }
+  
+  public constructor(private router: Router) {
+    this.router.navigate(["login"]);
+  }
 }
