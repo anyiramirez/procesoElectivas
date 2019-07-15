@@ -1,5 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { EventEmitter } from 'protractor';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 
 @Component({
@@ -8,8 +7,7 @@ import { EventEmitter } from 'protractor';
   styleUrls: ['./opciones-admin.component.css']
 })
 export class OpcionesAdminComponent implements OnInit {
-  @Output()
-  vista: EventEmitter = new EventEmitter();
+  @Output() vista: EventEmitter <string> = new EventEmitter <string>();
   
   constructor() {}
   
