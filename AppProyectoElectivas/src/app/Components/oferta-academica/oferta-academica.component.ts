@@ -44,6 +44,7 @@ export class OfertaAcademicaComponent implements OnInit {
   constructor(private registrar:RegistroDatosService,private router:Router) {
     this.listarElectivas();
     this.listarOfertas();
+   
   }
 
   ngOnInit() {
@@ -106,23 +107,22 @@ export class OfertaAcademicaComponent implements OnInit {
       this.ofertas.dateFin = '';
 
     }
-  validarFechas(){
-    this.ofertas.dateFin;
-    this.ofertas.dateInicio;
+ 
+  
 
-  }
   registrarOferta(){
      
-    if(this.anioFormControl.hasError('required')){
+    if(this.anioFormControl.hasError('required') || !this.validarAnio(this.ofertas.anio)){
       this.anioCampo=true;
-    }else{ this.anioCampo=false; }
+    }
+    else{ this.anioCampo=false; }
     if(this.periodoFormControl.hasError('required')){
       this.periodoAcademicoCampo=true;
     }else{ this.periodoAcademicoCampo=false; }
-    if(this.inicioFormControl.hasError('required')){
+    if(this.inicioFormControl.hasError('required') || !this.validarFechas(this.ofertas.dateInicio)){
       this.inicioCampo=true;
     }else{ this.inicioCampo=false; }
-    if(this.finFormControl.hasError('required')){
+    if(this.finFormControl.hasError('required') || !this.validarFechas(this.ofertas.dateFin)){
       this.finCampo=true;
     }else{ this.finCampo=false; }
     if(!this.anioCampo && !this.periodoAcademicoCampo && !this.inicioCampo && !this.finCampo){
@@ -166,9 +166,33 @@ export class OfertaAcademicaComponent implements OnInit {
 
     });
   }else{
-    alert("Error en el registro");
+    alert("Error en el registro, dato incorrecto ");
      }
      this.listarElectivas();
+    }
+
+    validarFechas(fechaFor: any){    
+      var fecha = new Date();
+      // Comparamos solo las fechas => no las horas!!
+      console.log(fecha, fechaFor); 
+      if ( fecha <= fechaFor) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+
+    validarAnio(anioFor:any){
+      var fecha = new Date();
+      var aniofecha = fecha.getFullYear();
+      console.log(aniofecha,anioFor);
+      if ( aniofecha <= anioFor) {
+        return true;
+      }
+      else {
+        return false;
+      }
     }
 
 }
