@@ -28,9 +28,7 @@ export class InscripcionComponent implements OnInit {
   codigoFormControl;
   programaFormControl;
   opcion1FormControl;
-  constructor(private registrar:RegistroDatosService,private router:Router) {
-   this.listarElectivas();
-   
+  constructor(private registrar:RegistroDatosService,private router:Router) {   
    }
 
   ngOnInit() {
@@ -150,23 +148,5 @@ export class InscripcionComponent implements OnInit {
     }
 
   }
-  listarElectivas(){
-    this.registrar.obtenerElectivasOfertadas("PIS").subscribe(res => {
-      this.electivasRegistradas=new Array();
-      //this.registrar.electivas= res as Electivas[];
-      for(let p in res){
-        this.electivasRegistradas.push(res[p]);
-      }
-      
-    }
-    );
 
-    for(let i in this.electivasRegistradas){
-      if(this.electivasRegistradas[i]!=this.inscripcion.opcion1){
-        this.electivasDos.push(this.electivasRegistradas[i]);
-
-      }
-    }
-    
-  }
 }

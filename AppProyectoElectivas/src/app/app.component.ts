@@ -11,6 +11,6 @@ export class AppComponent {
   title = 'Electivas';
   
   public constructor(private router: Router) {
-    this.router.navigate(["login"]);
+    this.router.navigate(["Administrador"]);
   }
 }
