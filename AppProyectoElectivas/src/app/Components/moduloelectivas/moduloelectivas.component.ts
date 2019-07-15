@@ -18,7 +18,7 @@ export class ModuloelectivasComponent implements OnInit {
   electivasRegistradas = new Array();
   nombreCampo;
   contenidoCampo;
-  programaCampo;
+  departamentoCampo;
   tipoCampo;
   nombreFormControl;
   contenidoFormControl;
@@ -111,8 +111,7 @@ export class ModuloelectivasComponent implements OnInit {
   
   registrarElectivas(){
     
-    this.getElectivas();
-    
+     
     if(this.nombreFormControl.hasError('required')){
       this.nombreCampo=true;
     }else{ this.nombreCampo=false; }
@@ -120,12 +119,12 @@ export class ModuloelectivasComponent implements OnInit {
       this.contenidoCampo=true;
     }else{ this.contenidoCampo=false; }
     if(this.electivas.programa === ''){
-      this.programaCampo=true;
-    }else{ this.programaCampo=false; }
+      this.departamentoCampo=true;
+    }else{ this.departamentoCampo=false; }
     if(this.electivas.tipo === 'Teórica' ||this.electivas.tipo === 'Práctica'||this.electivas.tipo === 'Teórico Práctica'){
       this.tipoCampo=false;
     }else{ this.tipoCampo=true; }
-    if(!this.nombreCampo && !this.contenidoCampo && !this.programaCampo && !this.tipoCampo){
+    if(!this.nombreCampo && !this.contenidoCampo && !this.departamentoCampo && !this.tipoCampo){
       this.electivas.estado = 'Habilitar';
       this.registrar.saveElectivas(this.electivas).subscribe(res => {
         alert(res);
@@ -141,7 +140,7 @@ export class ModuloelectivasComponent implements OnInit {
   }
   editarElectivas(){
     
-    this.getEditarElectivas();
+    //this.getEditarElectivas();
     if(this.nombreFormControl.hasError('required')){
       this.nombreCampo=true;
     }else{ this.nombreCampo=false; }
@@ -149,13 +148,13 @@ export class ModuloelectivasComponent implements OnInit {
       this.contenidoCampo=true;
     }else{ this.contenidoCampo=false; }
     if(this.objeto.Programa === ''){
-      this.programaCampo=true;
-    }else{ this.programaCampo=false; }
+      this.departamentoCampo=true;
+    }else{ this.departamentoCampo=false; }
     
     if(this.objeto.TipoElectiva === 'Teórica' ||this.objeto.TipoElectiva === 'Práctica'||this.objeto.TipoElectiva === 'Teórico Práctica'){
       this.tipoCampo=false;
     }else{ this.tipoCampo=true; }
-    if(!this.nombreCampo && !this.contenidoCampo && !this.programaCampo && !this.tipoCampo){
+    if(!this.nombreCampo && !this.contenidoCampo && !this.departamentoCampo && !this.tipoCampo){
 
       this.registrar.editarElectiva(this.nombreAntiguo,this.objeto).subscribe(res => {
 
