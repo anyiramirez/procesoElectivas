@@ -15,6 +15,9 @@ export class OfertaAcademicaComponent implements OnInit {
   ofertaAcademica=new Array();
   oferAcademica=new Array();
   electivas:any={};
+  objeto:any={};
+  varPrograma:any={};
+  contador:number;
   cantidad=new Array();
   ofertas:any={};
   ElectivasOfertaActual= new Array();
@@ -57,6 +60,7 @@ export class OfertaAcademicaComponent implements OnInit {
       Validators.required,
     ]);
   }
+ 
   listarElectivas(){
     this.registrar.obtenerInformacionElectivas().subscribe(res => {
       this.electivas=new Array();
@@ -69,7 +73,7 @@ export class OfertaAcademicaComponent implements OnInit {
         this.ofertaAcademica.push(objetoArray);
         }
       }
-      console.log(res,"tamanio del array guardar: ",this.ofertaAcademica.length);
+      console.log(this.electivas,"tamanio del array guardar: ",this.ofertaAcademica.length);
 
     }
     );
@@ -93,7 +97,7 @@ export class OfertaAcademicaComponent implements OnInit {
   detalleOferta(id: number){
     this.ElectivasOfertaActual=this.obtenerOfertas[id].electivasOfertadas;
     this.nombreOfertaACtual=this.obtenerOfertas[id].anio+"/"+this.obtenerOfertas[id].periodo; 
-  }
+    }
 
     limpiarModal(){
       this.ofertas.anio= '';
@@ -125,7 +129,24 @@ export class OfertaAcademicaComponent implements OnInit {
     for(let i in this.ofertaAcademica){
       if(this.ofertaAcademica[i].oferta === true){
          this.oferAcademica.push(this.ofertaAcademica[i]);
-         this.ofertaArray.push(this.ofertas.anio,this.ofertas.periodo,this.ofertas.dateFin,this.ofertas.dateInicio,this.ofertaAcademica[i].nombre,this.ofertaAcademica[i].oferta);
+         
+    this.ofertaAcademica[i].programa= '';
+    if (this.ofertaAcademica[i].piet){
+      this.ofertaAcademica[i].programa = this.ofertaAcademica[i].programa + 'PIET';
+    }
+    if (this.ofertaAcademica[i].piet && this.ofertaAcademica[i].piai){
+      this.ofertaAcademica[i].programa = this.ofertaAcademica[i].programa +'-';
+    }
+    if (this.ofertaAcademica[i].piai){
+      this.ofertaAcademica[i].programa = this.ofertaAcademica[i].programa + 'PIAI'
+    }
+    if ((this.ofertaAcademica[i].piai && this.ofertaAcademica[i].pis) || (this.ofertaAcademica[i].piet && this.ofertaAcademica[i].pis)){
+      this.ofertaAcademica[i].programa = this.ofertaAcademica[i].programa +'-';
+    }
+    if (this.ofertaAcademica[i].pis){
+      this.ofertaAcademica[i].programa = this.ofertaAcademica[i].programa + 'PIS'
+    }
+         this.ofertaArray.push(this.ofertas.anio,this.ofertas.periodo,this.ofertas.dateFin,this.ofertas.dateInicio,this.ofertaAcademica[i].nombre,this.ofertaAcademica[i].programa,this.ofertaAcademica[i].oferta);
          
         }
 
@@ -135,7 +156,7 @@ export class OfertaAcademicaComponent implements OnInit {
     this.ofertaArray= new Array();
     this.ofertaArray.push(this.ofertas,this.oferAcademica);
     this.registrar.saveOfertaAcademica(this.ofertaArray).subscribe(res => {
-      this.ofertaArray= new Array();
+    this.ofertaArray= new Array();
 
       alert(res);
       //this.listarElectivas();
@@ -147,6 +168,7 @@ export class OfertaAcademicaComponent implements OnInit {
   }else{
     alert("Error en el registro");
      }
+     this.listarElectivas();
     }
 
 }

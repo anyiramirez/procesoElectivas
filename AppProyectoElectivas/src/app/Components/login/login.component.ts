@@ -8,13 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  hide = true;
-  usuario: any ={};
   urlGoogle: any;
-  public href: string = "";
-
-  email = new FormControl('', [Validators.required, Validators.email]);
-  psswd = new FormControl('', [Validators.required, Validators.minLength(7)]);
+  // public href: string = "";
 
   constructor(private servicioLogin: LoginService, private router: Router) { }
 
@@ -22,26 +17,14 @@ export class LoginComponent implements OnInit {
     this.servicioLogin.obtenerURLGoogle().subscribe(res => {
       this.urlGoogle = res;
     });
-    this.href = this.router.url;
+    this.router.navigate([this.router.url]);
     console.log(this.router.url);
 
   }
-  getErrorPsswd(){
-    return this.psswd.hasError('required')? 'Debe ingresar una contraseña':
-    this.psswd.getError ? 'La contraseña debe tener mínimo 7 dígitos':
-    '';
-  }
-  getErrorEmail() {
-    return this.email.hasError('required') ? 'Debe ingresar un email' :
-    this.email.hasError('email') ? 'Email no valido' :
-    '';
-  }
+ 
   IniciarSesion(){
-    if(this.email.status == "VALID" && this.psswd.status == "VALID"){
-        window.open(this.urlGoogle);
-    }
-    window.open(this.urlGoogle);
-    this.href = this.router.url;
+    window.open(this.urlGoogle,"_self");
+    this.router.navigate([this.router.url]);
     console.log(this.router.url);
   }
 

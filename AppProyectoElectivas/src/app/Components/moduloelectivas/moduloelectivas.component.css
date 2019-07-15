@@ -23,7 +23,8 @@
   border: 1px solid hsla(16, 96%, 3%, 0.56);
   border-radius: 9px;
   opacity: 0.9;
-  margin-left: 20px;
+  margin-left: 2%;
+  margin-right: 6%; 
 }
 .casilla{
   background: white;
@@ -32,6 +33,15 @@
   margin-left: 27px;
   font-weight: 300;
   color: black;
+}
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.example-radio-button {
+  margin: 5px;
 }
 
 .table{

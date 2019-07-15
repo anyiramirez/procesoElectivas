@@ -17,6 +17,7 @@ router.get('/electivasCE', employee.obtenerElectivasCuposEst);
 router.get('/listarElectivas', employee.listarElectivas);
 router.get('/electivaPorNombre/:id', employee.obtenerElectivaPorNombre);
 router.get('/obtenerOfertas', employee.getOfertas);
+router.get('/electivasPrograma/:programa', employee.electivasPrograma);
 
 // post methods 
 
@@ -25,6 +26,7 @@ router.post('/registrarOfertas/', employee.registrarOfertas);
 router.post('/editarElectiva/:id', employee.editarElectiva);
 router.post('/solEst', employee.guardarSolEst);
 router.post('/habilitarElectiva/:id', employee.habilitarElectiva);
+router.post('/registrarInscripcion', employee.registrarInscripcion);
 //router.post('/ofertarElectiva/ :nombre/:anio/:periodo:/estado', employee.ofertarElectiva);
 
 

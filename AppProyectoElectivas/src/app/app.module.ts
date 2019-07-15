@@ -23,7 +23,7 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { LoginComponent } from './Components/login/login.component';
+
 import { RegisterInfoComponent } from './Components/register-info/register-info.component';
 import { OpcionesAdminComponent} from './Components/opciones-admin/opciones-admin.component';
 import { EncabezadoComponent } from './Components/encabezado/encabezado.component';
@@ -32,6 +32,9 @@ import { ListasasignacionComponent } from './Components/listasasignacion/listasa
 import { AsignacionelectivaComponent } from './Components/asignacionelectiva/asignacionelectiva.component';
 import { ModuloelectivasComponent } from './Components/moduloelectivas/moduloelectivas.component';
 import { OfertaAcademicaComponent } from './Components/oferta-academica/oferta-academica.component';
+import { InscripcionComponent } from './Components/inscripcion/inscripcion.component';
+import { EncabezadoInscripcioComponent } from './Components/encabezado-inscripcio/encabezado-inscripcio.component';
+import { LoginComponent } from './Components/login/login.component';
 
 const Rutas: Routes = [  
   {path: 'Administrador', component: PrincipaladmiComponent},
@@ -40,13 +43,13 @@ const Rutas: Routes = [
   {path: 'AsignacionElectiva/:id', component: AsignacionelectivaComponent},
   {path: 'GestionElectivas', component: ModuloelectivasComponent },
   {path: 'OfertaAcademica', component: OfertaAcademicaComponent},
+  {path: 'Inscripcion', component:InscripcionComponent},
   {path: 'login', component: LoginComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     RegisterInfoComponent,
     OpcionesAdminComponent,
     EncabezadoComponent,
@@ -54,7 +57,10 @@ const Rutas: Routes = [
     ListasasignacionComponent,
     AsignacionelectivaComponent,
     ModuloelectivasComponent,
-    OfertaAcademicaComponent
+    OfertaAcademicaComponent,
+    InscripcionComponent,
+    LoginComponent,
+    EncabezadoInscripcioComponent
   ],
   imports: [
     BrowserModule,
@@ -71,6 +77,7 @@ const Rutas: Routes = [
     NoopAnimationsModule,
     MatRadioModule,
     MatNativeDateModule,
+    MatFormFieldModule,
     MatSelectModule,
     NgxFileDropModule,
     MatButtonModule,
