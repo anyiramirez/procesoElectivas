@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +11,6 @@ export class PrincipaladmiComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    console.log("Holi");
     this.href = this.router.url;
     console.log(this.router.url);
   }
