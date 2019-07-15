@@ -43,8 +43,7 @@ export class ModuloelectivasComponent implements OnInit {
     ]);
   }
   registrarElectivas(){
-    
-     
+       
     if(this.nombreFormControl.hasError('required')){
       this.nombreCampo=true;
     }else{ this.nombreCampo=false; }
@@ -52,20 +51,27 @@ export class ModuloelectivasComponent implements OnInit {
     if(this.contenidoFormControl.hasError('required')){
       this.contenidoCampo=true;
     }else{ this.contenidoCampo=false; }
-    if(this.electivas.programa === ''){
-      this.departamentoCampo=true;
-    }else{ this.departamentoCampo=false; }
+
+    if(this.electivas.departamento === 'Electrónica instrumentación y control' ||this.electivas.departamento === 'Sistemas'||this.electivas.departamento === 'Telecomunicaciones'||this.electivas.departamento === 'Telemática'){
+      this.departamentoCampo=false;
+    }else{ this.departamentoCampo=true; }
+
     if(this.electivas.tipo === 'Teórica' ||this.electivas.tipo === 'Práctica'||this.electivas.tipo === 'Teórico Práctica'){
       this.tipoCampo=false;
     }else{ this.tipoCampo=true; }
+
     if(!this.nombreCampo && !this.contenidoCampo && !this.departamentoCampo && !this.tipoCampo){
-      this.electivas.estado = 'Habilitar';
-      this.registrar.saveElectivas(this.electivas).subscribe(res => {
-        alert(res);
-        this.listarElectivas();
-        this.limpiarModal();
-        this.router.navigate(['/GestionElectivas']);
-      })
+      if(!this.validarElectivaUnica(this.electivas.nombre)){
+        this.electivas.estado = 'Habilitar';
+        this.registrar.saveElectivas(this.electivas).subscribe(res => {
+          alert(res);
+          this.listarElectivas();
+          this.limpiarModal();
+          this.router.navigate(['/GestionElectivas']);
+        })
+      }else{
+        alert("Error en el registro: Nombre Electiva Existente");
+      }
     }else{
       alert("Error en el registro");
     }
@@ -82,15 +88,8 @@ export class ModuloelectivasComponent implements OnInit {
     if(this.contenidoFormControl.hasError('required')){
       this.contenidoCampo=true;
     }else{ this.contenidoCampo=false; }
-    if(this.objeto.Programa === ''){
-      this.departamentoCampo=true;
-    }else{ this.departamentoCampo=false; }
     
-    if(this.objeto.TipoElectiva === 'Teórica' ||this.objeto.TipoElectiva === 'Práctica'||this.objeto.TipoElectiva === 'Teórico Práctica'){
-      this.tipoCampo=false;
-    }else{ this.tipoCampo=true; }
-   
-     if(this.objeto.Departamento === 'Electrónica instrumentación y control' ||this.objeto.Departamento === 'Sistemas'||this.objeto.Departamento === 'Telecomunicaciones'||this.objeto.Departamento === 'Telemática'){
+    if(this.objeto.Departamento === 'Electrónica instrumentación y control' ||this.objeto.Departamento === 'Sistemas'||this.objeto.Departamento === 'Telecomunicaciones'||this.objeto.Departamento === 'Telemática'){
       this.departamentoCampo=false;
     }else{ this.departamentoCampo=true; }
 
@@ -99,20 +98,22 @@ export class ModuloelectivasComponent implements OnInit {
     }else{ this.tipoCampo=true; }
     
     if(!this.nombreCampo && !this.contenidoCampo && !this.departamentoCampo && !this.tipoCampo){
+      if(!this.validarElectivaUnica(this.objeto.NombreElectiva)){
+        this.registrar.editarElectiva(this.nombreAntiguo,this.objeto).subscribe(res => {
 
-      this.registrar.editarElectiva(this.nombreAntiguo,this.objeto).subscribe(res => {
-
-        alert(res);
-        this.listarElectivas();
-        this.limpiarModal();
-        this.router.navigate(['/GestionElectivas']);
-      })
+          alert(res);
+          this.listarElectivas();
+          this.limpiarModal();
+          this.router.navigate(['/GestionElectivas']);
+        })
+      }else{
+        alert("Error en el registro: Nombre Electiva Existente");
+      }
     }else{
       alert("Error en el registro");
     }
     
   }
-  
   
   limpiarModal(){
     this.electivas.nombre= '';
@@ -134,26 +135,19 @@ export class ModuloelectivasComponent implements OnInit {
     
   }
   obtenerElectiva(nombre){
-    
-  this.registrar.obtenerDatosNombreElectiva(nombre).subscribe(res=>
+    this.registrar.obtenerDatosNombreElectiva(nombre).subscribe(res=>
     {
       //this.objeto = res;
       for(let e in this.electivasRegistradas){
-      if(nombre==this.electivasRegistradas[e].nombre){
-      var objElectiva = new Electivas(this.electivasRegistradas[e].nombre,this.electivasRegistradas[e].contenido,this.electivasRegistradas[e].departamento,this.electivasRegistradas[e].tipo);
-      this.nombreAntiguo= objElectiva.NombreElectiva;
-      this.objeto= objElectiva;
-     
+        if(nombre==this.electivasRegistradas[e].nombre){
+          var objElectiva = new Electivas(this.electivasRegistradas[e].nombre,this.electivasRegistradas[e].contenido,this.electivasRegistradas[e].departamento,this.electivasRegistradas[e].tipo);
+          this.nombreAntiguo= objElectiva.NombreElectiva;
+          this.objeto= objElectiva;
+      
+        }
       }
-      }
-
-    }
-
-  );
-
+    });
   }
-
-  
   ActualizarEstado(nombre){
     
     this.registrar.editarEstado(nombre).subscribe(res => {
@@ -161,6 +155,16 @@ export class ModuloelectivasComponent implements OnInit {
         this.listarElectivas();
       }
     });
+  }
+  validarElectivaUnica(nuevaElectiva: any){
+    var existe=false; 
+    console.log("listado ofertas",this.electivasRegistradas);
+    for(let i in this.electivasRegistradas) {
+      if ( this.electivasRegistradas[i].nombre==nuevaElectiva) {
+          existe = true;
+      }
+    }
+    return existe;
   }
   
 }

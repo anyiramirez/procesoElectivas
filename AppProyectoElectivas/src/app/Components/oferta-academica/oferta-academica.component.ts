@@ -119,80 +119,99 @@ export class OfertaAcademicaComponent implements OnInit {
     if(this.periodoFormControl.hasError('required')){
       this.periodoAcademicoCampo=true;
     }else{ this.periodoAcademicoCampo=false; }
-    if(this.inicioFormControl.hasError('required') || !this.validarFechas(this.ofertas.dateInicio)){
+    if(this.inicioFormControl.hasError('required') || !this.validarFechaInicio(this.ofertas.dateInicio)){
       this.inicioCampo=true;
     }else{ this.inicioCampo=false; }
-    if(this.finFormControl.hasError('required') || !this.validarFechas(this.ofertas.dateFin)){
+    if(this.finFormControl.hasError('required') || !this.validarFechaFin(this.ofertas.dateInicio,this.ofertas.dateFin)){
       this.finCampo=true;
     }else{ this.finCampo=false; }
     if(!this.anioCampo && !this.periodoAcademicoCampo && !this.inicioCampo && !this.finCampo){
-    for(let i in this.ofertaAcademica){
-      if(this.ofertaAcademica[i].oferta === true){
-         this.oferAcademica.push(this.ofertaAcademica[i]);
-         
-    this.ofertaAcademica[i].programa= '';
-    if (this.ofertaAcademica[i].piet){
-      this.ofertaAcademica[i].programa = this.ofertaAcademica[i].programa + 'PIET';
-    }
-    if (this.ofertaAcademica[i].piet && this.ofertaAcademica[i].piai){
-      this.ofertaAcademica[i].programa = this.ofertaAcademica[i].programa +'-';
-    }
-    if (this.ofertaAcademica[i].piai){
-      this.ofertaAcademica[i].programa = this.ofertaAcademica[i].programa + 'PIAI'
-    }
-    if ((this.ofertaAcademica[i].piai && this.ofertaAcademica[i].pis) || (this.ofertaAcademica[i].piet && this.ofertaAcademica[i].pis)){
-      this.ofertaAcademica[i].programa = this.ofertaAcademica[i].programa +'-';
-    }
-    if (this.ofertaAcademica[i].pis){
-      this.ofertaAcademica[i].programa = this.ofertaAcademica[i].programa + 'PIS'
-    }
-         this.ofertaArray.push(this.ofertas.anio,this.ofertas.periodo,this.ofertas.dateFin,this.ofertas.dateInicio,this.ofertaAcademica[i].nombre,this.ofertaAcademica[i].programa,this.ofertaAcademica[i].oferta);
-         
+      if(!this.validarOfertaUnica(this.ofertas.anio,this.ofertas.periodo)){
+        for(let i in this.ofertaAcademica) {
+          if(this.ofertaAcademica[i].oferta === true){
+            this.oferAcademica.push(this.ofertaAcademica[i]);    
+            this.ofertaAcademica[i].programa= '';
+            if (this.ofertaAcademica[i].piet){
+              this.ofertaAcademica[i].programa = this.ofertaAcademica[i].programa + 'PIET';
+            }
+            if (this.ofertaAcademica[i].piet && this.ofertaAcademica[i].piai){
+              this.ofertaAcademica[i].programa = this.ofertaAcademica[i].programa +'-';
+            }
+            if (this.ofertaAcademica[i].piai){
+              this.ofertaAcademica[i].programa = this.ofertaAcademica[i].programa + 'PIAI'
+            }
+            if ((this.ofertaAcademica[i].piai && this.ofertaAcademica[i].pis) || (this.ofertaAcademica[i].piet && this.ofertaAcademica[i].pis)){
+              this.ofertaAcademica[i].programa = this.ofertaAcademica[i].programa +'-';
+            }
+            if (this.ofertaAcademica[i].pis){
+              this.ofertaAcademica[i].programa = this.ofertaAcademica[i].programa + 'PIS'
+            }
+                this.ofertaArray.push(this.ofertas.anio,this.ofertas.periodo,this.ofertas.dateFin,this.ofertas.dateInicio,this.ofertaAcademica[i].nombre,this.ofertaAcademica[i].programa,this.ofertaAcademica[i].oferta);
+              
+          }
+        
+
         }
-
+        var objDatosOFerta = new DatosOferta(this.ofertas.fechaInicio, this.ofertas.fechaFin,this.ofertas.anio, this.ofertas.periodo);
+        this.ofertaArray= new Array();
+        this.ofertaArray.push(this.ofertas,this.oferAcademica);
+        this.registrar.saveOfertaAcademica(this.ofertaArray).subscribe(res => {
+        this.ofertaArray= new Array();
+        alert(res);
+        this.limpiarModal();
+        this.listarOfertas();
+      });
+      }else{
+        alert("Error en el registro, Oferta ya existe ");
+      }
+    }else{
+      alert("Error en el registro, Dato no valido ");
     }
-   //
-    var objDatosOFerta = new DatosOferta(this.ofertas.fechaInicio, this.ofertas.fechaFin,this.ofertas.anio, this.ofertas.periodo);
-    this.ofertaArray= new Array();
-    this.ofertaArray.push(this.ofertas,this.oferAcademica);
-    this.registrar.saveOfertaAcademica(this.ofertaArray).subscribe(res => {
-    this.ofertaArray= new Array();
-
-      alert(res);
-      //this.listarElectivas();
-      this.limpiarModal();
-      this.listarOfertas();
-      //this.router.navigate(['/GestionElectivas']);
-
-    });
-  }else{
-    alert("Error en el registro, dato incorrecto ");
-     }
-     this.listarElectivas();
+    this.listarElectivas();
+  }
+  
+  validarOfertaUnica(nuevoAnio:any,nuevoPeriodo:any){
+    var existe=false; 
+    console.log("listado ofertas",this.obtenerOfertas);
+    for(let i in this.obtenerOfertas) {
+      if ( this.obtenerOfertas[i].anio==nuevoAnio && this.obtenerOfertas[i].periodo==nuevoPeriodo) {
+          existe = true;
+      }
     }
-
-    validarFechas(fechaFor: any){    
-      var fecha = new Date();
+    return existe;
+  }
+  validarFechaInicio(fechaInitFor: any){    
+    var fecha = new Date();
       // Comparamos solo las fechas => no las horas!!
-      console.log(fecha, fechaFor); 
-      if ( fecha <= fechaFor) {
+    console.log(fecha, fechaInitFor); 
+    if ( fecha <= fechaInitFor) {
         return true;
-      }
-      else {
-        return false;
-      }
     }
+    else {
+        return false;
+    }
+  }
+  validarFechaFin(fechaInitFor: any,fechaFinFor: any){    
+    // Comparamos solo las fechas => no las horas!!
+    console.log(fechaInitFor, fechaFinFor); 
+    if ( fechaInitFor < fechaFinFor) {
+        return true;
+    }
+    else{
+        return false;
+    }
+  }
 
-    validarAnio(anioFor:any){
-      var fecha = new Date();
-      var aniofecha = fecha.getFullYear();
-      console.log(aniofecha,anioFor);
-      if ( aniofecha <= anioFor) {
+  validarAnio(anioFor:any){
+    var fecha = new Date();
+    var aniofecha = fecha.getFullYear();
+    console.log(aniofecha,anioFor);
+    if ( aniofecha <= anioFor) {
         return true;
-      }
-      else {
-        return false;
-      }
     }
+    else {
+        return false;
+    }
+  }
 
 }
