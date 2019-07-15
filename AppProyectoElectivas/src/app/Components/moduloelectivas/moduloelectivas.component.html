@@ -75,10 +75,10 @@
               </p>
               <mat-radio-group  class="example-radio-group"
               [(ngModel)]="electivas.departamento" name="departamento">
-              <mat-radio-button class="example-radio-button" value="Departamento de Sistemas">Sistemas</mat-radio-button>
-              <mat-radio-button class="example-radio-button" value="Departamento de Telematica">Telematica</mat-radio-button>
-              <mat-radio-button class="example-radio-button" value="Departamento de Telecomunicaciones">Telecomunicaciones</mat-radio-button>
-              <mat-radio-button class="example-radio-button" value="Departamento de Electrónica e Instrumetación">Electrónica e Instrumetación</mat-radio-button>
+              <mat-radio-button class="example-radio-button" value="Sistemas">Sistemas</mat-radio-button>
+              <mat-radio-button class="example-radio-button" value="Telemática">Telemática</mat-radio-button>
+              <mat-radio-button class="example-radio-button" value="Telecomunicaciones">Telecomunicaciones</mat-radio-button>
+              <mat-radio-button class="example-radio-button" value="Electrónica instrumentación y control">Electrónica e Instrumetación</mat-radio-button>
             </mat-radio-group>
             </div>
             <div class="col-6">
@@ -133,14 +133,17 @@
                 <input [(ngModel)]="objeto.Contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput placeholder="Contenido Prográmatico">
               </mat-form-field>
             </div>
-            <div class="col-5 contProgramas">
-              <p class="casilla text-center">
-                <mat-label for="programa" *ngIf='programaCampo' class=" errorFormato ">Programas Asociados</mat-label>
-                <mat-label for="programa" *ngIf='!programaCampo' >Programas Asociados</mat-label>
-              </p>
-              <mat-checkbox [(ngModel)]="varPrograma.piet" id="piet" name="piet">Ingenieria Electronica</mat-checkbox>
-              <mat-checkbox [(ngModel)]="varPrograma.pis" id="pis" name="pis">Ingeniería de Sistemas</mat-checkbox>
-              <mat-checkbox [(ngModel)]="varPrograma.piai" id="piai" name="piai">Ingeniería Automática Industrial</mat-checkbox>
+            <div class="col-6">
+              <mat-form-field>
+                <mat-label for="departamento" *ngIf='departamentoCampo' class=" errorFormato">Departamento</mat-label>
+                <mat-label for="departamento" *ngIf='!departamentoCampo' >Departamento</mat-label>
+                <mat-select matNativeControl [(ngModel)]="objeto.Departamento" id="departamento" name="departamento" >
+                  <mat-option value="Electrónica instrumentación y control">Electrónica instrumentación y control</mat-option>
+                  <mat-option value="Sistemas">Sistemas</mat-option>
+                  <mat-option value="Telecomunicaciones">Telecomunicaciones</mat-option>
+                  <mat-option value="Telemática">Telemática</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
             <div class="col-6">
               <mat-form-field>

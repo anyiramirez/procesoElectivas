@@ -73,7 +73,7 @@ export class OfertaAcademicaComponent implements OnInit {
         this.ofertaAcademica.push(objetoArray);
         }
       }
-      console.log(res,"tamanio del array guardar: ",this.ofertaAcademica.length);
+      console.log(this.electivas,"tamanio del array guardar: ",this.ofertaAcademica.length);
 
     }
     );

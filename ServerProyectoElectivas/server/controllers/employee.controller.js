@@ -319,7 +319,7 @@ employeeCtrl.editarElectiva = (req,res) => {
     console.log(req.body);
     var actualizarElectiva = {
         nombre : req.body.NombreElectiva,
-        programa: req.body.Programa,
+        departamento: req.body.Departamento,
         contenido: req.body.Contenido,
         tipo: req.body.TipoElectiva,
     }
