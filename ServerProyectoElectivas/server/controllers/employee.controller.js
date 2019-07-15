@@ -230,9 +230,8 @@ employeeCtrl.registrarElectivas = (req,res) => {
 }
 
 employeeCtrl.registrarInscripcion = (req,res) => {
-    console.log("ELectiva a registrar: ", req.body);
-    usuario, codigo, apellidos, nombres, opcion1, opcion2, opcion3, opcion4, opcion5
-    //if(validarString(req.body.nombre) && validarString(req.body.programa) && validarString(req.body.contenido) && validarString(req.body.tipo) && validarString(req.body.estado)) {
+    console.log("Inscripcion a registrar: ", req.body);
+       //if(validarString(req.body.nombre) && validarString(req.body.programa) && validarString(req.body.contenido) && validarString(req.body.tipo) && validarString(req.body.estado)) {
         var nuevaInscripcion = {
             usuario : req.body.usuario,
             codigo: req.body.codigo,
@@ -249,7 +248,7 @@ employeeCtrl.registrarInscripcion = (req,res) => {
         var db = admin.database();
         
         db.ref("Inscripcion").push(nuevaInscripcion);
-        
+        res.json("Inscripción Exitosa");
     //}
 }
 
