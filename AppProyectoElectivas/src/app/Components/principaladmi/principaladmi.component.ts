@@ -7,14 +7,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./principaladmi.component.css']
 })
 export class PrincipaladmiComponent implements OnInit {
-  @Input() varVista: string;
-
+  varVista: string;
+  
   public href: string = "";
-  constructor(private router: Router) { }
-
+  constructor(private router: Router) {
+  }
+  
   ngOnInit() {
     this.href = this.router.url;
     console.log(this.router.url);
+  }
+  
+  recibirVista(mensaje: string){
+    this.varVista = mensaje;
   }
 
 }
