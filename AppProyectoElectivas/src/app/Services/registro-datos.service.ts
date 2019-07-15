@@ -7,6 +7,7 @@ import { Electivas} from '../Interfaces/electivas';
 import { Oferta} from '../Interfaces/oferta'
 import { ListaElectCE} from '../Interfaces/lista-electce'//servicio electivas
 import { DatosOferta } from '../Interfaces/datos-oferta';
+import { Inscripcion } from '../Interfaces/inscripcion';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,10 @@ export class RegistroDatosService {
     return this.http.post(this.API_URI + '/registrarElectivas', datosElectivas,this.httpOptions);
 
    }
+   saveRegistrarInscripcion(inscripcion: Array<Inscripcion>){
+    console.log("datos a guardar:",inscripcion);
+    return this.http.post(this.API_URI + '/registrarInscripcion',inscripcion, this.httpOptions);
+  }
    saveOfertaAcademica(datos:Array<DatosOferta>){
     console.log("datos a guardar:",datos);
     return this.http.post(this.API_URI + '/registrarOfertas/',datos, this.httpOptions);
@@ -44,6 +49,10 @@ export class RegistroDatosService {
   }
   obtenerInformacionElectivas(){
     return this.http.get(this.API_URI + '/listarElectivas');
+  }
+  obtenerElectivasOfertadas(programa: string){
+    return this.http.get(this.API_URI+'/electivasPrograma/'+ programa);
+
   }
   obtenerDatosNombreElectiva(id: Electivas){
     return this.http.get(this.API_URI+ '/electivaPorNombre/'+ id );
@@ -55,6 +64,7 @@ export class RegistroDatosService {
     console.log("datos a guardar:",datosEditarElectivas);
     return this.http.post(this.API_URI + '/editarElectiva/'+ nombreAntiguo, datosEditarElectivas,this.httpOptions);
   }
+  
 
   registroBd (datos:PreInscripcionPrueba){
      datos.Usuario;

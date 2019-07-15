@@ -27,9 +27,9 @@
           <td>{{cantidad[indice]}}</td>
           <td>Finalizado</td>
           <td>
-            <button type="button" (click)="detalleOferta(indice)" class="btn btn-info" data-toggle="modal" data-target="#ModalDetailOferta" >
-              Ver
-            </button>
+              <button type="button" (click)="detalleOferta(indice)" class="btn btn-info" data-toggle="modal" data-target="#ModalDetailOferta" >
+                  Ver
+              </button>
           </td>
         </tr>
         
@@ -37,49 +37,48 @@
     </table>
   </div>
 </div>
-
 <!-- Modal Detalle Oferta Académica-->
 <div class="modal fade" id="ModalDetailOferta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Oferta {{nombreOfertaACtual}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        
-        <form id="DetalleOferta">
-          <div class="row">
-                <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre Electiva</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let ElecOferAct of ElectivasOfertaActual; let indice=index">
-                        <td>{{indice+1}}</td>
-                        <td>{{ElecOferAct.NombreElectiva}}</td>
-                      </tr>       
-                    </tbody>
-                  </table>     
-          </div> 
-        </form>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Oferta {{nombreOfertaACtual}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
+        <div class="modal-body">
+          
+          <form id="DetalleOferta">
+            <div class="row">
+                  <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Nombre Electiva</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let ElecOferAct of ElectivasOfertaActual; let indice=index">
+                          <td>{{indice+1}}</td>
+                          <td>{{ElecOferAct.NombreElectiva}}</td>
+                        </tr>       
+                      </tbody>
+                    </table>     
+            </div> 
+          </form>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+       
       </div>
-     
     </div>
   </div>
-</div>
 
 <!-- Modal Nueva Oferta Académica-->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+<div class="modal fade " id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Nueva Oferta</h5>
@@ -140,14 +139,17 @@
                         <th scope="col">Programa</th>
                         <th scope="col">Tipo</th>
                         <th scope="col">Ofertar</th>
-      
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let electiva of electivas; let indice=index">
                         <td>{{indice+1}}</td>
                         <td>{{electiva.nombre}}</td>
-                        <td>{{electiva.programa}}</td>
+                        <td>
+                          <input type="checkbox" [(ngModel)]="ofertaAcademica[indice].pis" id="pis" name="pis">PIS 
+                          <input type="checkbox" [(ngModel)]="ofertaAcademica[indice].piai" id="piai" name="piai">PIAI 
+                          <input type="checkbox" [(ngModel)]="ofertaAcademica[indice].piet" id="piet" name="piet">PIET 
+                        </td>
                         <td>{{electiva.tipo}}</td>
                         <td>
                           <input type="checkbox" [(ngModel)]="ofertaAcademica[indice].oferta" id="oferta" name="oferta">

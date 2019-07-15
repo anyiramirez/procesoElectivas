@@ -162,16 +162,61 @@ employeeCtrl.listarElectivas = (req,res) => {
 }
 
 
+employeeCtrl.electivasPrograma = (req, res) => {
+    
+    console.log("programa llego: ",req.params.programa);
+    var db = admin.database();
+    var nombre = String(req.params.programa);
+    var list;
+    var listaPrograma = [];
+    
+    db.ref('Ofertas').once("value", function(snapshot) {        
+        list = snapshot.val();
+        //res.json(list);
+        var key1;
+        for (key1 in list) {
+            console.log("clave: " + key1);
+            for (key2 in list[key1].electivasOfertadas) {
+                if(list[key1].electivasOfertadas[key2].programa.search(req.params.programa)!=-1) {
+                    listaPrograma.push(list[key1].electivasOfertadas[key2].NombreElectiva);
+                }
+            }
+        }
+        console.log(listaPrograma);
+        res.json(listaPrograma);
+        
+        //electivasOferta = list.key1.electivasOfertadas;
+        //res.json(electivasOferta);
+        /*var entro = false;
+        for(var key in electivasOferta) {
+            if(key.programa.search(req.params.programa) != -1) {
+                entro = true;
+                listaPrograma.add(key.NombreElectiva);
+                console.log(listaPrograma);
+                res.json(listaPrograma);
+                break;
+            }
+        }
+        if(!entro){
+            res.json("no");
+        }*/
+        
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+}
+
+
 //-------------------------------
 //    POST METHODS
 //-------------------------------
 
 employeeCtrl.registrarElectivas = (req,res) => {
     console.log("ELectiva a registrar: ", req.body);
-    if(validarString(req.body.nombre) && validarString(req.body.programa) && validarString(req.body.contenido) && validarString(req.body.tipo) && validarString(req.body.estado)) {
+    if(validarString(req.body.nombre) && validarString(req.body.departamento) && validarString(req.body.contenido) && validarString(req.body.tipo) && validarString(req.body.estado)) {
         var nuevaElectiva = {
             nombre : req.body.nombre,
-            programa: req.body.programa,
+            departamento: req.body.departamento,
             contenido: req.body.contenido,
             tipo: req.body.tipo,
             estado: req.body.estado,
@@ -183,6 +228,30 @@ employeeCtrl.registrarElectivas = (req,res) => {
         
     }
 }
+
+employeeCtrl.registrarInscripcion = (req,res) => {
+    console.log("Inscripcion a registrar: ", req.body);
+       //if(validarString(req.body.nombre) && validarString(req.body.programa) && validarString(req.body.contenido) && validarString(req.body.tipo) && validarString(req.body.estado)) {
+        var nuevaInscripcion = {
+            usuario : req.body.usuario,
+            codigo: req.body.codigo,
+            apellidos: req.body.apellidos,
+            nombres: req.body.nombres,
+            opcion1: req.body.opcion1,
+            opcion2: req.body.opcion2,
+            opcion3: req.body.opcion3,
+            opcion4: req.body.opcion4,
+            opcion5: req.body.opcion5,
+            fechaRegistro: moment().format('YYYY/MM/DD HH:mm:ss Z')
+        }
+        
+        var db = admin.database();
+        
+        db.ref("Inscripcion").push(nuevaInscripcion);
+        res.json("Inscripción Exitosa");
+    //}
+}
+
 employeeCtrl.registrarOfertas = (req,res) => {
     console.log("ELectiva a registrar: ", req.body[0].anio);
     var trueE = [];
@@ -250,7 +319,7 @@ employeeCtrl.editarElectiva = (req,res) => {
     console.log(req.body);
     var actualizarElectiva = {
         nombre : req.body.NombreElectiva,
-        programa: req.body.Programa,
+        departamento: req.body.Departamento,
         contenido: req.body.Contenido,
         tipo: req.body.TipoElectiva,
     }
