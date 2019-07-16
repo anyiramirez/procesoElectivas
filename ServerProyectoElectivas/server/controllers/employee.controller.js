@@ -175,10 +175,11 @@ employeeCtrl.electivasPrograma = (req, res) => {
         //res.json(list);
         var key1;
         for (key1 in list) {
-            console.log("clave: " + key1);
-            for (key2 in list[key1].electivasOfertadas) {
-                if(list[key1].electivasOfertadas[key2].programa.search(req.params.programa)!=-1) {
-                    listaPrograma.push(list[key1].electivasOfertadas[key2].NombreElectiva);
+            if(list[key1].anio === '2019' && list[key1].periodo === '2'){
+                for (key2 in list[key1].electivasOfertadas) {
+                    if(list[key1].electivasOfertadas[key2].programa.search(req.params.programa)!=-1) {
+                        listaPrograma.push(list[key1].electivasOfertadas[key2].NombreElectiva);
+                    }
                 }
             }
         }
@@ -237,6 +238,7 @@ employeeCtrl.registrarInscripcion = (req,res) => {
             codigo: req.body.codigo,
             apellidos: req.body.apellidos,
             nombres: req.body.nombres,
+            programa: req.body.programa,
             opcion1: req.body.opcion1,
             opcion2: req.body.opcion2,
             opcion3: req.body.opcion3,

@@ -48,6 +48,7 @@ h5{
 }
 #sidebar ul li a:hover {
   color: #09679f;
+  
   cursor: pointer;
   background: #fff;
 }
