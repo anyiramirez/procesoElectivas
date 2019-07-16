@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Electivas} from '../../Interfaces/electivas';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import { DISABLED } from '@angular/forms/src/model';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
   selector: 'app-inscripcion',
@@ -28,9 +30,17 @@ export class InscripcionComponent implements OnInit {
   codigoFormControl;
   programaFormControl;
   opcion1FormControl;
+  
+  habilitarop2: boolean = true;
+  habilitarop3: boolean = true;
+  habilitarop4: boolean = true;
+  habilitarop5: boolean = true;
+  texto: any;
+  nuevoTexto: any;
+  
   constructor(private registrar:RegistroDatosService,private router:Router) {   
-   }
-
+  }
+  
   ngOnInit() {
     this.nombresFormControl = new FormControl('', [
       Validators.required,
@@ -64,7 +74,9 @@ export class InscripcionComponent implements OnInit {
     
     if(this.opcion1FormControl.hasError('required')){
       this.opcion1Campo=true;
-    }else{ this.opcion1Campo=false; }
+    }else{ 
+      this.opcion1Campo=false;
+    }
     if(this.inscripcion.opcion2==null){
       this.inscripcion.opcion2="";
     }
@@ -79,64 +91,56 @@ export class InscripcionComponent implements OnInit {
     }
     if(!this.nombresCampo && !this.apellidosCampo && !this.codigoCampo && !this.programaCampo && !this.opcion1Campo){
       this.inscripcion.usuario= "anyiramirez@unicauca.edu.co";
+      this.inscripcion.nombres = this.MayusculaPrimera(this.inscripcion.nombres );
+      this.inscripcion.apellidos = this.MayusculaPrimera(this.inscripcion.apellidos );
+
+      console.log(this.inscripcion);
       
       this.registrar.saveRegistrarInscripcion(this.inscripcion).subscribe(res => {
         alert(res);
         //this.listarElectivas();
-       // this.limpiarModal();
+        // this.limpiarModal();
         //this.router.navigate(['/GestionElectivas']);
       })
     }else{
       alert("Error en el registro");
-    }
-
-    
-    
-
+    }    
   }
   listarPrimeraOpcion(varProgram:string){
-    debugger;
     this.registrar.obtenerElectivasOfertadas(varProgram).subscribe(res => {
       this.electivasRegistradas=new Array();
       this.registrar.electivas= res as Electivas[];
-        for(let p in res){
-          debugger;
-          this.electivasRegistradas.push(res[p]);
-          debugger;
-        }
-        
+      for(let p in res){
+        this.electivasRegistradas.push(res[p]);
       }
-      );
-
+      this.habilitarop2 = false; 
+    }
+    );
+    
   }
   listarSegundaOpcion(){
     for(let i in this.electivasRegistradas){
       if(this.electivasRegistradas[i]!=this.inscripcion.opcion1){
-    
         this.electivasDos.push(this.electivasRegistradas[i]);
-
       }
     }
-
+    this.habilitarop3 = false;
   }
   listarTerceraOpcion(){
     for(let e in this.electivasDos){
       if(this.electivasDos[e]!=this.inscripcion.opcion2){
-        
         this.electivasTres.push(this.electivasDos[e]);
       }
-    
     }
+    this.habilitarop4 = false;
   }
   listarCuartaOpcion(){
     for(let e in this.electivasTres){
       if(this.electivasTres[e]!=this.inscripcion.opcion3){
-      
         this.electivasCuatro.push(this.electivasTres[e]);
       }
-    
     }
-
+    this.habilitarop5= false;
   }
   listarQuintaOpcion(){
     for(let e in this.electivasCuatro){
@@ -144,9 +148,23 @@ export class InscripcionComponent implements OnInit {
         
         this.electivasCinco.push(this.electivasCuatro[e]);
       }
-    
+      
     }
-
+    
   }
 
+  MayusculaPrimera(palabra:string){
+    this.nuevoTexto = "";
+    palabra = palabra.toLowerCase();
+
+    this.texto = palabra.split(' ');
+    for(let i in this.texto){
+      palabra = this.texto[i];
+      palabra = palabra.charAt(0).toUpperCase() + palabra.slice(1) + " ";
+      this.nuevoTexto = this.nuevoTexto + palabra;
+    }
+    this.nuevoTexto = this.nuevoTexto.substring(0, this.nuevoTexto.length-1);
+    return this.nuevoTexto;
+  }
+  
 }

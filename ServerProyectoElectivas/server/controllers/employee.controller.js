@@ -237,6 +237,7 @@ employeeCtrl.registrarInscripcion = (req,res) => {
             codigo: req.body.codigo,
             apellidos: req.body.apellidos,
             nombres: req.body.nombres,
+            programa: req.body.programa,
             opcion1: req.body.opcion1,
             opcion2: req.body.opcion2,
             opcion3: req.body.opcion3,
