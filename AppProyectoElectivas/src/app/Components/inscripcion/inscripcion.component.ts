@@ -28,9 +28,8 @@ export class InscripcionComponent implements OnInit {
   codigoFormControl;
   programaFormControl;
   opcion1FormControl;
-  constructor(private registrar:RegistroDatosService,private router:Router) {
    
-   
+     constructor(private registrar:RegistroDatosService,private router:Router) {   
    }
 
   ngOnInit() {
@@ -151,4 +150,5 @@ export class InscripcionComponent implements OnInit {
 
   }
  
+
 }

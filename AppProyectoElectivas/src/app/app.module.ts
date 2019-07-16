@@ -34,6 +34,7 @@ import { ModuloelectivasComponent } from './Components/moduloelectivas/moduloele
 import { OfertaAcademicaComponent } from './Components/oferta-academica/oferta-academica.component';
 import { InscripcionComponent } from './Components/inscripcion/inscripcion.component';
 import { EncabezadoInscripcioComponent } from './Components/encabezado-inscripcio/encabezado-inscripcio.component';
+import { LoginComponent } from './Components/login/login.component';
 
 const Rutas: Routes = [  
   {path: 'Administrador', component: PrincipaladmiComponent},
@@ -42,7 +43,8 @@ const Rutas: Routes = [
   {path: 'AsignacionElectiva/:id', component: AsignacionelectivaComponent},
   {path: 'GestionElectivas', component: ModuloelectivasComponent },
   {path: 'OfertaAcademica', component: OfertaAcademicaComponent},
-  {path: 'Inscripcion', component:InscripcionComponent}
+  {path: 'Inscripcion', component:InscripcionComponent},
+  {path: 'login', component: LoginComponent}
 ];
 
 @NgModule({
@@ -57,6 +59,7 @@ const Rutas: Routes = [
     ModuloelectivasComponent,
     OfertaAcademicaComponent,
     InscripcionComponent,
+    LoginComponent,
     EncabezadoInscripcioComponent
   ],
   imports: [
