@@ -63,6 +63,9 @@
                 <mat-error *ngIf="nombreFormControl.hasError('required')">
                   Nombre Electiva es <strong>requerido</strong>
                 </mat-error>
+                <mat-error *ngIf="nombreFormControl.hasError('pattern')">
+                  Ingresó un caracter invalido.
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="col-6">
@@ -70,6 +73,12 @@
                 <mat-label for="contenido" *ngIf='contenidoCampo' class=" errorFormato ">Contenido Programatico</mat-label>
                 <mat-label for="contenido" *ngIf='!contenidoCampo' >Contenido Programatico</mat-label>
                 <input [(ngModel)]="electivas.contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput placeholder="Contenido Prográmatico" required>
+                <mat-error *ngIf="contenidoFormControl.hasError('required')">
+                  Contenido Programatico es <strong>requerido</strong>
+                </mat-error>
+                <mat-error *ngIf="contenidoFormControl.hasError('pattern')">
+                  Ingresó un caracter invalido.
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="col-5 contProgramas">
@@ -109,7 +118,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" (click)="registrarElectivas()" data-dismiss="modal">Guardar Electiva</button>
+        <button type="button" class="btn btn-primary" (click)="registrarElectivas()">Guardar Electiva</button>
       </div>
     </div>
   </div>
