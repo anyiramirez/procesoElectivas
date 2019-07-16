@@ -20,6 +20,7 @@ export class InscripcionComponent implements OnInit {
   electivasTres= new Array();
   electivasCuatro= new Array();
   electivasCinco= new Array();
+  electivasSeis = new Array();
   nombresCampo;
   apellidosCampo;
   codigoCampo;
@@ -35,6 +36,7 @@ export class InscripcionComponent implements OnInit {
   habilitarop3: boolean = true;
   habilitarop4: boolean = true;
   habilitarop5: boolean = true;
+  habilitarop6: boolean = true;
   texto: any;
   nuevoTexto: any;
   
@@ -145,12 +147,18 @@ export class InscripcionComponent implements OnInit {
   listarQuintaOpcion(){
     for(let e in this.electivasCuatro){
       if(this.electivasCuatro[e]!=this.inscripcion.opcion4){
-        
         this.electivasCinco.push(this.electivasCuatro[e]);
       }
-      
     }
-    
+    this.habilitarop6 = false;
+  }
+
+  listarSextaOpcion(){
+    for(let e in this.electivasCinco){
+      if(this.electivasCinco[e]!=this.inscripcion.opcion5){
+        this.electivasSeis.push(this.electivasCinco[e]);
+      }
+    }
   }
 
   MayusculaPrimera(palabra:string){
