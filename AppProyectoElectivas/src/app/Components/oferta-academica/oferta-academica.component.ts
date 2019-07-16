@@ -18,7 +18,8 @@ export class OfertaAcademicaComponent implements OnInit {
   objeto:any={};
   varPrograma:any={};
   contador:number;
-  cantidad=new Array();
+  estados = new Array();
+  cantidades= new Array();
   ofertas:any={};
   ElectivasOfertaActual= new Array();
   nombreOfertaACtual;
@@ -86,8 +87,12 @@ export class OfertaAcademicaComponent implements OnInit {
       //this.registrar.electivas= res as Electivas[];
       var band=0;
       for(let p in res){                    
-             var contador= res[p].electivasOfertadas.length;
-             this.cantidad[band]=contador;
+             var contador = res[p].electivasOfertadas.length;
+            // this.cantidad[band]=contador; {{cantidad[indice]}}
+             var estado = this.estadoOferta(res[p].fechaInicio,res[p].fechaFin);
+             this.cantidades[band]=contador;
+             this.estados[band]=estado;
+             console.log("estado",estado);
              this.obtenerOfertas.push(res[p]); 
              band++; 
       }
@@ -211,6 +216,23 @@ export class OfertaAcademicaComponent implements OnInit {
     }
     else {
         return false;
+    }
+  }
+  estadoOferta(fechaInicio:any,fechaFin:any){
+    var fecha = new Date(); 
+    var f1= new Date(fechaInicio);
+    var f2= new Date(fechaFin);
+    fecha.setHours(0,0,0,0);
+    console.log(fecha,"/",fechaInicio,"/",fechaFin);
+    if(fecha <= f1){
+       return "Pendiente"
+    }
+    if (fecha >= f2){
+      return "Finalizado"
+    }
+    //if (fecha>fechaInicio && fecha < fechaFin){
+    else{
+      return "En curso"
     }
   }
 
