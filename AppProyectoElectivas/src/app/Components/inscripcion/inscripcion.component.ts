@@ -47,11 +47,20 @@ export class InscripcionComponent implements OnInit {
     this.nombresFormControl = new FormControl('', [
       Validators.required,
     ]);
+    this.nombresFormControl = new FormControl('', [
+      Validators.pattern("[A-Za-z ]+"),
+    ]);
     this.apellidosFormControl = new FormControl('', [
       Validators.required,
     ]);
+    this.apellidosFormControl = new FormControl('', [
+      Validators.pattern("[A-Za-z ]+"),
+    ]);
     this.codigoFormControl = new FormControl('', [
       Validators.required,
+    ]);
+    this.codigoFormControl = new FormControl('', [
+      Validators.pattern("^[0-9]+"),
     ]);
     this.programaFormControl = new FormControl('', [
       Validators.required,
@@ -61,15 +70,27 @@ export class InscripcionComponent implements OnInit {
     ]);
   }
   registrarInscripcion(){
+    debugger;
     if(this.nombresFormControl.hasError('required')){
       this.nombresCampo=true;
-    }else{ this.nombresCampo=false; }
+    }else if(this.nombresFormControl.hasError('pattern')){
+      this.nombresCampo=true;
+    }else
+    { this.nombresCampo=false; }
     if(this.apellidosFormControl.hasError('required')){
       this.apellidosCampo=true;
-    }else{ this.apellidosCampo=false; }
+    }else if(this.apellidosFormControl.hasError('pattern')){
+      this.apellidosCampo=true;
+    }else
+    { this.apellidosCampo=false; }
     if(this.codigoFormControl.hasError('required')){
       this.codigoCampo=true;
-    }else{ this.codigoCampo=false; }
+    }else if(this.codigoFormControl.hasError('pattern')){
+      this.codigoCampo=true;
+
+    }else
+    { this.codigoCampo=false; }
+    debugger;
     if(this.inscripcion.programa=== 'PIS' ||this.inscripcion.programa === 'PIAI'||this.inscripcion.programa === 'PIET'){
       this.programaCampo=false;
     }else{ this.programaCampo=true; }
@@ -160,6 +181,7 @@ export class InscripcionComponent implements OnInit {
       }
     }
   }
+ 
 
   MayusculaPrimera(palabra:string){
     this.nuevoTexto = "";

@@ -6,22 +6,40 @@
   <mat-form-field>
     <mat-label for="nombres" *ngIf='nombresCampo' class=" errorFormato " > Nombres</mat-label>
     <mat-label for="nombres" *ngIf='!nombresCampo' > Nombres</mat-label>
-    <input  [(ngModel)]="inscripcion.nombres" id="nombres" name="nombres" [formControl]="nombresFormControl" matInput placeholder="Nombres">
+    <input  [(ngModel)]="inscripcion.nombres" id="nombres" name="nombres" [formControl]="nombresFormControl" matInput placeholder="Nombres" required>
+    <mat-error *ngIf="nombresFormControl.hasError('required')">
+      Diligencie los nombres
+    </mat-error>
+    <mat-error *ngIf="nombresFormControl.hasError('pattern')">
+      Ingresó un caracter invalido.
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label for="apellidos" *ngIf='apellidosCampo' class=" errorFormato " >Apellidos</mat-label>
     <mat-label for="apellidos" *ngIf='!apellidosCampo' >Apellidos</mat-label>
-    <input [(ngModel)]="inscripcion.apellidos" id="apellidos" name="apellidos" [formControl]="apellidosFormControl" matInput placeholder="Apellidos">
+    <input [(ngModel)]="inscripcion.apellidos" id="apellidos" name="apellidos" [formControl]="apellidosFormControl" matInput placeholder="Apellidos" required>
+    <mat-error *ngIf="apellidosFormControl.hasError('required')">
+      Diligencie los apellidos
+    </mat-error>
+    <mat-error *ngIf="apellidosFormControl.hasError('pattern')">
+      Ingresó un caracter invalido.
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label for="codigo" *ngIf='codigoCampo' class=" errorFormato ">Código</mat-label>
     <mat-label for="codigo" *ngIf='!codigoCampo' >Código</mat-label>
-    <input [(ngModel)]="inscripcion.codigo" type="number" id="codigo" name="codigo" [formControl]="codigoFormControl" matInput placeholder="Código">
+    <input [(ngModel)]="inscripcion.codigo" type="number" id="codigo" name="codigo" [formControl]="codigoFormControl" matInput placeholder="Código" required>  
+    <mat-error *ngIf="codigoFormControl.hasError('required')">
+      Diligencie el código.
+    </mat-error>
+    <mat-error *ngIf="codigoFormControl.hasError('pattern')">
+      Sólo se adminten números.
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label for="programa" *ngIf='programaCampo' class=" errorFormato ">Programa</mat-label>
     <mat-label for="programa" *ngIf='!programaCampo' >Programa</mat-label>
-    <mat-select matNativeControl [(ngModel)]="inscripcion.programa" id ="programa" name="programa">
+    <mat-select matNativeControl [(ngModel)]="inscripcion.programa" id ="programa" name="programa" required>
       <mat-option value="PIS">Ingeniería de Sistemas</mat-option>
       <mat-option value="PIAI">Ingeniería Automática Industrial</mat-option>
       <mat-option value="PIET">Ingeniería Electrónica y Telecomunicaciones</mat-option>
@@ -29,8 +47,8 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label for="opcion1" *ngIf='opcion1Campo' class=" errorFormato ">Opción Uno</mat-label>
-    <mat-label for="opcion1" *ngIf='!opcion1Campo'>Opción 1</mat-label>
-    <mat-select matNativeControl [(ngModel)]="inscripcion.opcion1" id="opcion1" name="opcion1" [formControl]="opcion1FormControl" (click)="listarPrimeraOpcion(inscripcion.programa)">
+    <mat-label for="opcion1" *ngIf='!opcion1Campo'>Opción Uno</mat-label>
+    <mat-select matNativeControl [(ngModel)]="inscripcion.opcion1" id="opcion1" name="opcion1" [formControl]="opcion1FormControl" (click)="listarPrimeraOpcion(inscripcion.programa)" required>
       <mat-option *ngFor="let e of electivasRegistradas" [value]="e">
         {{e}}
       </mat-option>

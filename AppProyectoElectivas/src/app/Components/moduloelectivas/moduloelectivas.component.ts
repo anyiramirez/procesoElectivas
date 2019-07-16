@@ -26,17 +26,26 @@ export class ModuloelectivasComponent implements OnInit {
   
   constructor(private registrar:RegistroDatosService,private router:Router)
   {
-    this.listarElectivas();
+  this.listarElectivas();
   }
   ngOnInit() {
     this.nombreFormControl = new FormControl('', [
       Validators.required,
+      
+    ]);
+    this.nombreFormControl = new FormControl('', [
+      Validators.pattern("[A-Za-z ]+"),
+      
     ]);
     this.contenidoFormControl = new FormControl('', [
       Validators.required,
     ]);
+    this.contenidoFormControl = new FormControl('', [
+      Validators.pattern("[A-Za-z ]+"),
+    ]);
     this.departamentoFormControl = new FormControl('', [
       Validators.required,
+      
     ]);
     this.tipoFormControl = new FormControl('', [
       Validators.required,
@@ -46,11 +55,18 @@ export class ModuloelectivasComponent implements OnInit {
        
     if(this.nombreFormControl.hasError('required')){
       this.nombreCampo=true;
-    }else{ this.nombreCampo=false; }
+    }else if(this.nombreFormControl.hasError('pattern') ){
 
+      this.nombreCampo=true;
+     }else{
+      this.nombreCampo=false;
+     }
     if(this.contenidoFormControl.hasError('required')){
       this.contenidoCampo=true;
-    }else{ this.contenidoCampo=false; }
+    }else if(this.contenidoFormControl.hasError('pattern')){
+      this.contenidoCampo=true;
+    }
+    { this.contenidoCampo=false; }
 
     if(this.electivas.departamento === 'Electrónica instrumentación y control' ||this.electivas.departamento === 'Sistemas'||this.electivas.departamento === 'Telecomunicaciones'||this.electivas.departamento === 'Telemática'){
       this.departamentoCampo=false;
@@ -62,6 +78,8 @@ export class ModuloelectivasComponent implements OnInit {
 
     if(!this.nombreCampo && !this.contenidoCampo && !this.departamentoCampo && !this.tipoCampo){
       if(!this.validarElectivaUnica(this.electivas.nombre)){
+       
+
         this.electivas.estado = 'Habilitar';
         this.registrar.saveElectivas(this.electivas).subscribe(res => {
           alert(res);
@@ -78,12 +96,15 @@ export class ModuloelectivasComponent implements OnInit {
     this.listarElectivas();
     
   }
+
   editarElectivas(){
     
     //this.getEditarElectivas();
-    if(this.nombreFormControl.hasError('required')){
+    if(this.nombreFormControl.hasError('required')&&this.nombreFormControl.hasError('pattern')){
       this.nombreCampo=true;
+      alert("falta nombre");
     }else{ this.nombreCampo=false; }
+
 
     if(this.contenidoFormControl.hasError('required')){
       this.contenidoCampo=true;
