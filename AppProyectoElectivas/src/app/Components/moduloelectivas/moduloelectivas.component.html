@@ -3,6 +3,7 @@
   <app-opciones-admin></app-opciones-admin>
   <!-- Button trigger modal -->
   <div class="content">
+    <h5>Gestión de Electivas</h5>
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalLong">
       Agregar Nueva Electiva
     </button>
@@ -56,16 +57,19 @@
           <div class="row">
             <div class="col-6">
               <mat-form-field class="example-full-width">
-                <mat-label for="nombre" *ngIf='nombreCampo' class=" errorFormato ">Nombre Electiva</mat-label>
+                <mat-label for="nombre" *ngIf='nombreCampo' class="errorFormato ">Nombre Electiva</mat-label>
                 <mat-label for="nombre" *ngIf='!nombreCampo' >Nombre Electiva</mat-label>
-                <input [(ngModel)]="electivas.nombre" id="nombre" name="nombre" [formControl]="nombreFormControl"  matInput placeholder="Nombre Electiva" >
+                <input [(ngModel)]="electivas.nombre" id="nombre" name="nombre" [formControl]="nombreFormControl"  matInput placeholder="Nombre Electiva"  required>
+                <mat-error *ngIf="nombreFormControl.hasError('required')">
+                  Nombre Electiva es <strong>requerido</strong>
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="col-6">
               <mat-form-field class="example-full-width">
                 <mat-label for="contenido" *ngIf='contenidoCampo' class=" errorFormato ">Contenido Programatico</mat-label>
                 <mat-label for="contenido" *ngIf='!contenidoCampo' >Contenido Programatico</mat-label>
-                <input [(ngModel)]="electivas.contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput placeholder="Contenido Prográmatico">
+                <input [(ngModel)]="electivas.contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput placeholder="Contenido Prográmatico" required>
               </mat-form-field>
             </div>
             <div class="col-5 contProgramas">
@@ -74,22 +78,28 @@
                 <mat-label for="departamento" *ngIf='!departamentoCampo' >Departamento al que pertenece</mat-label>
               </p>
               <mat-radio-group  class="example-radio-group"
-              [(ngModel)]="electivas.departamento" name="departamento">
+              [(ngModel)]="electivas.departamento" name="departamento" [formControl]="departamentoFormControl" required>
               <mat-radio-button class="example-radio-button" value="Sistemas">Sistemas</mat-radio-button>
               <mat-radio-button class="example-radio-button" value="Telemática">Telemática</mat-radio-button>
               <mat-radio-button class="example-radio-button" value="Telecomunicaciones">Telecomunicaciones</mat-radio-button>
               <mat-radio-button class="example-radio-button" value="Electrónica instrumentación y control">Electrónica e Instrumetación</mat-radio-button>
+              <mat-error *ngIf="departamentoFormControl.hasError('required')">
+                Departamento es <strong>requerido</strong>
+              </mat-error>
             </mat-radio-group>
             </div>
             <div class="col-6">
               <mat-form-field>
                 <mat-label for="tipo" *ngIf='tipoCampo' class=" errorFormato">Tipo de electiva</mat-label>
                 <mat-label for="tipo" *ngIf='!tipoCampo' >Tipo de electiva</mat-label>
-                <mat-select matNativeControl [(ngModel)]="electivas.tipo" id="tipo" name="tipo" >
+                <mat-select matNativeControl [(ngModel)]="electivas.tipo" [formControl]="tipoFormControl" id="tipo" name="tipo" required>
                   <mat-option value="Teórica">Teórica</mat-option>
                   <mat-option value="Práctica">Práctica</mat-option>
                   <mat-option value="Teórico Práctica">Teórico Práctica</mat-option>
                 </mat-select>
+                <mat-error *ngIf="tipoFormControl.hasError('required')">
+                  Departamento es <strong>requerido</strong>
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -124,13 +134,15 @@
                 <mat-label for="nombre" *ngIf='nombreCampo' class=" errorFormato ">Nombre Electiva</mat-label>
                 <mat-label for="nombre" *ngIf='!nombreCampo' >Nombre Electiva</mat-label>
                 <input [(ngModel)]="objeto.NombreElectiva" id="nombre" name="nombre" [formControl]="nombreFormControl"  matInput >
+               
               </mat-form-field>
+             
             </div>
             <div class="col-6">
               <mat-form-field class="example-full-width">
                 <mat-label for="contenido" *ngIf='contenidoCampo' class=" errorFormato ">Contenido Programatico</mat-label>
                 <mat-label for="contenido" *ngIf='!contenidoCampo' >Nombre Contenido Programatico</mat-label>
-                <input [(ngModel)]="objeto.Contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput placeholder="Contenido Prográmatico">
+                <input [(ngModel)]="objeto.Contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput >
               </mat-form-field>
             </div>
             <div class="col-6">
@@ -154,6 +166,7 @@
                   <mat-option value="Práctica">Práctica</mat-option>
                   <mat-option value="Teórico Práctica">Teórico Práctica</mat-option>
                 </mat-select>
+              
               </mat-form-field>
             </div>
           </div>

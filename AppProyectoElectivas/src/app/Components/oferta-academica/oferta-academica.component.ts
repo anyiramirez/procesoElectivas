@@ -162,7 +162,7 @@ export class OfertaAcademicaComponent implements OnInit {
       //this.listarElectivas();
       this.limpiarModal();
       this.listarOfertas();
-      //this.router.navigate(['/GestionElectivas']);
+      this.router.navigate(['/GestionElectivas']);
 
     });
   }else{

@@ -31,12 +31,14 @@ export class ModuloelectivasComponent implements OnInit {
   ngOnInit() {
     this.nombreFormControl = new FormControl('', [
       Validators.required,
+      
     ]);
     this.contenidoFormControl = new FormControl('', [
       Validators.required,
     ]);
     this.departamentoFormControl = new FormControl('', [
       Validators.required,
+      
     ]);
     this.tipoFormControl = new FormControl('', [
       Validators.required,
@@ -72,12 +74,15 @@ export class ModuloelectivasComponent implements OnInit {
     this.listarElectivas();
     
   }
+
   editarElectivas(){
     
     //this.getEditarElectivas();
-    if(this.nombreFormControl.hasError('required')){
+    if(this.nombreFormControl.hasError('required')&&this.nombreFormControl.hasError('pattern')){
       this.nombreCampo=true;
+      alert("falta nombre");
     }else{ this.nombreCampo=false; }
+
 
     if(this.contenidoFormControl.hasError('required')){
       this.contenidoCampo=true;
@@ -99,6 +104,7 @@ export class ModuloelectivasComponent implements OnInit {
     }else{ this.tipoCampo=true; }
     
     if(!this.nombreCampo && !this.contenidoCampo && !this.departamentoCampo && !this.tipoCampo){
+      if(this.nombreCampo)
 
       this.registrar.editarElectiva(this.nombreAntiguo,this.objeto).subscribe(res => {
 
