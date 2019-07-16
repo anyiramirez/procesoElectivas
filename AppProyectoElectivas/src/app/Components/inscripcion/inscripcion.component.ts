@@ -20,6 +20,7 @@ export class InscripcionComponent implements OnInit {
   electivasTres= new Array();
   electivasCuatro= new Array();
   electivasCinco= new Array();
+  electivasSeis = new Array();
   nombresCampo;
   apellidosCampo;
   codigoCampo;
@@ -35,6 +36,9 @@ export class InscripcionComponent implements OnInit {
   habilitarop3: boolean = true;
   habilitarop4: boolean = true;
   habilitarop5: boolean = true;
+  habilitarop6: boolean = true;
+  opcionesElec: boolean = true;
+
   texto: any;
   nuevoTexto: any;
   
@@ -68,7 +72,6 @@ export class InscripcionComponent implements OnInit {
     ]);
   }
   registrarInscripcion(){
-    debugger;
     if(this.nombresFormControl.hasError('required')){
       this.nombresCampo=true;
     }else if(this.nombresFormControl.hasError('pattern')){
@@ -87,7 +90,6 @@ export class InscripcionComponent implements OnInit {
       this.codigoCampo=true;
     }else
     { this.codigoCampo=false; }
-    debugger;
     if(this.inscripcion.programa=== 'PIS' ||this.inscripcion.programa === 'PIAI'||this.inscripcion.programa === 'PIET'){
       this.programaCampo=false;
     }else{ this.programaCampo=true; }
@@ -165,14 +167,32 @@ export class InscripcionComponent implements OnInit {
   listarQuintaOpcion(){
     for(let e in this.electivasCuatro){
       if(this.electivasCuatro[e]!=this.inscripcion.opcion4){
-        
         this.electivasCinco.push(this.electivasCuatro[e]);
       }
-      
     }
-    
+    this.habilitarop6 = false;
+  }
+
+  listarSextaOpcion(){
+    for(let e in this.electivasCinco){
+      if(this.electivasCinco[e]!=this.inscripcion.opcion5){
+        this.electivasSeis.push(this.electivasCinco[e]);
+      }
+    }
   }
  
+  mostrarOpciones(){
+    debugger;
+    if (this.inscripcion.programa === 'PIS'){
+      this.opcionesElec = false;
+    }
+    if (this.inscripcion.programa === 'PIAI'||this.inscripcion.programa === 'PIET'){
+      this.opcionesElec = true;
+    }
+    else{
+      this.opcionesElec = true;
+    }
+  }
 
   MayusculaPrimera(palabra:string){
     this.nuevoTexto = "";

@@ -39,55 +39,99 @@
   <mat-form-field>
     <mat-label for="programa" *ngIf='programaCampo' class=" errorFormato ">Programa</mat-label>
     <mat-label for="programa" *ngIf='!programaCampo' >Programa</mat-label>
-    <mat-select matNativeControl [(ngModel)]="inscripcion.programa" id ="programa" name="programa" required>
+    <mat-select matNativeControl [(ngModel)]="inscripcion.programa" id ="programa" name="programa" (ngModelChange)="mostrarOpciones()" required>
       <mat-option value="PIS">Ingeniería de Sistemas</mat-option>
       <mat-option value="PIAI">Ingeniería Automática Industrial</mat-option>
       <mat-option value="PIET">Ingeniería Electrónica y Telecomunicaciones</mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field>
-    <mat-label for="opcion1" *ngIf='opcion1Campo' class=" errorFormato ">Opción Uno</mat-label>
-    <mat-label for="opcion1" *ngIf='!opcion1Campo'>Opción Uno</mat-label>
-    <mat-select matNativeControl [(ngModel)]="inscripcion.opcion1" id="opcion1" name="opcion1" [formControl]="opcion1FormControl" (click)="listarPrimeraOpcion(inscripcion.programa)" required>
-      <mat-option *ngFor="let e of electivasRegistradas" [value]="e">
-        {{e}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  
-  <mat-form-field>
-    <mat-label>Opción Dos</mat-label>
-    <mat-select matNativeControl [(ngModel)]="inscripcion.opcion2" id="opcion2" name="opcion2" [disabled]="habilitarop2" (click)="listarSegundaOpcion()"  >
-      <mat-option *ngFor="let e of electivasDos" [value]="e">
-        {{e}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  
-  <mat-form-field>
-    <mat-label>Opción tres</mat-label>
-    <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion3" id="opcion3" name="opcion3" [disabled]="habilitarop3"  (click)="listarTerceraOpcion()" >
-      <mat-option *ngFor="let e of electivasTres" [value]="e">
-        {{e}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Opción Cuatro</mat-label>
-    <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion4" id="opcion4" name="opcion4" [disabled]="habilitarop4" (click)="listarCuartaOpcion()" >
-      <mat-option *ngFor="let e of electivasCuatro" [value]="e">
-        {{e}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Opción Cinco</mat-label>
-    <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion5" id="opcion5" name="opcion5" [disabled]="habilitarop5" (click)="listarQuintaOpcion()" >
-      <mat-option *ngFor="let e of electivasCinco" [value]="e">
-        {{e}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <button type="button" class="btn btn-primary" (click)="registrarInscripcion()" data-dismiss="modal">Inscribirse</button>
-  
-</div>
+  <!-- <div *ngIf = "opcionesElec === 'seis'" > -->
+    <mat-form-field>
+      <mat-label for="opcion1" *ngIf='opcion1Campo' class=" errorFormato ">Opción Uno</mat-label>
+      <mat-label for="opcion1" *ngIf='!opcion1Campo'>Opción Uno</mat-label>
+      <mat-select matNativeControl [(ngModel)]="inscripcion.opcion1" id="opcion1" name="opcion1" [formControl]="opcion1FormControl" (click)="listarPrimeraOpcion(inscripcion.programa)" required>
+        <mat-option *ngFor="let e of electivasRegistradas" [value]="e">
+          {{e}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Opción 2</mat-label>
+      <mat-select matNativeControl [(ngModel)]="inscripcion.opcion2" id="opcion2" name="opcion2" [disabled]="habilitarop2" (click)="listarSegundaOpcion()"  >
+        <mat-option *ngFor="let e of electivasDos" [value]="e">
+          {{e}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Opción 3</mat-label>
+      <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion3" id="opcion3" name="opcion3" [disabled]="habilitarop3"  (click)="listarTerceraOpcion()" >
+        <mat-option *ngFor="let e of electivasTres" [value]="e">
+          {{e}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Opción 4</mat-label>
+      <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion4" id="opcion4" name="opcion4" [disabled]="habilitarop4" (click)="listarCuartaOpcion()" >
+        <mat-option *ngFor="let e of electivasCuatro" [value]="e">
+          {{e}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Opción 5</mat-label>
+      <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion5" id="opcion5" name="opcion5" [disabled]="habilitarop5 && opcionesElec" (click)="listarQuintaOpcion()" >
+        <mat-option *ngFor="let e of electivasCinco" [value]="e">
+          {{e}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> 
+    <mat-form-field>
+      <mat-label>Opción 6</mat-label>
+      <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion6" id="opcion6" name="opcion6" [disabled]="habilitarop6 && opcionesElec" (click)="listarSextaOpcion()" >
+        <mat-option *ngFor="let e of electivasSeis" [value]="e">
+          {{e}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- </div> -->
+    <!-- <div *ngIf="opcionesElec === 'cuatro'">
+      <mat-form-field>
+        <mat-label for="opcion1" *ngIf='opcion1Campo' class=" errorFormato ">Opción Uno</mat-label>
+        <mat-label for="opcion1" *ngIf='!opcion1Campo'>Opción Uno</mat-label>
+        <mat-select matNativeControl [(ngModel)]="inscripcion.opcion1" id="opcion1" name="opcion1" [formControl]="opcion1FormControl" (click)="listarPrimeraOpcion(inscripcion.programa)" required>
+          <mat-option *ngFor="let e of electivasRegistradas" [value]="e">
+            {{e}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Opción 2</mat-label>
+        <mat-select matNativeControl [(ngModel)]="inscripcion.opcion2" id="opcion2" name="opcion2" [disabled]="habilitarop2" (click)="listarSegundaOpcion()"  >
+          <mat-option *ngFor="let e of electivasDos" [value]="e">
+            {{e}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Opción 3</mat-label>
+        <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion3" id="opcion3" name="opcion3" [disabled]="habilitarop3"  (click)="listarTerceraOpcion()" >
+          <mat-option *ngFor="let e of electivasTres" [value]="e">
+            {{e}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Opción 4</mat-label>
+        <mat-select matNativeControl  [(ngModel)]="inscripcion.opcion4" id="opcion4" name="opcion4" [disabled]="habilitarop4" (click)="listarCuartaOpcion()" >
+          <mat-option *ngFor="let e of electivasCuatro" [value]="e">
+            {{e}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div> -->
+    
+    <button type="button" class="btn btn-primary" (click)="registrarInscripcion()" data-dismiss="modal">Inscribirse</button>
+    
+  </div>
