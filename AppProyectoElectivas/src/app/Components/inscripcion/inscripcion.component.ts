@@ -85,7 +85,6 @@ export class InscripcionComponent implements OnInit {
       this.codigoCampo=true;
     }else if(this.codigoFormControl.hasError('pattern')){
       this.codigoCampo=true;
-
     }else
     { this.codigoCampo=false; }
     debugger;
