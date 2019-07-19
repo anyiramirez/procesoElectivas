@@ -1,11 +1,18 @@
 <app-encabezado></app-encabezado>
 <div class="wrapper">
     <app-opciones-admin (vista)="recibirVista($event)"></app-opciones-admin>
-
-    <div *ngIf="varVista == GestionElectivas">
+    
+    <div *ngIf="varVista === 'GestionElectivas'">
         <app-moduloelectivas></app-moduloelectivas>
     </div>
-    <div *ngIf= "varVista == OfertaAcademica">
+    <div *ngIf= "varVista === 'OfertaAcademica'">
         <app-oferta-academica></app-oferta-academica>
     </div>
+    <div *ngIf= "varVista === 'InformacionEstudiantes'">
+        <app-register-info></app-register-info>
+    </div>
+    <div *ngIf= "varVista === 'ListasAsignadas'">
+        <app-listasasignacion></app-listasasignacion>
+    </div>
+    
 </div>

@@ -18,8 +18,8 @@ export class PrincipaladmiComponent implements OnInit {
     console.log(this.router.url);
   }
   
-  recibirVista(mensaje: string){
-    this.varVista = mensaje;
+  recibirVista($event: string){
+    this.varVista = $event;
   }
 
 }
