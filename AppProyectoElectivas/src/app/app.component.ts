@@ -10,7 +10,7 @@ import {LoginComponent } from './Components/login/login.component';
 export class AppComponent {
   title = 'Electivas';
   
-  public constructor(private router: Router) {
-    this.router.navigate(["Administrador"]);
-  }
+  // public constructor(private router: Router) {
+  //   this.router.navigate(["Administrador"]);
+  // }
 }
