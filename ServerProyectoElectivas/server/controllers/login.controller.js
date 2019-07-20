@@ -8,13 +8,16 @@ loginCtrl.login = (req,res) => {
 }
 
 loginCtrl.user = (req,res) => {
-  console.log(getGoogleAccountFromCode());
-  res.json("Llego");
+  
+  console.log(req.body.codigo);
+  
+  var respond = getGoogleAccountFromCode(req.body.codigo)
+  res.json(respond);
 }
 
 const googleConfig  = {
-    clientId: "99185129164-nqe1vdpu6qka0qidomi0qp7efs78epa9.apps.googleusercontent.com",
-    clientSecret: "xi_-iQI1JRZ80G2dZgppMyX0",
+    clientId: '99185129164-1s1n2uc1fkclg46cpl8o4bhas1oqlf0e.apps.googleusercontent.com',
+    clientSecret: 'd611mn-3RcgTKU2jlN-Vw7f9',
     redirect: "http://localhost:4200/Administrador",
     };
   
@@ -51,22 +54,42 @@ const googleConfig  = {
 
   
   async function getGoogleAccountFromCode(code) {
-    const data = await auth.getToken(code);
-    const tokens = data.tokens;
-    const auth = createConnection();
-    auth.setCredentials(tokens);
-    const plus = getGooglePlusApi(auth);
-    const me = await plus.people.get({ userId: 'me' });
-    const userGoogleId = me.data.id;
-    const userGoogleEmail = me.data.emails && me.data.emails.length && me.data.emails[0].value;
-    return {
-      id: userGoogleId,
-      email: userGoogleEmail,
-      tokens: tokens,
-    };
+    const oauth2Client = createConnection();
+    const me = null;
+    
+    try {
+      var a = "" + code;  
+      const {tokens} = await oauth2Client.getToken(a, function(err, token) {
+        if (err) {
+          console.log('Error while trying to retrieve access token', err);
+          return;
+        }
+        oauth2Client.credentials = token;
+        
+      });
+      oauth2Client.setCredentials(tokens);
+    
+      const plus = getGooglePlusApi(oauth2Client);
+      me = await plus.people.get({ userId: 'me' });      
+    } catch (e) {
+      console.log("entro");
+    }
+    if(me === null){
+      return null;
+    } else{
+      const userGoogleId = me.data.id;
+      const userGoogleEmail = me.data.emails && me.data.emails.length && me.data.emails[0].value;
+      return {
+        id: userGoogleId,
+        email: userGoogleEmail
+      }
+    }
+   
   }
-
+ 
 //--------------------------------------------------------
+
+
 
 
 
