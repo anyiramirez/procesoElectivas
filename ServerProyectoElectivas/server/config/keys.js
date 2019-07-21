@@ -7,5 +7,8 @@ module.exports = {
     },
     session: {
         cookieKey: 'Holiwisfuncione'
+    },
+    mongoDB: {
+        dbURI: 'mongodb+srv://juanminu:juancho123ma@cluster0-d8vjx.mongodb.net/test?retryWrites=true&w=majority'
     }
 };

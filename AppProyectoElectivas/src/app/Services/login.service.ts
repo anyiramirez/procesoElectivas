@@ -4,12 +4,20 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class LoginService {
-  API_URI = 'http://localhost:3000/auth/';
+  API_URI = 'http://localhost:3000/auth';
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    }),
+    withCredentials: true
+  }
+
   constructor(private http: HttpClient) { }
 
 
   obtenerDatosUsuario() {
-    return this.http.get(this.API_URI + '/user');
+    return this.http.get(this.API_URI + '/user', this.httpOptions);
 
   }
 

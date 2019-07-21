@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService} from '../../Services/login.service';
 
 @Component({
   selector: 'app-encabezado-inscripcio',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./encabezado-inscripcio.component.css']
 })
 export class EncabezadoInscripcioComponent implements OnInit {
-
-  constructor() { }
+  imagenPerfil: string;
+  constructor(private servicioLogin: LoginService) { }
 
   ngOnInit() {
+    this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
+      console.log(res);
+    });
+    this.imagenPerfil = "../../../assets/user.jpg";
   }
 
 }

@@ -22,9 +22,13 @@ export class LoginComponent implements OnInit {
 
   IniciarSesion() {
     //window.location.href = 'http://localhost:3000/auth/google';
-    window.open('http://localhost:3000/auth/google',"mywindow","location=1,status=1,scrollbars=1, width=800,height=800");
+    const y = parseInt(((window.screen.height/2)-(800/2)).toString());
+    const x = parseInt(((window.screen.width/2)-(800/2)).toString());
+    
+    window.open('http://localhost:3000/auth/google',"mywindow","location=1,status=1,scrollbars=1, top=" + y + ",left=" + x + ",width=800,height=800");
     let listener = window.addEventListener('message', (message) => {
       console.log(message.data.user);
+      console.log(message.data.success);
     });
     /*this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
       console.log(res);

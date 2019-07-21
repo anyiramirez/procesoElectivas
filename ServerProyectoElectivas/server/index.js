@@ -4,10 +4,22 @@ const morgan = require('morgan');
 const cors = require('cors');
 const passportSetup = require('./config/passport-setup');
 const keysS = require('./config/keys');
+var cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 
+//---------------
 
+
+
+//---------------
+
+/*const mongoose = require('mongoose');
+
+mongoose.connect(keysS.mongoDB.dbURI, () => {
+  console.log("Mongo conectado");
+});
+*/
 var path = require('path');
 var exphbs = require('express-handlebars');
 var bodyparser = require('body-parser');
@@ -33,11 +45,14 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 
-
+//app.use(cookieParser());
 
 app.use(cookieSession({
   maxAge: 24*60*60*1000,
-  keys: [keysS.session.cookieKey] 
+  keys: [keysS.session.cookieKey],
+  //proxy: true,
+  //resave: true,
+//  saveUninitialized: true
 }));
 
 app.use(passport.initialize());
@@ -57,7 +72,7 @@ app.use(morgan('dev'));
 //app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json({limit: '50mb'}));
 
-app.use(bodyparser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyparser.urlencoded({limit: '50mb', extended: false}));
 
 app.use(express.json());
 
