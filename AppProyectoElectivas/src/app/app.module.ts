@@ -45,7 +45,7 @@ const Rutas: Routes = [
   {path: 'GestionElectivas', component: ModuloelectivasComponent },
   {path: 'OfertaAcademica', component: OfertaAcademicaComponent},
   {path: 'Inscripcion', component:InscripcionComponent},
-  {path: 'login', component: LoginComponent}
+  {path: '', component: LoginComponent}
 ];
 
 @NgModule({
