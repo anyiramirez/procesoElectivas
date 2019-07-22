@@ -1,6 +1,4 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { visitAll } from '@angular/compiler/src/render3/r3_ast';
-
 
 @Component({
   selector: 'app-opciones-admin',
@@ -15,7 +13,6 @@ export class OpcionesAdminComponent implements OnInit {
   }
   
   cambioVista(vistaSeleccionada: string){
-    debugger;
     this.mensajeVista = vistaSeleccionada;
     this.vista.emit(this.mensajeVista);
   }

@@ -10,16 +10,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let ece of electivas; let in = index">
-        <th scope="row">{{in+1}}</th>
+      <tr *ngFor="let ece of electivas; let id = index">
+        <th scope="row">{{id+1}}</th>
         <td>{{ece.nombreElectiva}}</td>
         <td style="text-align:center">{{ece.cupos}}</td>
         <td style="text-align:center">
-          <a routerLink="/AsignacionElectiva/{{in}}" ><i class="fas fa-search-plus" style="color:#082a52"></i></a>
-          <!-- (click)="informacionElectiva('AsignacionElectiva/{{in}}')" -->
+          <a (click)="cambioVistaElectiva('AsignacionElectiva/:' + id)"><i class="fas fa-search-plus" style="color:#082a52; cursor: pointer"></i></a>
+          <!-- routerLink="/AsignacionElectiva/{{id}}" -->
         </td>
         <td style="text-align:center">
-          <a (click)="DescargarE(in,ece.nombreElectiva)" routerLink="/listasAsignadas" title="Descargar Excel"> <i class="fas fa-file-excel" style="color:green"></i></a>
+          <a (click)="DescargarE(id,ece.nombreElectiva)" routerLink="/listasAsignadas" title="Descargar Excel"> <i class="fas fa-file-excel" style="color:green"></i></a>
         </td>
       </tr>
     </tbody>

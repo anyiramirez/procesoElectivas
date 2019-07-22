@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
 import { ExcelService } from '../../Services/excel.service';
 import { ListaElectCE} from '../../Interfaces/lista-electce';
@@ -9,14 +9,19 @@ import { ListaElectCE} from '../../Interfaces/lista-electce';
   styleUrls: ['./listasasignacion.component.css']
 })
 export class ListasasignacionComponent implements OnInit {
+  @Output() vistaelectiva: EventEmitter<any> = new EventEmitter<any>();
   electivas = new Array();
-  lista;
+  lista: any[];
 
   constructor(private registrar:RegistroDatosService,private excelService:ExcelService) { 
     this.listarE();
   }
-
   ngOnInit() {
+  }
+
+  cambioVistaElectiva(electivaSeleccionada: any){
+    debugger;
+    this.vistaelectiva.emit(electivaSeleccionada);
   }
 
   listarE(){
