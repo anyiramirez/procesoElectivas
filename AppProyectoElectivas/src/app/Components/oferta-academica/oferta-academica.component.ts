@@ -37,6 +37,7 @@ export class OfertaAcademicaComponent implements OnInit {
   ofertaFormControl;
   inicioFormControl;
   finFormControl;
+ 
 
 
 
@@ -61,6 +62,9 @@ export class OfertaAcademicaComponent implements OnInit {
     this.finFormControl = new FormControl('', [
       Validators.required,
     ]);
+    this.anioFormControl = new FormControl('', [
+      Validators.pattern("^[0-9]+"),
+    ]);
   }
  
   listarElectivas(){
@@ -84,15 +88,16 @@ export class OfertaAcademicaComponent implements OnInit {
   listarOfertas(){
     this.registrar.obtenerOfertas().subscribe(res => {
       this.obtenerOfertas= new Array();
-      //this.registrar.electivas= res as Electivas[];
+      this.registrar.electivas= res as Electivas[];
       var band=0;
-      for(let p in res){                    
+      for(let p in res){ 
+            console.log(res);                   
              var contador = res[p].electivasOfertadas.length;
             // this.cantidad[band]=contador; {{cantidad[indice]}}
              var estado = this.estadoOferta(res[p].fechaInicio,res[p].fechaFin);
              this.cantidades[band]=contador;
              this.estados[band]=estado;
-             console.log("estado",estado);
+            
              this.obtenerOfertas.push(res[p]); 
              band++; 
       }
@@ -225,13 +230,12 @@ export class OfertaAcademicaComponent implements OnInit {
     var f2= new Date(fechaFin);
     fecha.setHours(0,0,0,0);
     console.log(fecha,"/",fechaInicio,"/",fechaFin);
-    if(fecha <= f1){
+    if(fecha < f1){
        return "Pendiente"
     }
-    if (fecha >= f2){
+    if (fecha > f2){
       return "Finalizado"
     }
-    //if (fecha>fechaInicio && fecha < fechaFin){
     else{
       return "En curso"
     }

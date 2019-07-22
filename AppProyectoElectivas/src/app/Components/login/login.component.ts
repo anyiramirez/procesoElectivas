@@ -14,18 +14,25 @@ export class LoginComponent implements OnInit {
   constructor(private servicioLogin: LoginService, private router: Router) { }
 
   ngOnInit() {
-    this.servicioLogin.obtenerURLGoogle().subscribe(res => {
-      this.urlGoogle = res;
-    });
-    this.router.navigate([this.router.url]);
-    console.log(this.router.url);
+   // this.servicioLogin.obtenerURLGoogle().subscribe(res => {
+     // this.urlGoogle = res;
+    //});
 
   }
- 
-  IniciarSesion(){
-    window.open(this.urlGoogle,"_self");
-    this.router.navigate([this.router.url]);
-    console.log(this.router.url);
+
+  IniciarSesion() {
+    //window.location.href = 'http://localhost:3000/auth/google';
+    const y = parseInt(((window.screen.height/2)-(800/2)).toString());
+    const x = parseInt(((window.screen.width/2)-(800/2)).toString());
+    
+    window.open('http://localhost:3000/auth/google',"mywindow","location=1,status=1,scrollbars=1, top=" + y + ",left=" + x + ",width=800,height=800");
+    let listener = window.addEventListener('message', (message) => {
+      console.log(message.data.user);
+      console.log(message.data.success);
+    });
+    /*this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
+      console.log(res);
+     });*/
   }
 
 
