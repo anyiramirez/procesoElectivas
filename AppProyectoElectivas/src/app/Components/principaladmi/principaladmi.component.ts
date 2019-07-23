@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./principaladmi.component.css']
 })
 export class PrincipaladmiComponent implements OnInit {
-  varVista: string;
+  varVista: any;
+  electivaActual: any;
   public routeId = '';
   public href: string = "";
   constructor(private router: Router) {
@@ -17,10 +18,15 @@ export class PrincipaladmiComponent implements OnInit {
     this.href = this.router.url;
   }
   
-  recibirVista($event: string){
+  recibirVista($event: any){
     this.varVista = $event;
-    console.log(this.varVista);
     console.log("evento", $event);
+  }
+  electivaSeleccionada($event:any){
+    debugger;
+    this.electivaActual = $event.charAt($event.length-1);
+    this.varVista = $event;
+    this.varVista = this.varVista.substring(0,this.varVista.length-1);
   }
 
 }

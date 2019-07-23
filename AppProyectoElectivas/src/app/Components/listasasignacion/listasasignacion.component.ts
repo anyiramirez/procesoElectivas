@@ -9,8 +9,8 @@ import { ListaElectCE} from '../../Interfaces/lista-electce';
   styleUrls: ['./listasasignacion.component.css']
 })
 export class ListasasignacionComponent implements OnInit {
-  @Output() vistaelectiva: EventEmitter<string> = new EventEmitter<string>();
-  infoElectiva: string;
+  @Output() vistaelectiva: EventEmitter<any> = new EventEmitter<any>();
+  infoElectiva: any;
   electivas = new Array();
   lista: any[];
 
@@ -20,7 +20,7 @@ export class ListasasignacionComponent implements OnInit {
   ngOnInit() {
   }
 
-  cambioVistaElectiva(electivaSeleccionada: string){
+  cambioVistaElectiva(electivaSeleccionada: any){
     console.log("listaasignacion ruta", electivaSeleccionada)
     this.infoElectiva = electivaSeleccionada;
     this.vistaelectiva.emit(this.infoElectiva);
