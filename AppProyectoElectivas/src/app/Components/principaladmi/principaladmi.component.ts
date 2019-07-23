@@ -7,23 +7,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./principaladmi.component.css']
 })
 export class PrincipaladmiComponent implements OnInit {
-  componenteElectivas:any;
   varVista: string;
-  
+  public routeId = '';
   public href: string = "";
   constructor(private router: Router) {
   }
   
   ngOnInit() {
     this.href = this.router.url;
-    console.log(this.router.url);
   }
   
   recibirVista($event: string){
     this.varVista = $event;
-  }
-  mostrarElectiva($event:any){
-    this.componenteElectivas = $event;
+    console.log(this.varVista);
+    console.log("evento", $event);
   }
 
 }

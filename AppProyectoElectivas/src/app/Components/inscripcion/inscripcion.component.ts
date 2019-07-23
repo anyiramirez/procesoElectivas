@@ -95,14 +95,11 @@ export class InscripcionComponent implements OnInit {
 
   }
   listarPrimeraOpcion(varProgram:string){
-    debugger;
     this.registrar.obtenerElectivasOfertadas(varProgram).subscribe(res => {
       this.electivasRegistradas=new Array();
       this.registrar.electivas= res as Electivas[];
         for(let p in res){
-          debugger;
           this.electivasRegistradas.push(res[p]);
-          debugger;
         }
         
       }
