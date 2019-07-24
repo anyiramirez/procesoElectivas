@@ -1,40 +1,41 @@
-<div class="wrapper">
+<div class="content">
   <!-- Button trigger modal -->
-  <div class="content">
-    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalLong">
-      Agregar nueva oferta
-    </button>
-    <!-- Table -->
-    
-    <table class="table table-striped table-sm">
-      <thead>
-        <tr >
-          
-          <th scope="col">Período Académico</th>
-          <th scope="col">Año</th>
-          <th scope="col">Total Electivas</th>
-          <th scope="col">Estado</th>
-          <th colspan="2" class="text-center">Opciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let ofertaA of obtenerOfertas; let indice=index">
-          
-          <td>{{ofertaA.periodo}}</td>
-          <td>{{ofertaA.anio}}</td>
-          <td>{{cantidad[indice]}}</td>
-          <td>Finalizado</td>
-          <td>
-            <button type="button" (click)="detalleOferta(indice)" class="btn btn-info" data-toggle="modal" data-target="#ModalDetailOferta" >
-              Ver
-            </button>
-          </td>
-        </tr>
+  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalLong">
+    Agregar nueva oferta
+  </button>
+  
+  
+  <!-- Table -->
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr >
         
-      </tbody>
-    </table>
-  </div>
+        <th scope="col">Período Académico</th>
+        <th scope="col">Año</th>
+        <th scope="col">Total Electivas</th>
+        <th scope="col">Estado</th>
+        <th colspan="2" class="text-center">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ofertaA of obtenerOfertas; let indice=index">
+        
+        <td>{{ofertaA.periodo}}</td>
+        <td>{{ofertaA.anio}}</td>
+        <td>{{cantidad[indice]}}</td>
+        <td>Finalizado</td>
+        <td>
+          <button type="button" (click)="detalleOferta(indice)" class="btn btn-info" data-toggle="modal" data-target="#ModalDetailOferta" >
+            Ver
+          </button>
+        </td>
+      </tr>
+      
+    </tbody>
+  </table>
 </div>
+
+
 <!-- Modal Detalle Oferta Académica-->
 <div class="modal fade" id="ModalDetailOferta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

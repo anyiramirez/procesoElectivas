@@ -3,14 +3,6 @@
   position: relative;
   top: 15px;
 }
-#content{
-  width: 100%;
-  position: relative;
-  transition: all 0.3s;
-  max-height: 450px;
-  overflow-x:auto;
-  overflow-y: scroll;
-}
 .pagination{
   margin-left: 39%;
 }
@@ -50,14 +42,6 @@
   opacity: 0;
 }
 
-#content.active[aria-expanded="true"] {
-  width: 100%;
-  max-height: 450px;
-  position: relative;
-  transition: all 0.3s;
-  overflow-x:auto;
-  overflow-y: scroll;
-}
 :host {
   font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
 }
@@ -192,12 +176,6 @@ a.article, a.article:hover {
 /* ---------------------------------------------------
 CONTENT STYLE
 ----------------------------------------------------- */
-#content {
-  width: 100%;
-  padding: 20px;
-  min-height: 100vh;
-  transition: all 0.3s;
-}
 #sidebarCollapse {
   width: 40px;
   height: 40px;

@@ -26,6 +26,9 @@ a, a:hover, a:focus {
     align-items: stretch;
     perspective: 1500px;
 }
+.content{
+    margin-left: 40px;
+}
 input[type=number]::-webkit-outer-spin-button,
 
 input[type=number]::-webkit-inner-spin-button {
