@@ -6,7 +6,7 @@ div.cabecera {
     margin: 0;
     position: relative;
     height: 100px;
-    max-height: 100px
+    max-height: 100px;
 }
 div.cabecera #logoU {
     margin: 5px 10px 5px 50px;

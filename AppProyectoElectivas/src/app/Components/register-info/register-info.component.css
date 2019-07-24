@@ -64,4 +64,9 @@ th{
   border-color: #09c5f04d;
   border-radius: 8px;
 }
-
+.tamanioTabla{
+  max-width: 1050px;
+}
+.tamanoUpload{
+  min-width: 1000px;
+}
