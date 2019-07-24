@@ -40,6 +40,7 @@ export class ListasasignacionComponent implements OnInit {
     console.log(id);
     console.log(name);
     this.lista=this.registrar.solElectCE[id].estudiantes;
+    console.log(this.lista);    
     this.excelService.exportAsExcelFile(this.lista,"Electiva-"+name);
    }
 

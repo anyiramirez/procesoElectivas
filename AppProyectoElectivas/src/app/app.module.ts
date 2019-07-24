@@ -19,10 +19,10 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { MatTabsModule} from '@angular/material/tabs';
 import { NgxFileDropModule } from 'ngx-file-drop';
-
+import {CustExtBrowserXhr} from './Components/login/cust-ext-browser-xhr';
 import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { BrowserXhr } from '@angular/http';
 
 import { RegisterInfoComponent } from './Components/register-info/register-info.component';
 import { OpcionesAdminComponent} from './Components/opciones-admin/opciones-admin.component';
@@ -35,8 +35,9 @@ import { OfertaAcademicaComponent } from './Components/oferta-academica/oferta-a
 import { InscripcionComponent } from './Components/inscripcion/inscripcion.component';
 import { EncabezadoInscripcioComponent } from './Components/encabezado-inscripcio/encabezado-inscripcio.component';
 import { LoginComponent } from './Components/login/login.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
-const Rutas: Routes = [  
+const Rutas: Routes = [
   {path: 'Administrador', component: PrincipaladmiComponent},
   {path: 'InformacionEstudiantes', component: RegisterInfoComponent },
   {path: 'ListasAsignadas', component: ListasasignacionComponent},
@@ -92,7 +93,7 @@ const Rutas: Routes = [
       apiKey: 'AIzaSyD_dcEHRh3Lwh4aSLqw-B581hRShWHdbWI'
     })
   ],
-  providers: [],
+  providers: [  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
