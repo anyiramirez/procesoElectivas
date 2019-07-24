@@ -2,9 +2,24 @@ const express = require('express');
 const favicon = require('serve-favicon');
 const morgan = require('morgan');
 const cors = require('cors');
+const passportSetup = require('./config/passport-setup');
+const keysS = require('./config/keys');
+var cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
+
+//---------------
 
 
 
+//---------------
+
+/*const mongoose = require('mongoose');
+
+mongoose.connect(keysS.mongoDB.dbURI, () => {
+  console.log("Mongo conectado");
+});
+*/
 var path = require('path');
 var exphbs = require('express-handlebars');
 var bodyparser = require('body-parser');
@@ -12,12 +27,36 @@ var admin = require('firebase-admin');
 
 
 const app = express();
-app.use(cors());
+
+var originsWhitelist = [
+  'http://localhost:4200',      //this is my front-end url for development
+   'http://www.myproductionurl.com'
+];
+var corsOptions = {
+  origin: function(origin, callback){
+        var isWhitelisted = originsWhitelist.indexOf(origin) !== -1;
+        callback(null, isWhitelisted);
+  },
+  credentials:true
+}
 
 
 
+app.use(cors(corsOptions));
 
 
+//app.use(cookieParser());
+
+app.use(cookieSession({
+  maxAge: 24*60*60*1000,
+  keys: [keysS.session.cookieKey],
+  //proxy: true,
+  //resave: true,
+//  saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 //app.use(express.static('public'));
 app.use(favicon(path.join('views','favicon.ico')));
 
@@ -33,7 +72,7 @@ app.use(morgan('dev'));
 //app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json({limit: '50mb'}));
 
-app.use(bodyparser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyparser.urlencoded({limit: '50mb', extended: false}));
 
 app.use(express.json());
 
@@ -52,7 +91,7 @@ var db = admin.database();
 // Routes
 
 app.use('/api/asigcupos',require('./routes/asigcupos.routes'));
-app.use('/login',require('./routes/login.routes'));
+app.use('/auth',require('./routes/login.routes'));
 
 
 //--------------------------------------------------------

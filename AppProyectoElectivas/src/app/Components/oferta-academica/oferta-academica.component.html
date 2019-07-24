@@ -42,7 +42,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Oferta {{nombreOfertaACtual}}</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Oferta {{nombreOfertaACtual}} </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -99,6 +99,9 @@
                 <input matInput [(ngModel)]="ofertas.dateInicio" [formControl]="inicioFormControl" [matDatepicker]="fechaInicio" name="dateInicio"  placeholder="Fecha Inicio">
                 <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
                 <mat-datepicker #fechaInicio></mat-datepicker>
+                <mat-error *ngIf="finFormControl.hasError('required')">
+                  Fecha inicio es <strong>requerido</strong>
+                </mat-error>
               </mat-form-field>
             </div>
             <div class="col-6">
@@ -108,6 +111,9 @@
                 <input matInput [(ngModel)]="ofertas.dateFin" [formControl]="finFormControl" [matDatepicker]="fechaFin" name="dateFin" placeholder="Fecha fin">
                 <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
                 <mat-datepicker #fechaFin></mat-datepicker>
+                <mat-error *ngIf="finFormControl.hasError('required')">
+                  Fecha de fin es  <strong>requerido</strong>
+                </mat-error>
               </mat-form-field>
             </div>
             
@@ -117,6 +123,12 @@
                 <mat-label for="anio" *ngIf='anioCampo' class=" errorFormato ">Año</mat-label>
                 <mat-label for="anio" *ngIf='!anioCampo' >Año</mat-label>
                 <input [(ngModel)]="ofertas.anio" [formControl]="anioFormControl" id="anio" name="anio"   matInput placeholder="Año Lectivo" >
+                <mat-error *ngIf="anioFormControl.hasError('required')">
+                  Año de oferta es <strong>requerido</strong>
+                </mat-error>
+                <mat-error *ngIf="anioFormControl.hasError('pattern')">
+                  Ingresó un caracter invalido.
+                </mat-error>
               </mat-form-field>
             </div>
             
@@ -128,8 +140,10 @@
                   <mat-option value="1">1</mat-option>
                   <mat-option value="2">2</mat-option>
                 </mat-select>
-              </mat-form-field>
-              
+                <mat-error *ngIf="periodoFormControl.hasError('required')">
+                  Periodo es <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>  
             </div>
             
             
