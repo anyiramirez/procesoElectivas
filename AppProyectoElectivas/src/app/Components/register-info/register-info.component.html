@@ -1,7 +1,7 @@
 <div class="content">
   <mat-tab-group>
     <mat-tab label="Cargar Archivo"> 
-      <input type="file" name="file" id="file" class="upload btn btn-outline-info" (change)="onFileChange($event)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+      <input type="file" name="file" id="file" class="upload btn btn-outkne-info" (change)="onFileChange($event)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
       <label for="file" class="btn btn-outline-info">Seleccione un archivo</label>
       
       <div class="center">
@@ -30,6 +30,8 @@
         </div>
       </div>
     </mat-tab>
+    
+    
     <mat-tab label="Información manual"> 
       <img src="../../../assets/guardar.png" alt="saving" id="save" class="rounded float-right" style="display: none">
       
