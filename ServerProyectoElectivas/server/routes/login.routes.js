@@ -30,22 +30,26 @@ router.get('/google/redirect',
 
     var correo = req.user.correo;
     var dominio = correo.split('@');
-    var responseHtml = '<html><head><title>Main</title></head><body></body><script>res = %value%; window.opener.postMessage(res,"*");window.close()</script></html>';
+    var responseHtml = '<html><head><title>Main</title></head><body></body><script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><script>res = %value%; window.opener.postMessage(res,"*");';
     console.log("dominio: ",dominio[1]);
     if(dominio[1] === 'unicauca.edu.co'){
         responseHtml = responseHtml.replace("%value%",JSON.stringify({
             user: req.user,
             success: true
         }));
+        responseHtml += 'window.close();</script></html>';
         res.status(200).send(responseHtml);
     } else {
         req.logOut();
+        console.log(req.user);
+        req.session = null;
+        responseHtml += 'alert("Usuario no pertenece a unicauca.edu.co"); window.location.replace("https://accounts.google.com/logout");</script></html>'
         responseHtml = responseHtml.replace("%value%",JSON.stringify({
             user: "usuario no valido",
             success: false
         }));
-        res.status(200).send(responseHtml);
-        
+        //res.status(200).send(responseHtml);
+        res.clearCookie('Holiwisfuncione').send(responseHtml);
     }
 });
 /*

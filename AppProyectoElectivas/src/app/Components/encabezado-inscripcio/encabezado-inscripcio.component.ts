@@ -9,12 +9,17 @@ import { LoginService} from '../../Services/login.service';
 export class EncabezadoInscripcioComponent implements OnInit {
   imagenPerfil: string;
   constructor(private servicioLogin: LoginService) { }
-
+  nombrePerfil: string;
   ngOnInit() {
-    this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
-      console.log(res);
-    });
     this.imagenPerfil = "../../../assets/user.jpg";
+    this.nombrePerfil = "NN";
+    this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
+      //var perfil = res;
+    //  this.nombrePerfil = perfil.NombreCompleto;
+  //    console.log(perfil.foto);
+//      this.imagenPerfil = perfil.foto;
+    });
+
   }
 
 }

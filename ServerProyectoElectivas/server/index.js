@@ -8,18 +8,14 @@ var cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 
+
+
 //---------------
 
 
 
 //---------------
 
-/*const mongoose = require('mongoose');
-
-mongoose.connect(keysS.mongoDB.dbURI, () => {
-  console.log("Mongo conectado");
-});
-*/
 var path = require('path');
 var exphbs = require('express-handlebars');
 var bodyparser = require('body-parser');
