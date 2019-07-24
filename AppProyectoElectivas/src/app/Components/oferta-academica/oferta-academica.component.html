@@ -33,8 +33,9 @@
     </tbody>
   </table>
 </div>
-<!-- Modal Detalle Oferta Académica-->
-<div class="modal fade" id="ModalDetailOferta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+
+ <!-- Modal Detalle Oferta Académica-->
+ <div class="modal fade" id="ModalDetailOferta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -184,22 +185,3 @@
     </div>
   </div>
 </div>
-
-
-<script>
-  
-  (function(){
-    
-    var template = null
-    
-    $('.modal').on('show.bs.modal', function (event) {
-      if (template == null) {
-        template = $(this).html()
-      } else {
-        $(this).html(template)
-      }
-      // other initialization here, if you want to
-    })
-    
-  })()
-</script>
