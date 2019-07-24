@@ -15,6 +15,6 @@
         <app-listasasignacion (vistaelectiva)="electivaSeleccionada($event)"></app-listasasignacion>
     </div> 
     <div *ngIf= "varVista === 'AsignacionElectiva'">
-        <app-asignacionelectiva [electivaSeleccionada]= "electivaActual"></app-asignacionelectiva>
+        <app-asignacionelectiva [electivaSeleccionada]= "electivaActual" (vistaAntElectivas)="recibirVista($event)"></app-asignacionelectiva>
     </div>
 </div>

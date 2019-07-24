@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
 import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
@@ -11,6 +11,7 @@ import { ListaElectCE } from '../../Interfaces/lista-electce';
 })
 export class AsignacionelectivaComponent implements OnInit {
   @Input() electivaSeleccionada : number;
+  @Output() vistaAntElectivas: EventEmitter <string> = new EventEmitter <string>();
   lista1 = new Array();
   listaa;
   nombreElect;
@@ -25,6 +26,10 @@ export class AsignacionelectivaComponent implements OnInit {
       this.lista1.push(this.listaa[i]);
       console.log(this.lista1[i]);
     }
+  }
+
+  vistaListaElectivas(vistaElectivas: string){
+    this.vistaAntElectivas.emit(vistaElectivas);
   }
   
 }
