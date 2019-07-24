@@ -107,7 +107,7 @@
             <div class="col-6">
               <mat-form-field>
                 <mat-label for="dateFin" *ngIf='finCampo' class=" errorFormato ">Fecha fin</mat-label>
-                <mat-label for="dateFin" *ngIf='!finCampo' >Fecha inicio</mat-label>
+                <mat-label for="dateFin" *ngIf='!finCampo' >Fecha Fin</mat-label>
                 <input matInput [(ngModel)]="ofertas.dateFin" [formControl]="finFormControl" [matDatepicker]="fechaFin" name="dateFin" placeholder="Fecha fin">
                 <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
                 <mat-datepicker #fechaFin></mat-datepicker>

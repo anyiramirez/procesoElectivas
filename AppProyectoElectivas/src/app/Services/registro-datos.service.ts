@@ -47,6 +47,10 @@ export class RegistroDatosService {
   obtenerOfertas(){
     return this.http.get(this.API_URI + '/obtenerOfertas');
   }
+  obtenerUsuarios(){
+    return this.http.get(this.API_URI + '/listarUsuarios');
+
+  }
   obtenerInformacionElectivas(){
     return this.http.get(this.API_URI + '/listarElectivas');
   }

@@ -36,6 +36,7 @@ import { InscripcionComponent } from './Components/inscripcion/inscripcion.compo
 import { EncabezadoInscripcioComponent } from './Components/encabezado-inscripcio/encabezado-inscripcio.component';
 import { LoginComponent } from './Components/login/login.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { UsuariosComponent } from './Components/usuarios/usuarios.component';
 
 const Rutas: Routes = [
   {path: 'Administrador', component: PrincipaladmiComponent},
@@ -45,6 +46,7 @@ const Rutas: Routes = [
   {path: 'GestionElectivas', component: ModuloelectivasComponent },
   {path: 'OfertaAcademica', component: OfertaAcademicaComponent},
   {path: 'Inscripcion', component:InscripcionComponent},
+  {path: 'Usuarios',component:UsuariosComponent},
   {path: '', component: LoginComponent}
 ];
 
@@ -61,7 +63,8 @@ const Rutas: Routes = [
     OfertaAcademicaComponent,
     InscripcionComponent,
     LoginComponent,
-    EncabezadoInscripcioComponent
+    EncabezadoInscripcioComponent,
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,
