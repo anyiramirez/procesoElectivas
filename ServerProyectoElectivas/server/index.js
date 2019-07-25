@@ -41,22 +41,16 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 
-//app.use(cookieParser());
-
 app.use(cookieSession({
   maxAge: 24*60*60*1000,
   keys: [keysS.session.cookieKey],
-  //proxy: true,
-  //resave: true,
-//  saveUninitialized: true
+
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
 //app.use(express.static('public'));
 app.use(favicon(path.join('views','favicon.ico')));
-
-//const {mongoose} = require('./database');
 
 // Settings
 app.set('port', process.env.PORT || 3000);
@@ -65,7 +59,7 @@ app.set('view engine', 'handlebars');
 
 // Middlewares
 app.use(morgan('dev'));
-//app.use(bodyparser.urlencoded({ extended: false }));
+
 app.use(bodyparser.json({limit: '50mb'}));
 
 app.use(bodyparser.urlencoded({limit: '50mb', extended: false}));

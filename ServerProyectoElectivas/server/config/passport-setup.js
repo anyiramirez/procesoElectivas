@@ -2,12 +2,8 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require("./keys")
 const User = require("./user")
-//const User = require('../models/userm');
-
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://juanminu:juancho123ma@cluster0-d8vjx.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-
+//----- add firebase
+var admin = require('firebase-admin');
 
 
 passport.serializeUser((user, done) => {
@@ -15,22 +11,23 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  client.connect(err => {
-    if(!err){
-      const collection = client.db("gestionUser").collection("users");
-      collection.findOne({id: id}).then((user) => {
+    var db = admin.database();
+    var ref = db.ref("users");
+    console.log("ooole");
+    ref.orderByChild("id").equalTo(id).once("value").then(function (snapshot){
+      var user = snapshot.val();
+      if(user){
+        console.log("encontro en deserialize");
+        console.log(user);
+        var keyUser = Object.keys(user);
+        console.log(user[keyUser[0]]);
+        return done(null, user[keyUser[0]]);
         
-        console.log("encontro: ",user);
-        
-        return done(null, user);
-      });
-    }else{
-      console.log("paila");
-      return done(err);
-      
-    }
-    
-  })
+      }else{
+        console.log("no encontro deserialize");
+      }
+    });
+
 });
 
 passport.use( new GoogleStrategy({
@@ -38,52 +35,35 @@ passport.use( new GoogleStrategy({
     clientID: keys.google.clientId,
     clientSecret: keys.google.clientSecret,
   }, (accessToken, refreshToken, profile, done) => {
-    client.connect(err => {
-      if(!err){
-        const collection = client.db("gestionUser").collection("users");
-        // perform actions on the collection object
-        collection.findOne({id: profile.id}).then((currentUser) => {
-          if(currentUser){
-            
-            return done(null, currentUser);
-          }else{
-            var nuser = new User (profile.id, profile.displayName, profile.emails[0].value,profile.photos[0].value,Date.now());
-            collection.insertOne(nuser, function(){
-              console.log("Informacion guardada de: ",nuser);
-              
-              return done(null, nuser);
-            });
-            
-          }
-        });
+    var db = admin.database();
+    var dbr = admin.database();
+    var ref = db.ref("users");
+    console.log("emtr a miraro");
+    ref.orderByChild("id").equalTo(profile.id).once("value").then(function (snapshot){
+      var user = snapshot.val();
+      if(user){
+        console.log("encontrol");
+        
+        var keyUser = Object.keys(user);
+
+        return done(null, user[keyUser[0]]);
+        
       }else{
-        console.log(err);
+        var correo = profile.emails[0].value;
+        var dominio = correo.split('@');
+        if(dominio[1] != 'unicauca.edu.co'){
+          console.log("entro a fales");
+          return done(null,false);
+        }
+        var nnuser = new User (profile.id, profile.displayName, profile.emails[0].value,profile.photos[0].value,Date.now());
+        dbr.ref("users").push(nnuser);
+        console.log("no encontro");
+
+        return done(null, nnuser);
+        
       }
-      
-    
     });
- 
-   
-/*
-    if (profile) {
-      var nuser = null;
-      if(profile.photos.length > 0){
-        new User({
-          username: profile.displayName,
-          googleId: profile.id
-        }).save().then((newUser) => {
-          console.log('new user creaated:' + newUser);
-        });
-        //nuser = new User (profile.id, profile.displayName, profile.emails[0].value,profile.photos[0].value,Date.now());
-      } else {
-        //nuser = new User (profile.id, profile.displayName, profile.emails[0].value,null,Date.now());
-      } 
-      
-      //return done(null, nuser);
-      }
-      else {
-      //return done(null, false);
-      }*/
+
   }
 )
 );

@@ -16,7 +16,7 @@ export class EncabezadoInscripcioComponent implements OnInit {
     this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
       //var perfil = res;
     //  this.nombrePerfil = perfil.NombreCompleto;
-  //    console.log(perfil.foto);
+      console.log(res);
 //      this.imagenPerfil = perfil.foto;
     });
 
