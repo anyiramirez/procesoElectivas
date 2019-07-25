@@ -1,8 +1,7 @@
 <div class="content">
   <h5>Gestión de electivas</h5>
-  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalLong">
-    Agregar Nueva Electiva
-  </button>
+  <button mat-button (click)="openDialog()">Agregar Electiva</button>
+ 
   <!-- Table -->
   <table class="table table-striped table-sm">
     <thead>
@@ -20,7 +19,7 @@
         <td>{{electiva.nombre}}</td>
         <td>{{electiva.tipo}}</td>
         <td>{{electiva.departamento}}</td>
-        <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEditarElectiva" (click)="obtenerElectiva(electiva.nombre)">Editar</button></td>
+        <td><button type="button" class="btn btn-outline-primary"  (click)="obtenerElectiva(electiva.nombre)" (click)="openDialogEditar()">Editar</button></td>
         <td>
           <div *ngIf = "electiva.estado == 'Habilitar'">
             <button type="button" class="btn btn-outline-success" (click)="ActualizarEstado(electiva.nombre)">Activar</button>

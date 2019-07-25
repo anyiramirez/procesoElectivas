@@ -1,20 +1,16 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Electivas} from '../../Interfaces/electivas';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
-import { ModalComponent } from '../modal/modal.component';
-import { ModalEditarElectivaComponent} from '../modal-editar-electiva/modal-editar-electiva.component'
-
 
 @Component({
-  selector: 'app-moduloelectivas',
-  templateUrl: './moduloelectivas.component.html',
-  styleUrls: ['./moduloelectivas.component.css']
+  selector: 'app-modal-editar-electiva',
+  templateUrl: './modal-editar-electiva.component.html',
+  styleUrls: ['./modal-editar-electiva.component.css']
 })
-
-export class ModuloelectivasComponent{
+export class ModalEditarElectivaComponent implements OnInit {
   electivas:any={};
   objeto:any={};
   nombreAntiguo:any;
@@ -159,7 +155,6 @@ export class ModuloelectivasComponent{
     
   }
   obtenerElectiva(nombre){
-
     this.registrar.obtenerDatosNombreElectiva(nombre).subscribe(res=>{
       //this.objeto = res;
       for(let e in this.electivasRegistradas){
@@ -171,7 +166,6 @@ export class ModuloelectivasComponent{
         }
       }
     });
-    
   }
   ActualizarEstado(nombre){
     
@@ -196,21 +190,6 @@ export class ModuloelectivasComponent{
     palabra = palabra.toLowerCase();
     return palabra.charAt(0).toUpperCase() + palabra.slice(1);
   }
-  openDialog() {
-    const dialogRef = this.dialog.open(ModalComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-  openDialogEditar(){
-    const dialogRef = this.dialog.open(ModalEditarElectivaComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-
-  }
-
+ 
   
 }

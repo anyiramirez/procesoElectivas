@@ -16,6 +16,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import {MatDialogModule} from "@angular/material";
+import {MatDialog} from '@angular/material/dialog';
 
 import { MatTabsModule} from '@angular/material/tabs';
 import { NgxFileDropModule } from 'ngx-file-drop';
@@ -36,6 +38,9 @@ import { InscripcionComponent } from './Components/inscripcion/inscripcion.compo
 import { EncabezadoInscripcioComponent } from './Components/encabezado-inscripcio/encabezado-inscripcio.component';
 import { LoginComponent } from './Components/login/login.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { ModalComponent } from './Components/modal/modal.component';
+import { ModalEditarElectivaComponent } from './Components/modal-editar-electiva/modal-editar-electiva.component';
+
 
 const Rutas: Routes = [
   {path: 'Administrador', component: PrincipaladmiComponent},
@@ -61,14 +66,18 @@ const Rutas: Routes = [
     OfertaAcademicaComponent,
     InscripcionComponent,
     LoginComponent,
-    EncabezadoInscripcioComponent
+    EncabezadoInscripcioComponent,
+    ModalComponent,
+    ModalEditarElectivaComponent
   ],
   imports: [
+
     BrowserModule,
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(Rutas),
     ReactiveFormsModule,
+    MatDialogModule,
     NgxPaginationModule,
     NgbModule,
     NgxPaginationModule,
@@ -94,6 +103,13 @@ const Rutas: Routes = [
     })
   ],
   providers: [  ],
-  bootstrap: [AppComponent]
+  
+  bootstrap: [AppComponent],
+
+  entryComponents: [
+    ModalComponent,
+    ModalEditarElectivaComponent,
+]
+
 })
 export class AppModule { }
