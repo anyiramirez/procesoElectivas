@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     //window.location.href = 'http://localhost:3000/auth/google';
     const y = parseInt(((window.screen.height/2)-(800/2)).toString());
     const x = parseInt(((window.screen.width/2)-(800/2)).toString());
-    
+
     window.open('http://localhost:3000/auth/google',"mywindow","location=1,status=1,scrollbars=1, top=" + y + ",left=" + x + ",width=800,height=800");
     let listener = window.addEventListener('message', (message) => {
       console.log(message.data.user);
@@ -54,17 +54,21 @@ export class LoginComponent implements OnInit {
         {
           debugger;
           this.router.navigate(['/Administrador/']);
+          break;
         }else if(this.usuarios[l].rol=="Coordinador"&& this.usuarios[l].Correo==this.infoLogin.correo){
           
           this.router.navigate(['/VistaCoordinador/']);
+          break;
 
         }else if(this.usuarios[l].rol=="Administrativo"&& this.usuarios[l].Correo==this.infoLogin.correo){
           
           this.router.navigate(['/VistaAdministrativo/']);
+          break;
 
         }else if(this.usuarios[l].rol=="Admin"&& this.usuarios[l].Correo==this.infoLogin.correo){
           
           this.router.navigate(['/Administrador/']);
+          break;
 
         }else{
           this.router.navigate(['/Inscripcion/']);
