@@ -49,9 +49,7 @@ export class InscripcionComponent implements OnInit {
   
   ngOnInit() {
     this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
-      console.log("info",res);
       this.info=res;
-      console.log(this.info.foto);
          
     });
     
@@ -125,7 +123,6 @@ export class InscripcionComponent implements OnInit {
       this.inscripcion.nombres = this.MayusculaPrimera(this.inscripcion.nombres );
       this.inscripcion.apellidos = this.MayusculaPrimera(this.inscripcion.apellidos );
 
-      console.log(this.inscripcion);
       
       this.registrar.saveRegistrarInscripcion(this.inscripcion).subscribe(res => {
         alert(res);

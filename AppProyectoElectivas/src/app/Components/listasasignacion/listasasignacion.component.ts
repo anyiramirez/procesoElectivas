@@ -21,7 +21,6 @@ export class ListasasignacionComponent implements OnInit {
   }
 
   cambioVistaElectiva(electivaSeleccionada: any){
-    console.log("listaasignacion ruta", electivaSeleccionada)
     this.infoElectiva = electivaSeleccionada;
     this.vistaelectiva.emit(this.infoElectiva);
   }
@@ -37,10 +36,7 @@ export class ListasasignacionComponent implements OnInit {
    }); 
   }
   DescargarE(id: number, name: string){
-    console.log(id);
-    console.log(name);
     this.lista=this.registrar.solElectCE[id].estudiantes;
-    console.log(this.lista);    
     this.excelService.exportAsExcelFile(this.lista,"Electiva-"+name);
    }
 

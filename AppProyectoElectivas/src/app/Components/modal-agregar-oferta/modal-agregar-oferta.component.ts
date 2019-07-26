@@ -88,7 +88,6 @@ export class ModalAgregarOfertaComponent implements OnInit {
         this.ofertaAcademica.push(objetoArray);
         }
       }
-      console.log(this.electivas,"tamanio del array guardar: ",this.ofertaAcademica.length);
 
     }
     );
@@ -99,8 +98,7 @@ export class ModalAgregarOfertaComponent implements OnInit {
       this.obtenerOfertas= new Array();
       this.registrar.electivas= res as Electivas[];
       var band=0;
-      for(let p in res){ 
-            console.log(res);                   
+      for(let p in res){                 
              var contador = res[p].electivasOfertadas.length;
             // this.cantidad[band]=contador; {{cantidad[indice]}}
              var estado = this.estadoOferta(res[p].fechaInicio,res[p].fechaFin);
@@ -191,7 +189,6 @@ export class ModalAgregarOfertaComponent implements OnInit {
   
   validarOfertaUnica(nuevoAnio:any,nuevoPeriodo:any){
     var existe=false; 
-    console.log("listado ofertas",this.obtenerOfertas);
     for(let i in this.obtenerOfertas) {
       if ( this.obtenerOfertas[i].anio==nuevoAnio && this.obtenerOfertas[i].periodo==nuevoPeriodo) {
           existe = true;
@@ -201,8 +198,6 @@ export class ModalAgregarOfertaComponent implements OnInit {
   }
   validarFechaInicio(fechaInitFor: any){    
     var fecha = new Date();
-      // Comparamos solo las fechas => no las horas!!
-    console.log(fecha, fechaInitFor); 
     if ( fecha <= fechaInitFor) {
         return true;
     }
@@ -210,9 +205,7 @@ export class ModalAgregarOfertaComponent implements OnInit {
         return false;
     }
   }
-  validarFechaFin(fechaInitFor: any,fechaFinFor: any){    
-    // Comparamos solo las fechas => no las horas!!
-    console.log(fechaInitFor, fechaFinFor); 
+  validarFechaFin(fechaInitFor: any,fechaFinFor: any){   
     if ( fechaInitFor < fechaFinFor) {
         return true;
     }
@@ -225,7 +218,6 @@ export class ModalAgregarOfertaComponent implements OnInit {
   validarAnio(anioFor:any){
     var fecha = new Date();
     var aniofecha = fecha.getFullYear();
-    console.log(aniofecha,anioFor);
     if ( aniofecha <= anioFor) {
         return true;
     }
@@ -238,7 +230,6 @@ export class ModalAgregarOfertaComponent implements OnInit {
     var f1= new Date(fechaInicio);
     var f2= new Date(fechaFin);
     fecha.setHours(0,0,0,0);
-    console.log(fecha,"/",fechaInicio,"/",fechaFin);
     if(fecha < f1){
        return "Pendiente"
     }

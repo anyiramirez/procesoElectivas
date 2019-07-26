@@ -183,7 +183,6 @@ debugger;
   }
   validarElectivaUnica(nuevaElectiva: any){
     var existe=false; 
-    console.log("listado ofertas",this.electivasRegistradas);
     for(let i in this.electivasRegistradas) {
       if ( this.electivasRegistradas[i].nombre==nuevaElectiva) {
         existe = true;
@@ -200,7 +199,6 @@ debugger;
     const dialogRef = this.dialog.open(ModalComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
     });
   }
   openDialogEditar(nameElectiva){
@@ -216,7 +214,6 @@ debugger;
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
       this.listarElectivas();
     });
 

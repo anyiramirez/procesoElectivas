@@ -20,9 +20,7 @@ export class EncabezadoInscripcioComponent implements OnInit {
   ngOnInit() {
   
     this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
-      console.log("info",res);
       this.info=res;
-      console.log(this.info.foto);
       this.imagenPerfil = this.info.foto;
       this.usuario=this.info.correo;
       for(var l in this.usuarios){
