@@ -1,4 +1,4 @@
-import { Component, OnInit,Output } from '@angular/core';
+import { Component, OnInit,Output,EventEmitter } from '@angular/core';
 import { LoginService} from '../../Services/login.service';
 import { RegistroDatosService } from '../../Services/registro-datos.service'
 
@@ -8,7 +8,7 @@ import { RegistroDatosService } from '../../Services/registro-datos.service'
   styleUrls: ['./encabezado.component.css']
 })
 export class EncabezadoComponent implements OnInit {
-  
+  @Output() EnviarRol: EventEmitter<any> = new EventEmitter<any>();
   imagenPerfil: string;
   info:any;
   usuario:string;
@@ -39,13 +39,17 @@ export class EncabezadoComponent implements OnInit {
         debugger;
         if(this.usuarios[l].Correo==this.info.correo)
         {
+          debugger;
          this.cargo= this.usuarios[l].Cargo;
          this.rol= this.usuarios[l].rol;
+         this.EnviarRol.emit(this.rol);
           break;
         
         }
       }
     });
+
+
   }
 
 }

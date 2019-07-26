@@ -10,6 +10,7 @@ import { LoginService} from '../../Services/login.service';
 export class VistaCoordinadorComponent implements OnInit {
   varVista: any;
   electivaActual: any;
+  rolActual:any;
   public routeId = '';
   public href: string = "";
   constructor(private router: Router, private servicioLogin: LoginService) { }
@@ -39,8 +40,11 @@ export class VistaCoordinadorComponent implements OnInit {
     this.electivaActual = $event.charAt($event.length-1);
     this.varVista = $event.substring(0,$event.length-1);
   }
+  recibirRolUser($event: any){
+    // debugger;
+    this.rolActual = $event;
+  }
 
 }
-
 
 

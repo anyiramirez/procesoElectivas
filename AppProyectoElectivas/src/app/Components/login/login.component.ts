@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
       console.log(message.data.success);
       
       for(var l in this.usuarios){
-        debugger;
+        // debugger;
         if(this.usuarios[l].rol=="SuperAdmin" && this.usuarios[l].Correo==this.infoLogin.correo)
         {
           debugger;
@@ -59,16 +59,16 @@ export class LoginComponent implements OnInit {
           break;
         }else if(this.usuarios[l].rol=="Coordinador"&& this.usuarios[l].Correo==this.infoLogin.correo){
           
-          this.ruta ='/Administrador/';
+          this.ruta ='/VistaCoordinador/';
           break;
 
         }else if(this.usuarios[l].rol=="Administrativo"&& this.usuarios[l].Correo==this.infoLogin.correo){
           
-          this.ruta ='/Administrador/';
+          this.ruta ='/VistaAdministrativa/';
           break;
 
         }else if(this.usuarios[l].rol=="Admin" && this.usuarios[l].Correo==this.infoLogin.correo){
-          this.ruta ='/Administrador/';
+          this.ruta ='/VistaAdmin/';
           break;
 
         }
