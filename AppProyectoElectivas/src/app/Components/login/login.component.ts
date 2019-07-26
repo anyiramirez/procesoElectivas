@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   usuarios= new Array();
   infoLogin:any;
   rol:string;
+  ruta = '/Inscripcion/';
   // public href: string = "";
 
   constructor(private servicioLogin: LoginService, private router: Router,private datos:RegistroDatosService
@@ -48,33 +49,31 @@ export class LoginComponent implements OnInit {
     let listener = window.addEventListener('message', (message) => {
       console.log(message.data.user);
       console.log(message.data.success);
+      
       for(var l in this.usuarios){
         debugger;
         if(this.usuarios[l].rol=="SuperAdmin" && this.usuarios[l].Correo==this.infoLogin.correo)
         {
           debugger;
-          this.router.navigate(['/Administrador/']);
+          this.ruta ='/Administrador/';
           break;
         }else if(this.usuarios[l].rol=="Coordinador"&& this.usuarios[l].Correo==this.infoLogin.correo){
           
-          this.router.navigate(['/VistaCoordinador/']);
+          this.ruta ='/Administrador/';
           break;
 
         }else if(this.usuarios[l].rol=="Administrativo"&& this.usuarios[l].Correo==this.infoLogin.correo){
           
-          this.router.navigate(['/VistaAdministrativo/']);
+          this.ruta ='/Administrador/';
           break;
 
-        }else if(this.usuarios[l].rol=="Admin"&& this.usuarios[l].Correo==this.infoLogin.correo){
-          
-          this.router.navigate(['/Administrador/']);
+        }else if(this.usuarios[l].rol=="Admin" && this.usuarios[l].Correo==this.infoLogin.correo){
+          this.ruta ='/Administrador/';
           break;
-
-        }else{
-          this.router.navigate(['/Inscripcion/']);
 
         }
       }
+      this.router.navigate([this.ruta]);
      
     });
     

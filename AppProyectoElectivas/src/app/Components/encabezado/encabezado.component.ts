@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Output } from '@angular/core';
 import { LoginService} from '../../Services/login.service';
 import { RegistroDatosService } from '../../Services/registro-datos.service'
 
@@ -8,6 +8,7 @@ import { RegistroDatosService } from '../../Services/registro-datos.service'
   styleUrls: ['./encabezado.component.css']
 })
 export class EncabezadoComponent implements OnInit {
+  
   imagenPerfil: string;
   info:any;
   usuario:string;

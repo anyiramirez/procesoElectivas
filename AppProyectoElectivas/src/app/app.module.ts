@@ -44,6 +44,10 @@ import { ModalAgregarOfertaComponent } from './Components/modal-agregar-oferta/m
 
 
 import { UsuariosComponent } from './Components/usuarios/usuarios.component';
+import { VistaAdminComponent } from './Components/vista-admin/vista-admin.component';
+import { VistaCoordinadorComponent } from './Components/vista-coordinador/vista-coordinador.component';
+import { VistaAdministrativoComponent } from './Components/vista-administrativo/vista-administrativo.component';
+import { combineLatest } from 'rxjs';
 
 const Rutas: Routes = [
   {path: 'Administrador', component: PrincipaladmiComponent},
@@ -54,6 +58,10 @@ const Rutas: Routes = [
   {path: 'OfertaAcademica', component: OfertaAcademicaComponent},
   {path: 'Inscripcion', component:InscripcionComponent},
   {path: 'Usuarios',component:UsuariosComponent},
+  {path: 'VistaAdmin', component:VistaAdminComponent},
+  {path: 'VistaCoordinador',component:VistaCoordinadorComponent},
+  {path: 'VistaAdministrativa',component:VistaAdministrativoComponent},
+
   {path: '', component: LoginComponent}
 ];
 
@@ -75,7 +83,10 @@ const Rutas: Routes = [
     ModalEditarElectivaComponent,
     ModalAgregarOfertaComponent,
     modalVer,
-    UsuariosComponent
+    UsuariosComponent,
+    VistaAdminComponent,
+    VistaCoordinadorComponent,
+    VistaAdministrativoComponent
   ],
   imports: [
 
