@@ -101,6 +101,7 @@ export class ModalComponent implements OnInit{
   editarElectivas(){
     
     //this.getEditarElectivas();
+    this.listarElectivas();
     if(this.nombreFormControl.hasError('required')&&this.nombreFormControl.hasError('pattern')){
       this.nombreCampo=true;
       alert("falta nombre");

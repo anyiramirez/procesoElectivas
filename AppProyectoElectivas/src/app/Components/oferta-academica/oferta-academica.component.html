@@ -1,7 +1,7 @@
 <div class="content">
   <h5>Oferta académica</h5>
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalLong">
+  <button type="button" class="btn btn-info" (click)="openDialog()">
     Agregar nueva oferta
   </button>
   <!-- Table -->
@@ -24,7 +24,7 @@
         <td>{{cantidades[indice]}}</td>
         <td>{{estados[indice]}}</td>
         <td>
-          <button type="button" (click)="detalleOferta(indice)" class="btn btn-info" data-toggle="modal" data-target="#ModalDetailOferta" >
+          <button type="button" (click)="detalleOferta(indice)" (click)="openDialogVer(indice)" class="btn btn-info" >
             Ver
           </button>
         </td>
@@ -34,16 +34,13 @@
   </table>
 </div>
 
- <!-- Modal Detalle Oferta Académica-->
- <div class="modal fade" id="ModalDetailOferta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
+ <!-- Modal Detalle Oferta Académica
+ <mat-dialog-content class="mat-typography" id="ModalDetailOferta">
         <h5 class="modal-title" id="exampleModalLongTitle">Oferta {{nombreOfertaACtual}} </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
+      
       <div class="modal-body">
         
         <form id="DetalleOferta">
@@ -70,12 +67,10 @@
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         </div>
       </div>
-      
-    </div>
-  </div>
-</div>
+  
+</mat-dialog-content>
 
-<!-- Modal Nueva Oferta Académica-->
+Modal Nueva Oferta Académica-->
 <div class="modal fade " id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
@@ -184,4 +179,4 @@
       
     </div>
   </div>
-</div>
+</div> 

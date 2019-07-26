@@ -159,8 +159,8 @@ export class ModuloelectivasComponent{
     
   }
   obtenerElectiva(nombre){
-
-    this.registrar.obtenerDatosNombreElectiva(nombre).subscribe(res=>{
+debugger;
+    // this.registrar.obtenerDatosNombreElectiva(nombre).subscribe(res=>{
       //this.objeto = res;
       for(let e in this.electivasRegistradas){
         if(nombre==this.electivasRegistradas[e].nombre){
@@ -170,7 +170,7 @@ export class ModuloelectivasComponent{
           
         }
       }
-    });
+    // });
     
   }
   ActualizarEstado(nombre){
@@ -203,11 +203,21 @@ export class ModuloelectivasComponent{
       console.log(`Dialog result: ${result}`);
     });
   }
-  openDialogEditar(){
-    const dialogRef = this.dialog.open(ModalEditarElectivaComponent);
+  openDialogEditar(nameElectiva){
+    // debugger;
+    this.obtenerElectiva(nameElectiva);
+    const dialogRef = this.dialog.open(ModalEditarElectivaComponent,{
+      data: {
+        
+        name:nameElectiva,
+        electiva:this.objeto,
+        antiguo:this.nombreAntiguo
+          }
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+      this.listarElectivas();
     });
 
   }

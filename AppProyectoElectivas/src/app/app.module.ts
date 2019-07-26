@@ -33,13 +33,15 @@ import { PrincipaladmiComponent } from './Components/principaladmi/principaladmi
 import { ListasasignacionComponent } from './Components/listasasignacion/listasasignacion.component';
 import { AsignacionelectivaComponent } from './Components/asignacionelectiva/asignacionelectiva.component';
 import { ModuloelectivasComponent } from './Components/moduloelectivas/moduloelectivas.component';
-import { OfertaAcademicaComponent } from './Components/oferta-academica/oferta-academica.component';
+import { OfertaAcademicaComponent, modalVer } from './Components/oferta-academica/oferta-academica.component';
 import { InscripcionComponent } from './Components/inscripcion/inscripcion.component';
 import { EncabezadoInscripcioComponent } from './Components/encabezado-inscripcio/encabezado-inscripcio.component';
 import { LoginComponent } from './Components/login/login.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ModalComponent } from './Components/modal/modal.component';
 import { ModalEditarElectivaComponent } from './Components/modal-editar-electiva/modal-editar-electiva.component';
+import { ModalAgregarOfertaComponent } from './Components/modal-agregar-oferta/modal-agregar-oferta.component';
+import { ModalVerOfertaComponent } from './Components/modal-ver-oferta/modal-ver-oferta.component';
 
 
 const Rutas: Routes = [
@@ -68,7 +70,10 @@ const Rutas: Routes = [
     LoginComponent,
     EncabezadoInscripcioComponent,
     ModalComponent,
-    ModalEditarElectivaComponent
+    ModalEditarElectivaComponent,
+    ModalAgregarOfertaComponent,
+    ModalVerOfertaComponent,
+    modalVer
   ],
   imports: [
 
@@ -108,7 +113,11 @@ const Rutas: Routes = [
 
   entryComponents: [
     ModalComponent,
+    OfertaAcademicaComponent,
     ModalEditarElectivaComponent,
+    ModalAgregarOfertaComponent,
+    ModalVerOfertaComponent,
+    modalVer
 ]
 
 })

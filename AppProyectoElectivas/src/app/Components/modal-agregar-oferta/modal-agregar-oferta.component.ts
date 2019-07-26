@@ -1,26 +1,22 @@
-import { Component, OnInit,inject, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
 import { Electivas} from '../../Interfaces/electivas';
 import { Oferta} from '../../Interfaces/oferta'
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import { DatosOferta } from '../../Interfaces/datos-oferta';
-import { ModalAgregarOfertaComponent } from '../modal-agregar-oferta/modal-agregar-oferta.component';
-import { ModalVerOfertaComponent} from '../modal-ver-oferta/modal-ver-oferta.component';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-export interface DialogData {
-  oferta: any;
-  name: string;
-
+export interface PeriodoAcademico {
+  value: string;
+  viewValue: string;
 }
 
 
 @Component({
-  selector: 'app-oferta-academica',
-  templateUrl: './oferta-academica.component.html',
-  styleUrls: ['./oferta-academica.component.css']
+  selector: 'app-modal-agregar-oferta',
+  templateUrl: './modal-agregar-oferta.component.html',
+  styleUrls: ['./modal-agregar-oferta.component.css']
 })
-export class OfertaAcademicaComponent implements OnInit {
+export class ModalAgregarOfertaComponent implements OnInit {
   ofertaAcademica=new Array();
   oferAcademica=new Array();
   electivas:any={};
@@ -47,12 +43,16 @@ export class OfertaAcademicaComponent implements OnInit {
   inicioFormControl;
   finFormControl;
  
+  valores: PeriodoAcademico[] = [
+    {value: '1', viewValue: '1'},
+    {value: '2', viewValue: '2'}
+    
+  ];
 
 
 
 
-
-  constructor(private registrar:RegistroDatosService,private router:Router,public dialog: MatDialog) {
+  constructor(private registrar:RegistroDatosService,private router:Router) {
     this.listarElectivas();
     this.listarOfertas();
    
@@ -249,46 +249,5 @@ export class OfertaAcademicaComponent implements OnInit {
       return "En curso"
     }
   }
-  openDialog() {
-    const dialogRef = this.dialog.open(ModalAgregarOfertaComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-  openDialogVer(i:number):void {
-   
-    const dialogRef = this.dialog.open(modalVer,{
-      
-    data: {
-    oferta:this.ElectivasOfertaActual=this.obtenerOfertas[i].electivasOfertadas,
-    name: this.nombreOfertaACtual=this.obtenerOfertas[i].anio+"/"+this.obtenerOfertas[i].periodo
-      }
-        
-    });
-  
-    dialogRef.afterClosed().subscribe(result => {
-            console.log(`Dialog result: ${result}`);
-            this.listarOfertas();
-    });
-  }
-  
-}
-@Component({
-  selector: 'modalVer',
-  templateUrl: 'modalVer.html',
-})
-export class modalVer implements OnInit {
-  public versions: any[] = [];
-  public versionIndex: number = 0;
-  constructor(
-    public dialogRef: MatDialogRef<modalVer>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-ngOnInit(){
-}
 }

@@ -7,7 +7,7 @@
                 <mat-form-field class="example-full-width">
                   <mat-label for="nombre" *ngIf='nombreCampo' class=" errorFormato ">Nombre Electiva</mat-label>
                   <mat-label for="nombre" *ngIf='!nombreCampo' >Nombre Electiva</mat-label>
-                  <input [(ngModel)]="objeto.NombreElectiva" id="nombre" name="nombre" [formControl]="nombreFormControl"  matInput >
+                  <input [(ngModel)]="data.electiva.NombreElectiva" id="nombre" name="nombre" [formControl]="nombreFormControl"  matInput >
                   
                 </mat-form-field>
                 
@@ -16,30 +16,30 @@
                 <mat-form-field class="example-full-width">
                   <mat-label for="contenido" *ngIf='contenidoCampo' class=" errorFormato ">Contenido Programatico</mat-label>
                   <mat-label for="contenido" *ngIf='!contenidoCampo' >Nombre Contenido Programatico</mat-label>
-                  <input [(ngModel)]="objeto.Contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput >
+                  <input [(ngModel)]="data.electiva.Contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput >
                 </mat-form-field>
               </div>
               <div class="col-6">
                 <mat-form-field>
                   <mat-label for="departamento" *ngIf='departamentoCampo' class=" errorFormato">Departamento</mat-label>
                   <mat-label for="departamento" *ngIf='!departamentoCampo' >Departamento</mat-label>
-                  <mat-select matNativeControl [(ngModel)]="objeto.Departamento" id="departamento" name="departamento" >
-                    <mat-option value="Electrónica instrumentación y control">Electrónica instrumentación y control</mat-option>
-                    <mat-option value="Sistemas">Sistemas</mat-option>
-                    <mat-option value="Telecomunicaciones">Telecomunicaciones</mat-option>
-                    <mat-option value="Telemática">Telemática</mat-option>
-                  </mat-select>
+                  <select matNativeControl [(ngModel)]="data.electiva.Departamento" id="departamento" name="departamento" >
+                    <option value="Electrónica instrumentación y control">Electrónica instrumentación y control</option>
+                    <option value="Sistemas">Sistemas</option>
+                    <option value="Telecomunicaciones">Telecomunicaciones</option>
+                    <option value="Telemática">Telemática</option>
+                  </select>
                 </mat-form-field>
               </div>
               <div class="col-6">
                 <mat-form-field>
                   <mat-label for="tipo" *ngIf='tipoCampo' class=" errorFormato">Tipo de electiva</mat-label>
                   <mat-label for="tipo" *ngIf='!tipoCampo' >Tipo de electiva</mat-label>
-                  <mat-select matNativeControl [(ngModel)]="objeto.TipoElectiva" id="tipo" name="tipo" >
-                    <mat-option value="Teórica">Teórica</mat-option>
-                    <mat-option value="Práctica">Práctica</mat-option>
-                    <mat-option value="Teórico Práctica">Teórico Práctica</mat-option>
-                  </mat-select>
+                  <select matNativeControl [(ngModel)]="data.electiva.TipoElectiva" id="tipo" name="tipo" >
+                    <option value="Teórica">Teórica</option>
+                    <option value="Práctica">Práctica</option>
+                    <option value="Teórico Práctica">Teórico Práctica</option>
+                  </select>
                   
                 </mat-form-field>
               </div>

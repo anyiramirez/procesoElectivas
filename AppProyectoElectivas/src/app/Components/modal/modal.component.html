@@ -47,15 +47,15 @@
         </mat-error>
       </mat-radio-group>
     </div>
-    <div class="col-6">
+    <div class="col-6" >
       <mat-form-field>
         <mat-label for="tipo" *ngIf='tipoCampo' class=" errorFormato">Tipo de electiva</mat-label>
         <mat-label for="tipo" *ngIf='!tipoCampo' >Tipo de electiva</mat-label>
-        <mat-select matNativeControl [(ngModel)]="electivas.tipo" [formControl]="tipoFormControl" style="z-index: 1000" id="tipo" name="tipo" required>
-          <mat-option value="Teórica">Teórica</mat-option>
-          <mat-option value="Práctica">Práctica</mat-option>
-          <mat-option value="Teórico Práctica">Teórico Práctica</mat-option>
-        </mat-select>
+        <select matNativeControl [(ngModel)]="electivas.tipo" [formControl]="tipoFormControl"  id="tipo" name="tipo" required>
+          <option value="Teórica" >Teórica</option>
+          <option value="Práctica" >Práctica</option>
+          <option value="Teórico Práctica" >Teórico Práctica</option>
+        </select>
         <mat-error *ngIf="tipoFormControl.hasError('required')">
           Tipo es <strong>requerido</strong>
         </mat-error>

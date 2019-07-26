@@ -1,9 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Inject} from '@angular/core';
 import { Electivas} from '../../Interfaces/electivas';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+export interface DialogData {
+  
+  name: string;
+  electiva: any;
+  antiguo:any;
+  lista:any;
+
+}
 
 @Component({
   selector: 'app-modal-editar-electiva',
@@ -24,9 +32,10 @@ export class ModalEditarElectivaComponent implements OnInit {
   departamentoFormControl;
   tipoFormControl;
   
-  constructor(private registrar:RegistroDatosService,private router:Router,public dialog: MatDialog)
+  constructor(private registrar:RegistroDatosService,private router:Router,public dialog: MatDialog,public dialogRef: MatDialogRef<ModalEditarElectivaComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData)
   {
-    this.listarElectivas();
+  
   }
   ngOnInit() {
     this.nombreFormControl = new FormControl('', [
@@ -109,22 +118,24 @@ export class ModalEditarElectivaComponent implements OnInit {
       this.contenidoCampo=true;
     }else{ this.contenidoCampo=false; }
     
-    if(this.objeto.Departamento === 'Electrónica instrumentación y control' ||this.objeto.Departamento === 'Sistemas'||this.objeto.Departamento === 'Telecomunicaciones'||this.objeto.Departamento === 'Telemática'){
+    if(this.data.electiva.Departamento === 'Electrónica instrumentación y control' ||this.data.electiva.Departamento === 'Sistemas'||this.data.electiva.Departamento === 'Telecomunicaciones'||this.data.electiva.Departamento === 'Telemática'){
       this.departamentoCampo=false;
     }else{ this.departamentoCampo=true; }
     
-    if(this.objeto.TipoElectiva === 'Teórica' ||this.objeto.TipoElectiva === 'Práctica'||this.objeto.TipoElectiva === 'Teórico Práctica'){
+    if(this.data.electiva.TipoElectiva === 'Teórica' ||this.data.electiva.TipoElectiva === 'Práctica'||this.data.electiva.TipoElectiva === 'Teórico Práctica'){
       this.tipoCampo=false;
     }else{ this.tipoCampo=true; }
     
     if(!this.nombreCampo && !this.contenidoCampo && !this.departamentoCampo && !this.tipoCampo){
-      if(!this.validarElectivaUnica(this.objeto.NombreElectiva)){
-        this.registrar.editarElectiva(this.nombreAntiguo,this.objeto).subscribe(res => {
+      debugger;
+      if(!this.validarElectivaUnica(this.data.electiva.NombreElectiva)){
+        debugger;
+        this.registrar.editarElectiva(this.data.antiguo,this.data.electiva).subscribe(res => {
           
           alert(res);
           this.listarElectivas();
           this.limpiarModal();
-          this.router.navigate(['/GestionElectivas']);
+          //this.router.navigate(['/GestionElectivas']);
         })
       }else{
         alert("Error en el registro: Nombre Electiva Existente");
@@ -132,7 +143,7 @@ export class ModalEditarElectivaComponent implements OnInit {
     }else{
       alert("Error en el registro");
     }
-    
+    this.listarElectivas();
   }
   
   limpiarModal(){
@@ -154,19 +165,22 @@ export class ModalEditarElectivaComponent implements OnInit {
     );
     
   }
-  obtenerElectiva(nombre){
-    this.registrar.obtenerDatosNombreElectiva(nombre).subscribe(res=>{
-      //this.objeto = res;
-      for(let e in this.electivasRegistradas){
-        if(nombre==this.electivasRegistradas[e].nombre){
-          var objElectiva = new Electivas(this.electivasRegistradas[e].nombre,this.electivasRegistradas[e].contenido,this.electivasRegistradas[e].departamento,this.electivasRegistradas[e].tipo);
-          this.nombreAntiguo= objElectiva.NombreElectiva;
-          this.objeto= objElectiva;
+  // obtenerElectiva(nombre){
+  //   this.registrar.obtenerDatosNombreElectiva(nombre).subscribe(res=>{
+  //     //this.objeto = res;
+  //     for(let e in this.data.lista){
+  //       if(nombre==this.data.lista[e].nombre){
+  //         var objElectiva = new Electivas(this.data.lista[e][e].nombre,this.data.lista[e].contenido,this.electivasRegistradas[e].departamento,this.electivasRegistradas[e].tipo);
+  //         this.nombreAntiguo= objElectiva.NombreElectiva;
+  //        this.objeto= objElectiva;
           
-        }
-      }
-    });
-  }
+          
+  //       }
+  //     }
+  //     //this.objeto=res;
+  //   });
+
+  // }
   ActualizarEstado(nombre){
     
     this.registrar.editarEstado(nombre).subscribe(res => {
