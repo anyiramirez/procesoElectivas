@@ -1,0 +1,169 @@
+
+  <!-- Button trigger modal -->
+  <div class="content">
+    <h5>Gestión de Usuarios</h5>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalLong">
+      Agregar Nueva Usuario
+    </button>
+    <!-- Table -->
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr >
+          <th scope="col"> #</th>
+          <th scope="col">Nombres</th>
+          <th scope="col">Apellidos</th>
+          <th scope="col">Correo</th>
+          <th colspan="2" class="text-center">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr  *ngFor="let electiva of electivasRegistradas; let indice=index">
+          <td>{{indice+1}}</td>
+          <td>{{electiva.nombre}}</td>
+          <td>{{electiva.tipo}}</td>
+          <td>{{electiva.departamento}}</td>
+          <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEditarElectiva" (click)="obtenerElectiva(electiva.nombre)">Editar</button></td>
+          <td>
+            <div *ngIf = "electiva.estado == 'Habilitar'">
+              <button type="button" class="btn btn-outline-success" (click)="ActualizarEstado(electiva.nombre)">Activar</button>
+            </div>
+            <div *ngIf = "electiva.estado == 'Deshabilitar'">
+              <button type="button" class="btn btn-outline-danger" (click)="ActualizarEstado(electiva.nombre)">Inactivar</button>
+            </div>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+
+
+<!-- Modal Nuevo usuario-->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Agregar Usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <form id="FormElectivas">
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field class="example-full-width">
+                <mat-label for="nombre" *ngIf='nombreCampo' class="errorFormato ">Nombres</mat-label>
+                <mat-label for="nombre" *ngIf='!nombreCampo' >Nombres</mat-label>
+                <input [(ngModel)]="electivas.nombre" id="nombre" name="nombre" [formControl]="nombreFormControl"  matInput placeholder="Nombres"  required>
+                <mat-error *ngIf="nombreFormControl.hasError('required')">
+                  Nombre Electiva es <strong>requerido</strong>
+                </mat-error>
+                <mat-error *ngIf="nombreFormControl.hasError('pattern')">
+                  Ingresó un caracter invalido.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <mat-form-field class="example-full-width">
+                <mat-label for="contenido" *ngIf='contenidoCampo' class=" errorFormato ">Apellidos</mat-label>
+                <mat-label for="contenido" *ngIf='!contenidoCampo' >Apellidos</mat-label>
+                <input [(ngModel)]="electivas.contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput placeholder="Apellidos" required>
+                <mat-error *ngIf="contenidoFormControl.hasError('required')">
+                  Contenido Programatico es <strong>requerido</strong>
+                </mat-error>
+                <mat-error *ngIf="contenidoFormControl.hasError('pattern')">
+                  Ingresó un caracter invalido.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <mat-form-field class="example-full-width">
+                <mat-label for="contenido" *ngIf='contenidoCampo' class=" errorFormato ">Correo</mat-label>
+                <mat-label for="contenido" *ngIf='!contenidoCampo' >Correo</mat-label>
+                <input [(ngModel)]="electivas.contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput placeholder="Correo" required>
+                <mat-error *ngIf="contenidoFormControl.hasError('required')">
+                  Contenido Programatico es <strong>requerido</strong>
+                </mat-error>
+                <mat-error *ngIf="contenidoFormControl.hasError('pattern')">
+                  Ingresó un caracter invalido.
+                </mat-error>
+              </mat-form-field>
+            </div>
+           
+          </div>
+          
+        </form>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="registrarElectivas()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar información de Usuario-->
+<div class="modal fade" id="modalEditarElectiva" tabindex="-1" role="dialog" aria-labelledby="modalEditarElectivaTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditarElectivaTitle">Editar Electiva</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <form id="FormElectivas">
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field class="example-full-width">
+                <mat-label for="nombre" *ngIf='nombreCampo' class=" errorFormato ">Nombre Electiva</mat-label>
+                <mat-label for="nombre" *ngIf='!nombreCampo' >Nombre Electiva</mat-label>
+                <input [(ngModel)]="objeto.NombreElectiva" id="nombre" name="nombre" [formControl]="nombreFormControl"  matInput >
+               
+              </mat-form-field>
+             
+            </div>
+            <div class="col-6">
+              <mat-form-field class="example-full-width">
+                <mat-label for="contenido" *ngIf='contenidoCampo' class=" errorFormato ">Contenido Programatico</mat-label>
+                <mat-label for="contenido" *ngIf='!contenidoCampo' >Nombre Contenido Programatico</mat-label>
+                <input [(ngModel)]="objeto.Contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput >
+              </mat-form-field>
+            </div>
+           
+          </div>
+          
+        </form>        
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="editarElectivas()" data-dismiss="modal">Guardar Electiva</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  
+  (function(){
+    
+    var template = null
+    
+    $('.modal').on('show.bs.modal', function (event) {
+      if (template == null) {
+        template = $(this).html()
+      } else {
+        $(this).html(template)
+      }
+      // other initialization here, if you want to
+    })
+    
+  })()
+</script>

@@ -160,7 +160,15 @@ employeeCtrl.listarElectivas = (req,res) => {
         console.log(list);
     });
 }
-
+employeeCtrl.listarUsuarios=(req,res)=>{
+    var db = admin.database();
+    var list;
+    db.ref('Usuarios').once('value', function(snapshot){
+        list = snapshot.val();
+        res.json(list);
+        console.log(list);
+    });
+}
 
 employeeCtrl.electivasPrograma = (req, res) => {
     
@@ -227,6 +235,7 @@ employeeCtrl.registrarElectivas = (req,res) => {
         
         db.ref("Electivas").push(nuevaElectiva);
         res.json("Electiva Registrada");
+        
     }
 }
 

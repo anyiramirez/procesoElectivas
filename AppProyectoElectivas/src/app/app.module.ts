@@ -41,8 +41,9 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ModalComponent } from './Components/modal/modal.component';
 import { ModalEditarElectivaComponent } from './Components/modal-editar-electiva/modal-editar-electiva.component';
 import { ModalAgregarOfertaComponent } from './Components/modal-agregar-oferta/modal-agregar-oferta.component';
-import { ModalVerOfertaComponent } from './Components/modal-ver-oferta/modal-ver-oferta.component';
 
+
+import { UsuariosComponent } from './Components/usuarios/usuarios.component';
 
 const Rutas: Routes = [
   {path: 'Administrador', component: PrincipaladmiComponent},
@@ -52,6 +53,7 @@ const Rutas: Routes = [
   {path: 'GestionElectivas', component: ModuloelectivasComponent },
   {path: 'OfertaAcademica', component: OfertaAcademicaComponent},
   {path: 'Inscripcion', component:InscripcionComponent},
+  {path: 'Usuarios',component:UsuariosComponent},
   {path: '', component: LoginComponent}
 ];
 
@@ -72,8 +74,8 @@ const Rutas: Routes = [
     ModalComponent,
     ModalEditarElectivaComponent,
     ModalAgregarOfertaComponent,
-    ModalVerOfertaComponent,
-    modalVer
+    modalVer,
+    UsuariosComponent
   ],
   imports: [
 
@@ -116,7 +118,6 @@ const Rutas: Routes = [
     OfertaAcademicaComponent,
     ModalEditarElectivaComponent,
     ModalAgregarOfertaComponent,
-    ModalVerOfertaComponent,
     modalVer
 ]
 

@@ -5,6 +5,7 @@ import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/form
 import { Router } from '@angular/router';
 import { DISABLED } from '@angular/forms/src/model';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { LoginService} from '../../Services/login.service';
 
 @Component({
   selector: 'app-inscripcion',
@@ -15,6 +16,7 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 export class InscripcionComponent implements OnInit {
   
   inscripcion:any={};
+  info:any;
   electivasRegistradas = new Array();
   electivasDos = new Array();
   electivasTres= new Array();
@@ -42,10 +44,17 @@ export class InscripcionComponent implements OnInit {
   texto: any;
   nuevoTexto: any;
   
-  constructor(private registrar:RegistroDatosService,private router:Router) {   
+  constructor(private registrar:RegistroDatosService,private router:Router,private servicioLogin: LoginService) {   
   }
   
   ngOnInit() {
+    this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
+      console.log("info",res);
+      this.info=res;
+      console.log(this.info.foto);
+         
+    });
+    
     this.nombresFormControl = new FormControl('', [
       Validators.required,
     ]);
@@ -88,7 +97,6 @@ export class InscripcionComponent implements OnInit {
       this.codigoCampo=true;
     }else if(this.codigoFormControl.hasError('pattern')){
       this.codigoCampo=true;
-
     }else
     { this.codigoCampo=false; }
     if(this.inscripcion.programa=== 'PIS' ||this.inscripcion.programa === 'PIAI'||this.inscripcion.programa === 'PIET'){
@@ -113,7 +121,7 @@ export class InscripcionComponent implements OnInit {
       this.inscripcion.opcion5 ="";
     }
     if(!this.nombresCampo && !this.apellidosCampo && !this.codigoCampo && !this.programaCampo && !this.opcion1Campo){
-      this.inscripcion.usuario= "anyiramirez@unicauca.edu.co";
+      this.inscripcion.usuario=this.info.correo;
       this.inscripcion.nombres = this.MayusculaPrimera(this.inscripcion.nombres );
       this.inscripcion.apellidos = this.MayusculaPrimera(this.inscripcion.apellidos );
 

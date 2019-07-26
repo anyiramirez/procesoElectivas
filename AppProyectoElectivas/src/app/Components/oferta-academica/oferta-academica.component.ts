@@ -6,7 +6,6 @@ import { Oferta} from '../../Interfaces/oferta'
 import {FormControl, Validators} from '@angular/forms';
 import { DatosOferta } from '../../Interfaces/datos-oferta';
 import { ModalAgregarOfertaComponent } from '../modal-agregar-oferta/modal-agregar-oferta.component';
-import { ModalVerOfertaComponent} from '../modal-ver-oferta/modal-ver-oferta.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 export interface DialogData {
   oferta: any;

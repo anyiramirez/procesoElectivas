@@ -2,9 +2,9 @@
 <blockquote class="wrapper">
     <app-opciones-admin (vista)="recibirVista($event)"></app-opciones-admin>
     
-    <p *ngIf="varVista === 'GestionElectivas'">
+    <div *ngIf="varVista === 'GestionElectivas'">
         <app-moduloelectivas></app-moduloelectivas>
-    </p>
+    </div>
     <div *ngIf= "varVista === 'OfertaAcademica'">
         <app-oferta-academica></app-oferta-academica>
     </div>
@@ -16,6 +16,9 @@
     </div> 
     <div *ngIf= "varVista === 'AsignacionElectiva'">
         <app-asignacionelectiva [electivaSeleccionada]= "electivaActual" (vistaAntElectivas)="recibirVista($event)"></app-asignacionelectiva>
+    </div>
+    <div *ngIf= "varVista === 'Usuarios'">
+            <app-usuarios></app-usuarios>
     </div>
 </blockquote>
 
