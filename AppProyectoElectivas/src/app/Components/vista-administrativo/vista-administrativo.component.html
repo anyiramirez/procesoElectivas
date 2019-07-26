@@ -1,0 +1,13 @@
+<app-encabezado (EnviarRol)="recibirRolUser($event)" ></app-encabezado>
+<blockquote class="wrapper">
+    <app-opciones-admin [elegirMenuUser]="rolActual" (vista)="recibirVista($event)"></app-opciones-admin>
+
+    <div *ngIf= "varVista === 'ListasAsignadas'">
+        <app-listasasignacion (vistaelectiva)="electivaSeleccionada($event)"></app-listasasignacion>
+    </div> 
+    <div *ngIf= "varVista === 'AsignacionElectiva'">
+            <app-asignacionelectiva [electivaSeleccionada]= "electivaActual" (vistaAntElectivas)="recibirVista($event)"></app-asignacionelectiva>
+        </div>
+   
+    
+</blockquote>

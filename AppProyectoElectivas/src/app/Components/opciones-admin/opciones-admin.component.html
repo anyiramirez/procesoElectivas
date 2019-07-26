@@ -10,23 +10,63 @@
   </div>
   
   <ul class="list-unstyled components">
-    <li>
-      <a class="text-center" (click)="cambioVista('GestionElectivas')">Gestión de electivas</a>
-    </li>
-    <li>
-      <a class="text-center" (click)="cambioVista('OfertaAcademica')">Oferta académica</a>
-    </li>
-    <li>
-      <a class="text-center" (click)="cambioVista('InformacionEstudiantes')" >Registrar información</a>
-    </li>
-    <li>
-      <a class="text-center" (click)="cambioVista('ListasAsignadas')">Asignar cupos a electivas</a>
-    </li>
-    <li>
-      <a class="text-center" >Reportes</a>
-    </li>
-    <li>
-      <a class="text-center"(click)="cambioVista('Usuarios')">Gestión de usuarios</a>
-    </li>
+    <div *ngIf = "elegirMenuUser === 'Administrativo'">
+      
+      <li>
+        <a class="text-center" (click)="cambioVista('ListasAsignadas')">Asignar cupos a electivas</a>
+      </li>
+      <li>
+        <a class="text-center" >Reportes</a>
+      </li>
+     
+    </div>
+    <div *ngIf = "elegirMenuUser === 'Admin'">
+        <li>
+          <a class="text-center" (click)="cambioVista('GestionElectivas')">Gestión de electivas</a>
+        </li>
+        <li>
+          <a class="text-center" (click)="cambioVista('OfertaAcademica')">Oferta académica</a>
+        </li>
+        <li>
+          <a class="text-center" (click)="cambioVista('InformacionEstudiantes')" >Registrar información</a>
+        </li>
+        <li>
+          <a class="text-center" (click)="cambioVista('ListasAsignadas')">Asignar cupos a electivas</a>
+        </li>
+        <li>
+          <a class="text-center" >Reportes</a>
+        </li>
+       
+      </div>
+      <div *ngIf = "elegirMenuUser === 'SuperAdmin'">
+          <li>
+            <a class="text-center" (click)="cambioVista('GestionElectivas')">Gestión de electivas</a>
+          </li>
+          <li>
+            <a class="text-center" (click)="cambioVista('OfertaAcademica')">Oferta académica</a>
+          </li>
+          <li>
+            <a class="text-center" (click)="cambioVista('InformacionEstudiantes')" >Registrar información</a>
+          </li>
+          <li>
+            <a class="text-center" (click)="cambioVista('ListasAsignadas')">Asignar cupos a electivas</a>
+          </li>
+          <li>
+            <a class="text-center" > Reportes</a>
+          </li>
+          <li>
+            <a class="text-center" (click)="cambioVista('Usuarios')">Gestión de usuarios</a>
+          </li>
+        </div>
+        <div *ngIf = "elegirMenuUser === 'Coordinador'">
+            <li>
+              <a class="text-center" (click)="cambioVista('GestionElectivas')">Gestión de electivas</a>
+            </li>
+            <li>
+              <a class="text-center" (click)="cambioVista('OfertaAcademica')">Oferta académica</a>
+            </li>
+           
+          </div>
+    
   </ul>
 </nav>

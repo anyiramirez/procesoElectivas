@@ -46,25 +46,47 @@ export class LoginComponent implements OnInit {
 
     window.open('http://localhost:3000/auth/google',"mywindow","location=1,status=1,scrollbars=1, top=" + y + ",left=" + x + ",width=800,height=800");
     let listener = window.addEventListener('message', (message) => {
+<<<<<<< HEAD
+=======
+      console.log(message.data.user);
+      console.log(message.data.success);
+      
+>>>>>>> cdaa85d6d918d07694137ecb1dc7cc8230694b29
       for(var l in this.usuarios){
-        debugger;
+        // debugger;
         if(this.usuarios[l].rol=="SuperAdmin" && this.usuarios[l].Correo==this.infoLogin.correo)
         {
           debugger;
+<<<<<<< HEAD
           this.ruta= '/Administrador/';
           break;
         }else if(this.usuarios[l].rol=="Coordinador"&& this.usuarios[l].Correo==this.infoLogin.correo){
           this.ruta= '/Administrador/';
+=======
+          this.ruta ='/Administrador/';
+          break;
+        }else if(this.usuarios[l].rol=="Coordinador"&& this.usuarios[l].Correo==this.infoLogin.correo){
+          
+          this.ruta ='/VistaCoordinador/';
+>>>>>>> cdaa85d6d918d07694137ecb1dc7cc8230694b29
           break;
 
         }else if(this.usuarios[l].rol=="Administrativo"&& this.usuarios[l].Correo==this.infoLogin.correo){
           
+<<<<<<< HEAD
           this.ruta= '/Administrador/';
           break;
 
         }else if(this.usuarios[l].rol=="Admin"&& this.usuarios[l].Correo==this.infoLogin.correo){
           
           this.ruta= '/Administrador/';
+=======
+          this.ruta ='/VistaAdministrativa/';
+          break;
+
+        }else if(this.usuarios[l].rol=="Admin" && this.usuarios[l].Correo==this.infoLogin.correo){
+          this.ruta ='/VistaAdmin/';
+>>>>>>> cdaa85d6d918d07694137ecb1dc7cc8230694b29
           break;
 
         }

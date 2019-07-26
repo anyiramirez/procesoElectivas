@@ -1,12 +1,12 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService} from '../../Services/login.service';
 @Component({
-  selector: 'app-principaladmi',
-  templateUrl: './principaladmi.component.html',
-  styleUrls: ['./principaladmi.component.css']
+  selector: 'app-vista-admin',
+  templateUrl: './vista-admin.component.html',
+  styleUrls: ['./vista-admin.component.css']
 })
-export class PrincipaladmiComponent implements OnInit {
+export class VistaAdminComponent implements OnInit {
   varVista: any;
   electivaActual: any;
   rolActual:any;
@@ -15,6 +15,7 @@ export class PrincipaladmiComponent implements OnInit {
   constructor(private router: Router, private servicioLogin: LoginService) { }
 
   ngOnInit() {
+    console.log("Holi");
     this.href = this.router.url;
     var idx = this.href.lastIndexOf("code=");
     var code = this.href.substring(idx + 5).replace("#","");

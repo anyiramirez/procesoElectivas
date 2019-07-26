@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-opciones-admin',
@@ -6,6 +6,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./opciones-admin.component.css']
 })
 export class OpcionesAdminComponent implements OnInit {
+  @Input() elegirMenuUser: any;
   @Output() vista: EventEmitter <string> = new EventEmitter <string>();
   mensajeVista: string;
   constructor() {
