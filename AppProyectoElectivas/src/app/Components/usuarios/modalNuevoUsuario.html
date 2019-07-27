@@ -1,0 +1,85 @@
+<h2 mat-dialog-title>Nuevo Usuario</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="modal-body">
+       
+   
+  <form id="FormUsuarios">
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field class="example-full-width">
+          <mat-label for="nombres" *ngIf='nombresCampo' class="errorFormato ">Nombres: </mat-label>
+          <mat-label for="nombres" *ngIf='!nombresCampo' >Nombres: </mat-label>
+          <input [(ngModel)]="usuarios.Nombres" id="nombres" name="Nombres" [formControl]="nombresFormControl"  matInput placeholder="Nombres"  required>
+          <mat-error *ngIf="nombresFormControl.hasError('required')">
+          <strong>Porfavor digite el nombre</strong>
+          </mat-error>
+          <mat-error *ngIf="nombresFormControl.hasError('pattern')">
+            Ingresó un caracter invalido.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field class="example-full-width">
+          <mat-label for="apellidos" *ngIf='apellidosCampo' class=" errorFormato ">Apellidos:</mat-label>
+          <mat-label for="apellidos" *ngIf='!apellidosCampo' >Apellidos: </mat-label>
+          <input [(ngModel)]="usuarios.Apellidos" [formControl]="apellidosFormControl" id= "apellidos"  name = "Apellidos"  matInput placeholder="Apellidos" required>
+          <mat-error *ngIf="apellidosFormControl.hasError('required')">
+            <strong>Porfavor digite el apellido</strong>
+          </mat-error>
+          <mat-error *ngIf="apellidosFormControl.hasError('pattern')">
+            Ingresó un caracter invalido.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" [(ngModel)]="usuarios.Correo" [formControl]="emailFormControl" name="Correo"
+                   [errorStateMatcher]="matcher">
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              Por favor ingrese una dirección de correo válido
+            </mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+              Correo es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+      </div>
+      <div class="col-6" >
+        <mat-form-field>
+          <mat-label for="cargo" *ngIf='cargoCampo' class=" errorFormato">Cargo: </mat-label>
+          <mat-label for="cargo" *ngIf='!cargoCampo' >Cargo</mat-label>
+          <select matNativeControl [(ngModel)]="usuarios.Cargo" [formControl]="cargoFormControl"  id="cargo" name="Cargo" required>
+            <option value="Jefe de Departamento" >Jefe de Departamento</option>
+            <option value="Docente" >Docente</option>
+            <option value="Administrativo" >Administrativo</option>
+            <option value="Coordinador" >Coordinador</option>
+          </select>
+          <mat-error *ngIf="cargoFormControl.hasError('required')">
+           <strong>Elija un cargo</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    <div class="col-6" >
+      <mat-form-field>
+        <mat-label for="rol" *ngIf='rolCampo' class=" errorFormato">Rol</mat-label>
+        <mat-label for="rol" *ngIf='!rolCampo' >Rol</mat-label>
+        <select matNativeControl [(ngModel)]="usuarios.rol" [formControl]="rolFormControl"  id="rol" name="rol" required>
+          <option value="Admin" >Administrador</option>
+          <option value="Coordinador" >Coordinador</option>
+          <option value="Administrativo" >Administrativo</option>
+          <option value="Sin Rol" >Sin Rol</option>
+        </select>
+        <mat-error *ngIf="rolFormControl.hasError('required')">
+          <strong>Elija un rol</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  
+</form>
+</div>
+</mat-dialog-content>
+<mat-dialog-actions align ="end">
+  <button mat-button mat-dialog-close>Cerrar</button>
+  <button type="button" class="btn btn-primary" (click)="registrarUsuarios()">Guardar</button>
+</mat-dialog-actions>

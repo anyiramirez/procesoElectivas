@@ -135,6 +135,7 @@ export class ModalEditarElectivaComponent implements OnInit {
           alert(res);
           this.listarElectivas();
           this.limpiarModal();
+          this.dialogRef.close();
           //this.router.navigate(['/GestionElectivas']);
         })
       }else{

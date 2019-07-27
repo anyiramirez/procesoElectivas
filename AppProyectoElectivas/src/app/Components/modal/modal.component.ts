@@ -3,7 +3,7 @@ import { Electivas} from '../../Interfaces/electivas';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog,MatDialogRef} from '@angular/material/dialog';
 
 
 @Component({
@@ -26,7 +26,7 @@ export class ModalComponent implements OnInit{
   departamentoFormControl;
   tipoFormControl;
   
-  constructor(private registrar:RegistroDatosService,private router:Router,public dialog: MatDialog)
+  constructor(private registrar:RegistroDatosService,private router:Router,public dialog: MatDialog,public dialogRef: MatDialogRef<ModalComponent>)
   {
     this.listarElectivas();
   }
@@ -87,6 +87,7 @@ export class ModalComponent implements OnInit{
           this.listarElectivas();
           this.limpiarModal();
           this.router.navigate(['/GestionElectivas']);
+          this.dialogRef.close();
         })
       }else{
         alert("Error en el registro: Nombre Electiva Existente");

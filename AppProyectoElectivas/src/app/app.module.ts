@@ -43,7 +43,7 @@ import { ModalEditarElectivaComponent } from './Components/modal-editar-electiva
 import { ModalAgregarOfertaComponent } from './Components/modal-agregar-oferta/modal-agregar-oferta.component';
 
 
-import { UsuariosComponent } from './Components/usuarios/usuarios.component';
+import { UsuariosComponent, modalNuevoUsuario } from './Components/usuarios/usuarios.component';
 import { VistaAdminComponent } from './Components/vista-admin/vista-admin.component';
 import { VistaCoordinadorComponent } from './Components/vista-coordinador/vista-coordinador.component';
 import { VistaAdministrativoComponent } from './Components/vista-administrativo/vista-administrativo.component';
@@ -83,6 +83,7 @@ const Rutas: Routes = [
     ModalEditarElectivaComponent,
     ModalAgregarOfertaComponent,
     modalVer,
+    modalNuevoUsuario,
     UsuariosComponent,
     VistaAdminComponent,
     VistaCoordinadorComponent,
@@ -129,7 +130,8 @@ const Rutas: Routes = [
     OfertaAcademicaComponent,
     ModalEditarElectivaComponent,
     ModalAgregarOfertaComponent,
-    modalVer
+    modalVer,
+    modalNuevoUsuario
 ]
 
 })

@@ -5,6 +5,7 @@ import { Electivas} from '../../Interfaces/electivas';
 import { Oferta} from '../../Interfaces/oferta'
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import { DatosOferta } from '../../Interfaces/datos-oferta';
+import {MatDialog,MatDialogRef} from '@angular/material/dialog';
 export interface PeriodoAcademico {
   value: string;
   viewValue: string;
@@ -52,7 +53,7 @@ export class ModalAgregarOfertaComponent implements OnInit {
 
 
 
-  constructor(private registrar:RegistroDatosService,private router:Router) {
+  constructor(private registrar:RegistroDatosService,private router:Router,public dialogRef: MatDialogRef<ModalAgregarOfertaComponent>) {
     this.listarElectivas();
     this.listarOfertas();
    
@@ -179,6 +180,7 @@ export class ModalAgregarOfertaComponent implements OnInit {
         alert(res);
         this.limpiarModal();
         this.listarOfertas();
+        this.dialogRef.close();
       });
       }else{
         alert("Error en el registro, Oferta ya existe ");
