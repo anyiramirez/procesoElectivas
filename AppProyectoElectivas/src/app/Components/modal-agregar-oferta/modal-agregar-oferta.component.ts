@@ -174,6 +174,7 @@ export class ModalAgregarOfertaComponent implements OnInit {
             }
             if (!this.ofertaAcademica[i].pis && !this.ofertaAcademica[i].piai && !this.ofertaAcademica[i].piet){
              marcoProgram=false;
+             break;
             }
 
             this.ofertaArray.push(this.ofertas.anio,this.ofertas.periodo,this.ofertas.dateFin,this.ofertas.dateInicio,this.ofertaAcademica[i].nombre,this.ofertaAcademica[i].programa,this.ofertaAcademica[i].oferta);
