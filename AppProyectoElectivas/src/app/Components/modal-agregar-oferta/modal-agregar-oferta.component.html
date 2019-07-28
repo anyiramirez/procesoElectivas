@@ -3,8 +3,38 @@
 <mat-dialog-content class="mat-typography">
   <form id="FormElectivas">
     <div class="row" >
-   
-       <div class="col-6">
+        
+      <div class="col-6">
+        <mat-form-field class="example-full-width">
+          <mat-label for="anio" *ngIf='anioCampo' class=" errorFormato ">Año</mat-label>
+          <mat-label for="anio" *ngIf='!anioCampo' >Año</mat-label>
+          <select matNativeControl [(ngModel)]="ofertas.anio" [formControl]="anioFormControl"  id="anio" name="anio " style="z-index: 2000 !important">
+              <option *ngFor="let i of valoresAnio" [value]="i.value" style="z-index: 2000 !important">{{i.viewValue}}
+
+                </option>
+          </select>
+          <mat-error *ngIf="anioFormControl.hasError('required')">
+            Año de oferta es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>      
+      <div class="col-6">
+        <mat-form-field style="z-index: 2000 !important">
+          <mat-label for="periodoAcademicoCampo" *ngIf='periodoAcademicoCampo' class="errorFormato">Período Académico</mat-label>
+          <mat-label for="periodoAcademicoCampo" *ngIf='!periodoAcademicoCampo' >Período Académico</mat-label>
+          <select matNativeControl [(ngModel)]="ofertas.periodo" [formControl]="periodoFormControl"  id="periodo" name="periodo" style="z-index: 2000 !important">
+            <option *ngFor="let i of valores" [value]="i.value" style="z-index: 2000 !important">{{i.viewValue}}
+
+            </option>
+            
+          </select>
+          <mat-error *ngIf="periodoFormControl.hasError('required')">
+            Periodo es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>  
+      </div>
+
+      <div class="col-6">
         <mat-form-field>
           <mat-label for="dateInicio" *ngIf='inicioCampo' class=" errorFormato ">Fecha Inicio</mat-label>
           <mat-label for="dateInicio" *ngIf='!inicioCampo' >Fecha Inicio</mat-label>
@@ -28,35 +58,6 @@
           </mat-error>
         </mat-form-field>
       </div> 
-           
-      <div class="col-6">
-        <mat-form-field class="example-full-width">
-          <mat-label for="anio" *ngIf='anioCampo' class=" errorFormato ">Año</mat-label>
-          <mat-label for="anio" *ngIf='!anioCampo' >Año</mat-label>
-          <input [(ngModel)]="ofertas.anio" [formControl]="anioFormControl" id="anio" name="anio"   matInput placeholder="Año Lectivo" >
-          <mat-error *ngIf="anioFormControl.hasError('required')">
-            Año de oferta es <strong>requerido</strong>
-          </mat-error>
-          <mat-error *ngIf="anioFormControl.hasError('pattern')">
-            Ingresó un caracter invalido.
-          </mat-error>
-        </mat-form-field>
-      </div>      
-      <div class="col-6">
-        <mat-form-field style="z-index: 2000 !important">
-          <mat-label for="periodoAcademicoCampo" *ngIf='periodoAcademicoCampo' class="errorFormato">Período Académico</mat-label>
-          <mat-label for="periodoAcademicoCampo" *ngIf='!periodoAcademicoCampo' >Período Académico</mat-label>
-          <select matNativeControl [(ngModel)]="ofertas.periodo" [formControl]="periodoFormControl"  id="periodo" name="periodo" style="z-index: 2000 !important">
-            <option *ngFor="let i of valores" [value]="i.value" style="z-index: 2000 !important">{{i.viewValue}}
-
-            </option>
-            
-          </select>
-          <mat-error *ngIf="periodoFormControl.hasError('required')">
-            Periodo es <strong>requerido</strong>
-          </mat-error>
-        </mat-form-field>  
-      </div>
       <table class="table table-striped">
         <thead>
           <tr>

@@ -98,45 +98,7 @@ export class ModalComponent implements OnInit{
     
   }
   
-  editarElectivas(){
-    
-    //this.getEditarElectivas();
-    this.listarElectivas();
-    if(this.nombreFormControl.hasError('required')&&this.nombreFormControl.hasError('pattern')){
-      this.nombreCampo=true;
-      alert("falta nombre");
-    }else{ this.nombreCampo=false; }
-    
-    
-    if(this.contenidoFormControl.hasError('required')){
-      this.contenidoCampo=true;
-    }else{ this.contenidoCampo=false; }
-    
-    if(this.objeto.Departamento === 'Electrónica instrumentación y control' ||this.objeto.Departamento === 'Sistemas'||this.objeto.Departamento === 'Telecomunicaciones'||this.objeto.Departamento === 'Telemática'){
-      this.departamentoCampo=false;
-    }else{ this.departamentoCampo=true; }
-    
-    if(this.objeto.TipoElectiva === 'Teórica' ||this.objeto.TipoElectiva === 'Práctica'||this.objeto.TipoElectiva === 'Teórico Práctica'){
-      this.tipoCampo=false;
-    }else{ this.tipoCampo=true; }
-    
-    if(!this.nombreCampo && !this.contenidoCampo && !this.departamentoCampo && !this.tipoCampo){
-      if(!this.validarElectivaUnica(this.objeto.NombreElectiva)){
-        this.registrar.editarElectiva(this.nombreAntiguo,this.objeto).subscribe(res => {
-          
-          alert(res);
-          this.listarElectivas();
-          this.limpiarModal();
-          this.router.navigate(['/GestionElectivas']);
-        })
-      }else{
-        alert("Error en el registro: Nombre Electiva Existente");
-      }
-    }else{
-      alert("Error en el registro");
-    }
-    
-  }
+  
   
   limpiarModal(){
     this.electivas.nombre= '';
@@ -156,27 +118,6 @@ export class ModalComponent implements OnInit{
     }
     );
     
-  }
-  obtenerElectiva(nombre){
-    this.registrar.obtenerDatosNombreElectiva(nombre).subscribe(res=>{
-      //this.objeto = res;
-      for(let e in this.electivasRegistradas){
-        if(nombre==this.electivasRegistradas[e].nombre){
-          var objElectiva = new Electivas(this.electivasRegistradas[e].nombre,this.electivasRegistradas[e].contenido,this.electivasRegistradas[e].departamento,this.electivasRegistradas[e].tipo);
-          this.nombreAntiguo= objElectiva.NombreElectiva;
-          this.objeto= objElectiva;
-          
-        }
-      }
-    });
-  }
-  ActualizarEstado(nombre){
-    
-    this.registrar.editarEstado(nombre).subscribe(res => {
-      if(res === "funciono"){
-        this.listarElectivas();
-      }
-    });
   }
   validarElectivaUnica(nuevaElectiva: any){
     var existe=false; 

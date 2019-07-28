@@ -20,8 +20,6 @@ export interface DialogData {
 })
 export class ModalEditarElectivaComponent implements OnInit {
   electivas:any={};
-  objeto:any={};
-  nombreAntiguo:any;
   electivasRegistradas = new Array();
   nombreCampo;
   contenidoCampo;
@@ -32,10 +30,11 @@ export class ModalEditarElectivaComponent implements OnInit {
   departamentoFormControl;
   tipoFormControl;
   
+  
   constructor(private registrar:RegistroDatosService,private router:Router,public dialog: MatDialog,public dialogRef: MatDialogRef<ModalEditarElectivaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData)
   {
-  
+    this.listarElectivas();
   }
   ngOnInit() {
     this.nombreFormControl = new FormControl('', [
@@ -52,15 +51,8 @@ export class ModalEditarElectivaComponent implements OnInit {
     this.contenidoFormControl = new FormControl('', [
       Validators.pattern("[A-Za-z ]+"),
     ]);
-    this.departamentoFormControl = new FormControl('', [
-      Validators.required,
-      
-    ]);
-    this.tipoFormControl = new FormControl('', [
-      Validators.required,
-    ]);
   }
-  registrarElectivas(){
+  editarElectivas(){
     
     if(this.nombreFormControl.hasError('required')){
       this.nombreCampo=true;
@@ -77,68 +69,19 @@ export class ModalEditarElectivaComponent implements OnInit {
     }
     { this.contenidoCampo=false; }
     
-    if(this.electivas.departamento === 'Electrónica instrumentación y control' ||this.electivas.departamento === 'Sistemas'||this.electivas.departamento === 'Telecomunicaciones'||this.electivas.departamento === 'Telemática'){
-      this.departamentoCampo=false;
-    }else{ this.departamentoCampo=true; }
-    
-    if(this.electivas.tipo === 'Teórica' ||this.electivas.tipo === 'Práctica'||this.electivas.tipo === 'Teórico Práctica'){
-      this.tipoCampo=false;
-    }else{ this.tipoCampo=true; }
-    
     if(!this.nombreCampo && !this.contenidoCampo && !this.departamentoCampo && !this.tipoCampo){
-      if(!this.validarElectivaUnica(this.electivas.nombre)){
-        this.electivas.nombre = this.MayusculaPrimera(this.electivas.nombre);
-        this.electivas.estado = 'Habilitar';
-        this.registrar.saveElectivas(this.electivas).subscribe(res => {
-          alert(res);
-          this.listarElectivas();
-          this.limpiarModal();
-          this.router.navigate(['/GestionElectivas']);
-        })
-      }else{
-        alert("Error en el registro: Nombre Electiva Existente");
-      }
-    }else{
-      alert("Error en el registro");
-    }
-    this.listarElectivas();
     
-  }
-  
-  editarElectivas(){
-    
-    //this.getEditarElectivas();
-    if(this.nombreFormControl.hasError('required')&&this.nombreFormControl.hasError('pattern')){
-      this.nombreCampo=true;
-      alert("falta nombre");
-    }else{ this.nombreCampo=false; }
-    
-    
-    if(this.contenidoFormControl.hasError('required')){
-      this.contenidoCampo=true;
-    }else{ this.contenidoCampo=false; }
-    
-    if(this.data.electiva.Departamento === 'Electrónica instrumentación y control' ||this.data.electiva.Departamento === 'Sistemas'||this.data.electiva.Departamento === 'Telecomunicaciones'||this.data.electiva.Departamento === 'Telemática'){
-      this.departamentoCampo=false;
-    }else{ this.departamentoCampo=true; }
-    
-    if(this.data.electiva.TipoElectiva === 'Teórica' ||this.data.electiva.TipoElectiva === 'Práctica'||this.data.electiva.TipoElectiva === 'Teórico Práctica'){
-      this.tipoCampo=false;
-    }else{ this.tipoCampo=true; }
-    
-    if(!this.nombreCampo && !this.contenidoCampo && !this.departamentoCampo && !this.tipoCampo){
-      debugger;
-      if(!this.validarElectivaUnica(this.data.electiva.NombreElectiva)){
-        debugger;
+      if(!this.validarNombreElectivaEdit(this.data.electiva.NombreElectiva)){
+       this.electivas.nombre = this.MayusculaPrimera(this.data.electiva.NombreElectiva);
         this.registrar.editarElectiva(this.data.antiguo,this.data.electiva).subscribe(res => {
           
           alert(res);
           this.listarElectivas();
-          this.limpiarModal();
-          //this.router.navigate(['/GestionElectivas']);
+          this.router.navigate(['/GestionElectivas']);
         })
       }else{
         alert("Error en el registro: Nombre Electiva Existente");
+        this.data.electiva.NombreElectiva=this.data.antiguo;
       }
     }else{
       alert("Error en el registro");
@@ -146,12 +89,6 @@ export class ModalEditarElectivaComponent implements OnInit {
     this.listarElectivas();
   }
   
-  limpiarModal(){
-    this.electivas.nombre= '';
-    this.electivas.contenido = '';
-    this.electivas.tipo = '';
-    this.electivas.departamento = '';
-  }
   
   listarElectivas(){
     this.registrar.obtenerInformacionElectivas().subscribe(res => {
@@ -165,40 +102,19 @@ export class ModalEditarElectivaComponent implements OnInit {
     );
     
   }
-  // obtenerElectiva(nombre){
-  //   this.registrar.obtenerDatosNombreElectiva(nombre).subscribe(res=>{
-  //     //this.objeto = res;
-  //     for(let e in this.data.lista){
-  //       if(nombre==this.data.lista[e].nombre){
-  //         var objElectiva = new Electivas(this.data.lista[e][e].nombre,this.data.lista[e].contenido,this.electivasRegistradas[e].departamento,this.electivasRegistradas[e].tipo);
-  //         this.nombreAntiguo= objElectiva.NombreElectiva;
-  //        this.objeto= objElectiva;
-          
-          
-  //       }
-  //     }
-  //     //this.objeto=res;
-  //   });
-
-  // }
-  ActualizarEstado(nombre){
-    
-    this.registrar.editarEstado(nombre).subscribe(res => {
-      if(res === "funciono"){
-        this.listarElectivas();
-      }
-    });
-  }
-  validarElectivaUnica(nuevaElectiva: any){
+  validarNombreElectivaEdit(nuevoNombre: any){
     var existe=false; 
+    console.log("listado ofertas",this.electivasRegistradas);
     for(let i in this.electivasRegistradas) {
-      if ( this.electivasRegistradas[i].nombre==nuevaElectiva) {
+      console.log(this.data.antiguo,nuevoNombre,this.electivasRegistradas[i].nombre);
+    
+      if ( this.electivasRegistradas[i].nombre==nuevoNombre && this.data.antiguo != nuevoNombre) {
         existe = true;
+        console.log(this.data.antiguo,nuevoNombre);
       }
     }
     return existe;
   }
-  
   MayusculaPrimera(palabra:string){
     palabra = palabra.toLowerCase();
     return palabra.charAt(0).toUpperCase() + palabra.slice(1);
