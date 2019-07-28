@@ -22,6 +22,7 @@ router.get('/listarUsuarios', employee.listarUsuarios);
 // post methods 
 
 router.post('/registrarElectivas', employee.registrarElectivas);
+router.post('/registrarUsuarios', employee.registrarUsuarios);
 router.post('/registrarOfertas/', employee.registrarOfertas);
 router.post('/editarElectiva/:id', employee.editarElectiva);
 router.post('/solEst', employee.guardarSolEst);

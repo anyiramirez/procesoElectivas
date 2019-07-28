@@ -238,6 +238,24 @@ employeeCtrl.registrarElectivas = (req,res) => {
         
     }
 }
+employeeCtrl.registrarUsuarios = (req,res) => {
+    console.log("Usuario a Registrar: ", req.body);
+    if(validarString(req.body.Nombres) && validarString(req.body.Apellidos) && validarString(req.body.Correo) && validarString(req.body.Cargo) && validarString(req.body.rol)) {
+        var nuevoUsuario = {
+            Nombres : req.body.Nombres,
+            Apellidos: req.body.Apellidos,
+            Correo: req.body.Correo,
+            Cargo: req.body.Cargo,
+            rol: req.body.rol,
+        }
+        
+        var db = admin.database();
+        
+        db.ref("Usuarios").push(nuevoUsuario);
+        res.json("Usuario Registrado");
+        
+    }
+}
 
 employeeCtrl.registrarInscripcion = (req,res) => {
     console.log("Inscripcion a registrar: ", req.body);

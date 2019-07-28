@@ -3,7 +3,8 @@ import { Electivas} from '../../Interfaces/electivas';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog,MatDialogRef} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -14,6 +15,7 @@ import {MatDialog} from '@angular/material/dialog';
 export class ModalComponent implements OnInit{
 
   electivas:any={};
+  durationInSeconds=5;
   objeto:any={};
   nombreAntiguo:any;
   electivasRegistradas = new Array();
@@ -26,7 +28,7 @@ export class ModalComponent implements OnInit{
   departamentoFormControl;
   tipoFormControl;
   
-  constructor(private registrar:RegistroDatosService,private router:Router,public dialog: MatDialog)
+  constructor(private _snackBar: MatSnackBar,private registrar:RegistroDatosService,private router:Router,public dialog: MatDialog,public dialogRef: MatDialogRef<ModalComponent>)
   {
     this.listarElectivas();
   }
@@ -52,6 +54,21 @@ export class ModalComponent implements OnInit{
     this.tipoFormControl = new FormControl('', [
       Validators.required,
     ]);
+  }
+  openSnackBar() {
+    this._snackBar.openFromComponent(mensajeExitoElectiva, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  openErrorkBar() {
+    this._snackBar.openFromComponent(mensajeErrorElectiva, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  openErrorRepetidoBar() {
+    this._snackBar.openFromComponent(mensajeErrorNombreRepetido, {
+      duration: this.durationInSeconds * 1000,
+    });
   }
   registrarElectivas(){
     
@@ -83,16 +100,20 @@ export class ModalComponent implements OnInit{
         this.electivas.nombre = this.MayusculaPrimera(this.electivas.nombre);
         this.electivas.estado = 'Habilitar';
         this.registrar.saveElectivas(this.electivas).subscribe(res => {
-          alert(res);
+
           this.listarElectivas();
           this.limpiarModal();
           this.router.navigate(['/GestionElectivas']);
+          this.dialogRef.close();
+          this.openSnackBar();
         })
       }else{
-        alert("Error en el registro: Nombre Electiva Existente");
+        this.openErrorRepetidoBar();
+       
       }
     }else{
-      alert("Error en el registro");
+      this.openErrorkBar();
+
     }
     this.listarElectivas();
     
@@ -136,3 +157,23 @@ export class ModalComponent implements OnInit{
  
   
 }
+@Component({
+  selector: 'mensajeExitoElectiva',
+  templateUrl: './mensajeExitoElectiva.html',
+  
+})
+export class mensajeExitoElectiva{}
+@Component({
+  selector: 'mensajeErrorElectiva',
+  templateUrl: './mensajeErrorElectiva.html',
+  
+})
+export class mensajeErrorElectiva{}
+
+@Component({
+  selector: 'mensajeErrorNombreRepetido',
+  templateUrl: './mensajeErrorNombreRepetido.html',
+  
+})
+export class mensajeErrorNombreRepetido{}
+

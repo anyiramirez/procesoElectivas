@@ -8,9 +8,9 @@
   
   <table class="table table-striped table-sm">
     <thead>
-      <tr >        
-        <th scope="col">Año</th>
-        <th scope="col">Período Académico</th>
+      <tr >  
+           
+        <th scope="col" colspan="2">Período Académico</th>
         <th scope="col">Total Electivas</th>
         <th scope="col">Estado</th>
         <th colspan="2" class="text-center">Opciones</th>
@@ -18,7 +18,6 @@
     </thead>
     <tbody>
       <tr *ngFor="let ofertaA of obtenerOfertas; let indice=index">
-        
         <td>{{ofertaA.anio}}</td>
         <td>{{ofertaA.periodo}}</td>
         <td>{{cantidades[indice]}}</td>
@@ -33,4 +32,42 @@
     </tbody>
   </table>
 </div>
+
+ <!-- Modal Detalle Oferta Académica
+ <mat-dialog-content class="mat-typography" id="ModalDetailOferta">
+        <h5 class="modal-title" id="exampleModalLongTitle">Oferta {{nombreOfertaACtual}} </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      
+      <div class="modal-body">
+        
+        <form id="DetalleOferta">
+          <div class="row">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre Electiva</th>
+                  <th scope="col">Programas Asociados</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let ElecOferAct of ElectivasOfertaActual; let indice=index">
+                  <td>{{indice+1}}</td>
+                  <td>{{ElecOferAct.NombreElectiva}}</td>
+                  <td>{{ElecOferAct.programa}}</td>
+                </tr>       
+              </tbody>
+            </table>     
+          </div> 
+        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+  
+</mat-dialog-content>
+
+Modal Nueva Oferta Académica-->
 

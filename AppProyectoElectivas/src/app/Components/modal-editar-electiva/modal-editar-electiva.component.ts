@@ -77,7 +77,8 @@ export class ModalEditarElectivaComponent implements OnInit {
           
           alert(res);
           this.listarElectivas();
-          this.router.navigate(['/GestionElectivas']);
+          this.dialogRef.close();
+          //this.router.navigate(['/GestionElectivas']);
         })
       }else{
         alert("Error en el registro: Nombre Electiva Existente");

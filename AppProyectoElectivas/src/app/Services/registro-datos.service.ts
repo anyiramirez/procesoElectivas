@@ -4,7 +4,8 @@ import { DatosSimca } from '../Interfaces/datos-simca';
 import { PreInscripcionPrueba} from '../Interfaces/pre-inscripcion-prueba';
 import { solE_XLSX } from '../Interfaces/solEXLSX';
 import { Electivas} from '../Interfaces/electivas';
-import { Oferta} from '../Interfaces/oferta'
+import { Oferta} from '../Interfaces/oferta';
+import {Usuarios} from '../Interfaces/usuarios';
 import { ListaElectCE} from '../Interfaces/lista-electce'//servicio electivas
 import { DatosOferta } from '../Interfaces/datos-oferta';
 import { Inscripcion } from '../Interfaces/inscripcion';
@@ -29,6 +30,11 @@ export class RegistroDatosService {
    saveUsuario(datosEApi: Array<DatosSimca>) {
     console.log("datos a evaluar:",datosEApi);
     return this.http.post(this.API_URI + '/solEst', datosEApi,this.httpOptions);
+
+   }
+   saveUsuarios(datosUsuarios: Array<Usuarios>) {
+    console.log("datos a evaluar:",datosUsuarios);
+    return this.http.post(this.API_URI + '/registrarUsuarios', datosUsuarios,this.httpOptions);
 
    }
    saveElectivas(datosElectivas: Array<Electivas>) {

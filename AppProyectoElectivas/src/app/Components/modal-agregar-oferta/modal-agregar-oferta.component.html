@@ -5,7 +5,7 @@
     <div class="row" >
         
       <div class="col-6">
-        <mat-form-field class="example-full-width">
+        <mat-form-field >
           <mat-label for="anio" *ngIf='anioCampo' class=" errorFormato ">Año</mat-label>
           <mat-label for="anio" *ngIf='!anioCampo' >Año</mat-label>
           <select matNativeControl [(ngModel)]="ofertas.anio" [formControl]="anioFormControl"  id="anio" name="anio " style="z-index: 2000 !important">
