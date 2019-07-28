@@ -4,6 +4,9 @@ import {ErrorStateMatcher} from '@angular/material/core';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
 import { Router } from '@angular/router';
 import {MatDialog,MatDialogRef} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { mensajeErrorOferta } from '../modal-agregar-oferta/modal-agregar-oferta.component';
+
 
 @Component({
   selector: 'app-usuarios',
@@ -52,8 +55,10 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'modalNuevoUsuario',
   templateUrl: './modalNuevoUsuario.html',
+  styleUrls: ['./usuarios.component.css']
 })
 export class modalNuevoUsuario implements OnInit {
+  durationInSeconds = 5;
   nombresCampo;
   apellidosCampo;
   correoCampo;
@@ -74,16 +79,18 @@ export class modalNuevoUsuario implements OnInit {
   ]);
 
   matcher = new MyErrorStateMatcher();
-  constructor(private registrar:RegistroDatosService,private router:Router,public dialog: MatDialog,public dialogRef: MatDialogRef<modalNuevoUsuario>)
+  constructor(private _snackBar: MatSnackBar,private registrar:RegistroDatosService,private router:Router,public dialog: MatDialog,public dialogRef: MatDialogRef<modalNuevoUsuario>)
   {
 
   }
   ngOnInit() {
     this.nombresFormControl= new FormControl('',[
-      Validators.required
+      Validators.required,
+      Validators.pattern("[A-Za-z ]+")
     ]);
     this.apellidosFormControl= new FormControl('',[
-      Validators.required
+      Validators.required,
+      Validators.pattern("[A-Za-z ]+")
     ]);
     this.cargoFormControl= new FormControl('',[
       Validators.required
@@ -92,6 +99,17 @@ export class modalNuevoUsuario implements OnInit {
       Validators.required
     ]);
   }
+  openSnackBar() {
+    this._snackBar.openFromComponent(mensajeExito, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  openErrorSnackBar() {
+    this._snackBar.openFromComponent(mensajeErrorOferta, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+
   registrarUsuarios(){
     debugger;
     
@@ -125,14 +143,16 @@ export class modalNuevoUsuario implements OnInit {
           debugger;
           this.registrar.saveUsuarios(this.usuarios).subscribe(res => {
             debugger;
-            alert(res);
+            //alert(res);
 
             this.dialogRef.close();
+            this.openSnackBar();
             
           })
      
       }else{
-        alert("Error en el registro");
+        this.openErrorSnackBar();
+       // alert("Error en el registro");
       }
       this.listarUsuarios();
       
@@ -155,3 +175,9 @@ export class modalNuevoUsuario implements OnInit {
 
   }
 }
+@Component({
+  selector: 'mensajeExito',
+  templateUrl: './mensajeExito.html',
+  
+})
+export class mensajeExito{}

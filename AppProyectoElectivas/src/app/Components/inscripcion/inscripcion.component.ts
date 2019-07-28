@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { DISABLED } from '@angular/forms/src/model';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { LoginService} from '../../Services/login.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-inscripcion',
@@ -14,7 +15,7 @@ import { LoginService} from '../../Services/login.service';
 })
 
 export class InscripcionComponent implements OnInit {
-  
+  durationInSeconds=5;
   inscripcion:any={};
   info:any;
   electivasRegistradas = new Array();
@@ -44,7 +45,7 @@ export class InscripcionComponent implements OnInit {
   texto: any;
   nuevoTexto: any;
   
-  constructor(private registrar:RegistroDatosService,private router:Router,private servicioLogin: LoginService) {   
+  constructor(private _snackBar: MatSnackBar,private registrar:RegistroDatosService,private router:Router,private servicioLogin: LoginService) {   
   }
   
   ngOnInit() {
@@ -79,6 +80,16 @@ export class InscripcionComponent implements OnInit {
     this.opcion1FormControl = new FormControl('', [
       Validators.required,
     ]);
+  }
+  openSnackBar() {
+    this._snackBar.openFromComponent(mensajeExitoInscripcion, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  openErrorkBar() {
+    this._snackBar.openFromComponent(mensajeErroInscripcion, {
+      duration: this.durationInSeconds * 1000,
+    });
   }
   registrarInscripcion(){
     if(this.nombresFormControl.hasError('required')){
@@ -128,13 +139,11 @@ export class InscripcionComponent implements OnInit {
       console.log(this.inscripcion);
       
       this.registrar.saveRegistrarInscripcion(this.inscripcion).subscribe(res => {
-        alert(res);
-        //this.listarElectivas();
-        // this.limpiarModal();
-        //this.router.navigate(['/GestionElectivas']);
+      this.openSnackBar();
+       
       })
     }else{
-      alert("Error en el registro");
+    this.openErrorkBar();
     }    
   }
   listarPrimeraOpcion(varProgram:string){
@@ -218,3 +227,15 @@ export class InscripcionComponent implements OnInit {
   }
   
 }
+@Component({
+  selector: 'mensajeExitoInscripcion',
+  templateUrl: './mensajeExitoInscripcion.html',
+  
+})
+export class mensajeExitoInscripcion{}
+@Component({
+  selector: 'mensajeErrorInscripcion',
+  templateUrl: './mensajeErrorInscripcion.html',
+  
+})
+export class mensajeErroInscripcion{}

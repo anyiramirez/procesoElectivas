@@ -6,6 +6,7 @@ import { Oferta} from '../../Interfaces/oferta'
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import { DatosOferta } from '../../Interfaces/datos-oferta';
 import {MatDialog,MatDialogRef} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 export interface PeriodoAcademico {
   value: string;
   viewValue: string;
@@ -43,6 +44,7 @@ export class ModalAgregarOfertaComponent implements OnInit {
   ofertaFormControl;
   inicioFormControl;
   finFormControl;
+  durationInSeconds=5;
  
   valores: PeriodoAcademico[] = [
     {value: '1', viewValue: '1'},
@@ -53,7 +55,7 @@ export class ModalAgregarOfertaComponent implements OnInit {
 
 
 
-  constructor(private registrar:RegistroDatosService,private router:Router,public dialogRef: MatDialogRef<ModalAgregarOfertaComponent>) {
+  constructor(private _snackBar: MatSnackBar,private registrar:RegistroDatosService,private router:Router,public dialogRef: MatDialogRef<ModalAgregarOfertaComponent>) {
     this.listarElectivas();
     this.listarOfertas();
    
@@ -128,7 +130,21 @@ export class ModalAgregarOfertaComponent implements OnInit {
 
     }
  
-  
+    openSnackBar() {
+      this._snackBar.openFromComponent(mensajeExitoOferta, {
+        duration: this.durationInSeconds * 1000,
+      });
+    }
+    openErrorkBar() {
+      this._snackBar.openFromComponent(mensajeErrorOferta, {
+        duration: this.durationInSeconds * 1000,
+      });
+    }
+    openErrorRepetidoBar() {
+      this._snackBar.openFromComponent(mensajeErroRepetido, {
+        duration: this.durationInSeconds * 1000,
+      });
+    }
 
   registrarOferta(){
      
@@ -177,16 +193,17 @@ export class ModalAgregarOfertaComponent implements OnInit {
         this.ofertaArray.push(this.ofertas,this.oferAcademica);
         this.registrar.saveOfertaAcademica(this.ofertaArray).subscribe(res => {
         this.ofertaArray= new Array();
-        alert(res);
+       // alert(res);
         this.limpiarModal();
         this.listarOfertas();
         this.dialogRef.close();
+        this.openSnackBar();
       });
       }else{
-        alert("Error en el registro, Oferta ya existe ");
+       this.openErrorRepetidoBar();
       }
     }else{
-      alert("Error en el registro, Dato no valido ");
+      this.openErrorkBar();
     }
     this.listarElectivas();
   }
@@ -253,3 +270,22 @@ export class ModalAgregarOfertaComponent implements OnInit {
   }
 
 }
+@Component({
+  selector: 'mensajeExitoOferta',
+  templateUrl: './mensajeExitoOferta.html',
+  
+})
+export class mensajeExitoOferta{}
+@Component({
+  selector: 'mensajeErrorOferta',
+  templateUrl: './mensajeErrorOferta.html',
+  
+})
+export class mensajeErrorOferta{}
+
+@Component({
+  selector: 'mensajeErroRepetido',
+  templateUrl: './mensajeErroRepetido.html',
+  
+})
+export class mensajeErroRepetido{}

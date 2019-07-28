@@ -9,9 +9,9 @@
         <mat-form-field class="example-full-width">
           <mat-label for="nombres" *ngIf='nombresCampo' class="errorFormato ">Nombres: </mat-label>
           <mat-label for="nombres" *ngIf='!nombresCampo' >Nombres: </mat-label>
-          <input [(ngModel)]="usuarios.Nombres" id="nombres" name="Nombres" [formControl]="nombresFormControl"  matInput placeholder="Nombres"  required>
+          <input  [(ngModel)]="usuarios.Nombres" id="nombres" name="Nombres" [formControl]="nombresFormControl"  matInput placeholder="Nombres"  required>
           <mat-error *ngIf="nombresFormControl.hasError('required')">
-          <strong>Porfavor digite el nombre</strong>
+          <strong>Por favor digite el nombre</strong>
           </mat-error>
           <mat-error *ngIf="nombresFormControl.hasError('pattern')">
             Ingresó un caracter invalido.
@@ -20,11 +20,11 @@
       </div>
       <div class="col-6">
         <mat-form-field class="example-full-width">
-          <mat-label for="apellidos" *ngIf='apellidosCampo' class=" errorFormato ">Apellidos:</mat-label>
+          <mat-label for="apellidos" *ngIf='apellidosCampo' class="errorFormato ">Apellidos:</mat-label>
           <mat-label for="apellidos" *ngIf='!apellidosCampo' >Apellidos: </mat-label>
-          <input [(ngModel)]="usuarios.Apellidos" [formControl]="apellidosFormControl" id= "apellidos"  name = "Apellidos"  matInput placeholder="Apellidos" required>
+          <input matNativeControl [(ngModel)]="usuarios.Apellidos" [formControl]="apellidosFormControl" id= "apellidos"  name = "Apellidos"  matInput placeholder="Apellidos" required>
           <mat-error *ngIf="apellidosFormControl.hasError('required')">
-            <strong>Porfavor digite el apellido</strong>
+            <strong>Por favor digite el apellido</strong>
           </mat-error>
           <mat-error *ngIf="apellidosFormControl.hasError('pattern')">
             Ingresó un caracter invalido.
@@ -46,7 +46,7 @@
       </div>
       <div class="col-6" >
         <mat-form-field>
-          <mat-label for="cargo" *ngIf='cargoCampo' class=" errorFormato">Cargo: </mat-label>
+          <mat-label for="cargo" *ngIf='cargoCampo' class="errorFormato">Cargo: </mat-label>
           <mat-label for="cargo" *ngIf='!cargoCampo' >Cargo</mat-label>
           <select matNativeControl [(ngModel)]="usuarios.Cargo" [formControl]="cargoFormControl"  id="cargo" name="Cargo" required>
             <option value="Jefe de Departamento" >Jefe de Departamento</option>

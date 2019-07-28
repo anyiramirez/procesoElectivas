@@ -30,10 +30,10 @@
       </div> 
            
       <div class="col-6">
-        <mat-form-field class="example-full-width">
+        <mat-form-field >
           <mat-label for="anio" *ngIf='anioCampo' class=" errorFormato ">Año</mat-label>
           <mat-label for="anio" *ngIf='!anioCampo' >Año</mat-label>
-          <input [(ngModel)]="ofertas.anio" [formControl]="anioFormControl" id="anio" name="anio"   matInput placeholder="Año Lectivo" >
+          <input matInput [(ngModel)]="ofertas.anio" [formControl]="anioFormControl" id="anio" name="anio" placeholder="Año Lectivo" >
           <mat-error *ngIf="anioFormControl.hasError('required')">
             Año de oferta es <strong>requerido</strong>
           </mat-error>
