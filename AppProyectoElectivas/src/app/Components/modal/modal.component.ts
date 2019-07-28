@@ -201,7 +201,6 @@ export class ModalComponent implements OnInit{
   }
   validarElectivaUnica(nuevaElectiva: any){
     var existe=false; 
-    console.log("listado ofertas",this.electivasRegistradas);
     for(let i in this.electivasRegistradas) {
       if ( this.electivasRegistradas[i].nombre==nuevaElectiva) {
         existe = true;

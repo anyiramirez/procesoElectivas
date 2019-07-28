@@ -34,13 +34,14 @@ export class InscripcionComponent implements OnInit {
   codigoFormControl;
   programaFormControl;
   opcion1FormControl;
+
+  opcionesElec: boolean;
   
   habilitarop2: boolean = true;
   habilitarop3: boolean = true;
   habilitarop4: boolean = true;
   habilitarop5: boolean = true;
   habilitarop6: boolean = true;
-  opcionesElec: boolean = true;
 
   texto: any;
   nuevoTexto: any;
@@ -50,9 +51,7 @@ export class InscripcionComponent implements OnInit {
   
   ngOnInit() {
     this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
-      console.log("info",res);
       this.info=res;
-      console.log(this.info.foto);
          
     });
     
@@ -136,7 +135,6 @@ export class InscripcionComponent implements OnInit {
       this.inscripcion.nombres = this.MayusculaPrimera(this.inscripcion.nombres );
       this.inscripcion.apellidos = this.MayusculaPrimera(this.inscripcion.apellidos );
 
-      console.log(this.inscripcion);
       
       this.registrar.saveRegistrarInscripcion(this.inscripcion).subscribe(res => {
       this.openSnackBar();
@@ -198,17 +196,13 @@ export class InscripcionComponent implements OnInit {
       }
     }
   }
- 
-  mostrarOpciones(){
-    debugger;
-    if (this.inscripcion.programa === 'PIS'){
-      this.opcionesElec = false;
-    }
-    if (this.inscripcion.programa === 'PIAI'||this.inscripcion.programa === 'PIET'){
+
+  mostrarOpciones(programaSeleccionado: string){
+    if(programaSeleccionado === 'PIS'){
       this.opcionesElec = true;
     }
     else{
-      this.opcionesElec = true;
+      this.opcionesElec = false;
     }
   }
 

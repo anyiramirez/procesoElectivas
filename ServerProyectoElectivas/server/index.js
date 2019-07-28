@@ -82,7 +82,7 @@ var db = admin.database();
 
 app.use('/api/asigcupos',require('./routes/asigcupos.routes'));
 app.use('/auth',require('./routes/login.routes'));
-
+app.use('/asigrol',require('./routes/adminAsigRol.routes'));
 
 //--------------------------------------------------------
 

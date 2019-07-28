@@ -15,7 +15,6 @@ export class PrincipaladmiComponent implements OnInit {
   constructor(private router: Router, private servicioLogin: LoginService) { }
 
   ngOnInit() {
-    console.log("Holi");
     this.href = this.router.url;
     var idx = this.href.lastIndexOf("code=");
     var code = this.href.substring(idx + 5).replace("#","");

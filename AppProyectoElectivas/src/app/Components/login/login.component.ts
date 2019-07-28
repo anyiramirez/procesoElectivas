@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
   constructor(private servicioLogin: LoginService, private router: Router,private datos:RegistroDatosService
     ) { 
       this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
-        console.log(res);
         this.infoLogin=res;
        });
 
