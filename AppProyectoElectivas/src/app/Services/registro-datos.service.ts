@@ -15,6 +15,7 @@ import { Inscripcion } from '../Interfaces/inscripcion';
 })
 export class RegistroDatosService {
   API_URI = 'http://localhost:3000/api/asigcupos';
+  API_URI_BASE='http://localhost:3000/';
   solicitudesEst: PreInscripcionPrueba[];
   electivas:Electivas[];
   solEx: solE_XLSX[];
@@ -34,7 +35,7 @@ export class RegistroDatosService {
    }
    saveUsuarios(datosUsuarios: Array<Usuarios>) {
     console.log("datos a evaluar:",datosUsuarios);
-    return this.http.post(this.API_URI + '/registrarUsuarios', datosUsuarios,this.httpOptions);
+    return this.http.post(this.API_URI_BASE + '/asigRol/confirmarcorreo', datosUsuarios,this.httpOptions);
 
    }
    saveElectivas(datosElectivas: Array<Electivas>) {

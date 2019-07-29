@@ -92,10 +92,7 @@ export class modalNuevoUsuario implements OnInit {
       Validators.required,
       Validators.pattern("[A-Za-z ]+")
     ]);
-    this.cargoFormControl= new FormControl('',[
-      Validators.required
-    ]);
-    this.rolFormControl= new FormControl('',[
+      this.rolFormControl= new FormControl('',[
       Validators.required
     ]);
   }
@@ -128,16 +125,13 @@ export class modalNuevoUsuario implements OnInit {
       }
       { this.apellidosCampo=false; }
       
-      if(this.usuarios.Cargo==='Docente'||this.usuarios.Cargo==='Administrativo'||this.usuarios.Cargo==='Jefe de Departamento'||this.usuarios.Cargo==='Coordinador'){
-        this.cargoCampo=false;
-      }else{ this.cargoCampo=true; }
-      
+       
       if(this.usuarios.rol==='Admin'||this.usuarios.rol==='Sin Rol'||this.usuarios.rol==='Administrativo'||this.usuarios.rol==='Coordinador'){
         this.rolCampo=false;
       }else{ this.rolCampo=true; 
       }
       
-      if(!this.nombresCampo && !this.apellidosCampo && !this.cargoCampo && !this.rolCampo){
+      if(!this.nombresCampo && !this.apellidosCampo && !this.rolCampo){
           this.usuarios.Nombres = this.MayusculaPrimera(this.usuarios.Nombres);
           this.usuarios.Apellidos = this.MayusculaPrimera(this.usuarios.Apellidos);
           debugger;

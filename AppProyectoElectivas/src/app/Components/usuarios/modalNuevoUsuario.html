@@ -44,21 +44,7 @@
             </mat-error>
           </mat-form-field>
       </div>
-      <div class="col-6" >
-        <mat-form-field>
-          <mat-label for="cargo" *ngIf='cargoCampo' class="errorFormato">Cargo: </mat-label>
-          <mat-label for="cargo" *ngIf='!cargoCampo' >Cargo</mat-label>
-          <select matNativeControl [(ngModel)]="usuarios.Cargo" [formControl]="cargoFormControl"  id="cargo" name="Cargo" required>
-            <option value="Jefe de Departamento" >Jefe de Departamento</option>
-            <option value="Docente" >Docente</option>
-            <option value="Administrativo" >Administrativo</option>
-            <option value="Coordinador" >Coordinador</option>
-          </select>
-          <mat-error *ngIf="cargoFormControl.hasError('required')">
-           <strong>Elija un cargo</strong>
-          </mat-error>
-        </mat-form-field>
-      </div>
+    
     <div class="col-6" >
       <mat-form-field>
         <mat-label for="rol" *ngIf='rolCampo' class=" errorFormato">Rol</mat-label>
