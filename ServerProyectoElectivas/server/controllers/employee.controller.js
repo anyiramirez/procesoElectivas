@@ -181,6 +181,7 @@ employeeCtrl.electivasPrograma = (req, res) => {
     db.ref('Ofertas').once("value", function(snapshot) {        
         list = snapshot.val();
         //res.json(list);
+        ofertaActiva();
         var key1;
         for (key1 in list) {
             if(list[key1].anio === '2019' && list[key1].periodo === '2'){
@@ -193,22 +194,6 @@ employeeCtrl.electivasPrograma = (req, res) => {
         }
         console.log(listaPrograma);
         res.json(listaPrograma);
-        
-        //electivasOferta = list.key1.electivasOfertadas;
-        //res.json(electivasOferta);
-        /*var entro = false;
-        for(var key in electivasOferta) {
-            if(key.programa.search(req.params.programa) != -1) {
-                entro = true;
-                listaPrograma.add(key.NombreElectiva);
-                console.log(listaPrograma);
-                res.json(listaPrograma);
-                break;
-            }
-        }
-        if(!entro){
-            res.json("no");
-        }*/
         
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
@@ -292,8 +277,8 @@ employeeCtrl.registrarOfertas = (req,res) => {
         var nuevaOferta = {
             anio : req.body[0].anio,
             periodo: req.body[0].periodo,
-            fechaFin: req.body[0].dateFin,
-            fechaInicio: req.body[0].dateInicio,
+            fechaFin: req.body[0].dateFin.substring(0,10).split('-').join('/') +' 23:59:00 GTM-5',
+            fechaInicio: req.body[0].dateInicio.substring(0,10).split('-').join('/') + ' 00:00:00 GTM-5',
             electivasOfertadas: trueE
         }
         
@@ -662,3 +647,40 @@ function validarString(cadena) {
     return correcto;
 }
 
+function ofertaActiva() {
+    var db = admin.database();
+    var list;
+    fechaActual: moment().format('YYYY/MM/DD HH:mm:ss Z');
+    //var aDate = moment(a.HoraSolicitud, "YYYY/MM/DD HH:mm:ss Z").toDate();
+    db.ref('Ofertas').once("value", function(snapshot) {        
+        list = snapshot.val();
+        var vest = "";
+        for(var key in list) {
+            console.log("---------------");
+            console.log(list[key].anio);
+            console.log(list[key].fechaInicio);
+            console.log(list[key].fechaFin);
+            console.log("---------------");
+        }
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+
+    /*db.ref('Ofertas').once("value", function(snapshot) {        
+        list = snapshot.val();
+        var key1;
+        for (key1 in list) {
+            for (key2 in list[key1].electivasOfertadas) {
+                if(list[key1].electivasOfertadas[key2].programa.search(req.params.programa)!=-1) {
+                    listaPrograma.push(list[key1].electivasOfertadas[key2].NombreElectiva);
+                }
+            }
+        }
+        console.log(listaPrograma);
+        res.json(listaPrograma);
+        
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });*/
+
+}
