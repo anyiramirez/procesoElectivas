@@ -7,6 +7,8 @@ import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/form
 import { DatosOferta } from '../../Interfaces/datos-oferta';
 import {MatDialog,MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
+
+import * as moment from 'moment';
 export interface PeriodoAcademico {
   value: string;
   viewValue: string;
@@ -20,7 +22,8 @@ export interface anios {
 @Component({
   selector: 'app-modal-agregar-oferta',
   templateUrl: './modal-agregar-oferta.component.html',
-  styleUrls: ['./modal-agregar-oferta.component.css']
+  styleUrls: ['./modal-agregar-oferta.component.css'],
+  
 })
 export class ModalAgregarOfertaComponent implements OnInit {
   fecha= new Date();
@@ -190,13 +193,16 @@ export class ModalAgregarOfertaComponent implements OnInit {
           alert("Selecione  programas asociados a la oferta"); 
         }
         else{
+          this.ofertas.fechaInicio=new FormControl(moment());
           var objDatosOFerta = new DatosOferta(this.ofertas.fechaInicio, this.ofertas.fechaFin,this.ofertas.anio, this.ofertas.periodo);
           this.ofertaArray= new Array();
           this.ofertaArray.push(this.ofertas,this.oferAcademica);
           this.registrar.saveOfertaAcademica(this.ofertaArray).subscribe(res => {
             this.ofertaArray= new Array();
-            alert(res);
+       
             this.limpiarModal();
+            this.dialogRef.close();
+            this.openSnackBar();
           });
         } 
       }else{

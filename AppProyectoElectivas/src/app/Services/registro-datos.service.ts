@@ -9,6 +9,7 @@ import {Usuarios} from '../Interfaces/usuarios';
 import { ListaElectCE} from '../Interfaces/lista-electce'//servicio electivas
 import { DatosOferta } from '../Interfaces/datos-oferta';
 import { Inscripcion } from '../Interfaces/inscripcion';
+import { createAotUrlResolver } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -75,8 +76,10 @@ export class RegistroDatosService {
     console.log("datos a guardar:",datosEditarElectivas);
     return this.http.post(this.API_URI + '/editarElectiva/'+ nombreAntiguo, datosEditarElectivas,this.httpOptions);
   }
-  
-
+  editarRol(correo:Usuarios,datosEditar:Usuarios){
+    console.log("datos a guardar:",datosEditar);
+    return this.http.post(this.API_URI + '/editarRol/'+correo, datosEditar,this.httpOptions);
+  }
   registroBd (datos:PreInscripcionPrueba){
      datos.Usuario;
      datos.creditosPensum;

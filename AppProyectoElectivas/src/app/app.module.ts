@@ -46,11 +46,13 @@ import { ModalEditarElectivaComponent } from './Components/modal-editar-electiva
 import { ModalAgregarOfertaComponent, mensajeExitoOferta, mensajeErroRepetido, mensajeErrorOferta } from './Components/modal-agregar-oferta/modal-agregar-oferta.component';
 
 
-import { UsuariosComponent, modalNuevoUsuario, mensajeExito} from './Components/usuarios/usuarios.component';
+import { UsuariosComponent, modalNuevoUsuario, mensajeExito, modalCambiarRol, mensajeEditar} from './Components/usuarios/usuarios.component';
 import { VistaAdminComponent } from './Components/vista-admin/vista-admin.component';
 import { VistaCoordinadorComponent } from './Components/vista-coordinador/vista-coordinador.component';
 import { VistaAdministrativoComponent } from './Components/vista-administrativo/vista-administrativo.component';
 import { combineLatest } from 'rxjs';
+import { ListasInscriptosComponent } from './Components/listas-inscriptos/listas-inscriptos.component';
+import { ReportesComponent } from './Components/reportes/reportes.component';
 
 const Rutas: Routes = [
   {path: 'Administrador', component: PrincipaladmiComponent},
@@ -61,6 +63,7 @@ const Rutas: Routes = [
   {path: 'OfertaAcademica', component: OfertaAcademicaComponent},
   {path: 'Inscripcion', component:InscripcionComponent},
   {path: 'Usuarios',component:UsuariosComponent},
+  {path: 'listasInscriptos',component:ListasInscriptosComponent},
   {path: 'VistaAdmin', component:VistaAdminComponent},
   {path: 'VistaCoordinador',component:VistaCoordinadorComponent},
   {path: 'VistaAdministrativa',component:VistaAdministrativoComponent},
@@ -96,10 +99,14 @@ const Rutas: Routes = [
     mensajeErrorOferta,
     mensajeErroInscripcion,
     mensajeExitoInscripcion,
+    mensajeEditar,
     UsuariosComponent,
     VistaAdminComponent,
     VistaCoordinadorComponent,
-    VistaAdministrativoComponent
+    VistaAdministrativoComponent,
+    ListasInscriptosComponent,
+    ReportesComponent,
+    modalCambiarRol
   ],
   imports: [
     AlertsModule.forRoot(),
@@ -153,7 +160,9 @@ const Rutas: Routes = [
     mensajeErrorNombreRepetido,
     mensajeExitoElectiva,
     mensajeErroInscripcion,
-    mensajeExitoInscripcion
+    mensajeExitoInscripcion,
+    modalCambiarRol,
+    mensajeEditar
 ]
 
 })

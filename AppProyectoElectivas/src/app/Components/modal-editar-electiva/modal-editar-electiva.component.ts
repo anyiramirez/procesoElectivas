@@ -2,15 +2,14 @@ import { Component, OnInit ,Inject} from '@angular/core';
 import { Electivas} from '../../Interfaces/electivas';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import { Router } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {mensajeErrorElectiva,mensajeExitoElectiva,mensajeErrorNombreRepetido} from '../modal/modal.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 export interface DialogData {
-  
   name: string;
   electiva: any;
   antiguo:any;
   lista:any;
-
 }
 
 @Component({
@@ -29,9 +28,10 @@ export class ModalEditarElectivaComponent implements OnInit {
   contenidoFormControl;
   departamentoFormControl;
   tipoFormControl;
+  durationInSeconds=5;
   
   
-  constructor(private registrar:RegistroDatosService,private router:Router,public dialog: MatDialog,public dialogRef: MatDialogRef<ModalEditarElectivaComponent>,
+  constructor(private _snackBar: MatSnackBar,private registrar:RegistroDatosService,public dialog: MatDialog,public dialogRef: MatDialogRef<ModalEditarElectivaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData)
   {
     this.listarElectivas();
@@ -51,6 +51,21 @@ export class ModalEditarElectivaComponent implements OnInit {
     this.contenidoFormControl = new FormControl('', [
       Validators.pattern("[A-Za-z ]+"),
     ]);
+  }
+  openSnackBar() {
+    this._snackBar.openFromComponent(mensajeExitoElectiva, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  openErrorkBar() {
+    this._snackBar.openFromComponent(mensajeErrorElectiva, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  openErrorRepetidoBar() {
+    this._snackBar.openFromComponent(mensajeErrorNombreRepetido, {
+      duration: this.durationInSeconds * 1000,
+    });
   }
   editarElectivas(){
     
@@ -75,22 +90,22 @@ export class ModalEditarElectivaComponent implements OnInit {
        this.electivas.nombre = this.MayusculaPrimera(this.data.electiva.NombreElectiva);
         this.registrar.editarElectiva(this.data.antiguo,this.data.electiva).subscribe(res => {
           
-          alert(res);
+          
           this.listarElectivas();
           this.dialogRef.close();
+          this.openSnackBar();
           //this.router.navigate(['/GestionElectivas']);
         })
       }else{
-        alert("Error en el registro: Nombre Electiva Existente");
+        this.openErrorRepetidoBar();
         this.data.electiva.NombreElectiva=this.data.antiguo;
+
       }
     }else{
-      alert("Error en el registro");
+     this.openErrorkBar();
     }
     this.listarElectivas();
   }
-  
-  
   listarElectivas(){
     this.registrar.obtenerInformacionElectivas().subscribe(res => {
       this.electivasRegistradas=new Array();

@@ -21,6 +21,7 @@
      
     </div>
     <div *ngIf = "elegirMenuUser === 'Admin'">
+    
         <li>
           <a class="text-center" (click)="cambioVista('GestionElectivas')">Gestión de electivas</a>
         </li>
@@ -39,6 +40,9 @@
        
       </div>
       <div *ngIf = "elegirMenuUser === 'SuperAdmin'">
+          <li>
+              <a class="text-center">Listas de inscriptos</a>
+          </li>
           <li>
             <a class="text-center" (click)="cambioVista('GestionElectivas')">Gestión de electivas</a>
           </li>

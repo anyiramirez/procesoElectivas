@@ -103,7 +103,6 @@ export class ModalComponent implements OnInit{
 
           this.listarElectivas();
           this.limpiarModal();
-          this.router.navigate(['/GestionElectivas']);
           this.dialogRef.close();
           this.openSnackBar();
         })

@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
 import { Router } from '@angular/router';
-import {MatDialog,MatDialogRef} from '@angular/material/dialog';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import { mensajeErrorOferta } from '../modal-agregar-oferta/modal-agregar-oferta.component';
+import {Usuarios} from '../../Interfaces/usuarios';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {mensajeErrorElectiva,mensajeExitoElectiva,mensajeErrorNombreRepetido} from '../modal/modal.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Component({
@@ -15,12 +17,29 @@ import { mensajeErrorOferta } from '../modal-agregar-oferta/modal-agregar-oferta
 })
 export class UsuariosComponent implements OnInit {
   usuariosRegistrados= new Array();
+  correo:any;
+  objeto:any={};
+
 
   constructor(public dialog: MatDialog,private registrar:RegistroDatosService) { 
     this.listarUsuarios();
   }
 
   ngOnInit() {
+  }
+  obtenerDatos(correo){
+    // this.registrar.obtenerDatosNombreElectiva(nombre).subscribe(res=>{
+      //this.objeto = res;
+      for(let e in this.usuariosRegistrados){
+        if(correo==this.usuariosRegistrados[e].Correo){
+          var objUsuario= new Usuarios(this.usuariosRegistrados[e].Nombres,this.usuariosRegistrados[e].Apellidos,this.usuariosRegistrados[e].Correo,this.usuariosRegistrados[e].rol);
+          this.correo= objUsuario.Correo;
+          this.objeto= objUsuario;
+          
+        }
+      }
+    // });
+    
   }
   openDialog() {
     debugger;
@@ -30,6 +49,23 @@ export class UsuariosComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     
     });
+  }
+  openDialogEditar(correo){
+    debugger;
+    this.obtenerDatos(correo);
+    const dialogRef = this.dialog.open(modalCambiarRol,{
+      data: {
+        
+        email:correo,
+        usuario:this.objeto,
+        antiguo:this.correo
+          }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.listarUsuarios();
+    });
+
   }
   listarUsuarios(){
     this.registrar.obtenerUsuarios().subscribe(res => {
@@ -170,8 +206,85 @@ export class modalNuevoUsuario implements OnInit {
   }
 }
 @Component({
+  selector: 'mensajeEditar',
+  templateUrl: './mensajeEditar.html',
+  
+})
+export class mensajeEditar{}
+@Component({
   selector: 'mensajeExito',
   templateUrl: './mensajeExito.html',
   
 })
 export class mensajeExito{}
+export interface DialogData {
+  
+  email: any;
+  usuario: any;
+  correo:any;
+ 
+
+}
+@Component({
+  selector: 'modalCambiarRol',
+  templateUrl: './modalCambiarRol.html',
+  styleUrls: ['./usuarios.component.css']
+})
+export class modalCambiarRol implements OnInit {
+  durationInSeconds = 5;
+  rolCampo;
+  usuarios:any={};
+  rolFormControl;
+  texto: any;
+  nuevoTexto: any;
+
+  matcher = new MyErrorStateMatcher();
+  constructor(private _snackBar: MatSnackBar,private registrar:RegistroDatosService,public dialog: MatDialog,public dialogRef: MatDialogRef<modalCambiarRol>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData)
+  {
+    this.listarUsuarios();
+  }
+  ngOnInit() {
+      this.rolFormControl= new FormControl('',[
+      Validators.required
+    ]);
+  }
+  openSnackBar() {
+    this._snackBar.openFromComponent(mensajeExito, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  openSnackEditarBar() {
+    this._snackBar.openFromComponent(mensajeEditar, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  openErrorSnackBar() {
+    this._snackBar.openFromComponent(mensajeErrorOferta, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+
+  editarRol(){
+    debugger;
+    if(this.data.usuario.rol==='Admin'||this.data.usuario.rol==='Sin Rol'||this.data.usuario.rol==='Administrativo'||this.data.usuario.rol==='Coordinador'){
+      this.rolCampo=false;
+    }else{ this.rolCampo=true; 
+    }
+    if(!this.rolCampo){
+          
+        this.registrar.editarRol(this.data.email,this.data.usuario).subscribe(res => {         
+          this.dialogRef.close();
+          this.openSnackEditarBar();
+          //this.router.navigate(['/GestionElectivas']);
+        })
+      
+    }else{
+     this.openErrorSnackBar();
+    }
+    this.listarUsuarios();
+  }
+  listarUsuarios(){
+
+  }
+}
