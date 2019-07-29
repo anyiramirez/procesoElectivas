@@ -24,7 +24,6 @@ export class AsignacionelectivaComponent implements OnInit {
     
     for(var i = 0;i < this.listaa.length; i++){
       this.lista1.push(this.listaa[i]);
-      console.log(this.lista1[i]);
     }
   }
 

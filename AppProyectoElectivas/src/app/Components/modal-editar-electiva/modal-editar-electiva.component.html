@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Nueva Electiva</h2>
+<h2 mat-dialog-title>Edicion Electiva</h2>
 <mat-dialog-content class="mat-typography">
     <div class="modal-body">
         <form id="FormElectivas">
@@ -8,7 +8,12 @@
                   <mat-label for="nombre" *ngIf='nombreCampo' class=" errorFormato ">Nombre Electiva</mat-label>
                   <mat-label for="nombre" *ngIf='!nombreCampo' >Nombre Electiva</mat-label>
                   <input [(ngModel)]="data.electiva.NombreElectiva" id="nombre" name="nombre" [formControl]="nombreFormControl"  matInput >
-                  
+                  <mat-error *ngIf="nombreFormControl.hasError('required')">
+                    Nombre Electiva es <strong>requerido</strong>
+                  </mat-error>
+                  <mat-error *ngIf="nombreFormControl.hasError('pattern')">
+                    Ingresó un caracter invalido.
+                  </mat-error>
                 </mat-form-field>
                 
               </div>
@@ -17,6 +22,12 @@
                   <mat-label for="contenido" *ngIf='contenidoCampo' class=" errorFormato ">Contenido Programatico</mat-label>
                   <mat-label for="contenido" *ngIf='!contenidoCampo' >Nombre Contenido Programatico</mat-label>
                   <input [(ngModel)]="data.electiva.Contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput >
+                  <mat-error *ngIf="contenidoFormControl.hasError('required')">
+                    Contenido es <strong>requerido</strong>
+                  </mat-error>
+                  <mat-error *ngIf="contenidoFormControl.hasError('pattern')">
+                    Ingresó un caracter invalido.
+                  </mat-error>
                 </mat-form-field>
               </div>
               <div class="col-6">

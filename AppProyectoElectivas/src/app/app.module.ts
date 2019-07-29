@@ -25,6 +25,8 @@ import {CustExtBrowserXhr} from './Components/login/cust-ext-browser-xhr';
 import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserXhr } from '@angular/http';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 import { RegisterInfoComponent } from './Components/register-info/register-info.component';
 import { OpcionesAdminComponent} from './Components/opciones-admin/opciones-admin.component';
@@ -34,16 +36,16 @@ import { ListasasignacionComponent } from './Components/listasasignacion/listasa
 import { AsignacionelectivaComponent } from './Components/asignacionelectiva/asignacionelectiva.component';
 import { ModuloelectivasComponent } from './Components/moduloelectivas/moduloelectivas.component';
 import { OfertaAcademicaComponent, modalVer } from './Components/oferta-academica/oferta-academica.component';
-import { InscripcionComponent } from './Components/inscripcion/inscripcion.component';
+import { InscripcionComponent, mensajeErroInscripcion, mensajeExitoInscripcion } from './Components/inscripcion/inscripcion.component';
 import { EncabezadoInscripcioComponent } from './Components/encabezado-inscripcio/encabezado-inscripcio.component';
 import { LoginComponent } from './Components/login/login.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { ModalComponent } from './Components/modal/modal.component';
+import { ModalComponent, mensajeErrorElectiva, mensajeErrorNombreRepetido, mensajeExitoElectiva } from './Components/modal/modal.component';
 import { ModalEditarElectivaComponent } from './Components/modal-editar-electiva/modal-editar-electiva.component';
-import { ModalAgregarOfertaComponent } from './Components/modal-agregar-oferta/modal-agregar-oferta.component';
+import { ModalAgregarOfertaComponent, mensajeExitoOferta, mensajeErroRepetido, mensajeErrorOferta } from './Components/modal-agregar-oferta/modal-agregar-oferta.component';
 
 
-import { UsuariosComponent } from './Components/usuarios/usuarios.component';
+import { UsuariosComponent, modalNuevoUsuario, mensajeExito} from './Components/usuarios/usuarios.component';
 import { VistaAdminComponent } from './Components/vista-admin/vista-admin.component';
 import { VistaCoordinadorComponent } from './Components/vista-coordinador/vista-coordinador.component';
 import { VistaAdministrativoComponent } from './Components/vista-administrativo/vista-administrativo.component';
@@ -83,6 +85,16 @@ const Rutas: Routes = [
     ModalEditarElectivaComponent,
     ModalAgregarOfertaComponent,
     modalVer,
+    modalNuevoUsuario,
+    mensajeExito,
+    mensajeExitoOferta,
+    mensajeErroRepetido,
+    mensajeErrorElectiva,
+    mensajeErrorNombreRepetido,
+    mensajeExitoElectiva,
+    mensajeErrorOferta,
+    mensajeErroInscripcion,
+    mensajeExitoInscripcion,
     UsuariosComponent,
     VistaAdminComponent,
     VistaCoordinadorComponent,
@@ -106,6 +118,7 @@ const Rutas: Routes = [
     MatRadioModule,
     MatNativeDateModule,
     MatFormFieldModule,
+    MatSnackBarModule,
     MatSelectModule,
     NgxFileDropModule,
     MatButtonModule,
@@ -129,7 +142,17 @@ const Rutas: Routes = [
     OfertaAcademicaComponent,
     ModalEditarElectivaComponent,
     ModalAgregarOfertaComponent,
-    modalVer
+    modalVer,
+    modalNuevoUsuario,
+    mensajeExito,
+    mensajeExitoOferta,
+    mensajeErroRepetido,
+    mensajeErrorOferta,
+    mensajeErrorElectiva,
+    mensajeErrorNombreRepetido,
+    mensajeExitoElectiva,
+    mensajeErroInscripcion,
+    mensajeExitoInscripcion
 ]
 
 })

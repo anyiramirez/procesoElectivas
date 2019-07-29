@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { DISABLED } from '@angular/forms/src/model';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { LoginService} from '../../Services/login.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-inscripcion',
@@ -14,7 +15,7 @@ import { LoginService} from '../../Services/login.service';
 })
 
 export class InscripcionComponent implements OnInit {
-  
+  durationInSeconds=5;
   inscripcion:any={};
   info:any;
   electivasRegistradas = new Array();
@@ -33,25 +34,24 @@ export class InscripcionComponent implements OnInit {
   codigoFormControl;
   programaFormControl;
   opcion1FormControl;
+
+  opcionesElec: boolean;
   
   habilitarop2: boolean = true;
   habilitarop3: boolean = true;
   habilitarop4: boolean = true;
   habilitarop5: boolean = true;
   habilitarop6: boolean = true;
-  opcionesElec: boolean = true;
 
   texto: any;
   nuevoTexto: any;
   
-  constructor(private registrar:RegistroDatosService,private router:Router,private servicioLogin: LoginService) {   
+  constructor(private _snackBar: MatSnackBar,private registrar:RegistroDatosService,private router:Router,private servicioLogin: LoginService) {   
   }
   
   ngOnInit() {
     this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
-      console.log("info",res);
       this.info=res;
-      console.log(this.info.foto);
          
     });
     
@@ -79,6 +79,16 @@ export class InscripcionComponent implements OnInit {
     this.opcion1FormControl = new FormControl('', [
       Validators.required,
     ]);
+  }
+  openSnackBar() {
+    this._snackBar.openFromComponent(mensajeExitoInscripcion, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  openErrorkBar() {
+    this._snackBar.openFromComponent(mensajeErroInscripcion, {
+      duration: this.durationInSeconds * 1000,
+    });
   }
   registrarInscripcion(){
     if(this.nombresFormControl.hasError('required')){
@@ -125,16 +135,13 @@ export class InscripcionComponent implements OnInit {
       this.inscripcion.nombres = this.MayusculaPrimera(this.inscripcion.nombres );
       this.inscripcion.apellidos = this.MayusculaPrimera(this.inscripcion.apellidos );
 
-      console.log(this.inscripcion);
       
       this.registrar.saveRegistrarInscripcion(this.inscripcion).subscribe(res => {
-        alert(res);
-        //this.listarElectivas();
-        // this.limpiarModal();
-        //this.router.navigate(['/GestionElectivas']);
+      this.openSnackBar();
+       
       })
     }else{
-      alert("Error en el registro");
+    this.openErrorkBar();
     }    
   }
   listarPrimeraOpcion(varProgram:string){
@@ -189,17 +196,13 @@ export class InscripcionComponent implements OnInit {
       }
     }
   }
- 
-  mostrarOpciones(){
-    debugger;
-    if (this.inscripcion.programa === 'PIS'){
-      this.opcionesElec = false;
-    }
-    if (this.inscripcion.programa === 'PIAI'||this.inscripcion.programa === 'PIET'){
+
+  mostrarOpciones(programaSeleccionado: string){
+    if(programaSeleccionado === 'PIS'){
       this.opcionesElec = true;
     }
     else{
-      this.opcionesElec = true;
+      this.opcionesElec = false;
     }
   }
 
@@ -218,3 +221,15 @@ export class InscripcionComponent implements OnInit {
   }
   
 }
+@Component({
+  selector: 'mensajeExitoInscripcion',
+  templateUrl: './mensajeExitoInscripcion.html',
+  
+})
+export class mensajeExitoInscripcion{}
+@Component({
+  selector: 'mensajeErrorInscripcion',
+  templateUrl: './mensajeErrorInscripcion.html',
+  
+})
+export class mensajeErroInscripcion{}
