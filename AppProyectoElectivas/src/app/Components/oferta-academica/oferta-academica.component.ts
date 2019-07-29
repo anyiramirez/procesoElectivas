@@ -7,6 +7,7 @@ import {FormControl, Validators} from '@angular/forms';
 import { DatosOferta } from '../../Interfaces/datos-oferta';
 import { ModalAgregarOfertaComponent } from '../modal-agregar-oferta/modal-agregar-oferta.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 export interface DialogData {
   oferta: any;
   name: string;
@@ -77,6 +78,7 @@ export class OfertaAcademicaComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe(result => {  
       this.listarOfertas();
+    
     });
   }
   
@@ -92,7 +94,7 @@ export class OfertaAcademicaComponent implements OnInit {
     });
     
     dialogRef.afterClosed().subscribe(result => {
-      this.listarOfertas();
+
     });
   }
   
