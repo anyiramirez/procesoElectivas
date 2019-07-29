@@ -33,18 +33,10 @@ export class EncabezadoComponent implements OnInit {
       this.imagenPerfil = this.info.foto;
       this.usuario=this.info.correo;
       this.nombreCompleto=this.info.NombreCompleto;
-      for(var l in this.usuarios){
-        debugger;
-        if(this.usuarios[l].Correo==this.info.correo)
-        {
-          debugger;
-         this.cargo= this.usuarios[l].Cargo;
-         this.rol= this.usuarios[l].rol;
-         this.EnviarRol.emit(this.rol);
-          break;
-        
-        }
-      }
+      this.rol = this.info.rol;
+
+      this.EnviarRol.emit(this.info.rol);
+     
     });
 
 

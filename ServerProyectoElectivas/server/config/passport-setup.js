@@ -49,7 +49,7 @@ passport.use( new GoogleStrategy({
     console.log("usuario",profile.displayName);
     ref.orderByChild("correo").equalTo(profile.emails[0].value).once("value").then(function (snapshot){
       var user = snapshot.val();
-      console.log("entrooooasdf",user);
+      console.log("entrooooasdf");
       var keyUser = Object.keys(user);
       var usuario = user[keyUser[0]];
       if(user){
