@@ -23,7 +23,6 @@ export class EncabezadoInscripcioComponent implements OnInit {
       this.imagenPerfil = this.info.foto;
       this.usuario=this.info.correo;
       for(var l in this.usuarios){
-        debugger;
         if(this.usuarios[l].Correo==this.info.correo)
         {
          this.cargo= this.usuarios[l].Cargo;

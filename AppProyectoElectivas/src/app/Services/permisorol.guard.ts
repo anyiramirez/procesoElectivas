@@ -14,7 +14,7 @@ export class PermisorolGuard implements CanActivate {
   }
   
   datosUsuarios(){
-    debugger;
+    //debugger;
     this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
       this.infoLogin=res;
       this.infoLogin.rol = 'SuperAdmin';
@@ -22,7 +22,7 @@ export class PermisorolGuard implements CanActivate {
   }
   
   canActivate(ruta: any){
-    debugger;
+    //debugger;
     switch(ruta.url[0].path){
       case 'Administrador':
         if(this.infoLogin.rol === 'SuperAdmin'){

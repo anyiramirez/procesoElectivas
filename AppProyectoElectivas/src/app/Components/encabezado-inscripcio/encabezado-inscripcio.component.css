@@ -109,7 +109,16 @@ MEDIAQUERIES
 @media screen and (max-width: 710px){
     .positionbtn{
         position: relative;
-        left: 76%;
+        left: 5%;
+    }
+    ul.listaInfoUsuario{
+        margin-left: -1%;
+    }
+}
+@media screen and (max-width:555px){
+    ul.listaInfoUsuario{
+        position: relative;
+        left: -40px;
     }
 }
 @media screen and (max-width: 582px){
@@ -119,9 +128,14 @@ MEDIAQUERIES
 }
 @media screen and (max-width: 512px){
     .positionbtn{
-        left: 46%;
+        left: 27%;
     }
     #descripcion{
         display: none;
+    }
+}
+@media screen and (max-width: 350px){
+    .positionbtn{
+        left: 17%;
     }
 }
