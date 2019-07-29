@@ -75,7 +75,6 @@ export class ModuloelectivasComponent{
     });
   }
   openDialogEditar(nameElectiva){
-    // debugger;
     this.obtenerElectiva(nameElectiva);
     const dialogRef = this.dialog.open(ModalEditarElectivaComponent,{
       data: {

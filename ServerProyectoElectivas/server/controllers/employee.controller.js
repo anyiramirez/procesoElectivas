@@ -18,34 +18,34 @@ employeeCtrl.ASIGELECT = (req,res) => {
     var list;
     var ref = db.ref('PreinscripcionesPrueba');
     var refGA = db.ref();
-
+    
     ref.once("value", function(snapshot) {
         list = snapshot.val();
         
         var listFiltrada = filtrarLista(list);
-
+        
         listaFiltrada = ordenarListaPA(listFiltrada);
         var electConEst = asigCupos(listFiltrada);
-
+        
         var arrayGEst = [];
-
+        
         var contador = 0;
         for(var key in electConEst){
             arrayGEst[contador] = [];
             arrayGEst[contador].push({nombreElectiva: String(key), estudiantes: electConEst[key]});
             contador++;
         }
-
+        
         refGA.update({
             GruposAsignados: arrayGEst
         });
-
+        
         res.json(arrayGEst);
         
     }, function (errorObject) {
         console.log("The read failed preinscription: " + errorObject.code);
     });
-
+    
 }
 
 employeeCtrl.ASIGELECTP = (req,res) => {
@@ -57,22 +57,22 @@ employeeCtrl.ASIGELECTP = (req,res) => {
     var listFiltrada = filtrarLista(list);
     listaFiltrada = ordenarListaPA(listFiltrada);
     var electConEst = asigCupos(listFiltrada);
-
+    
     var arrayGEst = [];
-
+    
     var contador = 0;
     for(var key in electConEst){
         arrayGEst[contador] = [];
         arrayGEst[contador].push({nombreElectiva: String(key), estudiantes: electConEst[key]});
         contador++;
     }
-
+    
     refGA.update({
         GruposAsignados: arrayGEst
     });
-
+    
     res.json(arrayGEst);
-
+    
 }
 
 
@@ -117,7 +117,7 @@ employeeCtrl.obtenerElectivasCuposEst = (req,res) => {
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
-
+    
 }
 
 
@@ -132,7 +132,7 @@ employeeCtrl.PIAI = (req,res) => {
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
-
+    
 }
 
 employeeCtrl.PIET = (req,res) => {
@@ -142,12 +142,12 @@ employeeCtrl.PIET = (req,res) => {
     // Attach an asynchronous callback to read the data at our posts reference
     ref.once("value", function(snapshot) {
         list = snapshot.val();
-
+        
         res.render('list',{title:'Lista de preinscripciones',list:list});
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
-
+    
 }
 
 
@@ -244,25 +244,25 @@ employeeCtrl.registrarUsuarios = (req,res) => {
 
 employeeCtrl.registrarInscripcion = (req,res) => {
     console.log("Inscripcion a registrar: ", req.body);
-       //if(validarString(req.body.nombre) && validarString(req.body.programa) && validarString(req.body.contenido) && validarString(req.body.tipo) && validarString(req.body.estado)) {
-        var nuevaInscripcion = {
-            usuario : req.body.usuario,
-            codigo: req.body.codigo,
-            apellidos: req.body.apellidos,
-            nombres: req.body.nombres,
-            programa: req.body.programa,
-            opcion1: req.body.opcion1,
-            opcion2: req.body.opcion2,
-            opcion3: req.body.opcion3,
-            opcion4: req.body.opcion4,
-            opcion5: req.body.opcion5,
-            fechaRegistro: moment().format('YYYY/MM/DD HH:mm:ss Z')
-        }
-        
-        var db = admin.database();
-        
-        db.ref("Inscripcion").push(nuevaInscripcion);
-        res.json("Inscripción Exitosa");
+    //if(validarString(req.body.nombre) && validarString(req.body.programa) && validarString(req.body.contenido) && validarString(req.body.tipo) && validarString(req.body.estado)) {
+    var nuevaInscripcion = {
+        usuario : req.body.usuario,
+        codigo: req.body.codigo,
+        apellidos: req.body.apellidos,
+        nombres: req.body.nombres,
+        programa: req.body.programa,
+        opcion1: req.body.opcion1,
+        opcion2: req.body.opcion2,
+        opcion3: req.body.opcion3,
+        opcion4: req.body.opcion4,
+        opcion5: req.body.opcion5,
+        fechaRegistro: moment().format('YYYY/MM/DD HH:mm:ss Z')
+    }
+    
+    var db = admin.database();
+    
+    db.ref("Inscripcion").push(nuevaInscripcion);
+    res.json("Inscripción Exitosa");
     //}
 }
 
@@ -274,19 +274,19 @@ employeeCtrl.registrarOfertas = (req,res) => {
             trueE.push(req.body[1][i]);
         }
     }
-        var nuevaOferta = {
-            anio : req.body[0].anio,
-            periodo: req.body[0].periodo,
-            fechaFin: req.body[0].dateFin.substring(0,10).split('-').join('/') +' 23:59:00 GTM-5',
-            fechaInicio: req.body[0].dateInicio.substring(0,10).split('-').join('/') + ' 00:00:00 GTM-5',
-            electivasOfertadas: trueE
-        }
-        
-        var db = admin.database();
-        
-        db.ref("Ofertas").push(nuevaOferta);
+    var nuevaOferta = {
+        anio : req.body[0].anio,
+        periodo: req.body[0].periodo,
+        fechaFin: req.body[0].dateFin.substring(0,10).split('-').join('/') +' 23:59:00 GTM-5',
+        fechaInicio: req.body[0].dateInicio.substring(0,10).split('-').join('/') + ' 00:00:00 GTM-5',
+        electivasOfertadas: trueE
+    }
     
-        res.json("Guardado Exitoso");
+    var db = admin.database();
+    
+    db.ref("Ofertas").push(nuevaOferta);
+    
+    res.json("Guardado Exitoso");
     
 }
 employeeCtrl.getOfertas = (req, res) => {
@@ -324,9 +324,9 @@ employeeCtrl.obtenerElectivaPorNombre = (req, res) => {
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
-
     
-
+    
+    
 }
 employeeCtrl.obtenerDatosPorCorreo = (req, res) => {
     
@@ -354,9 +354,9 @@ employeeCtrl.obtenerDatosPorCorreo = (req, res) => {
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
-
     
-
+    
+    
 }
 
 employeeCtrl.editarElectiva = (req,res) => {
@@ -367,7 +367,7 @@ employeeCtrl.editarElectiva = (req,res) => {
         contenido: req.body.Contenido,
         tipo: req.body.TipoElectiva,
     }
-
+    
     var db = admin.database();
     var list;
     
@@ -394,7 +394,7 @@ employeeCtrl.editarElectiva = (req,res) => {
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
-
+    
 }
 employeeCtrl.editarRol = (req,res) => {
     console.log(req.body);
@@ -404,7 +404,7 @@ employeeCtrl.editarRol = (req,res) => {
         Correo: req.body.Correo,
         rol: req.body.rol,
     }
-
+    
     var db = admin.database();
     var list;
     
@@ -423,7 +423,6 @@ employeeCtrl.editarRol = (req,res) => {
         if(!entro){
             res.json("no");    
         }else{
-            debugger;
             var refUpdate = db.ref('Usuarios/' + keyE);
             refUpdate.update(actualizarRol);
             res.json("Actualizacion exitoso");
@@ -432,7 +431,7 @@ employeeCtrl.editarRol = (req,res) => {
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
-
+    
 }
 
 employeeCtrl.habilitarElectiva = (req,res) => {
@@ -452,7 +451,7 @@ employeeCtrl.habilitarElectiva = (req,res) => {
                     vest = "Deshabilitar";
                     
                 }
-    
+                
                 var refUpdate = db.ref('Electivas/' + key);
                 refUpdate.update({estado: vest});
                 res.json("funciono");
@@ -462,7 +461,7 @@ employeeCtrl.habilitarElectiva = (req,res) => {
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
-
+    
 }
 employeeCtrl.guardarSolEst = (req,res) => {
     var db = admin.database();
@@ -483,7 +482,7 @@ employeeCtrl.guardarSolEst = (req,res) => {
             var aArr = porA.split(".");
             
             var aSS = aArr[0] + "," + aArr[1];
-
+            
             refUpdate.update({
                 Usuario: vreq[i].Usuario,
                 creditosAprobados: parseInt(vreq[i].CreditosAprobados),
@@ -494,13 +493,13 @@ employeeCtrl.guardarSolEst = (req,res) => {
                 promedioCarrera:vreq[i].PromedioCarrera
             });
         }
-
+        
         res.json("funciono?");
-
+        
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
-
+    
 }
 
 module.exports = employeeCtrl;
@@ -514,9 +513,9 @@ function filtrarLista(lista) {
         var electA = lista[i].electivasAprobadas;
         var electC = lista[i].electivasCursando;
         var electP = lista[i].electivasPrograma;
-
+        
         var dif = electP - (electA + electC);
-
+        
         if(dif > 0) {
             lista[i]['CantElectPuedeVer'] = dif;
             listaFil.push(lista[i]);
@@ -526,10 +525,10 @@ function filtrarLista(lista) {
 }
 
 /*
-    ordenarListaPA, ordena la lista por prioridaddes
-    1 - porcentaje de avance
-    2 - promedio
-    3 - hora de solicitud
+ordenarListaPA, ordena la lista por prioridaddes
+1 - porcentaje de avance
+2 - promedio
+3 - hora de solicitud
 */
 function ordenarListaPA(listaFiltrada) {
     listaFiltrada.sort(function(a, b) {
@@ -542,34 +541,34 @@ function ordenarListaPA(listaFiltrada) {
         
         var bArr = bS.split(",");
         var aArr = aS.split(",");
-
+        
         if(aArr.length == 2) {
             aSS = aArr[0] + "." + aArr[1];
             aF = parseFloat(aSS).toFixed(6);
         } else {
             aF = parseFloat(aArr[0]);
         }
-
+        
         if(bArr.length == 2) {
             bSS = bArr[0] + "." + bArr[1];
             bF = parseFloat(bSS).toFixed(6);
         } else {
             bF = parseFloat(bArr[0]);
         }
-
+        
         if(bF == aF) {
             aS = String(a.promedioCarrera);
             bS = String(b.promedioCarrera);
             aArr = aS.split(",");
             bArr = bS.split(",");
-
+            
             if( aArr.length == 2) {
                 aSS = aArr[0] + "." + aArr[1];
                 aF = parseFloat(aSS).toFixed(6);
             } else {
                 aF = parseFloat(aArr[0]);
             }
-
+            
             if( bArr.length == 2) {
                 bSS = bArr[0] + "." + bArr[1];
                 bF = parseFloat(bSS).toFixed(6);
@@ -577,7 +576,7 @@ function ordenarListaPA(listaFiltrada) {
                 bF = parseFloat(bArr[0]);
             }
             
-
+            
             if( bF == aF) {
                 var bDate = moment(b.HoraSolicitud, "YYYY/MM/DD HH:mm:ss Z").toDate();
                 var aDate = moment(a.HoraSolicitud, "YYYY/MM/DD HH:mm:ss Z").toDate();
@@ -600,16 +599,16 @@ function obtenerSigProg(programa){
     var sigP = "";
     switch (programa) {
         case 'Sistemas':
-            sigP = 'PIS';
-            break;
+        sigP = 'PIS';
+        break;
         case 'Electrónica':
-            sigP = 'PIET';
-            break;
+        sigP = 'PIET';
+        break;
         case 'Automática':
-            sigP = 'PIAI';
-            break;
+        sigP = 'PIAI';
+        break;
         default:
-            console.log('Lo lamentamos, por el momento no funciono.');
+        console.log('Lo lamentamos, por el momento no funciono.');
     }
     return sigP;
 }
@@ -636,7 +635,7 @@ function obtenerElectPuedeVer(solicitudPreinscripcion, sigP){
     var opcElectEst = obtenerOpcElectEst(solicitudPreinscripcion);
     
     var electPuedeVer = [];
-
+    
     for(var i = 0 ;i < opcElectEst.length; i++){
         
         if(opcElectEst[i].search(sigP) != -1){
@@ -644,15 +643,15 @@ function obtenerElectPuedeVer(solicitudPreinscripcion, sigP){
             
         }
     }
-
+    
     return electPuedeVer.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
-
+    
 }
 
 function isEmpty(obj) {
     for(var key in obj) {
         if(obj.hasOwnProperty(key))
-            return false;
+        return false;
     }
     return true;
 }
@@ -675,7 +674,7 @@ function asigCupos(listaOrdenadaPA){
         //Asignar por prioridad
         var electPuedeAsig = solEst.CantElectPuedeVer;
         var aux = 0;
-
+        
         if(solEst.CantElectPuedeVer === 5){
             electPuedeAsig--;
         }
@@ -694,7 +693,7 @@ function asigCupos(listaOrdenadaPA){
             }
         }
     }
-
+    
     return ELECTIVAS;
 }
 
@@ -702,7 +701,7 @@ function asigCupos(listaOrdenadaPA){
 function validarString(cadena) {
     var correcto = true;
     if (!isNaN(cadena) || cadena === undefined  || cadena === null || cadena == '') {
-       correcto = false; 
+        correcto = false; 
     }
     return correcto;
 }
@@ -725,7 +724,7 @@ function ofertaActiva() {
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
-
+    
     /*db.ref('Ofertas').once("value", function(snapshot) {        
         list = snapshot.val();
         var key1;
@@ -742,5 +741,5 @@ function ofertaActiva() {
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });*/
-
+    
 }

@@ -40,7 +40,6 @@ export class VistaCoordinadorComponent implements OnInit {
     this.varVista = $event.substring(0,$event.length-1);
   }
   recibirRolUser($event: any){
-    // debugger;
     this.rolActual = $event;
   }
 

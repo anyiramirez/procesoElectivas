@@ -42,7 +42,6 @@ export class UsuariosComponent implements OnInit {
     
   }
   openDialog() {
-    debugger;
     const dialogRef = this.dialog.open(modalNuevoUsuario);
 
     dialogRef.afterClosed().subscribe(result => {
@@ -51,7 +50,6 @@ export class UsuariosComponent implements OnInit {
     });
   }
   openDialogEditar(correo){
-    debugger;
     this.obtenerDatos(correo);
     const dialogRef = this.dialog.open(modalCambiarRol,{
       data: {
@@ -144,7 +142,6 @@ export class modalNuevoUsuario implements OnInit {
   }
 
   registrarUsuarios(){
-    debugger;
     
       if(this.nombresFormControl.hasError('required')){
         this.nombresCampo=true;
@@ -170,10 +167,7 @@ export class modalNuevoUsuario implements OnInit {
       if(!this.nombresCampo && !this.apellidosCampo && !this.rolCampo){
           this.usuarios.Nombres = this.MayusculaPrimera(this.usuarios.Nombres);
           this.usuarios.Apellidos = this.MayusculaPrimera(this.usuarios.Apellidos);
-          debugger;
           this.registrar.saveUsuarios(this.usuarios).subscribe(res => {
-            debugger;
-            //alert(res);
 
             this.dialogRef.close();
             this.openSnackBar();
@@ -266,7 +260,6 @@ export class modalCambiarRol implements OnInit {
   }
 
   editarRol(){
-    debugger;
     if(this.data.usuario.rol==='Admin'||this.data.usuario.rol==='Sin Rol'||this.data.usuario.rol==='Administrativo'||this.data.usuario.rol==='Coordinador'){
       this.rolCampo=false;
     }else{ this.rolCampo=true; 
