@@ -38,7 +38,7 @@
         <mat-form-field>
           <mat-label for="dateInicio" *ngIf='inicioCampo' class=" errorFormato ">Fecha Inicio</mat-label>
           <mat-label for="dateInicio" *ngIf='!inicioCampo' >Fecha Inicio</mat-label>
-          <input matInput [(ngModel)]="ofertas.dateInicio" [formControl]="inicioFormControl" [matDatepicker]="fechaInicio" name="dateInicio"  placeholder="Fecha Inicio">
+          <input matInput [(ngModel)]="ofertas.dateInicio" [formControl]="inicioFormControl" [matDatepicker]="fechaInicio" name="dateInicio" placeholder="Fecha Inicio">
           <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
           <mat-datepicker #fechaInicio touchUi="true"></mat-datepicker>
           <mat-error *ngIf="finFormControl.hasError('required')">
@@ -50,7 +50,7 @@
         <mat-form-field>
           <mat-label for="dateFin" *ngIf='finCampo' class=" errorFormato ">Fecha fin</mat-label>
           <mat-label for="dateFin" *ngIf='!finCampo' >Fecha Fin</mat-label>
-          <input matInput [(ngModel)]="ofertas.dateFin" [formControl]="finFormControl" [matDatepicker]="fechaFin" name="dateFin" placeholder="Fecha fin" style="z-index: 1200">
+          <input  matInput [(ngModel)]="ofertas.dateFin" [formControl]="finFormControl" [matDatepicker]="fechaFin" name="dateFin" placeholder="Fecha fin" style="z-index: 1200">
           <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
           <mat-datepicker #fechaFin touchUi="true"></mat-datepicker>
           <mat-error *ngIf="finFormControl.hasError('required')">

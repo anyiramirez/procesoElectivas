@@ -1,0 +1,50 @@
+<h2 mat-dialog-title>Nuevo Usuario</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="modal-body">       
+  <form id="FormUsuarios">
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field class="example-full-width">
+          <mat-label for="nombres" *ngIf='nombresCampo' class="errorFormato ">Nombres: </mat-label>
+          <mat-label for="nombres" *ngIf='!nombresCampo' >Nombres: </mat-label>
+          <input  [(ngModel)]="data.usuario.Nombres" id="nombres" name="Nombres"  matInput placeholder="Nombres" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field class="example-full-width">
+          <mat-label for="apellidos" *ngIf='apellidosCampo' class="errorFormato ">Apellidos:</mat-label>
+          <mat-label for="apellidos" *ngIf='!apellidosCampo' >Apellidos: </mat-label>
+          <input matNativeControl [(ngModel)]="data.usuario.Apellidos" id= "apellidos"  name = "Apellidos"  matInput placeholder="Apellidos" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" [(ngModel)]="data.usuario.Correo" name="Correo"
+                   [errorStateMatcher]="matcher" disabled>
+          </mat-form-field>
+      </div>
+    
+    <div class="col-6" >
+      <mat-form-field>
+        <mat-label for="rol" *ngIf='rolCampo' class=" errorFormato">Rol</mat-label>
+        <mat-label for="rol" *ngIf='!rolCampo' >Rol</mat-label>
+        <select matNativeControl [(ngModel)]="data.usuario.rol" [formControl]="rolFormControl"  id="rol" name="rol" required>
+          <option value="Admin" >Administrador</option>
+          <option value="Coordinador" >Coordinador</option>
+          <option value="Administrativo" >Administrativo</option>
+          <option value="Sin Rol" >Sin Rol</option>
+        </select>
+        <mat-error *ngIf="rolFormControl.hasError('required')">
+          <strong>Elija un rol</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  
+</form>
+</div>
+</mat-dialog-content>
+<mat-dialog-actions align ="end">
+  <button mat-button mat-dialog-close>Cerrar</button>
+  <button type="button" class="btn btn-primary" (click)="editarRol()">Guardar</button>
+</mat-dialog-actions>

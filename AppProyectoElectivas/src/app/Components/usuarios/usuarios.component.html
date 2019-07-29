@@ -25,7 +25,7 @@
           <td>{{usuario.Correo}}</td>
           <td>{{usuario.rol}}</td>
          
-          <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEditarElectiva" (click)="obtenerElectiva(electiva.nombre)">Editar</button></td>
+          <td><button type="button" class="btn btn-outline-primary" (click)="openDialogEditar(usuario.Correo)">Cambiar rol</button></td>
        
         </tr>
         

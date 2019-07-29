@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
     let listener = window.addEventListener('message', (message) => {
       console.log(message.data.user);
       console.log(message.data.success);
+<<<<<<< HEAD
       
       for(var l in this.usuarios){
         debugger;
@@ -70,6 +71,41 @@ export class LoginComponent implements OnInit {
         }
       }
       
+=======
+      if(message.data.success){
+        if(this.infoLogin.rol=="SuperAdmin"){
+          this.ruta ='/Administrador/';
+        }
+        if(this.infoLogin.rol=="Administrativo"){
+          this.ruta ='/VistaAdministrativa/';
+        }
+
+      }
+
+      // for(var l in this.usuarios){
+      //   // debugger;
+      //   if(this.usuarios[l].rol=="SuperAdmin" && this.usuarios[l].Correo==this.infoLogin.correo)
+      //   {
+      //     debugger;
+      //     this.ruta ='/Administrador/';
+      //     break;
+      //   }else if(this.usuarios[l].rol=="Coordinador"&& this.usuarios[l].Correo==this.infoLogin.correo){
+
+      //     this.ruta ='/VistaCoordinador/';
+      //     break;
+
+      //   }else if(this.usuarios[l].rol=="Administrativo"&& this.usuarios[l].Correo==this.infoLogin.correo){
+
+      //     this.ruta ='/VistaAdministrativa/';
+      //     break;
+
+      //   }else if(this.usuarios[l].rol=="Admin" && this.usuarios[l].Correo==this.infoLogin.correo){
+      //     this.ruta ='/VistaAdmin/';
+      //     break;
+
+      //   }
+      // }
+>>>>>>> 4ef4e0bd481b59cf72f3158eb3a7ec9fe0ba7a53
       this.router.navigate([this.ruta]);
       
     });

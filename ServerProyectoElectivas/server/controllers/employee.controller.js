@@ -225,7 +225,7 @@ employeeCtrl.registrarElectivas = (req,res) => {
 }
 employeeCtrl.registrarUsuarios = (req,res) => {
     console.log("Usuario a Registrar: ", req.body);
-    if(validarString(req.body.Nombres) && validarString(req.body.Apellidos) && validarString(req.body.Correo) && validarString(req.body.rol)) {
+    if(validarString(req.body.Nombres) && validarString(req.body.Apellidos) && validarString(req.body.Correo) && validarString(req.body.Cargo) && validarString(req.body.rol)) {
         var nuevoUsuario = {
             Nombres : req.body.Nombres,
             Apellidos: req.body.Apellidos,
@@ -328,6 +328,36 @@ employeeCtrl.obtenerElectivaPorNombre = (req, res) => {
     
 
 }
+employeeCtrl.obtenerDatosPorCorreo = (req, res) => {
+    
+    console.log("id llego: ",req.params.id);
+    var db = admin.database();
+    var correo = String(req.params.id);
+    var list;
+    
+    db.ref('Usuarios').once("value", function(snapshot) {        
+        list = snapshot.val();
+        var entro=false;
+        for(var key in list) {
+            console.log(req.params.id,list[key].correo);
+            if(req.params.id === list[key].correo) {
+                entro = true;
+                console.log(list[key]);
+                res.json(list[key]);
+                break;
+            }
+        }
+        if(!entro){
+            res.json("no");
+        }
+        
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+
+    
+
+}
 
 employeeCtrl.editarElectiva = (req,res) => {
     console.log(req.body);
@@ -366,7 +396,44 @@ employeeCtrl.editarElectiva = (req,res) => {
     });
 
 }
+employeeCtrl.editarRol = (req,res) => {
+    console.log(req.body);
+    var actualizarRol = {
+        Nombres : req.body.Nombres,
+        Apellidos: req.body.Apellidos,
+        Correo: req.body.Correo,
+        rol: req.body.rol,
+    }
 
+    var db = admin.database();
+    var list;
+    
+    db.ref('Usuarios').once("value", function(snapshot) {        
+        list = snapshot.val();
+        var entro=false;
+        var keyE;
+        for(var key in list) {
+            console.log(req.params.id,list[key].Correo);
+            if(req.params.id === list[key].Correo) {
+                entro = true;
+                keyE = key;
+                break;
+            }
+        }
+        if(!entro){
+            res.json("no");    
+        }else{
+            debugger;
+            var refUpdate = db.ref('Usuarios/' + keyE);
+            refUpdate.update(actualizarRol);
+            res.json("Actualizacion exitoso");
+        }
+        
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+
+}
 
 employeeCtrl.habilitarElectiva = (req,res) => {
     console.log("Llego: ",req.params.id);
@@ -397,12 +464,6 @@ employeeCtrl.habilitarElectiva = (req,res) => {
     });
 
 }
-
-
-
-
-
-
 employeeCtrl.guardarSolEst = (req,res) => {
     var db = admin.database();
     var ref = db.ref('PreinscripcionesPrueba');
@@ -535,7 +596,6 @@ function ordenarListaPA(listaFiltrada) {
     });
     return listaFiltrada;
 }
-
 function obtenerSigProg(programa){
     var sigP = "";
     switch (programa) {

@@ -44,14 +44,16 @@ passport.use( new GoogleStrategy({
   }, (accessToken, refreshToken, profile, done) => {
     var db = admin.database();
     var dbr = admin.database();
+    var dbrr = admin.database();
     var ref = db.ref("users");
     console.log("usuario",profile.displayName);
     ref.orderByChild("correo").equalTo(profile.emails[0].value).once("value").then(function (snapshot){
       var user = snapshot.val();
       console.log("entrooooasdf");
+      var keyUser = Object.keys(user);
+      var usuario = user[keyUser[0]];
       if(user){
-        var keyUser = Object.keys(user);
-        var usuario = user[keyUser[0]];
+        
         if(usuario.rol != "estudiante"){
           if(!usuario.datosCompletos){
             var nuevoUsuario = {
@@ -64,9 +66,12 @@ passport.use( new GoogleStrategy({
               datosCompletos: true,
               estado: true
             }
+            
+            var refUpdate = dbrr.ref('users/' + keyUser[0]);
+            refUpdate.update(nuevoUsuario);
             return done(null, nuevoUsuario);
           }else{
-            if(!usuario.datosCompletos){
+            /*if(!usuario.datosCompletos){
               var nuevoUsuario = {
                 id: profile.id,
                 NombreCompleto: profile.displayName,
@@ -76,13 +81,14 @@ passport.use( new GoogleStrategy({
                 rol: usuario.rol,
                 datosCompletos: true,
                 estado: true
-              }
-              return done(null, nuevoUsuario);
-            }else{
+              }*/
+              console.log("guardar",usuario);
               return done(null, usuario);
-            }
+          }/*else{
+              return done(null, usuario);
+            }*/
             
-          }
+          
           
         }else{
           return done(null, usuario);
@@ -95,8 +101,10 @@ passport.use( new GoogleStrategy({
       }else{
         var correo = profile.emails[0].value;
         var dominio = correo.split('@');
+        console.log("correoooo:",correo);
         if(dominio[1] != 'unicauca.edu.co'){
           console.log("Correo no valido");
+
           return done(null,false);
         }
         //var nnuser = new User (profile.id, profile.displayName, profile.emails[0].value,profile.photos[0].value,Date.now());
