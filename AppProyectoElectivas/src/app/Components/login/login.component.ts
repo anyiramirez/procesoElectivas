@@ -57,29 +57,6 @@ export class LoginComponent implements OnInit {
 
       }
 
-      // for(var l in this.usuarios){
-      //   // debugger;
-      //   if(this.usuarios[l].rol=="SuperAdmin" && this.usuarios[l].Correo==this.infoLogin.correo)
-      //   {
-      //     debugger;
-      //     this.ruta ='/Administrador/';
-      //     break;
-      //   }else if(this.usuarios[l].rol=="Coordinador"&& this.usuarios[l].Correo==this.infoLogin.correo){
-
-      //     this.ruta ='/VistaCoordinador/';
-      //     break;
-
-      //   }else if(this.usuarios[l].rol=="Administrativo"&& this.usuarios[l].Correo==this.infoLogin.correo){
-
-      //     this.ruta ='/VistaAdministrativa/';
-      //     break;
-
-      //   }else if(this.usuarios[l].rol=="Admin" && this.usuarios[l].Correo==this.infoLogin.correo){
-      //     this.ruta ='/VistaAdmin/';
-      //     break;
-
-      //   }
-      // }
       this.router.navigate([this.ruta]);
       
     });
