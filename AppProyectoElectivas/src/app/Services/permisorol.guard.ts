@@ -22,7 +22,7 @@ export class PermisorolGuard implements CanActivate {
   }
   
   canActivate(ruta: any){
-    //debugger;
+    debugger;
     switch(ruta.url[0].path){
       case 'Administrador':
         if(this.infoLogin.rol === 'SuperAdmin'){
