@@ -2,7 +2,7 @@
 const templateMail = {};
 
 templateMail.obtenerPlantillaMail = function(correo, link, rol){
-    var template = '<html><head></head><body><div class=""><div class="aHl"></div><div id=":16t" tabindex="-1"></div><div id=":15g" class="ii gt"><div id=":17j" class="a3s aXjCH msg8969462535719230348"><u></u>' +
+    var template = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/></head><body><div class=""><div class="aHl"></div><div id=":16t" tabindex="-1"></div><div id=":15g" class="ii gt"><div id=":17j" class="a3s aXjCH msg8969462535719230348"><u></u>' +
     '<div marginwidth="0" marginheight="0" alink="#699b05" link="#699b05" bgcolor="#f5f5f5" text="#444444" style="margin:0;padding:0;background-color:#f5f5f5;height:100%;width:100%" height="100%" width="100%">'+
         '<center>'+
             '<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="m_8969462535719230348bodyTable" style="margin:0;padding:0;background-color:#f5f5f5;border-collapse:collapse;height:100%;width:100%" bgcolor="#f5f5f5">'+
@@ -33,13 +33,13 @@ templateMail.obtenerPlantillaMail = function(correo, link, rol){
                                                 
     
         '<p>Hola ' + correo + ',</p>'+
-        '<p>El administrador del aplicativo Sistema de Preescripci&oacuten de Electivas de la Universidad del Cauca, desea que usted sea un nuevo '+rol+'&#64 en el aplicativo.</p>'+
+        '<p>El administrador del aplicativo Sistema de Preinscripción de Electivas de la Universidad del Cauca, desea que usted sea un nuevo '+rol+'@ en el aplicativo.</p>'+
     
 
     
 
     
-        '<p>Por favor, haga click en  "Continuar" Para aceptar esta propuesta.</p>'+
+        '<p>Por favor, haga click en "Continuar" Para aceptar.</p>'+
     
 
     '<a class="m_8969462535719230348button" href="' + link + '" title="Continuar" style="background:#15355c;color:#fff;display:block;margin:0 auto 16px;padding:0.8rem 3rem;text-align:center;text-decoration:none;text-transform:uppercase;width:50%" align="center" width="50%" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://tree.taiga.io/project/afguerrero-gestion-electivas/transfer/261226:1hRfyO:X0y3iwmmSorc-foBjfxge_l0bDA&amp;source=gmail&amp;ust=1564277552690000&amp;usg=AFQjCNE_sf_4Vg8VnDMmAo4sqFcoG7z_SQ">Continuar</a>'+

@@ -7,7 +7,7 @@ adminAsigRolCtrl.enviarCorreo = (req, res) => {
     if(validarString(req.body.Nombres) && validarString(req.body.Apellidos) && validarString(req.body.Correo) && validarString(req.body.rol)) {
         var correo = req.body.Correo;
         var rol = req.body.rol;
-        var nombreCompleto = req.body.Nombres + req.body.Apellidos;
+        var nombreCompleto = req.body.Nombres +" "+ req.body.Apellidos;
         let transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
