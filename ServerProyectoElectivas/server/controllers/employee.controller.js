@@ -240,7 +240,7 @@ employeeCtrl.registrarElectivas = (req,res) => {
 }
 employeeCtrl.registrarUsuarios = (req,res) => {
     console.log("Usuario a Registrar: ", req.body);
-    if(validarString(req.body.Nombres) && validarString(req.body.Apellidos) && validarString(req.body.Correo) && validarString(req.body.Cargo) && validarString(req.body.rol)) {
+    if(validarString(req.body.Nombres) && validarString(req.body.Apellidos) && validarString(req.body.Correo) && validarString(req.body.rol)) {
         var nuevoUsuario = {
             Nombres : req.body.Nombres,
             Apellidos: req.body.Apellidos,

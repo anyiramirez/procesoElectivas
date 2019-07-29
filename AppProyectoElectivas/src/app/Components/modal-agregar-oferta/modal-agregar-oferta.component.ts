@@ -11,6 +11,10 @@ export interface PeriodoAcademico {
   value: string;
   viewValue: string;
 }
+export interface anios {
+  value: number;
+  viewValue: number;
+}
 
 
 @Component({
@@ -19,6 +23,8 @@ export interface PeriodoAcademico {
   styleUrls: ['./modal-agregar-oferta.component.css']
 })
 export class ModalAgregarOfertaComponent implements OnInit {
+  fecha= new Date();
+  anioActual=this.fecha.getFullYear();
   ofertaAcademica=new Array();
   oferAcademica=new Array();
   electivas:any={};
@@ -44,6 +50,14 @@ export class ModalAgregarOfertaComponent implements OnInit {
   ofertaFormControl;
   inicioFormControl;
   finFormControl;
+  
+    valoresAnio: anios[] = [
+    {value: this.anioActual, viewValue: this.anioActual},
+    {value: this.anioActual+1, viewValue: this.anioActual+1},
+    {value: this.anioActual+2, viewValue: this.anioActual+2}
+  ];
+
+  
   durationInSeconds=5;
  
   valores: PeriodoAcademico[] = [
@@ -72,9 +86,6 @@ export class ModalAgregarOfertaComponent implements OnInit {
     ]);
     this.finFormControl = new FormControl('', [
       Validators.required,
-    ]);
-    this.anioFormControl = new FormControl('', [
-      Validators.pattern("^[0-9]+"),
     ]);
   }
   
@@ -123,8 +134,10 @@ export class ModalAgregarOfertaComponent implements OnInit {
     }
 
   registrarOferta(){
+    var marcoElectiva=false;
+    var marcoProgram=true;
     
-    if(this.anioFormControl.hasError('required') || !this.validarAnio(this.ofertas.anio)){
+    if(this.anioFormControl.hasError('required')){
       this.anioCampo=true;
     }
     else{ this.anioCampo=false; }
@@ -141,6 +154,7 @@ export class ModalAgregarOfertaComponent implements OnInit {
       if(!this.validarOfertaUnica(this.ofertas.anio,this.ofertas.periodo)){
         for(let i in this.ofertaAcademica) {
           if(this.ofertaAcademica[i].oferta === true){
+            marcoElectiva=true;
             this.oferAcademica.push(this.ofertaAcademica[i]);    
             this.ofertaAcademica[i].programa= '';
             if (this.ofertaAcademica[i].piet){
@@ -158,23 +172,33 @@ export class ModalAgregarOfertaComponent implements OnInit {
             if (this.ofertaAcademica[i].pis){
               this.ofertaAcademica[i].programa = this.ofertaAcademica[i].programa + 'PIS'
             }
+            if (!this.ofertaAcademica[i].pis && !this.ofertaAcademica[i].piai && !this.ofertaAcademica[i].piet){
+             marcoProgram=false;
+             break;
+            }
+
             this.ofertaArray.push(this.ofertas.anio,this.ofertas.periodo,this.ofertas.dateFin,this.ofertas.dateInicio,this.ofertaAcademica[i].nombre,this.ofertaAcademica[i].programa,this.ofertaAcademica[i].oferta);
             
           }
           
           
         }
-        var objDatosOFerta = new DatosOferta(this.ofertas.fechaInicio, this.ofertas.fechaFin,this.ofertas.anio, this.ofertas.periodo);
-        this.ofertaArray= new Array();
-        this.ofertaArray.push(this.ofertas,this.oferAcademica);
-        this.registrar.saveOfertaAcademica(this.ofertaArray).subscribe(res => {
-        this.ofertaArray= new Array();
-       // alert(res);
-        this.limpiarModal();
-        this.listarOfertas();
-        this.dialogRef.close();
-        this.openSnackBar();
-      });
+        if(marcoElectiva==false){
+          alert("No ha ofertado ninguna electiva ");
+        }
+        else if(marcoProgram==false){
+          alert("Selecione  programas asociados a la oferta"); 
+        }
+        else{
+          var objDatosOFerta = new DatosOferta(this.ofertas.fechaInicio, this.ofertas.fechaFin,this.ofertas.anio, this.ofertas.periodo);
+          this.ofertaArray= new Array();
+          this.ofertaArray.push(this.ofertas,this.oferAcademica);
+          this.registrar.saveOfertaAcademica(this.ofertaArray).subscribe(res => {
+            this.ofertaArray= new Array();
+            alert(res);
+            this.limpiarModal();
+          });
+        } 
       }else{
        this.openErrorRepetidoBar();
       }
@@ -210,17 +234,6 @@ export class ModalAgregarOfertaComponent implements OnInit {
       return false;
     }
     
-  }
-  
-  validarAnio(anioFor:any){
-    var fecha = new Date();
-    var aniofecha = fecha.getFullYear();
-    if ( aniofecha <= anioFor) {
-      return true;
-    }
-    else {
-      return false;
-    }
   }
   
   listarOfertas(){

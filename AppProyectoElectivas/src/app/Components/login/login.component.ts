@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   // public href: string = "";
 
   constructor(private servicioLogin: LoginService, private router: Router,private datos:RegistroDatosService
-    ) { 
+    ) {
       this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
         this.infoLogin=res;
        });
@@ -30,16 +30,16 @@ export class LoginComponent implements OnInit {
         for(var key in res){
         this.usuarios.push(res[key]);
       }
-  
-     }); 
+
+     });
    // this.servicioLogin.obtenerURLGoogle().subscribe(res => {
      // this.urlGoogle = res;
     //});
-   
+
   }
 
   IniciarSesion() {
-   
+
     //window.location.href = 'http://localhost:3000/auth/google';
     const y = parseInt(((window.screen.height/2)-(800/2)).toString());
     const x = parseInt(((window.screen.width/2)-(800/2)).toString());
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
     let listener = window.addEventListener('message', (message) => {
       console.log(message.data.user);
       console.log(message.data.success);
-      
+
       for(var l in this.usuarios){
         // debugger;
         if(this.usuarios[l].rol=="SuperAdmin" && this.usuarios[l].Correo==this.infoLogin.correo)
@@ -57,12 +57,12 @@ export class LoginComponent implements OnInit {
           this.ruta ='/Administrador/';
           break;
         }else if(this.usuarios[l].rol=="Coordinador"&& this.usuarios[l].Correo==this.infoLogin.correo){
-          
+
           this.ruta ='/VistaCoordinador/';
           break;
 
         }else if(this.usuarios[l].rol=="Administrativo"&& this.usuarios[l].Correo==this.infoLogin.correo){
-          
+
           this.ruta ='/VistaAdministrativa/';
           break;
 
@@ -73,9 +73,9 @@ export class LoginComponent implements OnInit {
         }
       }
       this.router.navigate([this.ruta]);
-     
+
     });
-    
+
   }
 
 
