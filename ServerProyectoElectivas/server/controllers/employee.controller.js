@@ -177,17 +177,18 @@ employeeCtrl.electivasPrograma = (req, res) => {
     var nombre = String(req.params.programa);
     var list;
     var listaPrograma = [];
-    
+    fechaActual = moment().format('YYYY/MM/DD HH:mm:ss Z');
     db.ref('Ofertas').once("value", function(snapshot) {        
         list = snapshot.val();
-        //res.json(list);
-        ofertaActiva();
         var key1;
         for (key1 in list) {
-            if(list[key1].anio === '2019' && list[key1].periodo === '2'){
+            actual = moment(fechaActual, "YYYY/MM/DD HH:mm:ss Z").toDate();
+            inicio = moment(list[key1].fechaInicio, "YYYY/MM/DD HH:mm:ss Z").toDate();
+            fin = moment(list[key1].fechaFin, "YYYY/MM/DD HH:mm:ss Z").toDate();
+            if(inicio <= actual && actual<=fin) {
                 for (key2 in list[key1].electivasOfertadas) {
                     if(list[key1].electivasOfertadas[key2].programa.search(req.params.programa)!=-1) {
-                        listaPrograma.push(list[key1].electivasOfertadas[key2].NombreElectiva);
+                        listaPrograma.push(list[key1].electivasOfertadas[key2].NombreElectiva + " (" + list[key1].electivasOfertadas[key2].programa +")" );
                     }
                 }
             }
