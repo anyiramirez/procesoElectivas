@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
       console.log(message.data.success);
       
       for(var l in this.usuarios){
-        // debugger;
+        debugger;
         if(this.usuarios[l].rol=="SuperAdmin" && this.usuarios[l].Correo==this.infoLogin.correo)
         {
           this.ruta ='/Administrador/';
@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit {
           
         }
       }
+      
       this.router.navigate([this.ruta]);
       
     });

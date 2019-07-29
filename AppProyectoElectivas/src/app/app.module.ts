@@ -49,7 +49,7 @@ import { PermisorolGuard } from './Services/permisorol.guard';
 const Rutas: Routes = [
   {path: '', component: LoginComponent},
   {path: 'Administrador', component: PrincipaladmiComponent, canActivate: [PermisorolGuard]},
-  {path: 'Inscripcion', component:InscripcionComponent, canActivate: [PermisorolGuard]},
+  {path: 'Inscripcion', component:InscripcionComponent},
   {path: 'VistaAdmin', component:VistaAdminComponent, canActivate: [PermisorolGuard]},
   {path: 'VistaCoordinador',component:VistaCoordinadorComponent, canActivate: [PermisorolGuard]},
   {path: 'VistaAdministrativa',component:VistaAdministrativoComponent, canActivate: [PermisorolGuard]}

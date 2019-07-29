@@ -8,14 +8,16 @@ import { LoginService } from '../Services/login.service';
 })
 export class PermisorolGuard implements CanActivate {
   infoLogin: any;
-  usuarios: any;
   
-  constructor(private servicioLogin: LoginService){
+  constructor(private servicioLogin: LoginService){ 
     this.datosUsuarios();
   }
+  
   datosUsuarios(){
+    debugger;
     this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
       this.infoLogin=res;
+      this.infoLogin.rol = 'SuperAdmin';
     });
   }
   
