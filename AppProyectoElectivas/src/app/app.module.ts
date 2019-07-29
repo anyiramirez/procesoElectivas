@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,15 +17,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import {MatDialogModule} from "@angular/material";
-import {MatDialog} from '@angular/material/dialog';
 
 import { MatTabsModule} from '@angular/material/tabs';
 import { NgxFileDropModule } from 'ngx-file-drop';
-import {CustExtBrowserXhr} from './Components/login/cust-ext-browser-xhr';
 import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BrowserXhr } from '@angular/http';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 import { RegisterInfoComponent } from './Components/register-info/register-info.component';
@@ -39,7 +36,6 @@ import { OfertaAcademicaComponent, modalVer } from './Components/oferta-academic
 import { InscripcionComponent, mensajeErroInscripcion, mensajeExitoInscripcion } from './Components/inscripcion/inscripcion.component';
 import { EncabezadoInscripcioComponent } from './Components/encabezado-inscripcio/encabezado-inscripcio.component';
 import { LoginComponent } from './Components/login/login.component';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ModalComponent, mensajeErrorElectiva, mensajeErrorNombreRepetido, mensajeExitoElectiva } from './Components/modal/modal.component';
 import { ModalEditarElectivaComponent } from './Components/modal-editar-electiva/modal-editar-electiva.component';
 import { ModalAgregarOfertaComponent, mensajeExitoOferta, mensajeErroRepetido, mensajeErrorOferta } from './Components/modal-agregar-oferta/modal-agregar-oferta.component';
