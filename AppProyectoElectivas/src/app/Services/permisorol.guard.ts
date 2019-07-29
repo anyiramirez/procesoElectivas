@@ -14,13 +14,14 @@ export class PermisorolGuard implements CanActivate {
   }
   
   datosUsuarios(){
+    debugger;
     this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
       this.infoLogin=res;
-      this.infoLogin.rol = 'SuperAdmin';
     });
   }
   
   canActivate(ruta: any){
+    
     switch(ruta.url[0].path){
       case 'Administrador':
         if(this.infoLogin.rol === 'SuperAdmin'){
