@@ -49,4 +49,8 @@
   .table{
     margin-top: 12px;
   }
+  .alertsContainer .alertsRow.error.messagepanel {
+    color: #000;
+    background: #fff;
+}
   

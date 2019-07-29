@@ -17,6 +17,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import {MatDialogModule} from "@angular/material";
+import { AlertsModule } from 'angular-alert-module';
+import {MatDialog} from '@angular/material/dialog';
 
 import { MatTabsModule} from '@angular/material/tabs';
 import { NgxFileDropModule } from 'ngx-file-drop';
@@ -97,7 +99,7 @@ const Rutas: Routes = [
     VistaAdministrativoComponent
   ],
   imports: [
-
+    AlertsModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpClientModule,
