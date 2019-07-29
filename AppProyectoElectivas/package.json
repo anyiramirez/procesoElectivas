@@ -26,6 +26,7 @@
     "@angular/router": "~7.2.0",
     "@ng-bootstrap/ng-bootstrap": "^4.2.1",
     "@types/jquery": "^3.3.30",
+    "angular-alert-module": "^2.0.3",
     "angularfire2": "^5.2.1",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
