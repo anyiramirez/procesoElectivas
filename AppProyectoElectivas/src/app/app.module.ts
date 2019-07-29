@@ -40,40 +40,21 @@ import { ModalComponent, mensajeErrorElectiva, mensajeErrorNombreRepetido, mensa
 import { ModalEditarElectivaComponent } from './Components/modal-editar-electiva/modal-editar-electiva.component';
 import { ModalAgregarOfertaComponent, mensajeExitoOferta, mensajeErroRepetido, mensajeErrorOferta } from './Components/modal-agregar-oferta/modal-agregar-oferta.component';
 
-<<<<<<< HEAD
-import { UsuariosComponent, modalNuevoUsuario, mensajeExito} from './Components/usuarios/usuarios.component';
-import { VistaAdminComponent } from './Components/vista-admin/vista-admin.component';
-import { VistaCoordinadorComponent } from './Components/vista-coordinador/vista-coordinador.component';
-import { VistaAdministrativoComponent } from './Components/vista-administrativo/vista-administrativo.component';
 import { PermisorolGuard } from './Services/permisorol.guard';
-=======
-
 import { UsuariosComponent, modalNuevoUsuario, mensajeExito, modalCambiarRol, mensajeEditar} from './Components/usuarios/usuarios.component';
 import { VistaAdminComponent } from './Components/vista-admin/vista-admin.component';
 import { VistaCoordinadorComponent } from './Components/vista-coordinador/vista-coordinador.component';
 import { VistaAdministrativoComponent } from './Components/vista-administrativo/vista-administrativo.component';
-import { combineLatest } from 'rxjs';
 import { ListasInscriptosComponent } from './Components/listas-inscriptos/listas-inscriptos.component';
 import { ReportesComponent } from './Components/reportes/reportes.component';
->>>>>>> 4ef4e0bd481b59cf72f3158eb3a7ec9fe0ba7a53
 
 const Rutas: Routes = [
   {path: '', component: LoginComponent},
   {path: 'Administrador', component: PrincipaladmiComponent, canActivate: [PermisorolGuard]},
   {path: 'Inscripcion', component:InscripcionComponent},
-<<<<<<< HEAD
   {path: 'VistaAdmin', component:VistaAdminComponent, canActivate: [PermisorolGuard]},
   {path: 'VistaCoordinador',component:VistaCoordinadorComponent, canActivate: [PermisorolGuard]},
   {path: 'VistaAdministrativa',component:VistaAdministrativoComponent, canActivate: [PermisorolGuard]}
-=======
-  {path: 'Usuarios',component:UsuariosComponent},
-  {path: 'listasInscriptos',component:ListasInscriptosComponent},
-  {path: 'VistaAdmin', component:VistaAdminComponent},
-  {path: 'VistaCoordinador',component:VistaCoordinadorComponent},
-  {path: 'VistaAdministrativa',component:VistaAdministrativoComponent},
-
-  {path: '', component: LoginComponent}
->>>>>>> 4ef4e0bd481b59cf72f3158eb3a7ec9fe0ba7a53
 ];
 
 @NgModule({
