@@ -17,15 +17,13 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import {MatDialogModule} from "@angular/material";
-import { AlertsModule } from 'angular-alert-module';
-import {MatDialog} from '@angular/material/dialog';
+import { AlertsModule } from 'angular-alert-module'
 
 import { MatTabsModule} from '@angular/material/tabs';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
-
 
 import { RegisterInfoComponent } from './Components/register-info/register-info.component';
 import { OpcionesAdminComponent} from './Components/opciones-admin/opciones-admin.component';
@@ -42,27 +40,19 @@ import { ModalComponent, mensajeErrorElectiva, mensajeErrorNombreRepetido, mensa
 import { ModalEditarElectivaComponent } from './Components/modal-editar-electiva/modal-editar-electiva.component';
 import { ModalAgregarOfertaComponent, mensajeExitoOferta, mensajeErroRepetido, mensajeErrorOferta } from './Components/modal-agregar-oferta/modal-agregar-oferta.component';
 
-
 import { UsuariosComponent, modalNuevoUsuario, mensajeExito} from './Components/usuarios/usuarios.component';
 import { VistaAdminComponent } from './Components/vista-admin/vista-admin.component';
 import { VistaCoordinadorComponent } from './Components/vista-coordinador/vista-coordinador.component';
 import { VistaAdministrativoComponent } from './Components/vista-administrativo/vista-administrativo.component';
-import { combineLatest } from 'rxjs';
+import { PermisorolGuard } from './Services/permisorol.guard';
 
 const Rutas: Routes = [
-  {path: 'Administrador', component: PrincipaladmiComponent},
-  {path: 'InformacionEstudiantes', component: RegisterInfoComponent },
-  {path: 'ListasAsignadas', component: ListasasignacionComponent},
-  {path: 'AsignacionElectiva/:id', component: AsignacionelectivaComponent},
-  {path: 'GestionElectivas', component: ModuloelectivasComponent },
-  {path: 'OfertaAcademica', component: OfertaAcademicaComponent},
-  {path: 'Inscripcion', component:InscripcionComponent},
-  {path: 'Usuarios',component:UsuariosComponent},
-  {path: 'VistaAdmin', component:VistaAdminComponent},
-  {path: 'VistaCoordinador',component:VistaCoordinadorComponent},
-  {path: 'VistaAdministrativa',component:VistaAdministrativoComponent},
-
-  {path: '', component: LoginComponent}
+  {path: '', component: LoginComponent},
+  {path: 'Administrador', component: PrincipaladmiComponent, canActivate: [PermisorolGuard]},
+  {path: 'Inscripcion', component:InscripcionComponent, canActivate: [PermisorolGuard]},
+  {path: 'VistaAdmin', component:VistaAdminComponent, canActivate: [PermisorolGuard]},
+  {path: 'VistaCoordinador',component:VistaCoordinadorComponent, canActivate: [PermisorolGuard]},
+  {path: 'VistaAdministrativa',component:VistaAdministrativoComponent, canActivate: [PermisorolGuard]}
 ];
 
 @NgModule({
@@ -131,7 +121,7 @@ const Rutas: Routes = [
       apiKey: 'AIzaSyD_dcEHRh3Lwh4aSLqw-B581hRShWHdbWI'
     })
   ],
-  providers: [  ],
+  providers: [ PermisorolGuard ],
   
   bootstrap: [AppComponent],
 

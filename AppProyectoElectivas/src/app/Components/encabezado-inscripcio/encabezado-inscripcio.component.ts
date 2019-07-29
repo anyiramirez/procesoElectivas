@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService} from '../../Services/login.service';
-import { RegistroDatosService } from '../../Services/registro-datos.service'
 @Component({
   selector: 'app-encabezado-inscripcio',
   templateUrl: './encabezado-inscripcio.component.html',
@@ -13,7 +12,7 @@ export class EncabezadoInscripcioComponent implements OnInit {
   rol:string;
   usuarios=new Array();
   cargo:string;
-  constructor(private servicioLogin: LoginService,private datos:RegistroDatosService) {
+  constructor(private servicioLogin: LoginService) {
 
    }
 
