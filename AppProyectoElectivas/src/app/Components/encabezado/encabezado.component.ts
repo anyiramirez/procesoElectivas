@@ -18,13 +18,7 @@ export class EncabezadoComponent implements OnInit {
   
   
   constructor(private servicioLogin: LoginService,private datos:RegistroDatosService) { 
-    this.datos.obtenerUsuarios().subscribe(res => {
-      this.usuarios = new Array();
-      for(var key in res){
-        this.usuarios.push(res[key]);
-      }
-      
-    }); 
+    
   }
   
   ngOnInit() {

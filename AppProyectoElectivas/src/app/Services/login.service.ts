@@ -18,7 +18,6 @@ export class LoginService {
 
   obtenerDatosUsuario() {
     return this.http.get(this.API_URI + '/user', this.httpOptions);
-
   }
 
   obtenerURLGoogle() {

@@ -25,7 +25,7 @@ import { AgmCoreModule } from '@agm/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
 
-import { RegisterInfoComponent } from './Components/register-info/register-info.component';
+import { RegisterInfoComponent, mensajeArchivoExcel, mensajeCargaDocumento, mensajeErrorListas, mensajeErrorRegistro, mensajeErrorConsultaBd } from './Components/register-info/register-info.component';
 import { OpcionesAdminComponent} from './Components/opciones-admin/opciones-admin.component';
 import { EncabezadoComponent } from './Components/encabezado/encabezado.component';
 import { PrincipaladmiComponent } from './Components/principaladmi/principaladmi.component';
@@ -45,8 +45,11 @@ import { UsuariosComponent, modalNuevoUsuario, mensajeExito, modalCambiarRol, me
 import { VistaAdminComponent } from './Components/vista-admin/vista-admin.component';
 import { VistaCoordinadorComponent } from './Components/vista-coordinador/vista-coordinador.component';
 import { VistaAdministrativoComponent } from './Components/vista-administrativo/vista-administrativo.component';
+import { combineLatest } from 'rxjs';
+import { ModalEditarOfertaComponent, mensajeEditarOferta, mensajeErrorFecha } from './Components/modal-editar-oferta/modal-editar-oferta.component';
 import { ListasInscriptosComponent } from './Components/listas-inscriptos/listas-inscriptos.component';
 import { ReportesComponent } from './Components/reportes/reportes.component';
+import { MensajesComponent } from './Services/mensajes/mensajes.component';
 
 const Rutas: Routes = [
   {path: '', component: LoginComponent},
@@ -76,6 +79,7 @@ const Rutas: Routes = [
     ModalAgregarOfertaComponent,
     modalVer,
     modalNuevoUsuario,
+    mensajeEditarOferta,
     mensajeExito,
     mensajeExitoOferta,
     mensajeErroRepetido,
@@ -88,13 +92,22 @@ const Rutas: Routes = [
     mensajeEditar,
     mensajeSinElectivas,
     mensajeSinOferta,
+    mensajeErrorFecha,
+    mensajeArchivoExcel,
+    mensajeCargaDocumento,
+    mensajeErrorListas,
+
+    mensajeErrorRegistro,
+    mensajeErrorConsultaBd,
     UsuariosComponent,
     VistaAdminComponent,
     VistaCoordinadorComponent,
     VistaAdministrativoComponent,
+    ModalEditarOfertaComponent,
     ListasInscriptosComponent,
     ReportesComponent,
-    modalCambiarRol
+    modalCambiarRol,
+    MensajesComponent
   ],
   imports: [
     AlertsModule.forRoot(),
@@ -137,6 +150,7 @@ const Rutas: Routes = [
     ModalComponent,
     OfertaAcademicaComponent,
     ModalEditarElectivaComponent,
+    ModalEditarOfertaComponent,
     ModalAgregarOfertaComponent,
     modalVer,
     modalNuevoUsuario,
@@ -152,7 +166,15 @@ const Rutas: Routes = [
     modalCambiarRol,
     mensajeEditar,
     mensajeSinElectivas,
-    mensajeSinOferta
+    mensajeSinOferta,
+    mensajeEditarOferta,
+    mensajeErrorFecha,
+    mensajeArchivoExcel,
+    mensajeCargaDocumento,
+    mensajeErrorListas,
+    mensajeErrorRegistro,
+    mensajeErrorConsultaBd,
+    MensajesComponent
 ]
 
 })

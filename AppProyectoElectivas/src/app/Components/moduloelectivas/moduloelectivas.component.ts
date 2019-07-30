@@ -19,14 +19,7 @@ export class ModuloelectivasComponent{
   objeto:any={};
   nombreAntiguo:any;
   electivasRegistradas = new Array();
-  nombreCampo;
-  contenidoCampo;
-  departamentoCampo;
-  tipoCampo;
-  nombreFormControl;
-  contenidoFormControl;
-  departamentoFormControl;
-  tipoFormControl;
+
   
   constructor(private registrar:RegistroDatosService,private router:Router,public dialog: MatDialog)
   {
@@ -72,6 +65,7 @@ export class ModuloelectivasComponent{
     const dialogRef = this.dialog.open(ModalComponent);
 
     dialogRef.afterClosed().subscribe(result => {
+      this.listarElectivas();
     });
   }
   openDialogEditar(nameElectiva){

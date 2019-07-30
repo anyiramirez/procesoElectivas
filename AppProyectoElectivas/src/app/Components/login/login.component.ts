@@ -13,10 +13,10 @@ export class LoginComponent implements OnInit {
   usuarios= new Array();
   infoLogin:any;
   rol:string;
-  ruta = '/Inscripcion/';
-  // public href: string = "";
+  ruta = '/Inscripcion';
   
   constructor(private servicioLogin: LoginService, private router: Router,private datos:RegistroDatosService) {
+    debugger;
     this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
       this.infoLogin=res;
     });
@@ -24,16 +24,6 @@ export class LoginComponent implements OnInit {
   }
   
   ngOnInit() {
-    this.datos.obtenerUsuarios().subscribe(res => {
-      this.usuarios = new Array();
-      for(var key in res){
-        this.usuarios.push(res[key]);
-      }
-      
-    });
-    // this.servicioLogin.obtenerURLGoogle().subscribe(res => {
-    // this.urlGoogle = res;
-    //});
     
   }
   
@@ -44,20 +34,28 @@ export class LoginComponent implements OnInit {
     const x = parseInt(((window.screen.width/2)-(800/2)).toString());
     
     window.open('http://localhost:3000/auth/google',"mywindow","location=1,status=1,scrollbars=1, top=" + y + ",left=" + x + ",width=800,height=800");
+    
     let listener = window.addEventListener('message', (message) => {
       console.log(message.data.user);
       console.log(message.data.success);
       if(message.data.success){
-        if(this.infoLogin.rol=="SuperAdmin"){
-          this.ruta ='/Administrador/';
+        // debugger;
+        if(this.infoLogin.rol === 'SuperAdmin'){
+          this.ruta ='/Administrador';
         }
-        if(this.infoLogin.rol=="Administrativo"){
-          this.ruta ='/VistaAdministrativa/';
+        if(this.infoLogin.rol === 'Administrativo'){
+          this.ruta ='/VistaAdministrativa';
+        }
+        if(this.infoLogin.rol === 'Coordinador'){
+          this.ruta = '/VistaCoordinador';
+        }
+        if(this.infoLogin.rol === 'Admin'){
+          this.ruta = '/VistaAdmin'
         }
 
       }
 
-      this.router.navigate([this.ruta]);
+      this.router.navigate([this.ruta], this.infoLogin.rol);
       
     });
     

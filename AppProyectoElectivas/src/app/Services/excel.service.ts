@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { RegistroDatosService} from './registro-datos.service';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { MensajesComponent } from './mensajes/mensajes.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
+
+
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -11,8 +16,13 @@ const EXCEL_EXTENSION = '.xlsx';
 })
 export class ExcelService {
   op: any;
-  constructor(private registrar:RegistroDatosService) { }
-  
+  durationInSeconds=5;
+  constructor(private _snackBar: MatSnackBar,private registrar:RegistroDatosService) { }
+  openMensaje() {
+    this._snackBar.openFromComponent(MensajesComponent, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
   public exportAsExcelFile(json: any[], excelFileName: string): void {
     
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
@@ -49,8 +59,8 @@ export class ExcelService {
       /* save data */
       this.op = (XLSX.utils.sheet_to_json(ws, {header: 1}));
       this.registrar.subirJSON(this.op);
-      
-      alert("Información enviada correctamente");
+      this.openMensaje();
+   
     };
     
     reader.readAsBinaryString(evt);
@@ -58,3 +68,5 @@ export class ExcelService {
     
   }
 }
+
+

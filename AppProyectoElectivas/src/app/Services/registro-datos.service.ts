@@ -10,11 +10,14 @@ import { ListaElectCE} from '../Interfaces/lista-electce'//servicio electivas
 import { DatosOferta } from '../Interfaces/datos-oferta';
 import { Inscripcion } from '../Interfaces/inscripcion';
 import { createAotUrlResolver } from '@angular/compiler';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { mensajeErrorRegistro } from '../Components/register-info/register-info.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistroDatosService {
+  durationInSeconds=5;
   API_URI = 'http://localhost:3000/api/asigcupos';
   API_URI_BASE='http://localhost:3000';
   solicitudesEst: PreInscripcionPrueba[];
@@ -27,7 +30,7 @@ export class RegistroDatosService {
     })
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private _snackBar: MatSnackBar) { }
 
    saveUsuario(datosEApi: Array<DatosSimca>) {
     console.log("datos a evaluar:",datosEApi);
@@ -86,6 +89,9 @@ export class RegistroDatosService {
      return this.http.put(`${this.API_URI + '/solEst'}`,datos);
 
   }
+  editarOferta(datos:Array<DatosOferta>){
+    return this.http.post(this.API_URI + '/editarOferta/'+datos, this.httpOptions);
+  }
   //Crear servicio de electivas
   obtenerElectivasCE(){
     return this.http.get(this.API_URI + '/electivasCE');
@@ -142,17 +148,24 @@ export class RegistroDatosService {
 
 
     }
+    
     console.log("paso1");
     this.http.post(this.API_URI+"/AsigCuposXLSX", this.solEx, this.httpOptions).subscribe(
       res => {
         console.log("servidor: ",res);
       }, err =>{
         console.error(err);
-        alert("Error en el registro ");
+        this.openSnackBar();
+        //alert("Error en el registro ");
       }
     );
     console.log("paso2");
 
+  }
+  openSnackBar() {
+    this._snackBar.openFromComponent(mensajeErrorRegistro, {
+      duration: this.durationInSeconds * 1000,
+    });
   }
 
 
