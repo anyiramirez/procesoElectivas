@@ -13,3 +13,16 @@ export class MensajesComponent implements OnInit {
   }
 
 }
+@Component({
+  selector: 'mensajeErrorR',
+  templateUrl: './mensajeErrorR.html',
+
+})
+export class mensajeErrorR{
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}

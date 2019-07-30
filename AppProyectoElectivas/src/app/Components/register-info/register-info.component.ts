@@ -178,12 +178,14 @@ export class RegisterInfoComponent implements OnInit {
         });
       }, err => {
         console.error(err);
-        alert("Error en generar listas ");
+       // alert("Error en generar listas ");
+        this.openErrorListas();
       });
     },err =>{
       console.log(this.datosGuardar);
       console.error(err);
-      alert("Error en el registro ");
+     // alert("Error en el registro ");
+      this.openErrorRegistro();
     })
   }
   consultarUsuarios(){
@@ -193,7 +195,8 @@ export class RegisterInfoComponent implements OnInit {
         this.preinscriptos.push(lista[p]);
       }
       console.log(lista);
-      alert('No realizo la consulta de la base de datos');
+      //alert('No realizo la consulta de la base de datos');
+      this.openErrorConsultaBD();
     });
   }
   conlistar(){
@@ -216,7 +219,8 @@ export class RegisterInfoComponent implements OnInit {
   }
   dropped(files: NgxFileDropEntry[]){
     if (files.length>1){
-      alert("Cargue únicamente un documento");
+     // alert("Cargue únicamente un documento");
+      this.openErrorCargaDoc();
     }else{
       this.verify(files);
     }
@@ -227,7 +231,8 @@ export class RegisterInfoComponent implements OnInit {
         this.file = files;
         this.fileDrop = true;
       } else {
-        alert("únicamente se aceptan archivos excel.");
+       // alert("únicamente se aceptan archivos excel.");
+        this.openErrorExcel();
       }
     }
   }

@@ -11,7 +11,7 @@ import { DatosOferta } from '../Interfaces/datos-oferta';
 import { Inscripcion } from '../Interfaces/inscripcion';
 import { createAotUrlResolver } from '@angular/compiler';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { mensajeErrorRegistro } from '../Components/register-info/register-info.component';
+import { mensajeErrorR } from './mensajes/mensajes.component';
 
 @Injectable({
   providedIn: 'root'
@@ -156,6 +156,7 @@ export class RegistroDatosService {
       }, err =>{
         console.error(err);
         this.openSnackBar();
+        //
         //alert("Error en el registro ");
       }
     );
@@ -163,7 +164,7 @@ export class RegistroDatosService {
 
   }
   openSnackBar() {
-    this._snackBar.openFromComponent(mensajeErrorRegistro, {
+    this._snackBar.openFromComponent(mensajeErrorR, {
       duration: this.durationInSeconds * 1000,
     });
   }

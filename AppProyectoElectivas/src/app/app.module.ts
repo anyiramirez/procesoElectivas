@@ -49,7 +49,7 @@ import { combineLatest } from 'rxjs';
 import { ModalEditarOfertaComponent, mensajeEditarOferta, mensajeErrorFecha } from './Components/modal-editar-oferta/modal-editar-oferta.component';
 import { ListasInscriptosComponent } from './Components/listas-inscriptos/listas-inscriptos.component';
 import { ReportesComponent } from './Components/reportes/reportes.component';
-import { MensajesComponent } from './Services/mensajes/mensajes.component';
+import { MensajesComponent, mensajeErrorR } from './Services/mensajes/mensajes.component';
 
 const Rutas: Routes = [
   {path: '', component: LoginComponent},
@@ -78,6 +78,7 @@ const Rutas: Routes = [
     ModalEditarElectivaComponent,
     ModalAgregarOfertaComponent,
     modalVer,
+    mensajeErrorR,
     modalNuevoUsuario,
     mensajeEditarOferta,
     mensajeExito,
@@ -174,7 +175,8 @@ const Rutas: Routes = [
     mensajeErrorListas,
     mensajeErrorRegistro,
     mensajeErrorConsultaBd,
-    MensajesComponent
+    MensajesComponent,
+    mensajeErrorR
 ]
 
 })
