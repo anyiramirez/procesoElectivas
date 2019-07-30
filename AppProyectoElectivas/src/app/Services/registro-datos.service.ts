@@ -86,6 +86,9 @@ export class RegistroDatosService {
      return this.http.put(`${this.API_URI + '/solEst'}`,datos);
 
   }
+  editarOferta(datos:Array<DatosOferta>){
+    return this.http.post(this.API_URI + '/editarOferta/'+datos, this.httpOptions);
+  }
   //Crear servicio de electivas
   obtenerElectivasCE(){
     return this.http.get(this.API_URI + '/electivasCE');
