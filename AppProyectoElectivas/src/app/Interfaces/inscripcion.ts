@@ -2,7 +2,7 @@ export interface Inscripcion {
     usuario:string;
     nombres:string;
     apellidos:string;
-    codigo:string;
+    codigo:number;
     programa:string;
     opcion1:string;
     opcion2:string;

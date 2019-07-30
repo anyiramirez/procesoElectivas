@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistroDatosService } from '../../Services/registro-datos.service'
+import { ExcelService } from '../../Services/excel.service';
+import { Inscripcion } from '../../Interfaces/inscripcion';
 
 @Component({
   selector: 'app-listas-inscriptos',
@@ -8,9 +10,9 @@ import { RegistroDatosService } from '../../Services/registro-datos.service'
 })
 export class ListasInscriptosComponent implements OnInit {
   listaInscripciones = new Array();
-  lista= new Array();
+  lista = Array<Inscripcion>();
   
-  constructor(private registro: RegistroDatosService) { 
+  constructor(private registro: RegistroDatosService,private excelService:ExcelService) { 
     debugger;
     this.llenarListaInscritos();
   }
@@ -28,11 +30,12 @@ export class ListasInscriptosComponent implements OnInit {
   }
   DescargarExcelInscritos(id:string){
     this.registro.InformacionInscripcionPeriodo(id).subscribe(res=>{
-      this.lista = new Array();
+      this.lista = Array<Inscripcion>();
       for(var key in res){
         this.lista.push(res[key]);
       }
     });
+    this.excelService.exportAsExcelFile(this.lista,"Inscripciones-"+id);
   }
   
 }
