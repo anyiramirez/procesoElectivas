@@ -38,7 +38,7 @@ import { EncabezadoInscripcioComponent } from './Components/encabezado-inscripci
 import { LoginComponent } from './Components/login/login.component';
 import { ModalComponent, mensajeErrorElectiva, mensajeErrorNombreRepetido, mensajeExitoElectiva } from './Components/modal/modal.component';
 import { ModalEditarElectivaComponent } from './Components/modal-editar-electiva/modal-editar-electiva.component';
-import { ModalAgregarOfertaComponent, mensajeExitoOferta, mensajeErroRepetido, mensajeErrorOferta } from './Components/modal-agregar-oferta/modal-agregar-oferta.component';
+import { ModalAgregarOfertaComponent, mensajeExitoOferta, mensajeErroRepetido, mensajeErrorOferta, mensajeSinElectivas, mensajeSinOferta } from './Components/modal-agregar-oferta/modal-agregar-oferta.component';
 
 import { PermisorolGuard} from './Services/permisorol.guard';
 import { UsuariosComponent, modalNuevoUsuario, mensajeExito, modalCambiarRol, mensajeEditar} from './Components/usuarios/usuarios.component';
@@ -50,7 +50,7 @@ import { ReportesComponent } from './Components/reportes/reportes.component';
 
 const Rutas: Routes = [
   {path: '', component: LoginComponent},
-  {path: 'Administrador', component: PrincipaladmiComponent, canActivate: [PermisorolGuard]},
+  {path: 'Administrador', component: PrincipaladmiComponent},
   {path: 'Inscripcion', component:InscripcionComponent},
   {path: 'VistaAdmin', component:VistaAdminComponent, canActivate: [PermisorolGuard]},
   {path: 'VistaCoordinador',component:VistaCoordinadorComponent, canActivate: [PermisorolGuard]},
@@ -86,6 +86,8 @@ const Rutas: Routes = [
     mensajeErroInscripcion,
     mensajeExitoInscripcion,
     mensajeEditar,
+    mensajeSinElectivas,
+    mensajeSinOferta,
     UsuariosComponent,
     VistaAdminComponent,
     VistaCoordinadorComponent,
@@ -148,7 +150,9 @@ const Rutas: Routes = [
     mensajeErroInscripcion,
     mensajeExitoInscripcion,
     modalCambiarRol,
-    mensajeEditar
+    mensajeEditar,
+    mensajeSinElectivas,
+    mensajeSinOferta
 ]
 
 })

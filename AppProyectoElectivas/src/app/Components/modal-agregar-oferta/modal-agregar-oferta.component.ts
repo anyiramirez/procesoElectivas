@@ -136,6 +136,16 @@ export class ModalAgregarOfertaComponent implements OnInit {
         duration: this.durationInSeconds * 1000,
       });
     }
+    openErrorSinOferta() {
+      this._snackBar.openFromComponent(mensajeSinOferta, {
+        duration: this.durationInSeconds * 1000,
+      });
+    }
+    openErrorSinElectivas() {
+      this._snackBar.openFromComponent(mensajeSinElectivas, {
+        duration: this.durationInSeconds * 1000,
+      });
+    }
 
   registrarOferta(){
     var marcoElectiva=false;
@@ -188,10 +198,10 @@ export class ModalAgregarOfertaComponent implements OnInit {
           
         }
         if(marcoElectiva==false){
-          alert("No ha ofertado ninguna electiva ");
+          this.openErrorSinOferta();
         }
         else if(marcoProgram==false){
-          alert("Selecione  programas asociados a la oferta"); 
+          this.openErrorSinElectivas();
         }
         else{
           this.ofertas.fechaInicio=new FormControl(moment());
@@ -303,3 +313,15 @@ export class mensajeErrorOferta{}
   
 })
 export class mensajeErroRepetido{}
+@Component({
+  selector: 'mensajeSinElectivas',
+  templateUrl: './mensajeSinElectivas.html',
+  
+})
+export class mensajeSinElectivas{}
+@Component({
+  selector: 'mensajeSinOferta',
+  templateUrl: './mensajeSinOferta.html',
+  
+})
+export class mensajeSinOferta{}
