@@ -63,7 +63,7 @@ ref.orderByChild("id").equalTo(req.user.id).once("value").then(function (snapsho
       console.log("no encontro para borrar");
     }
   });
-///
+
 
         
         req.logOut();
@@ -74,36 +74,19 @@ ref.orderByChild("id").equalTo(req.user.id).once("value").then(function (snapsho
             user: "usuario no valido",
             success: false
         }));
-        //res.status(200).send(responseHtml);
+
         res.clearCookie('Holiwisfuncione').send(responseHtml);
     }
 });
-/*
 
-router.get('/google/redirect',
-    passport.authenticate('google'),
-function(req, res) {
-    var correo = req.user.correo;
-    var dominio = correo.split('@');
-    var responseHtml = '<html><head><title>Main</title></head><body></body><script>res = %value%; window.opener.postMessage(res,"*");window.close()</script></html>';
-    console.log("dominio: ",dominio[1]);
-    if(dominio[1] === 'unicauca.edu.co'){
-        responseHtml = responseHtml.replace("%value%",JSON.stringify({
-            user: req.user,
-            success: true
-        }));
-        res.status(200).send(responseHtml);
-    }else{
-        req.logOut();
-        responseHtml = responseHtml.replace("%value%",JSON.stringify({
-            user: req.user,
-            success: false
-        }));
-        res.status(200).send(responseHtml);
-        
-    }
 
-});*/
+router.get('/logout',(req, res) => {
+    req.logOut();
+    console.log(req.user);
+    req.session = null;
+    res.clearCookie('Holiwisfuncione');
+});
+
 
 router.get('/user',(req, res) => {
     console.log(req.user);
