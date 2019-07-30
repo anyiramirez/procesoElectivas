@@ -35,7 +35,7 @@ export class ListasInscriptosComponent implements OnInit {
         this.lista.push(res[key]);
       }
     });
-    this.excelService.exportAsExcelFile(this.lista,"Inscripciones-"+id);
+    this.excelService.exportAsExcelFile(this.lista, id + "_Archivo_Preinscritos");
   }
   
 }
