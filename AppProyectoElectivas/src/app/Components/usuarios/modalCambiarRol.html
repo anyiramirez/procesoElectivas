@@ -5,21 +5,15 @@
     <div class="row">
       <div class="col-6">
         <mat-form-field class="example-full-width">
-          <mat-label for="nombres" *ngIf='nombresCampo' class="errorFormato ">Nombres: </mat-label>
-          <mat-label for="nombres" *ngIf='!nombresCampo' >Nombres: </mat-label>
-          <input  [(ngModel)]="data.usuario.Nombres" id="nombres" name="Nombres"  matInput placeholder="Nombres" disabled>
+          <mat-label for="nombres" *ngIf='nombresCampo' class="errorFormato ">Nombre Completo: </mat-label>
+          <mat-label for="nombres" *ngIf='!nombresCampo' >Nombre Completo: </mat-label>
+          <input  [(ngModel)]="data.usuario.NombreCompleto" id="nombres" name="Nombres"  matInput placeholder="Nombres" disabled>
         </mat-form-field>
       </div>
+    
       <div class="col-6">
         <mat-form-field class="example-full-width">
-          <mat-label for="apellidos" *ngIf='apellidosCampo' class="errorFormato ">Apellidos:</mat-label>
-          <mat-label for="apellidos" *ngIf='!apellidosCampo' >Apellidos: </mat-label>
-          <input matNativeControl [(ngModel)]="data.usuario.Apellidos" id= "apellidos"  name = "Apellidos"  matInput placeholder="Apellidos" disabled>
-        </mat-form-field>
-      </div>
-      <div class="col-6">
-        <mat-form-field class="example-full-width">
-            <input matInput placeholder="Email" [(ngModel)]="data.usuario.Correo" name="Correo"
+            <input matInput placeholder="Email" [(ngModel)]="data.usuario.correo" name="Correo"
                    [errorStateMatcher]="matcher" disabled>
           </mat-form-field>
       </div>

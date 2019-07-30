@@ -163,7 +163,7 @@ employeeCtrl.listarElectivas = (req,res) => {
 employeeCtrl.listarUsuarios=(req,res)=>{
     var db = admin.database();
     var list;
-    db.ref('Usuarios').once('value', function(snapshot){
+    db.ref('users').once('value', function(snapshot){
         list = snapshot.val();
         res.json(list);
         console.log(list);
@@ -439,7 +439,7 @@ employeeCtrl.obtenerDatosPorCorreo = (req, res) => {
     var correo = String(req.params.id);
     var list;
     
-    db.ref('Usuarios').once("value", function(snapshot) {        
+    db.ref('users').once("value", function(snapshot) {        
         list = snapshot.val();
         var entro=false;
         for(var key in list) {
@@ -503,22 +503,28 @@ employeeCtrl.editarElectiva = (req,res) => {
 employeeCtrl.editarRol = (req,res) => {
     console.log(req.body);
     var actualizarRol = {
-        Nombres : req.body.Nombres,
-        Apellidos: req.body.Apellidos,
-        Correo: req.body.Correo,
+        NombreCompleto : req.body.NombreCompleto,
+        correo: req.body.correo,
+        datosCompletos: req.body.datosCompletos,
+        estado: req.body.estado,
+        fcreacion: req.body.fcreacion,
+        foto: req.body.foto,
+        id: req.body.id,
         rol: req.body.rol,
+        ultAcc: req.body.ultAcc,
+             
     }
     
     var db = admin.database();
     var list;
     
-    db.ref('Usuarios').once("value", function(snapshot) {        
+    db.ref('users').once("value", function(snapshot) {        
         list = snapshot.val();
         var entro=false;
         var keyE;
         for(var key in list) {
-            console.log(req.params.id,list[key].Correo);
-            if(req.params.id === list[key].Correo) {
+            console.log(req.params.id,list[key].correo);
+            if(req.params.id === list[key].correo) {
                 entro = true;
                 keyE = key;
                 break;
@@ -527,7 +533,7 @@ employeeCtrl.editarRol = (req,res) => {
         if(!entro){
             res.json("no");    
         }else{
-            var refUpdate = db.ref('Usuarios/' + keyE);
+            var refUpdate = db.ref('users/' + keyE);
             refUpdate.update(actualizarRol);
             res.json("Actualizacion exitoso");
         }
