@@ -35,6 +35,7 @@ export class ModalAgregarOfertaComponent implements OnInit {
   varPrograma:any={};
   ofertas:any={};
   listaOfertas = new Array();
+  obtenerOfertas = new Array();
   objOferta= new Array();
   ofertaArray= new Array();
   cantidades= new Array();
@@ -54,22 +55,22 @@ export class ModalAgregarOfertaComponent implements OnInit {
   inicioFormControl;
   finFormControl;
   
-    valoresAnio: anios[] = [
+  valoresAnio: anios[] = [
     {value: this.anioActual, viewValue: this.anioActual},
     {value: this.anioActual+1, viewValue: this.anioActual+1},
     {value: this.anioActual+2, viewValue: this.anioActual+2}
   ];
   durationInSeconds=5;
- 
+  
   valores: PeriodoAcademico[] = [
     {value: '1', viewValue: '1'},
     {value: '2', viewValue: '2'}
     
   ];
-
+  
   constructor(private _snackBar: MatSnackBar,private registrar:RegistroDatosService,private router:Router,public dialogRef: MatDialogRef<ModalAgregarOfertaComponent>) {
     this.listarElectivas();
-    this.obtenerListaOfertas();
+    this.listarOfertas();
   }
   
   ngOnInit() {
@@ -105,29 +106,29 @@ export class ModalAgregarOfertaComponent implements OnInit {
     
   }
   
-    limpiarModal(){
-      this.ofertas.anio= '';
-      this.ofertas.periodo = '';
-      this.ofertas.dateInicio = '';
-      this.ofertas.dateFin = '';
-    }
- 
-    openSnackBar() {
-      this._snackBar.openFromComponent(mensajeExitoOferta, {
-        duration: this.durationInSeconds * 1000,
-      });
-    }
-    openErrorkBar() {
-      this._snackBar.openFromComponent(mensajeErrorOferta, {
-        duration: this.durationInSeconds * 1000,
-      });
-    }
-    openErrorRepetidoBar() {
-      this._snackBar.openFromComponent(mensajeErroRepetido, {
-        duration: this.durationInSeconds * 1000,
-      });
-    }
-
+  limpiarModal(){
+    this.ofertas.anio= '';
+    this.ofertas.periodo = '';
+    this.ofertas.dateInicio = '';
+    this.ofertas.dateFin = '';
+  }
+  
+  openSnackBar() {
+    this._snackBar.openFromComponent(mensajeExitoOferta, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  openErrorkBar() {
+    this._snackBar.openFromComponent(mensajeErrorOferta, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  openErrorRepetidoBar() {
+    this._snackBar.openFromComponent(mensajeErroRepetido, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  
   registrarOferta(){
     var marcoElectiva=false;
     var marcoProgram=true;
@@ -168,10 +169,10 @@ export class ModalAgregarOfertaComponent implements OnInit {
               this.ofertaAcademica[i].programa = this.ofertaAcademica[i].programa + 'PIS'
             }
             if (!this.ofertaAcademica[i].pis && !this.ofertaAcademica[i].piai && !this.ofertaAcademica[i].piet){
-             marcoProgram=false;
-             break;
+              marcoProgram=false;
+              break;
             }
-
+            
             this.ofertaArray.push(this.ofertas.anio,this.ofertas.periodo,this.ofertas.dateFin,this.ofertas.dateInicio,this.ofertaAcademica[i].nombre,this.ofertaAcademica[i].programa,this.ofertaAcademica[i].oferta);    
           }
           
@@ -189,15 +190,15 @@ export class ModalAgregarOfertaComponent implements OnInit {
           this.ofertaArray.push(this.ofertas,this.oferAcademica);
           this.registrar.saveOfertaAcademica(this.ofertaArray).subscribe(res => {
             this.ofertaArray= new Array();
-       
+            
             this.limpiarModal();
             this.dialogRef.close();
             this.openSnackBar();
           });
         } 
-
+        
       }else{
-       this.openErrorRepetidoBar();
+        this.openErrorRepetidoBar();
       }
     }else{
       this.openErrorkBar();
@@ -232,16 +233,39 @@ export class ModalAgregarOfertaComponent implements OnInit {
     }
     
   }
-  
-  obtenerListaOfertas(){
+  listarOfertas(){
     this.registrar.obtenerOfertas().subscribe(res => {
-      this.listaOfertas= new Array();
+      this.obtenerOfertas= new Array();
+      this.registrar.electivas= res as Electivas[];
+      var band=0;
       for(let p in res){ 
-        this.listaOfertas.push(res[p]); 
+        var contador = res[p].electivasOfertadas.length;
+        // this.cantidad[band]=contador; {{cantidad[indice]}}
+        var estado = this.estadoOferta(res[p].fechaInicio,res[p].fechaFin);
+        this.cantidades[band]=contador;
+        this.estados[band]=estado;
+        
+        this.obtenerOfertas.push(res[p]); 
+        band++; 
       }
       
     });
-  } 
+  }
+  estadoOferta(fechaInicio:any,fechaFin:any){
+    var fecha = new Date(); 
+    var f1= new Date(fechaInicio);
+    var f2= new Date(fechaFin);
+    fecha.setHours(0,0,0,0);
+    if(fecha < f1){
+      return "Pendiente"
+    }
+    if (fecha > f2){
+      return "Finalizado"
+    }
+    else{
+      return "En curso"
+    }
+  }
 }
 @Component({
   selector: 'mensajeExitoOferta',

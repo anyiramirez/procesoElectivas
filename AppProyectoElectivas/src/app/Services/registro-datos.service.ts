@@ -55,6 +55,12 @@ export class RegistroDatosService {
   obtenerOfertas(){
     return this.http.get(this.API_URI + '/obtenerOfertas');
   }
+  obtenerListasInscritos(){
+    return this.http.get(this.API_URI + '/periodosIDs');
+  }
+  InformacionInscripcionPeriodo(id: string){
+    return this.http.get(this.API_URI + '/obtenerInscritos/' + id);
+  }
   obtenerUsuarios(){
     return this.http.get(this.API_URI + '/listarUsuarios');
 
@@ -89,6 +95,9 @@ export class RegistroDatosService {
      datos.creditosPensum;
      return this.http.put(`${this.API_URI + '/solEst'}`,datos);
 
+  }
+  editarOferta(datos:Array<DatosOferta>){
+    return this.http.post(this.API_URI + '/editarOferta/'+datos, this.httpOptions);
   }
   //Crear servicio de electivas
   obtenerElectivasCE(){

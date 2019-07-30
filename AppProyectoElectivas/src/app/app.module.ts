@@ -52,11 +52,15 @@ import { ReportesComponent } from './Components/reportes/reportes.component';
 
 const Rutas: Routes = [
   {path: '', component: LoginComponent},
-  {path: 'Administrador', component: PrincipaladmiComponent, canActivate: [PermisorolGuard]},
+  {path: 'Administrador', component: PrincipaladmiComponent},
+  // , canActivate: [PermisorolGuard]
   {path: 'Inscripcion', component:InscripcionComponent},
-  {path: 'VistaAdmin', component:VistaAdminComponent, canActivate: [PermisorolGuard]},
-  {path: 'VistaCoordinador',component:VistaCoordinadorComponent, canActivate: [PermisorolGuard]},
-  {path: 'VistaAdministrativa',component:VistaAdministrativoComponent, canActivate: [PermisorolGuard]}
+  {path: 'VistaAdmin', component:VistaAdminComponent},
+  // , canActivate: [PermisorolGuard]
+  {path: 'VistaCoordinador',component:VistaCoordinadorComponent},
+  // , canActivate: [PermisorolGuard]
+  {path: 'VistaAdministrativa',component:VistaAdministrativoComponent}
+  // , canActivate: [PermisorolGuard]
 ];
 
 @NgModule({
