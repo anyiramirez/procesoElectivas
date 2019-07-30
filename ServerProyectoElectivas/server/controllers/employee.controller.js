@@ -188,7 +188,7 @@ employeeCtrl.electivasPrograma = (req, res) => {
             if(inicio <= actual && actual<=fin) {
                 for (key2 in list[key1].electivasOfertadas) {
                     if(list[key1].electivasOfertadas[key2].programa.search(req.params.programa)!=-1) {
-                        listaPrograma.push(list[key1].electivasOfertadas[key2].NombreElectiva + " (" + list[key1].electivasOfertadas[key2].programa +")" );
+                        listaPrograma.push(list[key1].electivasOfertadas[key2].NombreElectiva + " (" + list[key1].electivasOfertadas[key2].programa +"" );
                     }
                 }
             }
@@ -200,6 +200,21 @@ employeeCtrl.electivasPrograma = (req, res) => {
         console.log("The read failed: " + errorObject.code);
     });
 }
+
+employeeCtrl.periodosIDs = (req,res)=>{
+    var db = admin.database();
+    var list;
+    var periodos = {};
+    db.ref('Inscripcion').once('value', function(snapshot){
+        list = snapshot.val();
+        for(key in list) {
+            periodos.push(key);
+        }
+        res.json(periodos);
+        console.log(periodos);
+    });
+}
+
 
 
 //-------------------------------
@@ -262,9 +277,28 @@ employeeCtrl.registrarInscripcion = (req,res) => {
     
     var db = admin.database();
     
-    db.ref("Inscripcion").push(nuevaInscripcion);
-    res.json("Inscripción Exitosa");
-    //}
+    fechaActual = moment().format('YYYY/MM/DD HH:mm:ss Z');
+
+    db.ref('Ofertas').once("value", function(snapshot) {        
+        list = snapshot.val();
+        var key1;
+        for (key1 in list) {
+            actual = moment(fechaActual, "YYYY/MM/DD HH:mm:ss Z").toDate();
+            inicio = moment(list[key1].fechaInicio, "YYYY/MM/DD HH:mm:ss Z").toDate();
+            fin = moment(list[key1].fechaFin, "YYYY/MM/DD HH:mm:ss Z").toDate();
+            if(inicio <= actual && actual<=fin) {
+                console.log("anio:     " + list[key1].anio);
+                console.log("periodo:  " + list[key1].periodo);
+                db.ref("Inscripcion/"+list[key1].anio + "_" +list[key1].periodo).push(nuevaInscripcion);
+
+            }
+        }
+        //console.log(listaPrograma);
+        res.json(list);
+        
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
 }
 
 employeeCtrl.registrarOfertas = (req,res) => {
@@ -741,41 +775,4 @@ function validarString(cadena) {
     }
     return correcto;
 }
-
-function ofertaActiva() {
-    var db = admin.database();
-    var list;
-    fechaActual: moment().format('YYYY/MM/DD HH:mm:ss Z');
-    //var aDate = moment(a.HoraSolicitud, "YYYY/MM/DD HH:mm:ss Z").toDate();
-    db.ref('Ofertas').once("value", function(snapshot) {        
-        list = snapshot.val();
-        var vest = "";
-        for(var key in list) {
-            console.log("---------------");
-            console.log(list[key].anio);
-            console.log(list[key].fechaInicio);
-            console.log(list[key].fechaFin);
-            console.log("---------------");
-        }
-    }, function (errorObject) {
-        console.log("The read failed: " + errorObject.code);
-    });
     
-    /*db.ref('Ofertas').once("value", function(snapshot) {        
-        list = snapshot.val();
-        var key1;
-        for (key1 in list) {
-            for (key2 in list[key1].electivasOfertadas) {
-                if(list[key1].electivasOfertadas[key2].programa.search(req.params.programa)!=-1) {
-                    listaPrograma.push(list[key1].electivasOfertadas[key2].NombreElectiva);
-                }
-            }
-        }
-        console.log(listaPrograma);
-        res.json(listaPrograma);
-        
-    }, function (errorObject) {
-        console.log("The read failed: " + errorObject.code);
-    });*/
-    
-}
