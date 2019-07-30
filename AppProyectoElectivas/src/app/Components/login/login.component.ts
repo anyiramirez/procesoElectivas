@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
   ruta = '/Inscripcion';
   
   constructor(private servicioLogin: LoginService, private router: Router,private datos:RegistroDatosService) {
-    debugger;
     this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
       this.infoLogin=res;
     });
@@ -39,7 +38,6 @@ export class LoginComponent implements OnInit {
       console.log(message.data.user);
       console.log(message.data.success);
       if(message.data.success){
-        // debugger;
         if(this.infoLogin.rol === 'SuperAdmin'){
           this.ruta ='/Administrador';
         }
@@ -55,7 +53,7 @@ export class LoginComponent implements OnInit {
 
       }
 
-      this.router.navigate([this.ruta], this.infoLogin.rol);
+      this.router.navigate([this.ruta]);
       
     });
     
