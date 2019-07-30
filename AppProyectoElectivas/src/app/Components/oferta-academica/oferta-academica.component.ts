@@ -7,6 +7,8 @@ import {FormControl, Validators} from '@angular/forms';
 import { DatosOferta } from '../../Interfaces/datos-oferta';
 import { ModalAgregarOfertaComponent } from '../modal-agregar-oferta/modal-agregar-oferta.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ModalEditarOfertaComponent } from '../modal-editar-oferta/modal-editar-oferta.component';
+
 export interface DialogData {
   oferta: any;
   name: string;
@@ -53,7 +55,7 @@ export class OfertaAcademicaComponent implements OnInit {
   }
   
   detalleOferta(id: number){
-    this.ElectivasOfertaActual=this.obtenerOfertas[id].electivasOfertadas;
+    this.ElectivasOfertaActual=this.obtenerOfertas[id];
     this.nombreOfertaACtual=this.obtenerOfertas[id].anio+"/"+this.obtenerOfertas[id].periodo; 
   }
     
@@ -79,7 +81,18 @@ export class OfertaAcademicaComponent implements OnInit {
       this.listarOfertas();
     });
   }
-  
+  openDialogEditar(id:number){
+    const dialogRef = this.dialog.open(ModalEditarOfertaComponent,{
+      data: {
+        
+        oferta:this.ElectivasOfertaActual=this.obtenerOfertas[id],
+        name: this.nombreOfertaACtual=this.obtenerOfertas[id].anio+"/"+this.obtenerOfertas[id].periodo
+          }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.listarOfertas();
+    });
+  }
   openDialogVer(i:number):void {
     
     const dialogRef = this.dialog.open(modalVer,{

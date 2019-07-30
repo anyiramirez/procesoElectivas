@@ -9,9 +9,7 @@
           <mat-label for="anio" *ngIf='anioCampo' class=" errorFormato ">Año</mat-label>
           <mat-label for="anio" *ngIf='!anioCampo' >Año</mat-label>
           <select matNativeControl [(ngModel)]="ofertas.anio" [formControl]="anioFormControl"  id="anio" name="anio " style="z-index: 2000 !important">
-              <option *ngFor="let i of valoresAnio" [value]="i.value" style="z-index: 2000 !important">{{i.viewValue}}
-
-                </option>
+              <option *ngFor="let i of valoresAnio" [value]="i.value" style="z-index: 2000 !important">{{i.viewValue}} </option>
           </select>
           <mat-error *ngIf="anioFormControl.hasError('required')">
             Año de oferta es <strong>requerido</strong>
@@ -23,10 +21,7 @@
           <mat-label for="periodoAcademicoCampo" *ngIf='periodoAcademicoCampo' class="errorFormato">Período Académico</mat-label>
           <mat-label for="periodoAcademicoCampo" *ngIf='!periodoAcademicoCampo' >Período Académico</mat-label>
           <select matNativeControl [(ngModel)]="ofertas.periodo" [formControl]="periodoFormControl"  id="periodo" name="periodo" style="z-index: 2000 !important">
-            <option *ngFor="let i of valores" [value]="i.value" style="z-index: 2000 !important">{{i.viewValue}}
-
-            </option>
-            
+            <option *ngFor="let i of valores" [value]="i.value" style="z-index: 2000 !important">{{i.viewValue}}</option>  
           </select>
           <mat-error *ngIf="periodoFormControl.hasError('required')">
             Periodo es <strong>requerido</strong>

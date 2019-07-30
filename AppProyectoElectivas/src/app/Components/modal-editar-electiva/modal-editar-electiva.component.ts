@@ -1,7 +1,7 @@
 import { Component, OnInit ,Inject} from '@angular/core';
-import { Electivas} from '../../Interfaces/electivas';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {FormControl, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {mensajeErrorElectiva,mensajeExitoElectiva,mensajeErrorNombreRepetido} from '../modal/modal.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -90,11 +90,8 @@ export class ModalEditarElectivaComponent implements OnInit {
        this.electivas.nombre = this.MayusculaPrimera(this.data.electiva.NombreElectiva);
         this.registrar.editarElectiva(this.data.antiguo,this.data.electiva).subscribe(res => {
           
-          
-          this.listarElectivas();
+          alert(res);
           this.dialogRef.close();
-          this.openSnackBar();
-          //this.router.navigate(['/GestionElectivas']);
         })
       }else{
         this.openErrorRepetidoBar();
@@ -104,12 +101,10 @@ export class ModalEditarElectivaComponent implements OnInit {
     }else{
      this.openErrorkBar();
     }
-    this.listarElectivas();
   }
   listarElectivas(){
     this.registrar.obtenerInformacionElectivas().subscribe(res => {
       this.electivasRegistradas=new Array();
-      //this.registrar.electivas= res as Electivas[];
       for(let p in res){
         this.electivasRegistradas.push(res[p]);
       }
