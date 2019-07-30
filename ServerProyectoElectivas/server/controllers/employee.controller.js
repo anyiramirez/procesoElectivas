@@ -237,15 +237,20 @@ employeeCtrl.obtenerRechazados = (req,res)=>{
     var db = admin.database();
     var list;
     var periodos = {};
+    var rechazados = [];
     db.ref('Rechazados').once('value', function(snapshot){
         list = snapshot.val();
         for(key in list) {
             //if(key === req.params.id) {
-                res.json(list[key]);
+                rechazados.push([
+                    list[key].Nombres,
+                    list[key].Apellidos,
+                    list[key].Usuario
+                ]);
             //}
         }
-        //res.json(periodos);
-        console.log(list[key]);
+        res.json(rechazados);
+        console.log(rechazados);
     });
 }
 
