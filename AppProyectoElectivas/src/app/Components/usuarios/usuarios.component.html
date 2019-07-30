@@ -10,8 +10,7 @@
       <thead>
         <tr >
           <th scope="col"> #</th>
-          <th scope="col">Nombres</th>
-          <th scope="col">Apellidos</th>
+          <th scope="col">Nombre Completo</th>
           <th scope="col">Correo</th>
           <th scope="col">Rol</th>
           <th colspan="2" class="text-center">Opciones</th>
@@ -20,12 +19,11 @@
       <tbody>
         <tr  *ngFor="let usuario of usuariosRegistrados; let indice=index">
           <td>{{indice+1}}</td>
-          <td>{{usuario.Nombres}}</td>
-          <td>{{usuario.Apellidos}}</td>
-          <td>{{usuario.Correo}}</td>
+          <td>{{usuario.NombreCompleto}}</td>
+          <td>{{usuario.correo}}</td>
           <td>{{usuario.rol}}</td>
          
-          <td><button type="button" class="btn btn-outline-primary" (click)="openDialogEditar(usuario.Correo)">Cambiar rol</button></td>
+          <td><button type="button" class="btn btn-outline-primary" (click)="openDialogEditar(usuario.correo)">Cambiar rol</button></td>
        
         </tr>
         

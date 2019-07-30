@@ -31,10 +31,12 @@ export class UsuariosComponent implements OnInit {
     // this.registrar.obtenerDatosNombreElectiva(nombre).subscribe(res=>{
       //this.objeto = res;
       for(let e in this.usuariosRegistrados){
-        if(correo==this.usuariosRegistrados[e].Correo){
-          var objUsuario= new Usuarios(this.usuariosRegistrados[e].Nombres,this.usuariosRegistrados[e].Apellidos,this.usuariosRegistrados[e].Correo,this.usuariosRegistrados[e].rol);
-          this.correo= objUsuario.Correo;
+        debugger;
+        if(correo==this.usuariosRegistrados[e].correo){
+          var objUsuario= new Usuarios(this.usuariosRegistrados[e].NombreCompleto,this.usuariosRegistrados[e].correo,this.usuariosRegistrados[e].datosCompletos,this.usuariosRegistrados[e].estado,this.usuariosRegistrados[e].fcreacion,this.usuariosRegistrados[e].foto,this.usuariosRegistrados[e].id,this.usuariosRegistrados[e].rol,this.usuariosRegistrados[e].ultAcc);
+          this.correo= objUsuario.correo;
           this.objeto= objUsuario;
+          break;
           
         }
       }
@@ -50,6 +52,7 @@ export class UsuariosComponent implements OnInit {
     });
   }
   openDialogEditar(correo){
+    debugger;
     this.obtenerDatos(correo);
     const dialogRef = this.dialog.open(modalCambiarRol,{
       data: {
@@ -66,6 +69,7 @@ export class UsuariosComponent implements OnInit {
 
   }
   listarUsuarios(){
+    debugger;
     this.registrar.obtenerUsuarios().subscribe(res => {
       this.usuariosRegistrados=new Array();
       //this.registrar.electivas= res as Electivas[];
@@ -260,6 +264,7 @@ export class modalCambiarRol implements OnInit {
   }
 
   editarRol(){
+    debugger;
     if(this.data.usuario.rol==='Admin'||this.data.usuario.rol==='Sin Rol'||this.data.usuario.rol==='Administrativo'||this.data.usuario.rol==='Coordinador'){
       this.rolCampo=false;
     }else{ this.rolCampo=true; 
