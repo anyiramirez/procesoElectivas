@@ -202,6 +202,7 @@ employeeCtrl.electivasPrograma = (req, res) => {
 }
 
 employeeCtrl.periodosIDs = (req,res)=>{
+    debugger;
     var db = admin.database();
     var list;
     var periodos = [];

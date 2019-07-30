@@ -9,8 +9,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>2019_2</td>
+      <tr *ngFor="let x of listaInscripciones">
+        <th></th>
+        <td>{{x}}</td>
         <td>
           <a> <i class="fas fa-file-excel" style="color:green; cursor: pointer"></i></a>
         </td>

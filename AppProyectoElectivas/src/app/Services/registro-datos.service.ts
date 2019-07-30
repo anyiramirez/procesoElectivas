@@ -55,6 +55,12 @@ export class RegistroDatosService {
   obtenerOfertas(){
     return this.http.get(this.API_URI + '/obtenerOfertas');
   }
+  obtenerListasInscritos(){
+    return this.http.get(this.API_URI + '/periodosIDs');
+  }
+  InformacionInscripcionPeriodo(id: string){
+    return this.http.get(this.API_URI + 'obtenerInscritos' + id);
+  }
   obtenerUsuarios(){
     return this.http.get(this.API_URI + '/listarUsuarios');
 
