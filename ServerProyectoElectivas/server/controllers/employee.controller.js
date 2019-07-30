@@ -324,12 +324,31 @@ employeeCtrl.registrarOfertas = (req,res) => {
             trueE.push(req.body[1][i]);
         }
     }
+
+    var fi = req.body[0].dateInicio.substring(0,10).split('-').join('/') + ' 00:00:00 GTM-5';
+    var ff = req.body[0].dateFin.substring(0,10).split('-').join('/') +' 23:59:00 GTM-5';
+
+    var auxI = moment(fi,'YYYY/MM/DD hh:mm:ss Z');
+    var auxF = moment(ff,'YYYY/MM/DD hh:mm:ss Z');
+
+    var factual = moment().format('YYYY/MM/DD hh:mm:ss Z');
+
+    var estado = "sin iniciar";
+
+    if(auxI < factual && auxF > factual){
+        estado = "activo";
+    }else{
+        if(auxF < factual){
+            estado = "finalizo";
+        }
+    }
     var nuevaOferta = {
         anio : req.body[0].anio,
         periodo: req.body[0].periodo,
         fechaFin: req.body[0].dateFin.substring(0,10).split('-').join('/') +' 23:59:00 GTM-5',
         fechaInicio: req.body[0].dateInicio.substring(0,10).split('-').join('/') + ' 00:00:00 GTM-5',
-        electivasOfertadas: trueE
+        electivasOfertadas: trueE,
+        estado: estado
     }
     
     var db = admin.database();
