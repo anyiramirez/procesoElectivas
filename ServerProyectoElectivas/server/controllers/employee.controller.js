@@ -227,7 +227,7 @@ employeeCtrl.obtenerInscritos = (req,res)=>{
                 res.json(list[key]);
             }
         }
-        res.json(periodos);
+        //res.json(periodos);
         console.log(list[key]);
     });
 }
