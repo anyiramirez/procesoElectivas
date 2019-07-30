@@ -1,5 +1,6 @@
 import { Component, OnInit,Output,EventEmitter } from '@angular/core';
 import { LoginService} from '../../Services/login.service';
+import { Router } from '@angular/router';
 import { RegistroDatosService } from '../../Services/registro-datos.service'
 
 @Component({
@@ -17,7 +18,7 @@ export class EncabezadoComponent implements OnInit {
   cargo:string;
   
   
-  constructor(private servicioLogin: LoginService,private datos:RegistroDatosService) { 
+  constructor(private servicioLogin: LoginService,private datos:RegistroDatosService,private router:Router) { 
     
   }
   
@@ -33,6 +34,13 @@ export class EncabezadoComponent implements OnInit {
     });
     
     
+  }
+  cerrarSesionLogin(){
+    this.servicioLogin.cerrarSesion().subscribe(res =>{
+      console.log(res);
+      this.router.navigate(['']);
+      
+    });
   }
   
 }

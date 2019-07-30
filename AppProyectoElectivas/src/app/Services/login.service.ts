@@ -19,7 +19,9 @@ export class LoginService {
   obtenerDatosUsuario() {
     return this.http.get(this.API_URI + '/user', this.httpOptions);
   }
-
+  cerrarSesion(){
+    return this.http.get(this.API_URI + '/logout', this.httpOptions);
+  }
   obtenerURLGoogle() {
     return this.http.get(this.API_URI, {
       observe: 'body',
