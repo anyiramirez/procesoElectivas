@@ -38,7 +38,7 @@ export class ModalComponent implements OnInit{
       
     ]);
     this.nombreFormControl = new FormControl('', [
-      Validators.pattern("[A-Za-z ]+"),
+      Validators.pattern("[A-Za-zñÑáéíóúÁÉÍÓÚ ]+"),
       
     ]);
     this.contenidoFormControl = new FormControl('', [
