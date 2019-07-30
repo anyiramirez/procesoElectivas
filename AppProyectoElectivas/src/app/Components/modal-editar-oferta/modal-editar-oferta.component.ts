@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
 import {FormControl, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 export interface DialogData {
   oferta: any;
@@ -26,8 +27,9 @@ export class ModalEditarOfertaComponent implements OnInit {
   inicioFormControl;
   finFormControl;
   ofertaArray= new Array();
+  durationInSeconds=5;
   
-  constructor(private registrar:RegistroDatosService,
+  constructor(private _snackBar: MatSnackBar,private registrar:RegistroDatosService,
               private router:Router,public dialog: MatDialog,
               public dialogRef: MatDialogRef<ModalEditarOfertaComponent>,
               @Inject(MAT_DIALOG_DATA) public data: DialogData){
@@ -48,6 +50,18 @@ export class ModalEditarOfertaComponent implements OnInit {
       Validators.required,
     ]);
   }
+  
+  openSnackBar() {
+    this._snackBar.openFromComponent(mensajeEditarOferta, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+    
+  openErrorFecha() {
+    this._snackBar.openFromComponent(mensajeErrorFecha, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
   actualizarOferta(){
    
     if(this.inicioFormControl.hasError('required') || !this.validarFechaInicio(this.data.oferta.fechaInicio)){
@@ -62,12 +76,13 @@ export class ModalEditarOfertaComponent implements OnInit {
             this.ofertaArray.push(this.data.oferta);      
             this.registrar.editarOferta(this.ofertaArray).subscribe(res => {
             this.ofertaArray= new Array();
-            alert(res);
+            
             this.dialogRef.close();
+            this.openSnackBar();
           });
     }else{
       //this.openErrorkBar();
-      alert("Error Fecha NO valida");
+     this.openErrorFecha();
       }
   }
   
@@ -90,3 +105,17 @@ export class ModalEditarOfertaComponent implements OnInit {
     
   }
 }
+@Component({
+  selector: 'mensajeEditarOferta',
+  templateUrl: './mensajeEditarOferta.html',
+  
+})
+export class mensajeEditarOferta{}
+@Component({
+  selector: 'mensajeErrorFecha',
+  templateUrl: './mensajeErrorFecha.html',
+  
+})
+export class mensajeErrorFecha
+
+{}

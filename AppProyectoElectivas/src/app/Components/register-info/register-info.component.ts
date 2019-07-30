@@ -8,6 +8,7 @@ import {  NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from
 import { ExcelService } from '../../Services/excel.service';
 import * as moment from 'moment';
 import { interval, timer, fromEvent } from 'rxjs';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 
@@ -41,18 +42,43 @@ export class RegisterInfoComponent implements OnInit {
   collectionSize = this.preinscriptos.length;
   datos: any={};
   totalItems: number;
+  durationInSeconds=5;
   
   fileInput:boolean = false;
   fileDrop:boolean = false;
   file: any = null;
   
-  constructor(private bd:EstInscripcionService, protected listar:ListaPreinscriptosService, private registrar:RegistroDatosService,private excelService:ExcelService) {
+  constructor(private _snackBar: MatSnackBar,private bd:EstInscripcionService, protected listar:ListaPreinscriptosService, private registrar:RegistroDatosService,private excelService:ExcelService) {
     this.conlistar();
   }
   
   ngOnInit() {
   }
-  
+  openErrorListas() {
+    this._snackBar.openFromComponent(mensajeErrorListas, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  openErrorCargaDoc() {
+    this._snackBar.openFromComponent(mensajeCargaDocumento, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  openErrorExcel() {
+    this._snackBar.openFromComponent(mensajeArchivoExcel, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  openErrorRegistro() {
+    this._snackBar.openFromComponent(mensajeErrorRegistro, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
+  openErrorConsultaBD() {
+    this._snackBar.openFromComponent(mensajeErrorConsultaBd, {
+      duration: this.durationInSeconds * 1000,
+    });
+  }
   onFileChange(evt: any) {
     const target: DataTransfer = <DataTransfer>(evt.target);
     if (target.files.length !== 1) throw new Error('Cannot use multiple files');
@@ -144,7 +170,6 @@ export class RegisterInfoComponent implements OnInit {
     this.calcularPorcentaje();
     this.registrar.saveUsuario(this.datosGuardar).subscribe(res => {
       console.log("respuesta del servidor: ",res);
-      // this.moment().format('llll');
       this.showSaving();
       this.registrar.generarListas().subscribe(res => {
         console.log("Estado de generar: ",res);
@@ -153,13 +178,14 @@ export class RegisterInfoComponent implements OnInit {
         });
       }, err => {
         console.error(err);
-        alert("Error en generar listas ");
+       // alert("Error en generar listas ");
+        this.openErrorListas();
       });
-      //  this.router.navigate(['perfil']);
     },err =>{
       console.log(this.datosGuardar);
       console.error(err);
-      alert("Error en el registro ");
+     // alert("Error en el registro ");
+      this.openErrorRegistro();
     })
   }
   consultarUsuarios(){
@@ -169,7 +195,8 @@ export class RegisterInfoComponent implements OnInit {
         this.preinscriptos.push(lista[p]);
       }
       console.log(lista);
-      alert('No realizo la consulta de la base de datos');
+      //alert('No realizo la consulta de la base de datos');
+      this.openErrorConsultaBD();
     });
   }
   conlistar(){
@@ -192,7 +219,8 @@ export class RegisterInfoComponent implements OnInit {
   }
   dropped(files: NgxFileDropEntry[]){
     if (files.length>1){
-      alert("Cargue únicamente un documento");
+     // alert("Cargue únicamente un documento");
+      this.openErrorCargaDoc();
     }else{
       this.verify(files);
     }
@@ -203,7 +231,8 @@ export class RegisterInfoComponent implements OnInit {
         this.file = files;
         this.fileDrop = true;
       } else {
-        alert("únicamente se aceptan archivos excel.");
+       // alert("únicamente se aceptan archivos excel.");
+        this.openErrorExcel();
       }
     }
   }
@@ -243,3 +272,35 @@ export class RegisterInfoComponent implements OnInit {
     this.file = null;
   }
 }
+@Component({
+  selector: 'mensajeArchivoExcel',
+  templateUrl: './mensajeArchivoExcel.html',
+  
+})
+export class mensajeArchivoExcel{}
+@Component({
+  selector: 'mensajeErrorListas',
+  templateUrl: './mensajeErrorListas.html',
+  
+})
+export class mensajeErrorListas{}
+@Component({
+  selector: 'mensajeCargaDocumento',
+  templateUrl: './mensajeCargaDocumento.html',
+  
+})
+export class mensajeCargaDocumento{}
+@Component({
+  selector: 'mensajeErrorConsultaBd',
+  templateUrl: './mensajeErrorConsultaBd.html',
+  
+})
+export class mensajeErrorConsultaBd{}
+@Component({
+  selector: 'mensajeErrorRegistro',
+  templateUrl: './mensajeErrorRegistro.html',
+  
+})
+export class mensajeErrorRegistro{}
+
+

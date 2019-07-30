@@ -7,6 +7,7 @@ import {FormControl, Validators} from '@angular/forms';
 import { DatosOferta } from '../../Interfaces/datos-oferta';
 import { ModalAgregarOfertaComponent } from '../modal-agregar-oferta/modal-agregar-oferta.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { ModalEditarOfertaComponent } from '../modal-editar-oferta/modal-editar-oferta.component';
 
 export interface DialogData {
@@ -79,6 +80,7 @@ export class OfertaAcademicaComponent implements OnInit {
     
     dialogRef.afterClosed().subscribe(result => {  
       this.listarOfertas();
+    
     });
   }
   openDialogEditar(id:number){
@@ -105,7 +107,7 @@ export class OfertaAcademicaComponent implements OnInit {
     });
     
     dialogRef.afterClosed().subscribe(result => {
-      this.listarOfertas();
+
     });
   }
   

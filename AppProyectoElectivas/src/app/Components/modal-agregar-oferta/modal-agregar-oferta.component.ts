@@ -71,6 +71,7 @@ export class ModalAgregarOfertaComponent implements OnInit {
   constructor(private _snackBar: MatSnackBar,private registrar:RegistroDatosService,private router:Router,public dialogRef: MatDialogRef<ModalAgregarOfertaComponent>) {
     this.listarElectivas();
     this.listarOfertas();
+    
   }
   
   ngOnInit() {
@@ -106,29 +107,42 @@ export class ModalAgregarOfertaComponent implements OnInit {
     
   }
   
-  limpiarModal(){
-    this.ofertas.anio= '';
-    this.ofertas.periodo = '';
-    this.ofertas.dateInicio = '';
-    this.ofertas.dateFin = '';
-  }
-  
-  openSnackBar() {
-    this._snackBar.openFromComponent(mensajeExitoOferta, {
-      duration: this.durationInSeconds * 1000,
-    });
-  }
-  openErrorkBar() {
-    this._snackBar.openFromComponent(mensajeErrorOferta, {
-      duration: this.durationInSeconds * 1000,
-    });
-  }
-  openErrorRepetidoBar() {
-    this._snackBar.openFromComponent(mensajeErroRepetido, {
-      duration: this.durationInSeconds * 1000,
-    });
-  }
-  
+ 
+
+    limpiarModal(){
+      this.ofertas.anio= '';
+      this.ofertas.periodo = '';
+      this.ofertas.dateInicio = '';
+      this.ofertas.dateFin = '';
+
+    }
+ 
+    openSnackBar() {
+      this._snackBar.openFromComponent(mensajeExitoOferta, {
+        duration: this.durationInSeconds * 1000,
+      });
+    }
+    openErrorkBar() {
+      this._snackBar.openFromComponent(mensajeErrorOferta, {
+        duration: this.durationInSeconds * 1000,
+      });
+    }
+    openErrorRepetidoBar() {
+      this._snackBar.openFromComponent(mensajeErroRepetido, {
+        duration: this.durationInSeconds * 1000,
+      });
+    }
+    openErrorSinOferta() {
+      this._snackBar.openFromComponent(mensajeSinOferta, {
+        duration: this.durationInSeconds * 1000,
+      });
+    }
+    openErrorSinElectivas() {
+      this._snackBar.openFromComponent(mensajeSinElectivas, {
+        duration: this.durationInSeconds * 1000,
+      });
+    }
+
   registrarOferta(){
     var marcoElectiva=false;
     var marcoProgram=true;
@@ -178,10 +192,10 @@ export class ModalAgregarOfertaComponent implements OnInit {
           
         }
         if(marcoElectiva==false){
-          alert("No ha ofertado ninguna electiva ");
+          this.openErrorSinOferta();
         }
         else if(marcoProgram==false){
-          alert("Selecione  programas asociados a la oferta"); 
+          this.openErrorSinElectivas();
         }
         else{
           this.ofertas.fechaInicio=new FormControl(moment());
@@ -286,3 +300,15 @@ export class mensajeErrorOferta{}
   
 })
 export class mensajeErroRepetido{}
+@Component({
+  selector: 'mensajeSinElectivas',
+  templateUrl: './mensajeSinElectivas.html',
+  
+})
+export class mensajeSinElectivas{}
+@Component({
+  selector: 'mensajeSinOferta',
+  templateUrl: './mensajeSinOferta.html',
+  
+})
+export class mensajeSinOferta{}

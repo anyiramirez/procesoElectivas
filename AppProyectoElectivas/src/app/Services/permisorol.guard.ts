@@ -43,3 +43,9 @@ export class PermisorolGuard implements CanActivate {
   }
   
 }
+
+
+  
+  
+  
+  

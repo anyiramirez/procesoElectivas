@@ -2,7 +2,10 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
 import { ExcelService } from '../../Services/excel.service';
 import { ListaElectCE} from '../../Interfaces/lista-electce';
-
+export interface Food {
+  value: string;
+  viewValue: string;
+}
 @Component({
   selector: 'app-listasasignacion',
   templateUrl: './listasasignacion.component.html',
@@ -12,12 +15,28 @@ export class ListasasignacionComponent implements OnInit {
   @Output() vistaelectiva: EventEmitter<any> = new EventEmitter<any>();
   infoElectiva: any;
   electivas = new Array();
+  ofertas= new Array();
   lista: any[];
+  foods: Food[] = [
+    {value: 'steak-0', viewValue: 'Steak'},
+    {value: 'pizza-1', viewValue: 'Pizza'},
+    {value: 'tacos-2', viewValue: 'Tacos'}
+  ];
 
   constructor(private registrar:RegistroDatosService,private excelService:ExcelService) { 
     this.listarE();
+    this.obtenerPeriodoAcademico();
   }
   ngOnInit() {
+  }
+  obtenerPeriodoAcademico(){
+    this.registrar.obtenerOfertas().subscribe(res=>{
+      this.ofertas=new Array();
+      for(var key in res){
+        this.ofertas.push(res[key].anio + "-"+ res[key].periodo);
+      }
+
+    });
   }
 
   cambioVistaElectiva(electivaSeleccionada: any){

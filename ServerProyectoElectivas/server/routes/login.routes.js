@@ -84,7 +84,9 @@ router.get('/logout',(req, res) => {
     req.logOut();
     console.log(req.user);
     req.session = null;
-    res.clearCookie('Holiwisfuncione');
+    res.clearCookie('Holiwisfuncione').json({
+        success:true , message: "Sesion finalizada con exito"
+    });
 });
 
 

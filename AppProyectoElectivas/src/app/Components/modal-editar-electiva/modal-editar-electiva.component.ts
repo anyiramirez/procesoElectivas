@@ -90,7 +90,7 @@ export class ModalEditarElectivaComponent implements OnInit {
        this.electivas.nombre = this.MayusculaPrimera(this.data.electiva.NombreElectiva);
         this.registrar.editarElectiva(this.data.antiguo,this.data.electiva).subscribe(res => {
           
-          alert(res);
+          //alert(res);
           this.dialogRef.close();
         })
       }else{
