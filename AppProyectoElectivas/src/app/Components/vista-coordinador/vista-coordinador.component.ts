@@ -31,10 +31,9 @@ export class VistaCoordinadorComponent implements OnInit {
   }
   
   recibirVista($event: any){
-    this.varVista = $event;
-    console.log("evento", $event);
-    
+    this.varVista = $event;    
   }
+  
   electivaSeleccionada($event:any){
     this.electivaActual = $event.charAt($event.length-1);
     this.varVista = $event.substring(0,$event.length-1);
