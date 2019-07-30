@@ -24,6 +24,7 @@ router.get('/listarUsuarios', employee.listarUsuarios);
 router.post('/registrarElectivas', employee.registrarElectivas);
 router.post('/registrarUsuarios', employee.registrarUsuarios);
 router.post('/registrarOfertas/', employee.registrarOfertas);
+router.post('/editarOferta/', employee.editarOferta);
 router.post('/editarElectiva/:id', employee.editarElectiva);
 router.post('/solEst', employee.guardarSolEst);
 router.post('/habilitarElectiva/:id', employee.habilitarElectiva);

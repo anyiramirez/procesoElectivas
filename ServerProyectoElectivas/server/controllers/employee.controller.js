@@ -304,6 +304,41 @@ employeeCtrl.registrarOfertas = (req,res) => {
         res.json("Guardado Exitoso");
     
 }
+
+employeeCtrl.editarOferta = (req,res) => {
+    var actualizarOferta = {
+        anio : req.body[0].anio,
+        electivasOfertadas: req.body[0].electivasOfertadas,
+        fechaFin: req.body[0].fechaFin,
+        periodo: req.body[0].periodo,
+    }
+
+    var db = admin.database();
+    var list;
+    
+    db.ref('Ofertas').once("value", function(snapshot) {        
+        list = snapshot.val();
+        var entro=false;
+        var keyE;
+        for(var key in list) {
+            if(req.body[0].anio === list[key].anio && req.body[0].periodo === list[key].periodo) {
+                entro = true;
+                keyE = key;
+                break;
+            }
+        }
+        if(!entro){
+            res.json("Error en el servidor");    
+        }else{
+            var refUpdate = db.ref('Ofertas/' + keyE);
+            refUpdate.update(actualizarOferta);
+            res.json("Actualizacion exitoso");
+        }
+        
+    }, function (errorObject) {
+    });
+
+}
 employeeCtrl.getOfertas = (req, res) => {
     var db = admin.database();
     var list;

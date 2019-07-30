@@ -1,7 +1,6 @@
 import { Component, OnInit ,Inject} from '@angular/core';
-import { Electivas} from '../../Interfaces/electivas';
 import { RegistroDatosService} from '../../Services/registro-datos.service';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 export interface DialogData {
@@ -76,9 +75,7 @@ export class ModalEditarElectivaComponent implements OnInit {
         this.registrar.editarElectiva(this.data.antiguo,this.data.electiva).subscribe(res => {
           
           alert(res);
-          this.listarElectivas();
           this.dialogRef.close();
-          //this.router.navigate(['/GestionElectivas']);
         })
       }else{
         alert("Error en el registro: Nombre Electiva Existente");
@@ -87,14 +84,12 @@ export class ModalEditarElectivaComponent implements OnInit {
     }else{
       alert("Error en el registro");
     }
-    this.listarElectivas();
   }
   
   
   listarElectivas(){
     this.registrar.obtenerInformacionElectivas().subscribe(res => {
       this.electivasRegistradas=new Array();
-      //this.registrar.electivas= res as Electivas[];
       for(let p in res){
         this.electivasRegistradas.push(res[p]);
       }

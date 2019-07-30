@@ -50,6 +50,7 @@ import { VistaAdminComponent } from './Components/vista-admin/vista-admin.compon
 import { VistaCoordinadorComponent } from './Components/vista-coordinador/vista-coordinador.component';
 import { VistaAdministrativoComponent } from './Components/vista-administrativo/vista-administrativo.component';
 import { combineLatest } from 'rxjs';
+import { ModalEditarOfertaComponent } from './Components/modal-editar-oferta/modal-editar-oferta.component';
 
 const Rutas: Routes = [
   {path: 'Administrador', component: PrincipaladmiComponent},
@@ -98,7 +99,8 @@ const Rutas: Routes = [
     UsuariosComponent,
     VistaAdminComponent,
     VistaCoordinadorComponent,
-    VistaAdministrativoComponent
+    VistaAdministrativoComponent,
+    ModalEditarOfertaComponent
   ],
   imports: [
 
@@ -141,6 +143,7 @@ const Rutas: Routes = [
     ModalComponent,
     OfertaAcademicaComponent,
     ModalEditarElectivaComponent,
+    ModalEditarOfertaComponent,
     ModalAgregarOfertaComponent,
     modalVer,
     modalNuevoUsuario,

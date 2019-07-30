@@ -31,7 +31,7 @@ export class ModalAgregarOfertaComponent implements OnInit {
   objeto:any={};
   varPrograma:any={};
   ofertas:any={};
-  obtenerOfertas = new Array();
+  listaOfertas = new Array();
   objOferta= new Array();
   ofertaArray= new Array();
   cantidades= new Array();
@@ -56,8 +56,6 @@ export class ModalAgregarOfertaComponent implements OnInit {
     {value: this.anioActual+1, viewValue: this.anioActual+1},
     {value: this.anioActual+2, viewValue: this.anioActual+2}
   ];
-
-  
   durationInSeconds=5;
  
   valores: PeriodoAcademico[] = [
@@ -66,12 +64,9 @@ export class ModalAgregarOfertaComponent implements OnInit {
     
   ];
 
-
-
-
   constructor(private _snackBar: MatSnackBar,private registrar:RegistroDatosService,private router:Router,public dialogRef: MatDialogRef<ModalAgregarOfertaComponent>) {
     this.listarElectivas();
-    
+    this.obtenerListaOfertas();
   }
   
   ngOnInit() {
@@ -107,14 +102,11 @@ export class ModalAgregarOfertaComponent implements OnInit {
     
   }
   
- 
-
     limpiarModal(){
       this.ofertas.anio= '';
       this.ofertas.periodo = '';
       this.ofertas.dateInicio = '';
       this.ofertas.dateFin = '';
-
     }
  
     openSnackBar() {
@@ -177,10 +169,8 @@ export class ModalAgregarOfertaComponent implements OnInit {
              break;
             }
 
-            this.ofertaArray.push(this.ofertas.anio,this.ofertas.periodo,this.ofertas.dateFin,this.ofertas.dateInicio,this.ofertaAcademica[i].nombre,this.ofertaAcademica[i].programa,this.ofertaAcademica[i].oferta);
-            
+            this.ofertaArray.push(this.ofertas.anio,this.ofertas.periodo,this.ofertas.dateFin,this.ofertas.dateInicio,this.ofertaAcademica[i].nombre,this.ofertaAcademica[i].programa,this.ofertaAcademica[i].oferta);    
           }
-          
           
         }
         if(marcoElectiva==false){
@@ -190,28 +180,29 @@ export class ModalAgregarOfertaComponent implements OnInit {
           alert("Selecione  programas asociados a la oferta"); 
         }
         else{
-          var objDatosOFerta = new DatosOferta(this.ofertas.fechaInicio, this.ofertas.fechaFin,this.ofertas.anio, this.ofertas.periodo);
           this.ofertaArray= new Array();
           this.ofertaArray.push(this.ofertas,this.oferAcademica);
           this.registrar.saveOfertaAcademica(this.ofertaArray).subscribe(res => {
             this.ofertaArray= new Array();
             alert(res);
             this.limpiarModal();
+            this.dialogRef.close();
           });
         } 
+
       }else{
        this.openErrorRepetidoBar();
       }
     }else{
       this.openErrorkBar();
     }
-    this.listarElectivas();
   }
   
   validarOfertaUnica(nuevoAnio:any,nuevoPeriodo:any){
     var existe=false; 
-    for(let i in this.obtenerOfertas) {
-      if ( this.obtenerOfertas[i].anio==nuevoAnio && this.obtenerOfertas[i].periodo==nuevoPeriodo) {
+    for(let i in this.listaOfertas) {
+      console.log(nuevoAnio,nuevoPeriodo,"->",this.listaOfertas[i].anio,this.listaOfertas[i].periodo);
+      if (this.listaOfertas[i].anio==nuevoAnio && this.listaOfertas[i].periodo==nuevoPeriodo) {
         existe = true;
       }
     }
@@ -236,46 +227,15 @@ export class ModalAgregarOfertaComponent implements OnInit {
     
   }
   
-  listarOfertas(){
+  obtenerListaOfertas(){
     this.registrar.obtenerOfertas().subscribe(res => {
-      this.obtenerOfertas= new Array();
-      this.registrar.electivas= res as Electivas[];
-      var band=0;
+      this.listaOfertas= new Array();
       for(let p in res){ 
-        var contador = res[p].electivasOfertadas.length;
-        // this.cantidad[band]=contador; {{cantidad[indice]}}
-        var estado = this.estadoOferta(res[p].fechaInicio,res[p].fechaFin);
-        this.cantidades[band]=contador;
-        this.estados[band]=estado;
-        
-        this.obtenerOfertas.push(res[p]); 
-        band++; 
+        this.listaOfertas.push(res[p]); 
       }
       
     });
-  }
-  
-  detalleOferta(id: number){
-    this.ElectivasOfertaActual=this.obtenerOfertas[id].electivasOfertadas;
-    this.nombreOfertaACtual=this.obtenerOfertas[id].anio+"/"+this.obtenerOfertas[id].periodo; 
-  }
-    
-  estadoOferta(fechaInicio:any,fechaFin:any){
-    var fecha = new Date(); 
-    var f1= new Date(fechaInicio);
-    var f2= new Date(fechaFin);
-    fecha.setHours(0,0,0,0);
-    if(fecha < f1){
-      return "Pendiente"
-    }
-    if (fecha > f2){
-      return "Finalizado"
-    }
-    else{
-      return "En curso"
-    }
-  }
-  
+  } 
 }
 @Component({
   selector: 'mensajeExitoOferta',

@@ -100,10 +100,7 @@ export class ModalComponent implements OnInit{
         this.electivas.nombre = this.MayusculaPrimera(this.electivas.nombre);
         this.electivas.estado = 'Habilitar';
         this.registrar.saveElectivas(this.electivas).subscribe(res => {
-
-          this.listarElectivas();
           this.limpiarModal();
-          this.router.navigate(['/GestionElectivas']);
           this.dialogRef.close();
           this.openSnackBar();
         })
@@ -114,12 +111,8 @@ export class ModalComponent implements OnInit{
     }else{
       this.openErrorkBar();
 
-    }
-    this.listarElectivas();
-    
+    }    
   }
-  
-  
   
   limpiarModal(){
     this.electivas.nombre= '';
