@@ -45,6 +45,8 @@ import { UsuariosComponent, modalNuevoUsuario, mensajeExito, modalCambiarRol, me
 import { VistaAdminComponent } from './Components/vista-admin/vista-admin.component';
 import { VistaCoordinadorComponent } from './Components/vista-coordinador/vista-coordinador.component';
 import { VistaAdministrativoComponent } from './Components/vista-administrativo/vista-administrativo.component';
+import { combineLatest } from 'rxjs';
+import { ModalEditarOfertaComponent } from './Components/modal-editar-oferta/modal-editar-oferta.component';
 import { ListasInscriptosComponent } from './Components/listas-inscriptos/listas-inscriptos.component';
 import { ReportesComponent } from './Components/reportes/reportes.component';
 
@@ -90,6 +92,7 @@ const Rutas: Routes = [
     VistaAdminComponent,
     VistaCoordinadorComponent,
     VistaAdministrativoComponent,
+    ModalEditarOfertaComponent,
     ListasInscriptosComponent,
     ReportesComponent,
     modalCambiarRol
@@ -135,6 +138,7 @@ const Rutas: Routes = [
     ModalComponent,
     OfertaAcademicaComponent,
     ModalEditarElectivaComponent,
+    ModalEditarOfertaComponent,
     ModalAgregarOfertaComponent,
     modalVer,
     modalNuevoUsuario,

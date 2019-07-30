@@ -1,0 +1,52 @@
+  <h2 mat-dialog-title>Editar Oferta </h2>
+  <mat-dialog-content class="mat-typography">
+    <div class="modal-body">
+      <form id="FormOfertas">
+        <div class="row" >
+            
+      <div class="col-6">
+          <mat-form-field class="example-full-width">
+            <mat-label for="anio" >Año</mat-label>
+            <input [(ngModel)]="data.oferta.anio" id="anio" name="anio" readonly="readonly"  matInput >
+          </mat-form-field>
+        </div>      
+        <div class="col-6">
+          <mat-form-field class="example-full-width">
+            <mat-label for="periodoAcademicoCampo" >Período Académico</mat-label>
+            <input [(ngModel)]="data.oferta.periodo" id="periodo" name="periodo" readonly="readonly"  matInput >
+          </mat-form-field>  
+        </div>
+          <div class="col-6">
+            <mat-form-field class="example-full-width">
+              <mat-label for="dateInicio" *ngIf='inicioCampo' class=" errorFormato ">Fecha Inicio</mat-label>
+              <mat-label for="dateInicio" *ngIf='!inicioCampo' >Fecha Inicio</mat-label>
+              <input  [(ngModel)]="data.oferta.fechaInicio"  [formControl]="inicioFormControl" [matDatepicker]="fechaInicio" name="dateInicio"  placeholder="Fecha Inicio" matInput >
+              <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
+              <mat-datepicker #fechaInicio touchUi="true"></mat-datepicker>
+              <mat-error *ngIf="inicioFormControl.hasError('required')">
+                Fecha inicio es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-6">
+            <mat-form-field class="example-full-width">
+              <mat-label for="dateFin" *ngIf='finCampo' class=" errorFormato ">Fecha fin</mat-label>
+              <mat-label for="dateFin" *ngIf='!finCampo' >Fecha Fin</mat-label>
+              <input  [(ngModel)]="data.oferta.fechaFin" [formControl]="finFormControl" [matDatepicker]="fechaFin" name="dateFin" placeholder="Fecha fin"  style="z-index: 1200" matInput>
+              <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
+              <mat-datepicker #fechaFin touchUi="true"></mat-datepicker>
+              <mat-error *ngIf="finFormControl.hasError('required')">
+                Fecha de fin es  <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>       
+        </div>
+        
+      </form>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align ="end">
+    <button mat-dialog-close type="button" class="btn btn-secondary">Cerrar</button>
+    <button type="button" class="btn btn-primary" (click)="actualizarOferta()" data-dismiss="modal">Actualizar Oferta </button>
+  </mat-dialog-actions>
+  

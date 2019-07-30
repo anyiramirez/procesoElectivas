@@ -30,8 +30,6 @@ export class PrincipaladmiComponent implements OnInit {
   
   recibirVista($event: any){
     this.varVista = $event;
-    console.log("evento", $event);
-    
   }
   electivaSeleccionada($event:any){
     this.electivaActual = $event.charAt($event.length-1);
