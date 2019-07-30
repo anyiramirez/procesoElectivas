@@ -215,7 +215,22 @@ employeeCtrl.periodosIDs = (req,res)=>{
     });
 }
 
-
+employeeCtrl.obtenerInscritos = (req,res)=>{
+    console.log("id llego: ",req.params.id);
+    var db = admin.database();
+    var list;
+    var periodos = {};
+    db.ref('Inscripcion').once('value', function(snapshot){
+        list = snapshot.val();
+        for(key in list) {
+            if(key === req.params.id) {
+                res.json(list[key]);
+            }
+        }
+        res.json(periodos);
+        console.log(list[key]);
+    });
+}
 
 //-------------------------------
 //    POST METHODS
