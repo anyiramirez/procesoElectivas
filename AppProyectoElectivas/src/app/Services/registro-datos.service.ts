@@ -85,6 +85,10 @@ export class RegistroDatosService {
     console.log("datos a guardar:",datosEditarElectivas);
     return this.http.post(this.API_URI + '/editarElectiva/'+ nombreAntiguo, datosEditarElectivas,this.httpOptions);
   }
+  editarOferta(datosEditarOferta: Array<DatosOferta>){
+    console.log("datos a guardar:",datosEditarOferta);
+    return this.http.post(this.API_URI + '/editarOferta/',datosEditarOferta,this.httpOptions);
+  }
   editarRol(correo:Usuarios,datosEditar:Usuarios){
     console.log("datos a guardar:",datosEditar);
     return this.http.post(this.API_URI + '/editarRol/'+correo, datosEditar,this.httpOptions);
