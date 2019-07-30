@@ -40,7 +40,7 @@ import { ModalComponent, mensajeErrorElectiva, mensajeErrorNombreRepetido, mensa
 import { ModalEditarElectivaComponent } from './Components/modal-editar-electiva/modal-editar-electiva.component';
 import { ModalAgregarOfertaComponent, mensajeExitoOferta, mensajeErroRepetido, mensajeErrorOferta } from './Components/modal-agregar-oferta/modal-agregar-oferta.component';
 
-import { PermisorolGuard } from './Services/permisorol.guard';
+import { PermisorolGuard} from './Services/permisorol.guard';
 import { UsuariosComponent, modalNuevoUsuario, mensajeExito, modalCambiarRol, mensajeEditar} from './Components/usuarios/usuarios.component';
 import { VistaAdminComponent } from './Components/vista-admin/vista-admin.component';
 import { VistaCoordinadorComponent } from './Components/vista-coordinador/vista-coordinador.component';

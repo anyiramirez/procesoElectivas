@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginService } from '../Services/login.service';
 
 @Injectable({
@@ -8,14 +9,25 @@ import { LoginService } from '../Services/login.service';
 })
 export class PermisorolGuard implements CanActivate {
   infoLogin: any;
-  
-  constructor(private servicioLogin: LoginService){ 
-    this.datosUsuarios();
+  API_URI = 'http://localhost:3000/auth';
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    }),
+    withCredentials: true
   }
-  
+
+  constructor(private servicioLogin: LoginService,private http: HttpClient){ 
+  this.datosUsuarios();
+  }
+  obtenerDatosUsuario() {
+    return this.http.get(this.API_URI + '/user', this.httpOptions);
+
+  }
   datosUsuarios(){
     debugger;
-    this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
+    this.obtenerDatosUsuario().subscribe(res => {
       this.infoLogin=res;
     });
   }
@@ -48,3 +60,9 @@ export class PermisorolGuard implements CanActivate {
   }
   
 }
+
+
+  
+  
+  
+  

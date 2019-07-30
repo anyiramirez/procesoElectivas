@@ -74,6 +74,7 @@ export class ModalAgregarOfertaComponent implements OnInit {
 
   constructor(private _snackBar: MatSnackBar,private registrar:RegistroDatosService,private router:Router,public dialogRef: MatDialogRef<ModalAgregarOfertaComponent>) {
     this.listarElectivas();
+    this.listarOfertas();
     
   }
   
