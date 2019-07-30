@@ -204,7 +204,7 @@ employeeCtrl.electivasPrograma = (req, res) => {
 employeeCtrl.periodosIDs = (req,res)=>{
     var db = admin.database();
     var list;
-    var periodos = {};
+    var periodos = [];
     db.ref('Inscripcion').once('value', function(snapshot){
         list = snapshot.val();
         for(key in list) {
