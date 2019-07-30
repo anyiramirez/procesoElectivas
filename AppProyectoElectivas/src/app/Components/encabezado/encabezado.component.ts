@@ -15,39 +15,30 @@ export class EncabezadoComponent implements OnInit {
   nombreCompleto:string;rol:string;
   usuarios=new Array();
   cargo:string;
-
-
+  
+  
   constructor(private servicioLogin: LoginService,private datos:RegistroDatosService) { 
     this.datos.obtenerUsuarios().subscribe(res => {
       this.usuarios = new Array();
-        for(var key in res){
+      for(var key in res){
         this.usuarios.push(res[key]);
       }
-  
-     }); 
+      
+    }); 
   }
-
+  
   ngOnInit() {
     this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
       this.info=res;
       this.imagenPerfil = this.info.foto;
       this.usuario=this.info.correo;
       this.nombreCompleto=this.info.NombreCompleto;
-      for(var l in this.usuarios){
-        debugger;
-        if(this.usuarios[l].Correo==this.info.correo)
-        {
-          debugger;
-         this.cargo= this.usuarios[l].Cargo;
-         this.rol= this.usuarios[l].rol;
-         this.EnviarRol.emit(this.rol);
-          break;
-        
-        }
-      }
+      this.rol = this.info.rol;
+      this.EnviarRol.emit(this.info.rol);
+     
     });
-
-
+    
+    
   }
-
+  
 }

@@ -9,12 +9,14 @@ import {Usuarios} from '../Interfaces/usuarios';
 import { ListaElectCE} from '../Interfaces/lista-electce'//servicio electivas
 import { DatosOferta } from '../Interfaces/datos-oferta';
 import { Inscripcion } from '../Interfaces/inscripcion';
+import { createAotUrlResolver } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistroDatosService {
   API_URI = 'http://localhost:3000/api/asigcupos';
+  API_URI_BASE='http://localhost:3000';
   solicitudesEst: PreInscripcionPrueba[];
   electivas:Electivas[];
   solEx: solE_XLSX[];
@@ -34,7 +36,7 @@ export class RegistroDatosService {
    }
    saveUsuarios(datosUsuarios: Array<Usuarios>) {
     console.log("datos a evaluar:",datosUsuarios);
-    return this.http.post(this.API_URI + '/registrarUsuarios', datosUsuarios,this.httpOptions);
+    return this.http.post(this.API_URI_BASE + '/asigrol/confirmarcorreo', datosUsuarios,this.httpOptions);
 
    }
    saveElectivas(datosElectivas: Array<Electivas>) {
@@ -74,11 +76,10 @@ export class RegistroDatosService {
     console.log("datos a guardar:",datosEditarElectivas);
     return this.http.post(this.API_URI + '/editarElectiva/'+ nombreAntiguo, datosEditarElectivas,this.httpOptions);
   }
-  editarOferta(datosEditarOferta:Array<DatosOferta>){
-    console.log("datos a guardar:",datosEditarOferta);
-    return this.http.post(this.API_URI + '/editarOferta/',datosEditarOferta,this.httpOptions);
+  editarRol(correo:Usuarios,datosEditar:Usuarios){
+    console.log("datos a guardar:",datosEditar);
+    return this.http.post(this.API_URI + '/editarRol/'+correo, datosEditar,this.httpOptions);
   }
-
   registroBd (datos:PreInscripcionPrueba){
      datos.Usuario;
      datos.creditosPensum;

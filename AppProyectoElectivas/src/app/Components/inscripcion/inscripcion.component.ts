@@ -8,6 +8,7 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { LoginService} from '../../Services/login.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
+
 @Component({
   selector: 'app-inscripcion',
   templateUrl: './inscripcion.component.html',
@@ -142,6 +143,7 @@ export class InscripcionComponent implements OnInit {
       })
     }else{
     this.openErrorkBar();
+    
     }    
   }
   listarPrimeraOpcion(varProgram:string){

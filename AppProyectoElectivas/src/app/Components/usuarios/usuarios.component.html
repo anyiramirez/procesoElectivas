@@ -13,7 +13,6 @@
           <th scope="col">Nombres</th>
           <th scope="col">Apellidos</th>
           <th scope="col">Correo</th>
-          <th scope="col">Cargo</th>
           <th scope="col">Rol</th>
           <th colspan="2" class="text-center">Opciones</th>
         </tr>
@@ -24,10 +23,9 @@
           <td>{{usuario.Nombres}}</td>
           <td>{{usuario.Apellidos}}</td>
           <td>{{usuario.Correo}}</td>
-          <td>{{usuario.Cargo}}</td>
           <td>{{usuario.rol}}</td>
          
-          <td><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalEditarElectiva" (click)="obtenerElectiva(electiva.nombre)">Editar</button></td>
+          <td><button type="button" class="btn btn-outline-primary" (click)="openDialogEditar(usuario.Correo)">Cambiar rol</button></td>
        
         </tr>
         
