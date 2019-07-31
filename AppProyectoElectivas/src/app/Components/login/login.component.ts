@@ -13,48 +13,46 @@ export class LoginComponent implements OnInit {
   usuarios= new Array();
   infoLogin:any;
   rol:string;
-  ruta = '/Inscripcion';
+  ruta = 'Inscripcion';
   
-  constructor(private servicioLogin: LoginService, private router: Router,private datos:RegistroDatosService) {
-    this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
-      this.infoLogin=res;
-    });
-    
+  constructor(private servicioLogin: LoginService, private router: Router,private datos:RegistroDatosService) {    
   }
   
-  ngOnInit() {
-    
+  ngOnInit() {  
   }
   
   IniciarSesion() {
     
-    //window.location.href = 'http://localhost:3000/auth/google';
     const y = parseInt(((window.screen.height/2)-(800/2)).toString());
     const x = parseInt(((window.screen.width/2)-(800/2)).toString());
     
     window.open('http://localhost:3000/auth/google',"mywindow","location=1,status=1,scrollbars=1, top=" + y + ",left=" + x + ",width=800,height=800");
     
     let listener = window.addEventListener('message', (message) => {
-      console.log(message.data.user);
-      console.log(message.data.success);
       if(message.data.success){
-        if(this.infoLogin.rol === 'SuperAdmin'){
-          this.ruta ='/Administrador';
-        }
-        if(this.infoLogin.rol === 'Administrativo'){
-          this.ruta ='/VistaAdministrativa';
-        }
-        if(this.infoLogin.rol === 'Coordinador'){
-          this.ruta = '/VistaCoordinador';
-        }
-        if(this.infoLogin.rol === 'Admin'){
-          this.ruta = '/VistaAdmin'
-        }
-
+        this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
+          
+          this.infoLogin=res;
+          this.servicioLogin.setUsuario(this.infoLogin);
+          
+          console.log(this.infoLogin);
+          if(this.infoLogin.rol === 'SuperAdmin'){
+            this.ruta ='Administrador';
+          }
+          if(this.infoLogin.rol === 'Administrativo'){
+            this.ruta ='VistaAdministrativa';
+          }
+          if(this.infoLogin.rol === 'Coordinador'){
+            this.ruta = 'VistaCoordinador';
+          }
+          if(this.infoLogin.rol === 'Admin'){
+            this.ruta = 'VistaAdmin'
+          }
+          
+          this.router.navigate([this.ruta]);
+          
+        });
       }
-
-      this.router.navigate([this.ruta]);
-      
     });
     
   }

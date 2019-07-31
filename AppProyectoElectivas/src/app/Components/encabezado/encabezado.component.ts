@@ -38,7 +38,7 @@ export class EncabezadoComponent implements OnInit {
   cerrarSesionLogin(){
     this.servicioLogin.cerrarSesion().subscribe(res =>{
       console.log(res);
-      this.router.navigate(['']);
+      this.router.navigate(['/login']);
       
     });
   }

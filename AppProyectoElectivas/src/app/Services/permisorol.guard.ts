@@ -9,15 +9,22 @@ export class PermisorolGuard implements CanActivate {
   infoLogin: any;
   
   constructor(private servicioLogin: LoginService){ 
-
-  }
-   
-  canActivate(ruta: any){
-    this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
-      this.infoLogin=res;
+    this.servicioLogin.obtenerDatosUsuario().subscribe(res=>{
+      this.infoLogin = res;
+      console.log("pinche santiago");
     });
-    console.log("guardian ->", this.infoLogin, this.infoLogin.rol);
+  }
+  
+  canActivate(ruta: any){
+    console.log("antes" + this.infoLogin);
+
+    this.infoLogin = this.servicioLogin.getUsuario();
+    console.log("e" +this.infoLogin);
+
+    console.log("guardian ->", this.servicioLogin.getUsuario(),this.infoLogin.rol);
+
     switch(ruta.url[0].path){
+      
       case 'Administrador':
       if(this.infoLogin.rol === 'SuperAdmin'){
         return true;
@@ -39,13 +46,16 @@ export class PermisorolGuard implements CanActivate {
       }
       break;
     }
+    
     return false;
+    
+    
   }
   
 }
 
 
-  
-  
-  
-  
+
+
+
+

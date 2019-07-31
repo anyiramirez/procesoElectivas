@@ -259,7 +259,8 @@ export class ModalAgregarOfertaComponent implements OnInit {
         this.cantidades[band]=contador;
         this.estados[band]=estado;
         
-        this.obtenerOfertas.push(res[p]); 
+        this.ofertaArray.push(res[p]); 
+      
         band++; 
       }
       

@@ -53,14 +53,12 @@ import { MensajesComponent, mensajeErrorR } from './Services/mensajes/mensajes.c
 
 const Rutas: Routes = [
   {path: '', component: LoginComponent},
-  {path: 'Administrador', component: PrincipaladmiComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'Administrador', component: PrincipaladmiComponent,canActivate: [PermisorolGuard]},
   {path: 'Inscripcion', component:InscripcionComponent},
   {path: 'VistaAdmin', component:VistaAdminComponent,canActivate: [PermisorolGuard]},
-  // , canActivate: [PermisorolGuard]
   {path: 'VistaCoordinador',component:VistaCoordinadorComponent,canActivate: [PermisorolGuard]},
-  // , canActivate: [PermisorolGuard]
   {path: 'VistaAdministrativa',component:VistaAdministrativoComponent,canActivate: [PermisorolGuard]}
-  // , canActivate: [PermisorolGuard]
 ];
 
 @NgModule({
