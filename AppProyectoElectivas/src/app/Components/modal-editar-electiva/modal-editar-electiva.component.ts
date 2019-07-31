@@ -85,12 +85,9 @@ export class ModalEditarElectivaComponent implements OnInit {
     { this.contenidoCampo=false; }
     
     if(!this.nombreCampo && !this.contenidoCampo && !this.departamentoCampo && !this.tipoCampo){
-    
+      this.electivas.nombre = this.MayusculaPrimera(this.data.electiva.NombreElectiva);
       if(!this.validarNombreElectivaEdit(this.data.electiva.NombreElectiva)){
-       this.electivas.nombre = this.MayusculaPrimera(this.data.electiva.NombreElectiva);
         this.registrar.editarElectiva(this.data.antiguo,this.data.electiva).subscribe(res => {
-          
-          //alert(res);
           this.dialogRef.close();
         })
       }else{

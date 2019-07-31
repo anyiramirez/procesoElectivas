@@ -188,7 +188,7 @@ employeeCtrl.electivasPrograma = (req, res) => {
             if(inicio <= actual && actual<=fin) {
                 for (key2 in list[key1].electivasOfertadas) {
                     if(list[key1].electivasOfertadas[key2].programa.search(req.params.programa)!=-1) {
-                        listaPrograma.push(list[key1].electivasOfertadas[key2].NombreElectiva + " (" + list[key1].electivasOfertadas[key2].programa +"" );
+                        listaPrograma.push(list[key1].electivasOfertadas[key2].NombreElectiva + " (" + list[key1].electivasOfertadas[key2].programa +")" );
                     }
                 }
             }
@@ -231,6 +231,28 @@ employeeCtrl.obtenerInscritos = (req,res)=>{
         console.log(list[key]);
     });
 }
+
+employeeCtrl.obtenerRechazados = (req,res)=>{
+    //console.log("id llego: ",req.params.id);
+    var db = admin.database();
+    var list;
+    var rechazados = [];
+    db.ref('Rechazados').once('value', function(snapshot){
+        list = snapshot.val();
+        for(key in list) {
+            //if(key === req.params.id) {
+                rechazados.push([
+                    list[key].Nombres,
+                    list[key].Apellidos,
+                    list[key].Usuario
+                ]);
+            //}
+        }
+        res.json(rechazados);
+        console.log(rechazados);
+    });
+}
+
 
 //-------------------------------
 //    POST METHODS
@@ -629,6 +651,9 @@ function filtrarLista(lista) {
         if(dif > 0) {
             lista[i]['CantElectPuedeVer'] = dif;
             listaFil.push(lista[i]);
+        } else {
+            db = admin.database();
+            ref = db.ref("Rechazados").push(lista[i]);
         }
     }
     return listaFil;
