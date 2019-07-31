@@ -23,7 +23,7 @@ periodos: string[] = ["2019_02"]; // luego se reemplazara con una lista de perio
   obtenerDatosRechazados(){
     this.registro.obtenerReporteRechazados().subscribe(res=>{
       this.lista = new Array();
-      console.log(res[0]);
+ 
       for(var key in res){
         this.lista.push(res[key]);
       }

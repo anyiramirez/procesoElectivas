@@ -36,7 +36,6 @@ export class ModalEditarOfertaComponent implements OnInit {
          
   }
   ngOnInit(){ 
-    console.log("este es",this.data); 
       this.anioFormControl = new FormControl('', [
       Validators.required,
     ]);

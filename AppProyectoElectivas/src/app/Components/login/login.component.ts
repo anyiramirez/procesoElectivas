@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
           this.infoLogin=res;
           this.servicioLogin.setUsuario(this.infoLogin);
           
-          console.log(this.infoLogin);
           if(this.infoLogin.rol === 'SuperAdmin'){
             this.ruta ='Administrador';
           }

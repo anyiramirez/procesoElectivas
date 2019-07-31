@@ -9,19 +9,10 @@ export class PermisorolGuard implements CanActivate {
   infoLogin: any;
   
   constructor(private servicioLogin: LoginService){ 
-    this.servicioLogin.obtenerDatosUsuario().subscribe(res=>{
-      this.infoLogin = res;
-      console.log("pinche santiago");
-    });
   }
   
   canActivate(ruta: any){
-    console.log("antes" + this.infoLogin);
-
     this.infoLogin = this.servicioLogin.getUsuario();
-    console.log("e" +this.infoLogin);
-
-    console.log("guardian ->", this.servicioLogin.getUsuario(),this.infoLogin.rol);
 
     switch(ruta.url[0].path){
       

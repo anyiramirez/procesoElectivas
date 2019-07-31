@@ -15,17 +15,14 @@ export class VistaAdminComponent implements OnInit {
   constructor(private router: Router, private servicioLogin: LoginService) { }
 
   ngOnInit() {
-    console.log("Holi");
+
     this.href = this.router.url;
     var idx = this.href.lastIndexOf("code=");
     var code = this.href.substring(idx + 5).replace("#","");
     var code2 = code.split("&");
-    console.log(code2[0]);
+
     this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
-      console.log(res);
-      /*if(!res){
-        this.router.navigate("http://localhost/login");;
-      }*/
+    
     });;
   }
   

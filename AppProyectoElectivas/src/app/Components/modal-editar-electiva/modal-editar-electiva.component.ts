@@ -112,13 +112,10 @@ export class ModalEditarElectivaComponent implements OnInit {
   }
   validarNombreElectivaEdit(nuevoNombre: any){
     var existe=false; 
-    console.log("listado ofertas",this.electivasRegistradas);
     for(let i in this.electivasRegistradas) {
-      console.log(this.data.antiguo,nuevoNombre,this.electivasRegistradas[i].nombre);
     
       if ( this.electivasRegistradas[i].nombre==nuevoNombre && this.data.antiguo != nuevoNombre) {
         existe = true;
-        console.log(this.data.antiguo,nuevoNombre);
       }
     }
     return existe;
