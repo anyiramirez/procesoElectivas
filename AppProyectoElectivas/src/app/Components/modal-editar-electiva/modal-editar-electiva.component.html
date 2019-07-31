@@ -7,7 +7,7 @@
                 <mat-form-field class="example-full-width">
                   <mat-label for="nombre" *ngIf='nombreCampo' class=" errorFormato ">Nombre Electiva</mat-label>
                   <mat-label for="nombre" *ngIf='!nombreCampo' >Nombre Electiva</mat-label>
-                  <input [(ngModel)]="data.electiva.NombreElectiva" id="nombre" name="nombre" [formControl]="nombreFormControl"  matInput >
+                  <input [(ngModel)]="data.electiva.NombreElectiva" id="nombre" name="nombre" [formControl]="nombreFormControl"  matInput required >
                   <mat-error *ngIf="nombreFormControl.hasError('required')">
                     Nombre Electiva es <strong>requerido</strong>
                   </mat-error>
@@ -21,7 +21,7 @@
                 <mat-form-field class="example-full-width">
                   <mat-label for="contenido" *ngIf='contenidoCampo' class=" errorFormato ">Contenido Programatico</mat-label>
                   <mat-label for="contenido" *ngIf='!contenidoCampo' >Nombre Contenido Programatico</mat-label>
-                  <input [(ngModel)]="data.electiva.Contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput >
+                  <input [(ngModel)]="data.electiva.Contenido" [formControl]="contenidoFormControl" id= "contenido"  name = "contenido"  matInput required>
                   <mat-error *ngIf="contenidoFormControl.hasError('required')">
                     Contenido es <strong>requerido</strong>
                   </mat-error>

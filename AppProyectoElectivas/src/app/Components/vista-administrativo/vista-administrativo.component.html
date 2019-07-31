@@ -8,6 +8,9 @@
     <div *ngIf= "varVista === 'AsignacionElectiva'">
             <app-asignacionelectiva [electivaSeleccionada]= "electivaActual" (vistaAntElectivas)="recibirVista($event)"></app-asignacionelectiva>
         </div>
+        <div *ngIf= "varVista === 'Reportes'">
+            <app-reportes></app-reportes>
+        </div>
    
     
 </blockquote>

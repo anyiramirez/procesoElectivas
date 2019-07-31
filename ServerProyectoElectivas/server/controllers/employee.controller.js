@@ -188,7 +188,7 @@ employeeCtrl.electivasPrograma = (req, res) => {
             if(inicio <= actual && actual<=fin) {
                 for (key2 in list[key1].electivasOfertadas) {
                     if(list[key1].electivasOfertadas[key2].programa.search(req.params.programa)!=-1) {
-                        listaPrograma.push(list[key1].electivasOfertadas[key2].NombreElectiva + " (" + list[key1].electivasOfertadas[key2].programa +"" );
+                        listaPrograma.push(list[key1].electivasOfertadas[key2].NombreElectiva + " (" + list[key1].electivasOfertadas[key2].programa +")" );
                     }
                 }
             }
@@ -236,7 +236,6 @@ employeeCtrl.obtenerRechazados = (req,res)=>{
     //console.log("id llego: ",req.params.id);
     var db = admin.database();
     var list;
-    var periodos = {};
     var rechazados = [];
     db.ref('Rechazados').once('value', function(snapshot){
         list = snapshot.val();

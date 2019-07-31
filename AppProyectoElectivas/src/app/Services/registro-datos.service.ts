@@ -64,6 +64,9 @@ export class RegistroDatosService {
   InformacionInscripcionPeriodo(id: string){
     return this.http.get(this.API_URI + '/obtenerInscritos/' + id);
   }
+  obtenerReporteRechazados(){
+    return this.http.get(this.API_URI + '/obtenerRechazados');
+  }
   obtenerUsuarios(){
     return this.http.get(this.API_URI + '/listarUsuarios');
 
