@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   usuarios= new Array();
   infoLogin:any;
   rol:string;
-  ruta = '/Inscripcion';
+  ruta:any;
   
   constructor(private servicioLogin: LoginService, private router: Router,private datos:RegistroDatosService) {
     this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
@@ -39,16 +39,19 @@ export class LoginComponent implements OnInit {
       console.log(message.data.success);
       if(message.data.success){
         if(this.infoLogin.rol === 'SuperAdmin'){
-          this.ruta ='/Administrador';
+          this.ruta ='/Administrador/';
         }
         if(this.infoLogin.rol === 'Administrativo'){
-          this.ruta ='/VistaAdministrativa';
+          this.ruta ='/VistaAdministrativa/';
         }
         if(this.infoLogin.rol === 'Coordinador'){
-          this.ruta = '/VistaCoordinador';
+          this.ruta = '/VistaCoordinador/';
         }
         if(this.infoLogin.rol === 'Admin'){
-          this.ruta = '/VistaAdmin'
+          this.ruta = '/VistaAdmin/'
+        }
+        if(this.infoLogin.rol=="Estudiante"){
+          this.ruta = '/Inscripcion/'
         }
 
       }

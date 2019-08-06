@@ -46,7 +46,7 @@
   </mat-form-field>
   
   <mat-form-field>
-    <mat-label for="opcion1" *ngIf='opcion1Campo' class=" errorFormato ">Opción Uno</mat-label>
+    <mat-label for="opcion1" *ngIf='opcion1Campo' class=" errorFormato ">Opción 1</mat-label>
     <mat-label for="opcion1" *ngIf='!opcion1Campo'>Opción Uno</mat-label>
     <mat-select matNativeControl [(ngModel)]="inscripcion.opcion1" id="opcion1" name="opcion1" [formControl]="opcion1FormControl" (click)="listarPrimeraOpcion(inscripcion.programa)" required>
       <mat-option *ngFor="let e of electivasRegistradas" [value]="e">

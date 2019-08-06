@@ -55,11 +55,11 @@ const Rutas: Routes = [
   {path: '', component: LoginComponent},
   {path: 'Administrador', component: PrincipaladmiComponent},
   {path: 'Inscripcion', component:InscripcionComponent},
-  {path: 'VistaAdmin', component:VistaAdminComponent,canActivate: [PermisorolGuard]},
+  {path: 'VistaAdmin', component:VistaAdminComponent},
   // , canActivate: [PermisorolGuard]
-  {path: 'VistaCoordinador',component:VistaCoordinadorComponent,canActivate: [PermisorolGuard]},
+  {path: 'VistaCoordinador',component:VistaCoordinadorComponent},
   // , canActivate: [PermisorolGuard]
-  {path: 'VistaAdministrativa',component:VistaAdministrativoComponent,canActivate: [PermisorolGuard]}
+  {path: 'VistaAdministrativa',component:VistaAdministrativoComponent}
   // , canActivate: [PermisorolGuard]
 ];
 

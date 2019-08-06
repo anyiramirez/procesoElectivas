@@ -29,6 +29,8 @@ export class ModalEditarElectivaComponent implements OnInit {
   departamentoFormControl;
   tipoFormControl;
   durationInSeconds=5;
+  texto: any;
+  nuevoTexto: any;
   
   
   constructor(private _snackBar: MatSnackBar,private registrar:RegistroDatosService,public dialog: MatDialog,public dialogRef: MatDialogRef<ModalEditarElectivaComponent>,
@@ -85,9 +87,10 @@ export class ModalEditarElectivaComponent implements OnInit {
     { this.contenidoCampo=false; }
     
     if(!this.nombreCampo && !this.contenidoCampo && !this.departamentoCampo && !this.tipoCampo){
-    
+      debugger;
+      this.electivas.nombre = this.MayusculaPrimera(this.data.electiva.NombreElectiva);
       if(!this.validarNombreElectivaEdit(this.data.electiva.NombreElectiva)){
-       this.electivas.nombre = this.MayusculaPrimera(this.data.electiva.NombreElectiva);
+     
         this.registrar.editarElectiva(this.data.antiguo,this.data.electiva).subscribe(res => {
           
           //alert(res);
@@ -127,8 +130,17 @@ export class ModalEditarElectivaComponent implements OnInit {
     return existe;
   }
   MayusculaPrimera(palabra:string){
+    this.nuevoTexto = "";
     palabra = palabra.toLowerCase();
-    return palabra.charAt(0).toUpperCase() + palabra.slice(1);
+
+    this.texto = palabra.split(' ');
+    for(let i in this.texto){
+      palabra = this.texto[i];
+      palabra = palabra.charAt(0).toUpperCase() + palabra.slice(1) + " ";
+      this.nuevoTexto = this.nuevoTexto + palabra;
+    }
+    this.nuevoTexto = this.nuevoTexto.substring(0, this.nuevoTexto.length-1);
+    return this.nuevoTexto;
   }
  
   
