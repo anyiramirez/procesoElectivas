@@ -21,19 +21,11 @@ export class ListasasignacionComponent implements OnInit {
 
   constructor(private registrar:RegistroDatosService,private excelService:ExcelService) { 
     this.listarE();
-    this.obtenerPeriodoAcademico();
+    //this.obtenerPeriodoAcademico();
   }
   ngOnInit() {
   }
-  obtenerPeriodoAcademico(){
-    this.registrar.obtenerOfertas().subscribe(res=>{
-      this.ofertas=new Array();
-      for(var key in res){
-        this.ofertas.push(res[key].anio + "-"+ res[key].periodo);
-      }
-
-    });
-  }
+ 
 
   cambioVistaElectiva(electivaSeleccionada: any){
     this.infoElectiva = electivaSeleccionada;
