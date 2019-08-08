@@ -11,6 +11,7 @@ export class VistaCoordinadorComponent implements OnInit {
   varVista: any;
   electivaActual: any;
   rolActual:any;
+  variable: any;
   public routeId = '';
   public href: string = "";
   constructor(private router: Router, private servicioLogin: LoginService) { }
@@ -31,8 +32,9 @@ export class VistaCoordinadorComponent implements OnInit {
   }
   
   electivaSeleccionada($event:any){
-    this.electivaActual = $event.charAt($event.length-1);
-    this.varVista = $event.substring(0,$event.length-1);
+    this.variable = $event.split("/",2)
+    this.electivaActual = this.variable[1];
+    this.varVista = this.variable[0];
   }
   recibirRolUser($event: any){
     this.rolActual = $event;
