@@ -7,7 +7,7 @@ const employee = require('../controllers/employee.controller');
 // get methods 
 
 router.get('/', employee.ASIGELECT);
-router.post('/AsigCuposXLSX', employee.ASIGELECTP);
+router.post('/AsigCuposXLSX/:id', employee.ASIGELECTP);
 
 
 router.get('/solEst', employee.PIAI);
@@ -20,8 +20,9 @@ router.get('/obtenerOfertas', employee.getOfertas);
 router.get('/electivasPrograma/:programa', employee.electivasPrograma);
 router.get('/listarUsuarios', employee.listarUsuarios);
 router.get('/periodosIDs', employee.periodosIDs);
+router.get('/rechazadosIDs', employee.rechazadosIDs);
 router.get('/obtenerInscritos/:id', employee.obtenerInscritos);
-router.get("/obtenerRechazados", employee.obtenerRechazados);
+router.get("/obtenerRechazados/:id", employee.obtenerRechazados);
 
 // post methods 
 router.post('/registrarElectivas', employee.registrarElectivas);

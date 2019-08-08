@@ -13,7 +13,6 @@ export class ListasInscriptosComponent implements OnInit {
   lista = Array<Inscripcion>();
   
   constructor(private registro: RegistroDatosService,private excelService:ExcelService) { 
-    debugger;
     this.llenarListaInscritos();
   }
   
@@ -34,7 +33,7 @@ export class ListasInscriptosComponent implements OnInit {
       for(var key in res){
         this.lista.push(res[key]);
       }
-      this.excelService.exportAsExcelFile(this.lista, id + "_Archivo_Preinscritos");
+      this.excelService.exportAsExcelFile(this.lista, id + "-Archivo_Preinscritos");
     });
   }
   

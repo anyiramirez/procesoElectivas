@@ -8,28 +8,31 @@ import { ExcelService } from '../../Services/excel.service';
   styleUrls: ['./reportes.component.css']
 })
 export class ReportesComponent implements OnInit {
-   
+listaperiodosRechazados = new Array();  
 lista = new Array();
-periodos: string[] = ["2019_02"]; // luego se reemplazara con una lista de periodos
   constructor(private registro: RegistroDatosService,private excelService:ExcelService) { 
-    this.obtenerDatosRechazados();
+    this.llenarListaIdRtechazados();
   }
 
   ngOnInit() {
   }
   
-  obtenerperiodosAcademicos(){}
-
-  obtenerDatosRechazados(){
-    this.registro.obtenerReporteRechazados().subscribe(res=>{
+  llenarListaIdRtechazados(){
+    this.registro.obtenerListasRechazados().subscribe(res=>{
+      this.listaperiodosRechazados = new Array();
+      for(var key in res){
+        this.listaperiodosRechazados.push(res[key]);
+      }
+      console.log(this.listaperiodosRechazados);
+    });
+  }
+  DescargarExcelRechazados(id:string){
+    this.registro.InformacionRechazadosPeriodo(id).subscribe(res=>{
       this.lista = new Array();
- 
       for(var key in res){
         this.lista.push(res[key]);
       }
+      this.excelService.exportAsExcelFile(this.lista, id + "_Archivo_Rechazados");
     });
-  }
-  DescargarExcelRechazados (id:string){
-   this.excelService.exportAsExcelFile(this.lista, id + "_Archivo_Rechazados");
   }
 }
