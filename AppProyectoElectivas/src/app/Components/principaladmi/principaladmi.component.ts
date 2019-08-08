@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService} from '../../Services/login.service';
+import { variable } from '@angular/compiler/src/output/output_ast';
 @Component({
   selector: 'app-principaladmi',
   templateUrl: './principaladmi.component.html',
@@ -10,6 +11,7 @@ export class PrincipaladmiComponent implements OnInit {
   varVista: any;
   electivaActual: any;
   rolActual:any;
+  variable: any;
   public routeId = '';
   public href: string = "";
   constructor(private router: Router, private servicioLogin: LoginService) { }
@@ -25,8 +27,9 @@ export class PrincipaladmiComponent implements OnInit {
     this.varVista = $event;
   }
   electivaSeleccionada($event:any){
-    this.electivaActual = $event.charAt($event.length-1);
-    this.varVista = $event.substring(0,$event.length-1);
+    this.variable = $event.split("/",2)
+    this.electivaActual = this.variable[1];
+    this.varVista = this.variable[0];
   }
   recibirRolUser($event: any){
     this.rolActual = $event;

@@ -27,7 +27,7 @@
         <td>{{ece.nombreElectiva}}</td>
         <td style="text-align:center">{{ece.cupos}}</td>
         <td style="text-align:center">
-          <a (click)="cambioVistaElectiva('AsignacionElectiva' + id)"><i class="fas fa-search-plus" style="color:#082a52; cursor: pointer"></i></a>
+          <a (click)="cambioVistaElectiva('AsignacionElectiva/' + id)"><i class="fas fa-search-plus" style="color:#082a52; cursor: pointer"></i></a>
         </td>
         <td style="text-align:center">
           <a (click)="DescargarE(id,ece.nombreElectiva)" title="Descargar Excel"> <i class="fas fa-file-excel" style="color:green; cursor: pointer"></i></a>
