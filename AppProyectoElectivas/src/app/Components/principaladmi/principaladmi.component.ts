@@ -19,13 +19,6 @@ export class PrincipaladmiComponent implements OnInit {
     var idx = this.href.lastIndexOf("code=");
     var code = this.href.substring(idx + 5).replace("#","");
     var code2 = code.split("&");
-    console.log(code2[0]);
-    this.servicioLogin.obtenerDatosUsuario().subscribe(res => {
-      console.log(res);
-      /*if(!res){
-        this.router.navigate("http://localhost/login");;
-      }*/
-    });;
   }
   
   recibirVista($event: any){

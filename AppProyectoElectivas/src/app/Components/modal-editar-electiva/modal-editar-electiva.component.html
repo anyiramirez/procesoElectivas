@@ -7,7 +7,11 @@
                 <mat-form-field class="example-full-width">
                   <mat-label for="nombre" *ngIf='nombreCampo' class=" errorFormato ">Nombre Electiva</mat-label>
                   <mat-label for="nombre" *ngIf='!nombreCampo' >Nombre Electiva</mat-label>
+<<<<<<< HEAD
                   <input [(ngModel)]="data.electiva.NombreElectiva" id="nombre" name="nombre" [formControl]="nombreFormControl"  matInput required>
+=======
+                  <input [(ngModel)]="data.electiva.NombreElectiva" id="nombre" name="nombre" [formControl]="nombreFormControl"  matInput required >
+>>>>>>> 08e7896a67a594f8050006fa50e7fa29fc04ccb3
                   <mat-error *ngIf="nombreFormControl.hasError('required')">
                     Nombre Electiva es <strong>requerido</strong>
                   </mat-error>

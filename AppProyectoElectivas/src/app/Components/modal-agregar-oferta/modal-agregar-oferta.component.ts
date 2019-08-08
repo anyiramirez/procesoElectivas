@@ -17,8 +17,6 @@ export interface anios {
   value: number;
   viewValue: number;
 }
-
-
 @Component({
   selector: 'app-modal-agregar-oferta',
   templateUrl: './modal-agregar-oferta.component.html',
@@ -92,7 +90,6 @@ export class ModalAgregarOfertaComponent implements OnInit {
   listarElectivas(){
     this.registrar.obtenerInformacionElectivas().subscribe(res => {
       this.electivas=new Array();
-      //this.registrar.electivas= res as Electivas[];
       for(let p in res){
         if(res[p].estado=="Deshabilitar")
         {
@@ -106,9 +103,6 @@ export class ModalAgregarOfertaComponent implements OnInit {
     );
     
   }
-  
- 
-
     limpiarModal(){
       this.ofertas.anio= '';
       this.ofertas.periodo = '';
@@ -222,7 +216,6 @@ export class ModalAgregarOfertaComponent implements OnInit {
   validarOfertaUnica(nuevoAnio:any,nuevoPeriodo:any){
     var existe=false; 
     for(let i in this.listaOfertas) {
-      console.log(nuevoAnio,nuevoPeriodo,"->",this.listaOfertas[i].anio,this.listaOfertas[i].periodo);
       if (this.listaOfertas[i].anio==nuevoAnio && this.listaOfertas[i].periodo==nuevoPeriodo) {
         existe = true;
       }
@@ -249,36 +242,12 @@ export class ModalAgregarOfertaComponent implements OnInit {
   }
   listarOfertas(){
     this.registrar.obtenerOfertas().subscribe(res => {
-      this.obtenerOfertas= new Array();
-      this.registrar.electivas= res as Electivas[];
-      var band=0;
-      for(let p in res){ 
-        var contador = res[p].electivasOfertadas.length;
-        // this.cantidad[band]=contador; {{cantidad[indice]}}
-        var estado = this.estadoOferta(res[p].fechaInicio,res[p].fechaFin);
-        this.cantidades[band]=contador;
-        this.estados[band]=estado;
-        
-        this.listaOfertas.push(res[p]); 
-        band++; 
+      this.listaOfertas= new Array();
+      for(let p in res){   
+        this.listaOfertas.push(res[p]);  
       }
       
     });
-  }
-  estadoOferta(fechaInicio:any,fechaFin:any){
-    var fecha = new Date(); 
-    var f1= new Date(fechaInicio);
-    var f2= new Date(fechaFin);
-    fecha.setHours(0,0,0,0);
-    if(fecha < f1){
-      return "Pendiente"
-    }
-    if (fecha > f2){
-      return "Finalizado"
-    }
-    else{
-      return "En curso"
-    }
   }
 }
 @Component({

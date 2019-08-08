@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Usuarios } from '../Interfaces/usuarios';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +13,13 @@ export class LoginService {
     }),
     withCredentials: true
   }
-
+  usuario;
+  setUsuario(user:any){
+    this.usuario = user;
+  }
+  getUsuario(){
+    return this.usuario;
+  }
   constructor(private http: HttpClient) { }
 
 

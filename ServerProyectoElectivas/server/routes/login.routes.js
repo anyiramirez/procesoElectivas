@@ -94,7 +94,7 @@ router.get('/user',(req, res) => {
     console.log(req.user);
     if(req.user === undefined){
         console.log("holi");
-        res.status(200).json("joder");
+        res.status(200).json("no");
     }
     res.status(200).json(req.user);
 });

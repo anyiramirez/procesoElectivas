@@ -169,12 +169,12 @@ export class RegisterInfoComponent implements OnInit {
   registrarBD(){
     this.calcularPorcentaje();
     this.registrar.saveUsuario(this.datosGuardar).subscribe(res => {
-      console.log("respuesta del servidor: ",res);
+ 
       this.showSaving();
       this.registrar.generarListas().subscribe(res => {
-        console.log("Estado de generar: ",res);
+ 
         this.registrar.obtenerElectivasCE().subscribe(res => {
-          console.log("ObtenerElectivas: ",res);
+  
         });
       }, err => {
         console.error(err);
@@ -182,7 +182,7 @@ export class RegisterInfoComponent implements OnInit {
         this.openErrorListas();
       });
     },err =>{
-      console.log(this.datosGuardar);
+
       console.error(err);
      // alert("Error en el registro ");
       this.openErrorRegistro();
@@ -194,7 +194,7 @@ export class RegisterInfoComponent implements OnInit {
       for(let p in lista){
         this.preinscriptos.push(lista[p]);
       }
-      console.log(lista);
+
       //alert('No realizo la consulta de la base de datos');
       this.openErrorConsultaBD();
     });
@@ -209,7 +209,7 @@ export class RegisterInfoComponent implements OnInit {
         this.datosGuardar.push(objDS);
         this.preinscriptos.push(res[p]);
       }
-      console.log(res,"tamanio del array guardar: ",this.datosGuardar.length);
+
     });
   }
   calcularPorcentaje(){

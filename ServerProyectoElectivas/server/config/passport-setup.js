@@ -13,7 +13,6 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((correo, done) => {
     var db = admin.database();
     var ref = db.ref("users");
-    console.log("ooole",correo);
     ref.orderByChild("correo").equalTo(correo).once("value").then(function (snapshot){
       var userv = snapshot.val();
       

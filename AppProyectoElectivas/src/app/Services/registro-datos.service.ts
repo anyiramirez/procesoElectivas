@@ -33,26 +33,21 @@ export class RegistroDatosService {
   constructor(private http: HttpClient,private _snackBar: MatSnackBar) { }
 
    saveUsuario(datosEApi: Array<DatosSimca>) {
-    console.log("datos a evaluar:",datosEApi);
     return this.http.post(this.API_URI + '/solEst', datosEApi,this.httpOptions);
 
    }
    saveUsuarios(datosUsuarios: Array<Usuarios>) {
-    console.log("datos a evaluar:",datosUsuarios);
     return this.http.post(this.API_URI_BASE + '/asigrol/confirmarcorreo', datosUsuarios,this.httpOptions);
 
    }
    saveElectivas(datosElectivas: Array<Electivas>) {
-    console.log("datos a guardar:",datosElectivas);
     return this.http.post(this.API_URI + '/registrarElectivas', datosElectivas,this.httpOptions);
 
    }
    saveRegistrarInscripcion(inscripcion: Array<Inscripcion>){
-    console.log("datos a guardar:",inscripcion);
     return this.http.post(this.API_URI + '/registrarInscripcion',inscripcion, this.httpOptions);
   }
    saveOfertaAcademica(datos:Array<DatosOferta>){
-    console.log("datos a guardar:",datos);
     return this.http.post(this.API_URI + '/registrarOfertas/',datos, this.httpOptions);
    }
   obtenerOfertas(){
@@ -63,6 +58,9 @@ export class RegistroDatosService {
   }
   InformacionInscripcionPeriodo(id: string){
     return this.http.get(this.API_URI + '/obtenerInscritos/' + id);
+  }
+  obtenerReporteRechazados(){
+    return this.http.get(this.API_URI + '/obtenerRechazados');
   }
   obtenerUsuarios(){
     return this.http.get(this.API_URI + '/listarUsuarios');
@@ -82,12 +80,10 @@ export class RegistroDatosService {
     return this.http.get(this.API_URI);
   }
   editarElectiva(nombreAntiguo:Electivas, datosEditarElectivas: Electivas){
-    console.log("datos a guardar:",datosEditarElectivas);
     return this.http.post(this.API_URI + '/editarElectiva/'+ nombreAntiguo, datosEditarElectivas,this.httpOptions);
   }
  
   editarRol(correo:Usuarios,datosEditar:Usuarios){
-    console.log("datos a guardar:",datosEditar);
     return this.http.post(this.API_URI + '/editarRol/'+correo, datosEditar,this.httpOptions);
   }
   registroBd (datos:PreInscripcionPrueba){
@@ -156,7 +152,6 @@ export class RegistroDatosService {
 
     }
     
-    console.log("paso1");
     this.http.post(this.API_URI+"/AsigCuposXLSX", this.solEx, this.httpOptions).subscribe(
       res => {
         console.log("servidor: ",res);
@@ -167,7 +162,6 @@ export class RegistroDatosService {
         //alert("Error en el registro ");
       }
     );
-    console.log("paso2");
 
   }
   openSnackBar() {

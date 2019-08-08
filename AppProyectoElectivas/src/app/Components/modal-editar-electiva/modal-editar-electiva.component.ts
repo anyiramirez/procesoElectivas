@@ -87,13 +87,9 @@ export class ModalEditarElectivaComponent implements OnInit {
     { this.contenidoCampo=false; }
     
     if(!this.nombreCampo && !this.contenidoCampo && !this.departamentoCampo && !this.tipoCampo){
-      debugger;
-      this.electivas.nombre = this.MayusculaPrimera(this.data.electiva.NombreElectiva);
+      this.data.electiva.NombreElectiva = this.MayusculaPrimera(this.data.electiva.NombreElectiva);
       if(!this.validarNombreElectivaEdit(this.data.electiva.NombreElectiva)){
-     
         this.registrar.editarElectiva(this.data.antiguo,this.data.electiva).subscribe(res => {
-          
-          //alert(res);
           this.dialogRef.close();
         })
       }else{
@@ -118,13 +114,10 @@ export class ModalEditarElectivaComponent implements OnInit {
   }
   validarNombreElectivaEdit(nuevoNombre: any){
     var existe=false; 
-    console.log("listado ofertas",this.electivasRegistradas);
     for(let i in this.electivasRegistradas) {
-      console.log(this.data.antiguo,nuevoNombre,this.electivasRegistradas[i].nombre);
     
       if ( this.electivasRegistradas[i].nombre==nuevoNombre && this.data.antiguo != nuevoNombre) {
         existe = true;
-        console.log(this.data.antiguo,nuevoNombre);
       }
     }
     return existe;

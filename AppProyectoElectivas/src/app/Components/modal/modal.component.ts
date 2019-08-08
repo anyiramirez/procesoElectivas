@@ -96,8 +96,8 @@ export class ModalComponent implements OnInit{
     }else{ this.tipoCampo=true; }
     
     if(!this.nombreCampo && !this.contenidoCampo && !this.departamentoCampo && !this.tipoCampo){
+      this.electivas.nombre = this.MayusculaPrimera(this.electivas.nombre);
       if(!this.validarElectivaUnica(this.electivas.nombre)){
-        this.electivas.nombre = this.MayusculaPrimera(this.electivas.nombre);
         this.electivas.estado = 'Habilitar';
         this.registrar.saveElectivas(this.electivas).subscribe(res => {
           this.limpiarModal();

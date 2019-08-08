@@ -17,11 +17,7 @@ export class ListasasignacionComponent implements OnInit {
   electivas = new Array();
   ofertas= new Array();
   lista: any[];
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}
-  ];
+  
 
   constructor(private registrar:RegistroDatosService,private excelService:ExcelService) { 
     this.listarE();

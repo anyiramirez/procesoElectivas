@@ -21,6 +21,7 @@ router.get('/electivasPrograma/:programa', employee.electivasPrograma);
 router.get('/listarUsuarios', employee.listarUsuarios);
 router.get('/periodosIDs', employee.periodosIDs);
 router.get('/obtenerInscritos/:id', employee.obtenerInscritos);
+router.get("/obtenerRechazados", employee.obtenerRechazados);
 
 // post methods 
 router.post('/registrarElectivas', employee.registrarElectivas);
