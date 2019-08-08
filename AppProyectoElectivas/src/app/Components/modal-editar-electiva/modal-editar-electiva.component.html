@@ -7,7 +7,11 @@
                 <mat-form-field class="example-full-width">
                   <mat-label for="nombre" *ngIf='nombreCampo' class=" errorFormato ">Nombre Electiva</mat-label>
                   <mat-label for="nombre" *ngIf='!nombreCampo' >Nombre Electiva</mat-label>
+<<<<<<< HEAD
+                  <input [(ngModel)]="data.electiva.NombreElectiva" id="nombre" name="nombre" [formControl]="nombreFormControl"  matInput required>
+=======
                   <input [(ngModel)]="data.electiva.NombreElectiva" id="nombre" name="nombre" [formControl]="nombreFormControl"  matInput required >
+>>>>>>> 08e7896a67a594f8050006fa50e7fa29fc04ccb3
                   <mat-error *ngIf="nombreFormControl.hasError('required')">
                     Nombre Electiva es <strong>requerido</strong>
                   </mat-error>
@@ -34,7 +38,7 @@
                 <mat-form-field>
                   <mat-label for="departamento" *ngIf='departamentoCampo' class=" errorFormato">Departamento</mat-label>
                   <mat-label for="departamento" *ngIf='!departamentoCampo' >Departamento</mat-label>
-                  <select matNativeControl [(ngModel)]="data.electiva.Departamento" id="departamento" name="departamento" >
+                  <select matNativeControl [(ngModel)]="data.electiva.Departamento" id="departamento" name="departamento" required>
                     <option value="Electrónica instrumentación y control">Electrónica instrumentación y control</option>
                     <option value="Sistemas">Sistemas</option>
                     <option value="Telecomunicaciones">Telecomunicaciones</option>
@@ -46,7 +50,7 @@
                 <mat-form-field>
                   <mat-label for="tipo" *ngIf='tipoCampo' class=" errorFormato">Tipo de electiva</mat-label>
                   <mat-label for="tipo" *ngIf='!tipoCampo' >Tipo de electiva</mat-label>
-                  <select matNativeControl [(ngModel)]="data.electiva.TipoElectiva" id="tipo" name="tipo" >
+                  <select matNativeControl [(ngModel)]="data.electiva.TipoElectiva" id="tipo" name="tipo" required>
                     <option value="Teórica">Teórica</option>
                     <option value="Práctica">Práctica</option>
                     <option value="Teórico Práctica">Teórico Práctica</option>

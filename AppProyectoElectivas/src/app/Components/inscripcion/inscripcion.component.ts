@@ -48,6 +48,7 @@ export class InscripcionComponent implements OnInit {
   nuevoTexto: any;
   
   constructor(private _snackBar: MatSnackBar,private registrar:RegistroDatosService,private router:Router,private servicioLogin: LoginService) {   
+  
   }
   
   ngOnInit() {
@@ -147,6 +148,7 @@ export class InscripcionComponent implements OnInit {
     }    
   }
   listarPrimeraOpcion(varProgram:string){
+    debugger;
     this.registrar.obtenerElectivasOfertadas(varProgram).subscribe(res => {
       this.electivasRegistradas=new Array();
       this.registrar.electivas= res as Electivas[];
