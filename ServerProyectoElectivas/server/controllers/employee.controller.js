@@ -233,24 +233,24 @@ employeeCtrl.obtenerInscritos = (req,res)=>{
 }
 
 employeeCtrl.obtenerRechazados = (req,res)=>{
-    //console.log("id llego: ",req.params.id);
+    console.log("id llego: ",req.params.id);
     var db = admin.database();
     var list;
     var rechazados = [];
     db.ref('Rechazados').once('value', function(snapshot){
         list = snapshot.val();
         for(key in list) {
-            //if(key === req.params.id) {
-                rechazados.push([
-                    list[key].Nombres,
-                    list[key].Apellidos,
-                    list[key].Usuario
-                ]);
+            if(key === req.params.id) {
+                res.json(list[key]);
             //}
         }
-        res.json(rechazados);
-        console.log(rechazados);
-    });
+       // res.json(rechazados);
+    }
+    console.log(list[key]);
+
+        });
+        
+    
 }
 
 
