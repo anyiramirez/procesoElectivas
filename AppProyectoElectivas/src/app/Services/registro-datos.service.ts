@@ -56,11 +56,14 @@ export class RegistroDatosService {
   obtenerListasInscritos(){
     return this.http.get(this.API_URI + '/periodosIDs');
   }
+  obtenerListasRechazados(){
+    return this.http.get(this.API_URI + '/rechazadosIDs');
+  }
   InformacionInscripcionPeriodo(id: string){
     return this.http.get(this.API_URI + '/obtenerInscritos/' + id);
   }
-  obtenerReporteRechazados(){
-    return this.http.get(this.API_URI + '/obtenerRechazados');
+  InformacionRechazadosPeriodo(id: string){
+    return this.http.get(this.API_URI + '/obtenerRechazados/'+id);
   }
   obtenerUsuarios(){
     return this.http.get(this.API_URI + '/listarUsuarios');
@@ -108,7 +111,7 @@ export class RegistroDatosService {
     return this.http.post(this.API_URI + '/habilitarElectiva/' + nombre ,this.httpOptions);
   }
 
-  subirJSON(JSONofXLSX){
+  subirJSON(JSONofXLSX,nombre:any){
     var cont = 0;
     this.solEx = [];
     for(let solicitudE of JSONofXLSX){
@@ -146,13 +149,12 @@ export class RegistroDatosService {
       }
 
       var objSX = new solE_XLSX(solicitudE[3],solicitudE[2],solicitudE[0],solicitudE[4],solicitudE[5],solicitudE[1],solicitudE[13],solicitudE[6],solicitudE[7],solicitudE[11],solicitudE[12],solicitudE[10],op1,op2,op3,op4,sspA,ssPC);
-
       this.solEx.push(objSX);
 
 
     }
-    
-    this.http.post(this.API_URI+"/AsigCuposXLSX", this.solEx, this.httpOptions).subscribe(
+    console.log("estA AQUI",nombre)
+    this.http.post(this.API_URI+"/AsigCuposXLSX/"+nombre, this.solEx, this.httpOptions).subscribe(
       res => {
         console.log("servidor: ",res);
       }, err =>{

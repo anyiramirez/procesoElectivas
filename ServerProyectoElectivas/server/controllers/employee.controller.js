@@ -52,9 +52,10 @@ employeeCtrl.ASIGELECTP = (req,res) => {
     var db = admin.database();
     var refGA = db.ref();
     var list = req.body;
+    var id=req.params.id;
+
     
-    
-    var listFiltrada = filtrarLista(list);
+    var listFiltrada = filtrarLista(list,id);
     listaFiltrada = ordenarListaPA(listFiltrada);
     var electConEst = asigCupos(listFiltrada);
     
@@ -231,7 +232,19 @@ employeeCtrl.obtenerInscritos = (req,res)=>{
         console.log(list[key]);
     });
 }
-
+employeeCtrl.rechazadosIDs = (req,res)=>{
+    var db = admin.database();
+    var list;
+    var periodosRec = [];
+    db.ref('Rechazados').once('value', function(snapshot){
+        list = snapshot.val();
+        for(key in list) {
+            periodosRec.push(key);
+        }
+        res.json(periodosRec);
+        console.log(periodosRec);
+    });
+}
 employeeCtrl.obtenerRechazados = (req,res)=>{
     console.log("id llego: ",req.params.id);
     var db = admin.database();
@@ -242,15 +255,11 @@ employeeCtrl.obtenerRechazados = (req,res)=>{
         for(key in list) {
             if(key === req.params.id) {
                 res.json(list[key]);
-            //}
+            }
         }
-       // res.json(rechazados);
-    }
-    console.log(list[key]);
-
-        });
-        
-    
+        //res.json(rechazados);
+        console.log(list[key]);
+    });
 }
 
 
@@ -639,8 +648,10 @@ module.exports = employeeCtrl;
 
 //Funciones
 
-function filtrarLista(lista) {
+function filtrarLista(lista,id) {
     var listaFil = [];
+    db = admin.database();
+    ref = db.ref("Rechazados/"+String(id));
     for(var i = 0; i < lista.length; i++) {
         var electA = lista[i].electivasAprobadas;
         var electC = lista[i].electivasCursando;
@@ -653,7 +664,7 @@ function filtrarLista(lista) {
             listaFil.push(lista[i]);
         } else {
             db = admin.database();
-            ref = db.ref("Rechazados").push(lista[i]);
+            ref = db.ref("Rechazados/"+String(id)).push(lista[i]);
         }
     }
     return listaFil;

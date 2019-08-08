@@ -48,17 +48,22 @@ export class ExcelService {
     
     reader.onload = (e: any) => {
       /* read workbook */
-      
+      var splitted;
+      var nombre=evt.name;
       const bstr: string = e.target.result;
       const wb: XLSX.WorkBook = XLSX.read(bstr, {type: 'binary'});
       
       /* grab first sheet */
       const wsname: string = wb.SheetNames[0];
       const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-      
+      splitted = nombre.split(".", 1);
+      nombre=splitted[0]; 
+      splitted = nombre.split("-", 2);
+      nombre=splitted[0];
+      console.log(nombre);
       /* save data */
       this.op = (XLSX.utils.sheet_to_json(ws, {header: 1}));
-      this.registrar.subirJSON(this.op);
+      this.registrar.subirJSON(this.op,nombre);
       this.openMensaje();
    
     };
