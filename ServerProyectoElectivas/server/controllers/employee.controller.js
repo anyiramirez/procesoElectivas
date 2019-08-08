@@ -818,7 +818,7 @@ function asigCupos(listaOrdenadaPA){
             if(!ELECTIVAS.hasOwnProperty(elecPuedeVer[j])) {
                 ELECTIVAS[elecPuedeVer[j]]=[];
             }
-            if (ELECTIVAS[elecPuedeVer[j]].length < 18) {
+            if (ELECTIVAS[elecPuedeVer[j]].length < 22) {
                 ELECTIVAS[elecPuedeVer[j]].push({
                     Codigo:solEst.Codigo,
                     NombreCompleto:solEst.Nombres+" "+solEst.Apellidos,
